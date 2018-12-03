@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<DataTemplate
+  x:Class="TailwindTraders.Mobile.Features.Home.PopularItemTemplate"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core">
+
+  <AbsoluteLayout>
+
+    <AbsoluteLayout.Padding>
+      <Thickness
+        Left="{StaticResource DefaultMargin}"
+        Right="{StaticResource DefaultMargin}"
+        Bottom="{StaticResource 2xDefaultMargin}" />
+    </AbsoluteLayout.Padding>
+
+    <BoxView
+      AbsoluteLayout.LayoutFlags="All"
+      AbsoluteLayout.LayoutBounds="0,0,1,1"
+      Margin="0,28"
+      android:VisualElement.Elevation="{StaticResource DefaultElevation}"
+      ios:VisualElement.IsShadowEnabled="true"
+      ios:VisualElement.ShadowColor="Black"
+      ios:VisualElement.ShadowOffset="10,10"
+      ios:VisualElement.ShadowOpacity="0.2" />
+
+    <StackLayout
+      AbsoluteLayout.LayoutFlags="All"
+      AbsoluteLayout.LayoutBounds="0,0,1,1"
+      android:VisualElement.Elevation="{StaticResource DefaultElevation}">
+
+      <StackLayout.Padding>
+        <Thickness
+          Left="{StaticResource DefaultMargin}"
+          Right="{StaticResource DefaultMargin}" />
+      </StackLayout.Padding>
+
+      <Frame x:Name="imageFrame"
+        CornerRadius="{Binding Source={x:Reference imageFrame}, Path=Width, Converter={StaticResource DoubleToHalfFloatConverter}}"
+        HeightRequest="{Binding Source={x:Reference imageFrame}, Path=Width}"
+        IsClippedToBounds="true">
+
+        <Image
+          Aspect="AspectFill"
+          Source="{Binding Item1.ImageUrl}" />
+
+      </Frame>
+
+      <Label
+        HorizontalOptions="Center"
+        Style="{StaticResource BrandonGrotesqueMediumLargeFontStyle}"
+        Text="{Binding Item1.Price, StringFormat='${0}'}" />
+
+      <Label
+        HorizontalOptions="Center"
+        LineBreakMode="TailTruncation"
+        MaxLines="1"
+        Style="{StaticResource BrandonGrotesqueLightMediumFontStyle}"
+        Text="{Binding Item1.Name}" />
+
+      <Button
+        BackgroundColor="{StaticResource Accent2Color}"
+        Command="{Binding Item2}"
+        CornerRadius="28"
+        HeightRequest="56"
+        Text="ADD TO LIST"
+        TextColor="White"
+        WidthRequest="228" />
+
+    </StackLayout>
+
+  </AbsoluteLayout>
+
+</DataTemplate>

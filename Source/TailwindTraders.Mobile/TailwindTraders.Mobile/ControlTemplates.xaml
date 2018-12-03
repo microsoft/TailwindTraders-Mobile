@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+  x:Class="TailwindTraders.Mobile.ControlTemplates"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+  <ControlTemplate x:Key="FullScreenLoadingTemplate">
+    <AbsoluteLayout>
+
+      <ContentPresenter
+        AbsoluteLayout.LayoutFlags="All"
+        AbsoluteLayout.LayoutBounds="0, 0, 1, 1" />
+
+      <ContentView
+        AbsoluteLayout.LayoutFlags="All"
+        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+        BackgroundColor="#80FFFFFF"
+        IsVisible="{TemplateBinding BindingContext.IsBusy}">
+
+        <ActivityIndicator
+          HorizontalOptions="Center"
+          IsRunning="{TemplateBinding BindingContext.IsBusy}"
+          VerticalOptions="Center"
+          Color="{StaticResource AccentColor}" />
+
+      </ContentView>
+
+    </AbsoluteLayout>
+  </ControlTemplate>
+
+</ResourceDictionary>

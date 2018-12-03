@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Currently it's needed to pass the entire qualified name as x:Class -->
+<Shell x:Name="theShell"
+  x:Class="TailwindTraders.Mobile.Features.Shell.TheShell"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
+  xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Shell"
+  xmlns:productcategory="clr-namespace:TailwindTraders.Mobile.Features.Product.Category"
+  Title="Tailwind Traders"
+  Route="tailwindtraders"
+  RouteHost="www.microsoft.com"
+  RouteScheme="http">
+
+  <Shell.Resources>
+    <ResourceDictionary>
+
+      <Style TargetType="ShellItem">
+        <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="Shell.ShellForegroundColor" Value="{StaticResource AccentColor}" />
+        <Setter Property="Shell.ShellTitleColor" Value="{StaticResource AccentColor}" />
+      </Style>
+
+    </ResourceDictionary>
+  </Shell.Resources>
+
+  <Shell.FlyoutHeader>
+    <local:FlyoutHeader BindingContext="{Binding Source={x:Reference theShell}, Path=BindingContext}" />
+  </Shell.FlyoutHeader>
+
+  <Shell.ItemTemplate>
+    <DataTemplate>
+
+      <ContentView HeightRequest="{StaticResource 2xDefaultMargin}">
+        <ContentView.Padding>
+          <Thickness
+            Left="{StaticResource 2xDefaultMargin}"
+            Top="{StaticResource DefaultMargin}" />
+        </ContentView.Padding>
+
+        <Label Text="{Binding Title}" />
+
+      </ContentView>
+
+    </DataTemplate>
+  </Shell.ItemTemplate>
+
+  <MenuItem
+    BindingContext="{x:Reference theShell}"
+    Command="{Binding BindingContext.ProductTypeCommand}"
+    CommandParameter="1"
+    Text="Home Appliances" />
+
+  <MenuItem
+    BindingContext="{x:Reference theShell}"
+    Command="{Binding BindingContext.ProductTypeCommand}"
+    CommandParameter="2"
+    Text="Sink" />
+
+  <MenuItem
+    BindingContext="{x:Reference theShell}"
+    Command="{Binding BindingContext.ProductTypeCommand}"
+    CommandParameter="4"
+    Text="Gardening" />
+
+  <ShellItem
+    Title="Home"
+    Route="home">
+    <ShellContent ContentTemplate="{DataTemplate home:HomePage}" />
+  </ShellItem>
+
+  <MenuItem
+    BindingContext="{x:Reference theShell}"
+    Command="{Binding BindingContext.ProfileCommand}"
+    Text="Profile" />
+
+  <MenuItem
+    BindingContext="{x:Reference theShell}"
+    Command="{Binding BindingContext.LogOutCommand}"
+    Text="Log out" />
+
+</Shell>

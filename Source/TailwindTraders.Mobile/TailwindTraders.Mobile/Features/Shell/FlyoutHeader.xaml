@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+  x:Class="TailwindTraders.Mobile.Features.Shell.FlyoutHeader"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+  <ContentView.Padding>
+
+    <!-- iOS Top stands for default + 20 (safe area distance) -->
+    <Thickness
+      Left="{StaticResource Default2Margin}"
+      Top="{OnPlatform Android={StaticResource Default2Margin},
+                       iOS=44}"
+      Right="{StaticResource Default2Margin}"
+      Bottom="{StaticResource Default2Margin}" />
+
+  </ContentView.Padding>
+
+  <ContentView.Resources>
+
+    <Style TargetType="Button">
+      <Setter Property="BorderColor" Value="{StaticResource AccentColor}" />
+      <Setter Property="BorderWidth">2</Setter>
+      <Setter Property="CornerRadius">28</Setter>
+      <Setter Property="HeightRequest">56</Setter>
+    </Style>
+
+  </ContentView.Resources>
+
+  <StackLayout>
+
+    <Label
+      Style="{StaticResource BrandonGrotesqueLightMediumFontStyle}"
+      Text="Smart Shopping">
+      <Label.Margin>
+        <Thickness Left="{StaticResource 0.5xDefaultMargin}" />
+      </Label.Margin>
+    </Label>
+
+    <Button
+      Command="{Binding PhotoCommand}"
+      Image="photo"
+      Text="By taking a photo">
+      <Button.Margin>
+        <Thickness Top="{StaticResource DefaultMargin}" />
+      </Button.Margin>
+    </Button>
+
+    <Button
+      Command="{Binding ARCommand}"
+      Image="ia"
+      Text="By using AR">
+      <Button.Margin>
+        <Thickness Top="{StaticResource 0.5xDefaultMargin}" />
+      </Button.Margin>
+    </Button>
+
+  </StackLayout>
+
+</ContentView>

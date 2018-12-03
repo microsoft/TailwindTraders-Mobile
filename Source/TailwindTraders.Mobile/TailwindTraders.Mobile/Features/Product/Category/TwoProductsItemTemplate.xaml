@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<DataTemplate
+  x:Class="TailwindTraders.Mobile.Features.Product.Category.TwoProductsItemTemplate"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Category">
+
+  <ViewCell>
+
+    <!-- Padding: just at top to avoid shadow cutting -->
+    <!--
+      HeightRequest: 248 = 216 (white background's) + 32 (image's offset); it'd be ideal to leave it auto but it's
+      needed to scroll down & up to fix the cell's height
+    -->
+    <Grid
+      Margin="0,1,0,0"
+      ColumnSpacing="{StaticResource 0.5xDefaultMargin}"
+      HeightRequest="248">
+
+      <Grid.Padding>
+        <Thickness
+          Left="{StaticResource DefaultMargin}"
+          Right="{StaticResource DefaultMargin}"
+          Bottom="{StaticResource 2xDefaultMargin}" />
+      </Grid.Padding>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+
+      <local:ProductView BindingContext="{Binding Item1}" />
+
+      <local:ProductView
+        Grid.Column="1"
+        BindingContext="{Binding Item2}"
+        IsVisible="{Binding ., Converter={StaticResource IsNotNullConverter}}" />
+
+    </Grid>
+
+  </ViewCell>
+
+</DataTemplate>

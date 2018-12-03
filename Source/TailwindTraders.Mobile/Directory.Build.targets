@@ -1,0 +1,20 @@
+<Project>
+
+	<ItemGroup>
+		<PackageReference Include="Menees.Analyzers.2017" Version="2.0.3">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.1-beta.61">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	
+		<PackageReference Include="codecracker.CSharp" Version="1.1.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	
+</Project>

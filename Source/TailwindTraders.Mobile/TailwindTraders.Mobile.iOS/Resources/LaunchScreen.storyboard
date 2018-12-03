@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="X5k-f2-b5h">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="gAE-YM-kbH">
+            <objects>
+                <viewController id="X5k-f2-b5h" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y8P-hJ-Z43"/>
+                        <viewControllerLayoutGuide type="bottom" id="9ZL-r4-8FZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yd7-JS-zBw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_screen" translatesAutoresizingMaskIntoConstraints="NO" id="4hi-ZA-MaT">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_vertical_w" translatesAutoresizingMaskIntoConstraints="NO" id="acH-OY-58i">
+                                <rect key="frame" x="199" y="440" width="16" height="16"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.18431372549019609" green="0.29411764705882354" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="4hi-ZA-MaT" firstAttribute="leading" secondItem="yd7-JS-zBw" secondAttribute="leading" id="QUA-uQ-JZg"/>
+                            <constraint firstItem="acH-OY-58i" firstAttribute="centerY" secondItem="yd7-JS-zBw" secondAttribute="centerY" id="Qw4-bj-dHX"/>
+                            <constraint firstItem="4hi-ZA-MaT" firstAttribute="top" secondItem="yd7-JS-zBw" secondAttribute="top" id="UgW-lX-JdN"/>
+                            <constraint firstAttribute="trailing" secondItem="4hi-ZA-MaT" secondAttribute="trailing" id="hhQ-Im-wgD"/>
+                            <constraint firstAttribute="bottom" secondItem="4hi-ZA-MaT" secondAttribute="bottom" id="iJS-2S-RPj"/>
+                            <constraint firstItem="acH-OY-58i" firstAttribute="centerX" secondItem="yd7-JS-zBw" secondAttribute="centerX" id="qFV-mk-X21"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XAI-xm-WK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="347.82608695652175" y="338.83928571428572"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logo_vertical_w" width="16" height="16"/>
+        <image name="splash_screen" width="16" height="16"/>
+    </resources>
+</document>

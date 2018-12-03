@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+  x:Class="TailwindTraders.Mobile.Colors"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+  <!--
+    Dear Developer,
+    
+    Below colors like Accent & Primary should be in sync with those defined in Android's colors.xml. This way, we assure
+    their semantic keep consistent between both sides.
+    
+    Thanks!
+    
+    —A Developer
+  -->
+
+  <Color x:Key="AccentColor">#2F4B66</Color>
+
+  <Color x:Key="Accent2Color">#673C4F</Color>
+
+  <Color x:Key="PrimaryColor">White</Color>
+
+</ResourceDictionary>

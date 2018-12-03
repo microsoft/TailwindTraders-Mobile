@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Frame
+  x:Class="TailwindTraders.Mobile.Features.Home.FreeShippingBanner"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  Padding="0"
+  BackgroundColor="{StaticResource AccentColor}"
+  CornerRadius="0">
+
+  <Frame.Resources>
+    <ResourceDictionary>
+
+      <Style TargetType="Label">
+        <Setter Property="TextColor" Value="#B4C8BD" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+      </Style>
+
+    </ResourceDictionary>
+  </Frame.Resources>
+
+  <StackLayout
+    Padding="{StaticResource 0.5xDefaultMargin}"
+    Orientation="Horizontal">
+
+    <Image
+      BackgroundColor="Transparent"
+      HeightRequest="28"
+      Source="free_shipping"
+      WidthRequest="28" />
+
+    <Label Text="FREE SHIPPING · ">
+
+      <Label.Margin>
+        <Thickness Left="{StaticResource 0.5xDefaultMargin}" />
+      </Label.Margin>
+
+    </Label>
+
+    <Label
+      FontFamily="{StaticResource BrandonGrotesqueLight}"
+      FontSize="Small"
+      Text="For $100 or more orders" />
+
+  </StackLayout>
+
+</Frame>

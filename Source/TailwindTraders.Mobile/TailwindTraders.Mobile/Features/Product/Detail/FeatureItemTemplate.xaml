@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<DataTemplate
+  x:Class="TailwindTraders.Mobile.Features.Product.Detail.FeatureItemTemplate"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:product="clr-namespace:TailwindTraders.Mobile.Features.Product"
+  x:DataType="product:FeatureDTO">
+
+  <Label>
+    <Label.FormattedText>
+      <FormattedString>
+
+        <Span
+          Style="{StaticResource BrandonGrotesqueMediumDefaultFontStyle}"
+          Text="• " />
+
+        <Span
+          Style="{StaticResource BrandonGrotesqueMediumDefaultFontStyle}"
+          Text="{Binding Title}" />
+
+        <Span
+          Style="{StaticResource BrandonGrotesqueMediumDefaultFontStyle}"
+          Text=": " />
+
+        <Span
+          Style="{StaticResource BrandonGrotesqueLightDefaultFontStyle}"
+          Text="{Binding Description}" />
+
+      </FormattedString>
+    </Label.FormattedText>
+  </Label>
+
+</DataTemplate>

@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B19603F2-5EB8-47D2-A27B-44A951A307C2}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{c9e5eea5-ca05-42a1-839b-61506e0a37df}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>TailwindTraders.Mobile.Droid</RootNamespace>
+    <AssemblyName>TailwindTraders.Mobile.Android</AssemblyName>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp.Views.Forms">
+      <Version>1.60.3</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.Permissions">
+      <Version>3.0.0.12</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>4.0.1.5</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.Compat">
+      <Version>27.0.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms">
+      <Version>4.0.0.941-pre1</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.XSnack">
+      <Version>1.0.17</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Distribute">
+      <Version>1.11.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Analytics">
+      <Version>1.11.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Crashes">
+      <Version>1.11.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ThirdParties\Camera\AutoFitTextureView.cs" />
+    <Compile Include="ThirdParties\Camera\CameraState.cs" />
+    <Compile Include="ThirdParties\Camera\CompareSizesByArea.cs" />
+    <Compile Include="ThirdParties\Camera\ICamera.cs" />
+    <Compile Include="ThirdParties\Camera\Listeners\CameraSurfaceTextureListener.cs" />
+    <Compile Include="ThirdParties\Camera\Listeners\CameraCaptureListener.cs" />
+    <Compile Include="ThirdParties\Camera\Listeners\CameraCaptureSessionCallback.cs" />
+    <Compile Include="ThirdParties\Camera\Listeners\CameraCaptureStillPictureSessionCallback.cs" />
+    <Compile Include="ThirdParties\Camera\Listeners\CameraStateListener.cs" />
+    <Compile Include="ThirdParties\Camera\Listeners\ImageAvailableListener.cs" />
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="MainApplication.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashActivity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Tabbar.axml" />
+    <AndroidResource Include="Resources\layout\Toolbar.axml" />
+    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\values\strings.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\logo_horizontal_b.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\logo_horizontal_b.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\logo_horizontal_b.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\logo_horizontal_b.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\logo_microsoft_w.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\logo_microsoft_w.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\logo_microsoft_w.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\logo_microsoft_w.png" />
+    <AndroidResource Include="Resources\values\themes.xml" />
+    <AndroidResource Include="Resources\drawable-mdpi\splash_background.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\logo_vertical_w.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\logo_vertical_w.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\logo_vertical_w.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\logo_vertical_w.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\splash_screen.jpg" />
+    <AndroidResource Include="Resources\drawable-mdpi\splash_screen.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\splash_screen.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\splash_screen.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\logo_header_b.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\logo_header_b.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\logo_header_b.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\logo_header_b.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\INTENTIONALLY_EMPTY.txt" />
+    <AndroidResource Include="Resources\drawable-hdpi\ia.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\photo.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ia.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\photo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ia.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\photo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ia.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\photo.png" />
+    <AndroidResource Include="..\Resources\Images\recommended_bathrooms.jpg">
+      <Link>Resources\drawable-mdpi\recommended_bathrooms.jpg</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\Resources\Images\recommended_lighting.jpg">
+      <Link>Resources\drawable-mdpi\recommended_lighting.jpg</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\Resources\Images\recommended_plants.jpg">
+      <Link>Resources\drawable-mdpi\recommended_plants.jpg</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\Resources\Images\recommended_powertools.jpg">
+      <Link>Resources\drawable-mdpi\recommended_powertools.jpg</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\Resources\Images\header.jpg">
+      <Link>Resources\drawable-mdpi\header.jpg</Link>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable-mdpi\free_shipping.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\free_shipping.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\free_shipping.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\free_shipping.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\filters.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\filters.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\filters.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\filters.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\star.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\star.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\star.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\file_paths.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TailwindTraders.Mobile\TailwindTraders.Mobile.csproj">
+      <Project>{6F35C169-2AAC-45FF-B51E-BD808C577BCF}</Project>
+      <Name>TailwindTraders.Mobile</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\Resources\Fonts\Gin-Regular.otf">
+      <Link>Assets\Gin-Regular.otf</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Resources\Fonts\BrandonGrotesque-Light.otf">
+      <Link>Assets\BrandonGrotesque-Light.otf</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Resources\Fonts\BrandonGrotesque-Medium.otf">
+      <Link>Assets\BrandonGrotesque-Medium.otf</Link>
+    </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\cart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\cart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\cart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\cart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\close.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+</Project>

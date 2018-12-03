@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+  x:Class="TailwindTraders.Mobile.FontStyles"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:local="clr-namespace:TailwindTraders.Mobile">
+  <ResourceDictionary.MergedDictionaries>
+    <local:Colors />
+  </ResourceDictionary.MergedDictionaries>
+
+  <!--
+    Dear Developer,
+
+    Since we'd like to support handicapped users we're not using explicit sizes along the entire app, but named ones.
+    Please, follow this table to gather which one you had to use:
+
+    - < 16 -> Small
+    - >= 16 && < 22 -> Default
+    - >= 22 && < 28 -> Medium
+    - >= 28 -> Large
+
+    Thanks!
+
+    —A Developer
+  -->
+
+  <!-- Font faces -->
+
+  <OnPlatform x:Key="BrandonGrotesqueLight"
+    x:TypeArguments="x:String"
+    Android="BrandonGrotesque-Light.otf#BrandonGrotesque-Light"
+    iOS="BrandonGrotesque-Light" />
+
+  <OnPlatform x:Key="BrandonGrotesqueMedium"
+    x:TypeArguments="x:String"
+    Android="BrandonGrotesque-Medium.otf#BrandonGrotesque-Medium"
+    iOS="BrandonGrotesque-Medium" />
+
+  <OnPlatform x:Key="GinRegular"
+    x:TypeArguments="x:String"
+    Android="Gin-Regular.otf#Gin-Regular"
+    iOS="Gin" />
+
+  <!-- Font styles -->
+
+  <Style x:Key="GinRegularFontStyle"
+    TargetType="Label">
+    <Setter Property="FontFamily" Value="{StaticResource GinRegular}" />
+  </Style>
+
+  <Style x:Key="Header1FontStyle"
+    BasedOn="{StaticResource GinRegularFontStyle}"
+    TargetType="Label">
+    <Setter Property="FontSize" Value="Large" />
+  </Style>
+
+  <Style x:Key="BrandonGrotesqueLightMediumFontStyle"
+    TargetType="Label">
+    <Setter Property="FontFamily" Value="{StaticResource BrandonGrotesqueLight}" />
+    <Setter Property="FontSize" Value="Medium" />
+  </Style>
+
+  <Style x:Key="BrandonGrotesqueLightDefaultFontStyle"
+    BasedOn="{StaticResource BrandonGrotesqueLightMediumFontStyle}"
+    TargetType="Label">
+    <Setter Property="FontSize" Value="Default" />
+  </Style>
+
+  <Style x:Key="BrandonGrotesqueLightSmallFontStyle"
+    BasedOn="{StaticResource BrandonGrotesqueLightMediumFontStyle}"
+    TargetType="Label">
+    <Setter Property="FontSize" Value="Small" />
+  </Style>
+
+  <Style x:Key="BrandonGrotesqueMediumMediumFontStyle"
+    TargetType="Label">
+    <Setter Property="FontFamily" Value="{StaticResource BrandonGrotesqueMedium}" />
+    <Setter Property="FontSize" Value="Medium" />
+  </Style>
+
+  <Style x:Key="BrandonGrotesqueMediumDefaultFontStyle"
+    BasedOn="{StaticResource BrandonGrotesqueMediumMediumFontStyle}"
+    TargetType="Label">
+    <Setter Property="FontSize" Value="Default" />
+  </Style>
+
+  <Style x:Key="BrandonGrotesqueMediumLargeFontStyle"
+    BasedOn="{StaticResource BrandonGrotesqueMediumMediumFontStyle}"
+    TargetType="Label">
+    <Setter Property="FontSize" Value="Large" />
+  </Style>
+
+  <Style x:Key="BrandonGrotesqueMediumSmallFontStyle"
+    BasedOn="{StaticResource BrandonGrotesqueMediumMediumFontStyle}"
+    TargetType="Label">
+    <Setter Property="FontSize" Value="Small" />
+  </Style>
+
+</ResourceDictionary>

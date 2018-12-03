@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+
+  <style name="MainTheme" parent="MainTheme.Base">
+  </style>
+  
+  <style name="MainTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="buttonStyle">@style/NotAllCapsButton</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
+    <item name="windowActionBar">false</item>
+    <item name="windowActionModeOverlay">true</item>
+    <item name="android:windowBackground">@color/colorPrimary</item>
+    <item name="android:windowLightStatusBar">true</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+  
+  <style name="SplashTheme" parent="MainTheme.Base">
+    <item name="colorPrimaryDark">@color/colorAccent</item>
+    <item name="android:windowBackground">@drawable/splash_background</item>
+    <item name="android:windowLightStatusBar">false</item>
+  </style>
+
+</resources>

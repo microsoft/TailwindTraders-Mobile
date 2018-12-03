@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<common:BaseContentPage
+  x:Class="TailwindTraders.Mobile.Features.Product.Detail.ProductDetailPage"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+  xmlns:common="clr-namespace:TailwindTraders.Mobile.Features.Common"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Detail"
+  Title="{Binding Title}"
+  ios:Page.UseSafeArea="true"
+  x:DataType="local:ProductDetailViewModel"
+  x:TypeArguments="local:ProductDetailViewModel"
+  ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+
+      <local:PictureItemTemplate x:Key="PictureItemTemplate" />
+      <local:FeatureItemTemplate x:Key="FeatureItemTemplate" />
+
+      <Style x:Key="StarImageStyle"
+        TargetType="Image">
+        <Setter Property="Margin" Value="-8,0,0,0" />
+        <Setter Property="HeightRequest" Value="28" />
+        <Setter Property="WidthRequest" Value="28" />
+      </Style>
+
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ContentPage.ToolbarItems>
+
+    <ToolbarItem
+      Command="{Binding FeatureNotAvailableCommand}"
+      Icon="cart"
+      Text="Cart" />
+
+  </ContentPage.ToolbarItems>
+
+  <ContentPage.Content>
+
+    <ScrollView>
+
+      <StackLayout>
+
+        <carousel:CarouselViewControl
+          HeightRequest="416"
+          InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
+          ItemTemplate="{StaticResource PictureItemTemplate}"
+          ItemsSource="{Binding Pictures}">
+
+          <StackLayout.Margin>
+            <Thickness Top="{StaticResource DefaultMargin}" />
+          </StackLayout.Margin>
+
+        </carousel:CarouselViewControl>
+
+        <StackLayout Spacing="{StaticResource 0.5xDefaultMargin}">
+
+          <StackLayout.Margin>
+            <Thickness
+              Left="{StaticResource DefaultMargin}"
+              Top="{StaticResource Default2Margin}"
+              Right="{StaticResource DefaultMargin}"
+              Bottom="{StaticResource DefaultMargin}" />
+          </StackLayout.Margin>
+
+          <Label
+            Style="{StaticResource BrandonGrotesqueMediumDefaultFontStyle}"
+            Text="{Binding Brand}" />
+
+          <Label Text="{Binding Name}" />
+
+          <StackLayout Orientation="Horizontal">
+
+            <Image
+              Source="star"
+              Style="{StaticResource StarImageStyle}" />
+
+            <Image
+              Source="star"
+              Style="{StaticResource StarImageStyle}" />
+
+            <Image
+              Source="star"
+              Style="{StaticResource StarImageStyle}" />
+
+            <Image
+              Opacity="0.5"
+              Source="star"
+              Style="{StaticResource StarImageStyle}" />
+
+            <Image
+              Opacity="0.5"
+              Source="star"
+              Style="{StaticResource StarImageStyle}" />
+
+            <Label
+              Style="{StaticResource BrandonGrotesqueMediumSmallFontStyle}"
+              Text="234 Customer reviews"
+              VerticalOptions="Center">
+
+              <Label.Margin>
+                <Thickness Left="{StaticResource 0.5xDefaultMargin}" />
+              </Label.Margin>
+
+            </Label>
+
+          </StackLayout>
+
+          <Label Text="{Binding Price}" />
+
+          <Button
+            Command="{Binding FeatureNotAvailableCommand}"
+            Style="{StaticResource Accent2ColorButtonStyle}"
+            Text="ADD TO CART">
+
+            <Button.Margin>
+              <Thickness
+                Left="{StaticResource 3xDefaultMargin}"
+                Top="{StaticResource Default2Margin}"
+                Right="{StaticResource 3xDefaultMargin}" />
+            </Button.Margin>
+
+          </Button>
+
+          <common:BindableStackLayout
+            ItemTemplate="{StaticResource FeatureItemTemplate}"
+            ItemsSource="{Binding Features}">
+
+            <common:BindableStackLayout.Margin>
+              <Thickness Top="{StaticResource 2xDefaultMargin}" />
+            </common:BindableStackLayout.Margin>
+
+          </common:BindableStackLayout>
+
+        </StackLayout>
+
+      </StackLayout>
+
+    </ScrollView>
+
+  </ContentPage.Content>
+
+</common:BaseContentPage>

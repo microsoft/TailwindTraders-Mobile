@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<common:BaseStateAwareContentPage
+  x:Class="TailwindTraders.Mobile.Features.Product.Category.ProductCategoryPage"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:common="clr-namespace:TailwindTraders.Mobile.Features.Common"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Category"
+  Title="{Binding Title}"
+  ios:Page.UseSafeArea="true"
+  x:DataType="local:ProductCategoryViewModel"
+  x:TypeArguments="local:ProductCategoryViewModel, local:ProductCategoryViewModel.State">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+
+      <local:TwoProductsItemTemplate x:Key="TwoProductsItemTemplate" />
+
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ContentPage.ToolbarItems>
+
+    <ToolbarItem
+      Command="{Binding FeatureNotAvailableCommand}"
+      Icon="filters"
+      Order="Primary"
+      Priority="0"
+      Text="Filters" />
+
+    <ToolbarItem
+      Command="{Binding FeatureNotAvailableCommand}"
+      Icon="cart"
+      Order="Primary"
+      Priority="1"
+      Text="Cart" />
+
+  </ContentPage.ToolbarItems>
+
+  <ContentPage.Content>
+
+    <Grid>
+
+      <ListView x:Name="productsListView"
+        CachingStrategy="RecycleElementAndDataTemplate"
+        HasUnevenRows="true"
+        Header=" "
+        IsPullToRefreshEnabled="true"
+        IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+        ItemTemplate="{StaticResource TwoProductsItemTemplate}"
+        RefreshCommand="{Binding LoadCommand}"
+        SelectionMode="None"
+        SeparatorVisibility="None">
+
+        <ListView.HeaderTemplate>
+          <DataTemplate>
+
+            <ContentView HeightRequest="{StaticResource 2xDefaultMargin}" />
+
+          </DataTemplate>
+        </ListView.HeaderTemplate>
+
+      </ListView>
+
+      <Label x:Name="infoLabel"
+        HorizontalOptions="Center"
+        HorizontalTextAlignment="Center"
+        IsVisible="false"
+        Text="Sorry, there are no products to show."
+        VerticalOptions="Center">
+        <VisualStateManager.VisualStateGroups>
+          <VisualStateGroup Name="States">
+
+            <VisualState Name="EverythingOK">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="false" />
+              </VisualState.Setters>
+            </VisualState>
+
+            <VisualState Name="Error">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="false" />
+              </VisualState.Setters>
+            </VisualState>
+
+            <VisualState Name="Empty">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="true" />
+              </VisualState.Setters>
+            </VisualState>
+
+          </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+      </Label>
+
+      <Button x:Name="refreshButton"
+        Command="{Binding LoadCommand}"
+        HorizontalOptions="Center"
+        IsVisible="false"
+        Style="{StaticResource DefaultShadowfullButtonStyle}"
+        Text="Try again"
+        VerticalOptions="Center">
+        <VisualStateManager.VisualStateGroups>
+          <VisualStateGroup Name="States">
+
+            <VisualState Name="EverythingOK">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="false" />
+              </VisualState.Setters>
+            </VisualState>
+
+            <VisualState Name="Error">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="true" />
+              </VisualState.Setters>
+            </VisualState>
+
+            <VisualState Name="Empty">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="false" />
+              </VisualState.Setters>
+            </VisualState>
+
+          </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+      </Button>
+
+    </Grid>
+
+  </ContentPage.Content>
+
+</common:BaseStateAwareContentPage>

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+  x:Class="TailwindTraders.Mobile.Styles"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:local="clr-namespace:TailwindTraders.Mobile">
+  <ResourceDictionary.MergedDictionaries>
+    <local:FontStyles />
+    <local:Sizes />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style x:Key="DefaultButtonStyle"
+    TargetType="Button">
+    <Setter Property="BackgroundColor" Value="White" />
+    <Setter Property="FontFamily" Value="{StaticResource BrandonGrotesqueMedium}" />
+    <Setter Property="FontSize" Value="Medium" />
+    <Setter Property="Padding">
+      <Thickness
+        Left="{StaticResource Default2Margin}"
+        Right="{StaticResource Default2Margin}" />
+    </Setter>
+    <Setter Property="TextColor" Value="{StaticResource AccentColor}" />
+  </Style>
+
+  <Style x:Key="AccentColorButtonStyle"
+    BasedOn="{StaticResource DefaultButtonStyle}"
+    TargetType="Button">
+    <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+    <Setter Property="TextColor">White</Setter>
+  </Style>
+
+  <Style x:Key="Accent2ColorButtonStyle"
+    BasedOn="{StaticResource AccentColorButtonStyle}"
+    TargetType="Button">
+    <Setter Property="BackgroundColor" Value="{StaticResource Accent2Color}" />
+    <Setter Property="CornerRadius">28</Setter>
+    <Setter Property="HeightRequest">56</Setter>
+  </Style>
+
+  <Style x:Key="DefaultShadowfullButtonStyle"
+    BasedOn="{StaticResource DefaultButtonStyle}"
+    TargetType="Button">
+    <Setter Property="CornerRadius">32</Setter>
+    <Setter Property="HeightRequest">64</Setter>
+    <Setter Property="android:Button.UseDefaultShadow">true</Setter>
+    <Setter Property="ios:VisualElement.IsShadowEnabled">true</Setter>
+    <Setter Property="ios:VisualElement.ShadowColor">Black</Setter>
+    <Setter Property="ios:VisualElement.ShadowOffset" Value="10,10" />
+    <Setter Property="ios:VisualElement.ShadowOpacity">0.2</Setter>
+  </Style>
+
+  <Style x:Key="ShadowfullBoxViewStyle"
+    TargetType="BoxView">
+    <Setter Property="BackgroundColor">White</Setter>
+  </Style>
+
+</ResourceDictionary>

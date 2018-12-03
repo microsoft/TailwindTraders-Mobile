@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+  x:Class="TailwindTraders.Mobile.Sizes"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+  <x:Double x:Key="DefaultMargin">16</x:Double>
+  <x:Int32 x:Key="DefaultMarginInt">16</x:Int32>
+
+  <x:Double x:Key="NegativeDefaultMargin">-16</x:Double>
+  <x:Int32 x:Key="NegativeDefaultMarginInt">-16</x:Int32>
+
+  <x:Double x:Key="0.25xDefaultMargin">4</x:Double>
+  <x:Double x:Key="Negative0.25xDefaultMargin">-4</x:Double>
+
+  <x:Double x:Key="0.5xDefaultMargin">8</x:Double>
+  <x:Double x:Key="Negative0.5xDefaultMargin">-8</x:Double>
+
+  <x:Double x:Key="2xDefaultMargin">32</x:Double>
+  <x:Double x:Key="Negative2xDefaultMargin">-32</x:Double>
+
+  <x:Double x:Key="3xDefaultMargin">48</x:Double>
+
+  <x:Double x:Key="4xDefaultMargin">64</x:Double>
+
+  <x:Double x:Key="Default2Margin">24</x:Double>
+
+  <x:Int32 x:Key="DefaultElevation">30</x:Int32>
+
+</ResourceDictionary>

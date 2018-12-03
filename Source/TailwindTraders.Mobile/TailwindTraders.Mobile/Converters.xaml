@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+  x:Class="TailwindTraders.Mobile.Converters"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:common="using:TailwindTraders.Mobile.Features.Common">
+
+  <common:DoubleToHalfFloatConverter x:Key="DoubleToHalfFloatConverter" />
+
+  <common:IsNotNullConverter x:Key="IsNotNullConverter" />
+
+  <common:NotConverter x:Key="NotConverter" />
+
+</ResourceDictionary>

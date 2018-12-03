@@ -1,0 +1,1292 @@
+﻿[
+    {
+        "id": 1,
+        "name": "Microwave 0.9 Cu. Ft. 900 W longlonglonglonglonglonglonglong product name",
+        "price": 100,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/10446729.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong brand"
+        },
+        "type": {
+            "id": 1,
+            "name": "Home Appliances"
+        },
+        "features": [
+            {
+                "id": 1,
+                "title": "Lorem ipsum",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            },
+            {
+                "id": 2,
+                "title": "Eleifend",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            },
+            {
+                "id": 3,
+                "title": "Dis consequat",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            },
+            {
+                "id": 4,
+                "title": "Auctor",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            },
+            {
+                "id": 5,
+                "title": "Laciniamaecenas",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Refrigerator 1.7 cu. ft. 110 watts",
+        "price": 200,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/24640268.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 1,
+            "name": "Home Appliances"
+        },
+        "features": [
+            {
+                "id": 6,
+                "title": "Accumsan tristique",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            },
+            {
+                "id": 7,
+                "title": "Risus per imperdiet",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            },
+            {
+                "id": 8,
+                "title": "Scelerisque etiam",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Oven 900 W",
+        "price": 300,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/26881473.jpg",
+        "brand": {
+            "id": 4,
+            "name": "Drills Co"
+        },
+        "type": {
+            "id": 1,
+            "name": "Home Appliances"
+        },
+        "features": [
+            {
+                "id": 9,
+                "title": "Magnis venenatis",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            },
+            {
+                "id": 10,
+                "title": "Augue enim",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Washing machine 1200rpm",
+        "price": 400,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/31000074.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 1,
+            "name": "Home Appliances"
+        },
+        "features": [
+            {
+                "id": 11,
+                "title": "Lorem ipsum",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            },
+            {
+                "id": 12,
+                "title": "Eleifend",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Washing machine 900rpm",
+        "price": 300,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/31285507.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 1,
+            "name": "Home Appliances"
+        },
+        "features": [
+            {
+                "id": 13,
+                "title": "Dis consequat",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            },
+            {
+                "id": 14,
+                "title": "Auctor",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Kitchen stoves ",
+        "price": 1400,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/33641114.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 1,
+            "name": "Home Appliances"
+        },
+        "features": [
+            {
+                "id": 15,
+                "title": "Lacinia maecenas",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            },
+            {
+                "id": 16,
+                "title": "Accumsan tristique",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            },
+            {
+                "id": 17,
+                "title": "Risus per imperdiet",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Refrigerator ft. 90 watts",
+        "price": 400,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/45808024.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 1,
+            "name": "Home Appliances"
+        },
+        "features": [
+            {
+                "id": 18,
+                "title": "Scelerisque etiam",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "One Handle Stainless Steel Pull Out Kitchen Faucet",
+        "price": 20,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/47090355.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 1,
+            "name": "Home Appliances"
+        },
+        "features": [
+            {
+                "id": 19,
+                "title": "Magnis venenatis",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Bathing System Classic 18 in. H x 60 in. W x 32.5",
+        "price": 200,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/12330912.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 2,
+            "name": "Sink"
+        },
+        "features": [
+            {
+                "id": 20,
+                "title": "Augue enim",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Showerhead 1.75 gpm",
+        "price": 40,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/12866014.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 2,
+            "name": "Sink"
+        },
+        "features": [
+            {
+                "id": 21,
+                "title": "Lorem ipsum",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            },
+            {
+                "id": 22,
+                "title": "Eleifend",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Toilet 1.28 gal.",
+        "price": 180,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/20155731.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 2,
+            "name": "Sink"
+        },
+        "features": [
+            {
+                "id": 23,
+                "title": "Dis consequat",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            },
+            {
+                "id": 24,
+                "title": "Auctor",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            },
+            {
+                "id": 25,
+                "title": "Lacinia maecenas",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 12,
+        "name": "Black Bathing System Classic 18 in. H x 60 in. W x 32.5",
+        "price": 250,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/24547395.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 2,
+            "name": "Sink"
+        },
+        "features": [
+            {
+                "id": 26,
+                "title": "Accumsan tristique",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            },
+            {
+                "id": 27,
+                "title": "Risus per imperdiet",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 13,
+        "name": "Bathroom Sink Faucet Waterfall",
+        "price": 175,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/25200686.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 2,
+            "name": "Sink"
+        },
+        "features": [
+            {
+                "id": 28,
+                "title": "Scelerisque etiam",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            },
+            {
+                "id": 29,
+                "title": "Magnis venenatis",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            },
+            {
+                "id": 30,
+                "title": "Augue enim",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 14,
+        "name": "Bathroom Sink Faucet",
+        "price": 99,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/40193368.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 2,
+            "name": "Sink"
+        },
+        "features": [
+            {
+                "id": 31,
+                "title": "Lorem ipsum",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            },
+            {
+                "id": 32,
+                "title": "Eleifend",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 15,
+        "name": "Bathroom Sink Faucet Classic",
+        "price": 100,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/40887643.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 2,
+            "name": "Sink"
+        },
+        "features": [
+            {
+                "id": 33,
+                "title": "Dis consequat",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            },
+            {
+                "id": 34,
+                "title": "Auctor",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 16,
+        "name": "Showerhead 1.20 gpm",
+        "price": 125,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/46028385.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 2,
+            "name": "Sink"
+        },
+        "features": [
+            {
+                "id": 35,
+                "title": "Lacinia maecenas",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 17,
+        "name": "Blend Solid White Sheer Curtains",
+        "price": 110,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/13778772.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 3,
+            "name": "Home"
+        },
+        "features": [
+            {
+                "id": 36,
+                "title": "Accumsan tristique",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 18,
+        "name": "Door Hardware Kit Single Door",
+        "price": 120,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/17031875.jpg",
+        "brand": {
+            "id": 4,
+            "name": "Drills Co"
+        },
+        "type": {
+            "id": 3,
+            "name": "Home"
+        },
+        "features": [
+            {
+                "id": 37,
+                "title": "Risus per imperdiet",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 19,
+        "name": "White Sheer Curtains",
+        "price": 105,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/27367695.jpg",
+        "brand": {
+            "id": 4,
+            "name": "Drills Co"
+        },
+        "type": {
+            "id": 3,
+            "name": "Home"
+        },
+        "features": [
+            {
+                "id": 38,
+                "title": "Scelerisque etiam",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 20,
+        "name": "White Window",
+        "price": 120,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/34744564.jpg",
+        "brand": {
+            "id": 4,
+            "name": "Drills Co"
+        },
+        "type": {
+            "id": 3,
+            "name": "Home"
+        },
+        "features": [
+            {
+                "id": 39,
+                "title": "Magnis venenatis",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 21,
+        "name": "Curtain Rod 48 in",
+        "price": 25,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/35268457.jpg",
+        "brand": {
+            "id": 4,
+            "name": "Drills Co"
+        },
+        "type": {
+            "id": 3,
+            "name": "Home"
+        },
+        "features": [
+            {
+                "id": 40,
+                "title": "Augue enim",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            },
+            {
+                "id": 41,
+                "title": "Lorem ipsum",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 22,
+        "name": "Steel Passage Door Knob",
+        "price": 10,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/39689828.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 3,
+            "name": "Home"
+        },
+        "features": [
+            {
+                "id": 42,
+                "title": "Eleifend",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 23,
+        "name": "White Door",
+        "price": 123,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/40505435.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 3,
+            "name": "Home"
+        },
+        "features": [
+            {
+                "id": 43,
+                "title": "Dis consequat",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            },
+            {
+                "id": 44,
+                "title": "Auctor",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 24,
+        "name": "White Window Wood",
+        "price": 230,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/46655256.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 3,
+            "name": "Home"
+        },
+        "features": [
+            {
+                "id": 45,
+                "title": "Lacinia maecenas",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            },
+            {
+                "id": 46,
+                "title": "Accumsan tristique",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 25,
+        "name": "Indoor Kit Gardering",
+        "price": 70,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/9470575.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 4,
+            "name": "Gardening"
+        },
+        "features": [
+            {
+                "id": 47,
+                "title": "Risus per imperdiet",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 26,
+        "name": "Craftsman 100 ft. L x 5/8 in.",
+        "price": 100,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/12598356.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 4,
+            "name": "Gardening"
+        },
+        "features": [
+            {
+                "id": 48,
+                "title": "Scelerisque etiam",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 27,
+        "name": "Metal Watering Can",
+        "price": 20,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/12902526.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 4,
+            "name": "Gardening"
+        },
+        "features": [
+            {
+                "id": 49,
+                "title": "Magnis venenatis",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 28,
+        "name": "Steel Contractor Wheelbarrow",
+        "price": 100,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/13894399.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 4,
+            "name": "Gardening"
+        },
+        "features": [
+            {
+                "id": 50,
+                "title": "Augue enim",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 29,
+        "name": "Craftsman 21 in. W 140",
+        "price": 200,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/15365639.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 4,
+            "name": "Gardening"
+        },
+        "features": [
+            {
+                "id": 51,
+                "title": "Lorem ipsum",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 30,
+        "name": "Gardering",
+        "price": 10,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/29201547.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 4,
+            "name": "Gardening"
+        },
+        "features": [
+            {
+                "id": 52,
+                "title": "Eleifend",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 31,
+        "name": "Celebrations C9",
+        "price": 10,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/16658158.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 5,
+            "name": "Decor"
+        },
+        "features": [
+            {
+                "id": 53,
+                "title": "Dis consequat",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            },
+            {
+                "id": 54,
+                "title": "Auctor",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 32,
+        "name": "Artificial Tree",
+        "price": 250,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/23073793.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 5,
+            "name": "Decor"
+        },
+        "features": [
+            {
+                "id": 55,
+                "title": "Laciniamaecenas",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            },
+            {
+                "id": 56,
+                "title": "Accumsan tristique",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 33,
+        "name": "Celebrations C8",
+        "price": 5,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/23536846.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 5,
+            "name": "Decor"
+        },
+        "features": [
+            {
+                "id": 57,
+                "title": "Risus per imperdiet",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 34,
+        "name": "Artificial Tree Big",
+        "price": 300,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/23980448.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 5,
+            "name": "Decor"
+        },
+        "features": [
+            {
+                "id": 58,
+                "title": "Scelerisque etiam",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 35,
+        "name": "Wood Pack",
+        "price": 30,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/31434677.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 5,
+            "name": "Decor"
+        },
+        "features": [
+            {
+                "id": 59,
+                "title": "Magnis venenatis",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            },
+            {
+                "id": 60,
+                "title": "Augue enim",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 36,
+        "name": "Wood Table",
+        "price": 395,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/19806834.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 6,
+            "name": "Kitchen Accessories"
+        },
+        "features": [
+            {
+                "id": 61,
+                "title": "Lorem ipsum",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            },
+            {
+                "id": 62,
+                "title": "Eleifend",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 37,
+        "name": "Kitchen Stoves",
+        "price": 85,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/27227580.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 6,
+            "name": "Kitchen Accessories"
+        },
+        "features": [
+            {
+                "id": 63,
+                "title": "Dis consequat",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 38,
+        "name": "Kit Metal Casseroles",
+        "price": 125,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/43229847.jpg",
+        "brand": {
+            "id": 4,
+            "name": "Drills Co"
+        },
+        "type": {
+            "id": 6,
+            "name": "Kitchen Accessories"
+        },
+        "features": [
+            {
+                "id": 64,
+                "title": "Auctor",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 39,
+        "name": "Coffee Maker Red",
+        "price": 200,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/52076809.jpg",
+        "brand": {
+            "id": 4,
+            "name": "Drills Co"
+        },
+        "type": {
+            "id": 6,
+            "name": "Kitchen Accessories"
+        },
+        "features": [
+            {
+                "id": 65,
+                "title": "Lacinia maecenas",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 40,
+        "name": "Extractor Steal",
+        "price": 135,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/102013777.jpg",
+        "brand": {
+            "id": 4,
+            "name": "Drills Co"
+        },
+        "type": {
+            "id": 6,
+            "name": "Kitchen Accessories"
+        },
+        "features": [
+            {
+                "id": 66,
+                "title": "Accumsan tristique",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 41,
+        "name": "Wooden Commode",
+        "price": 50,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/21610747.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": [
+            {
+                "id": 67,
+                "title": "Risus per imperdiet",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 42,
+        "name": "Metal Shelving",
+        "price": 90,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/39696958.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": [
+            {
+                "id": 68,
+                "title": "Scelerisque etiam",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 43,
+        "name": "Big Metal Shelving",
+        "price": 99,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/49460165.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": [
+            {
+                "id": 69,
+                "title": "Magnis venenatis",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 44,
+        "name": "Wooden Wardrobe",
+        "price": 120,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/51716553.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": [
+            {
+                "id": 70,
+                "title": "Augue enim",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 45,
+        "name": "Wooden Saw",
+        "price": 145,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/11143240.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": [
+            {
+                "id": 71,
+                "title": "Lorem ipsum",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 46,
+        "name": "Measuring Tape",
+        "price": 123,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/13168288.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": [
+            {
+                "id": 72,
+                "title": "Eleifend",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 47,
+        "name": "Multi Function Drill",
+        "price": 159,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/14805480.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": [
+            {
+                "id": 73,
+                "title": "Dis consequat",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 48,
+        "name": "Hammer",
+        "price": 100,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/19682904.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": [
+            {
+                "id": 74,
+                "title": "Auctor",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            },
+            {
+                "id": 75,
+                "title": "Lacinia maecenas",
+                "description": "Quam taciti sed ullamcorper nec parturient proin litora rhoncus, nostra enim ut pretium purus nulla auctor tempor"
+            }
+        ]
+    },
+    {
+        "id": 49,
+        "name": "Screwdriver",
+        "price": 110,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/51109515.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": [
+            {
+                "id": 76,
+                "title": "Accumsan tristique",
+                "description": "Lorem ipsum dolor sit amet consectetur adipiscing elit purus"
+            }
+        ]
+    },
+    {
+        "id": 50,
+        "name": "Pliers",
+        "price": 105,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/85167541.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": [
+            {
+                "id": 77,
+                "title": "Risus per imperdiet",
+                "description": "Neque phasellus quis pulvinar natoque leo ullamcorper enim, praesent cum laoreet lobortis mauris hac accumsan"
+            }
+        ]
+    },
+    {
+        "id": 51,
+        "name": "Red multi-tool plier",
+        "price": 50,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/34312289.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": []
+    },
+    {
+        "id": 52,
+        "name": "Blue multi-tool plier",
+        "price": 50,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/19595793.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": []
+    },
+    {
+        "id": 53,
+        "name": "Stainless multi-tool plier",
+        "price": 90,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/35414723.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": []
+    },
+    {
+        "id": 54,
+        "name": "Yellow Rechargeable screwdriver",
+        "price": 250,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/8704649.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": []
+    },
+    {
+        "id": 55,
+        "name": "Red Rechargeable screwdriver",
+        "price": 250,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/6910004.jpg",
+        "brand": {
+            "id": 1,
+            "name": "ElctroDrill"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": []
+    },
+    {
+        "id": 56,
+        "name": "Rechargeable screwdriver with extra battery",
+        "price": 312,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/63581524.jpg",
+        "brand": {
+            "id": 2,
+            "name": "Home & Pro tools"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": []
+    },
+    {
+        "id": 57,
+        "name": "Yellow hard hat with tool bag pack",
+        "price": 46,
+        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/59890052.jpg",
+        "brand": {
+            "id": 3,
+            "name": "ProSaws"
+        },
+        "type": {
+            "id": 7,
+            "name": "DIY tools"
+        },
+        "features": []
+    }
+]

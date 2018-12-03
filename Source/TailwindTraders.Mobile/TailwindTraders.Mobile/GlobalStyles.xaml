@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+  x:Class="TailwindTraders.Mobile.GlobalStyles"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:local="clr-namespace:TailwindTraders.Mobile">
+  <ResourceDictionary.MergedDictionaries>
+    <local:FontStyles />
+    <local:Sizes />
+    <local:Styles />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style
+    BasedOn="{StaticResource DefaultButtonStyle}"
+    TargetType="Button" />
+
+  <Style TargetType="Entry">
+    <Setter Property="TextColor" Value="{StaticResource AccentColor}" />
+  </Style>
+
+  <Style TargetType="Frame">
+    <Setter Property="HasShadow" Value="false" />
+    <Setter Property="Padding" Value="0" />
+  </Style>
+
+  <Style TargetType="Grid">
+    <Setter Property="ColumnSpacing" Value="0" />
+    <Setter Property="RowSpacing" Value="0" />
+  </Style>
+
+  <Style
+    BasedOn="{StaticResource BrandonGrotesqueMediumMediumFontStyle}"
+    TargetType="Label">
+    <Setter Property="TextColor" Value="{StaticResource AccentColor}" />
+  </Style>
+
+  <Style TargetType="StackLayout">
+    <Setter Property="Spacing" Value="0" />
+  </Style>
+
+</ResourceDictionary>

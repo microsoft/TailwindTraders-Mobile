@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="NonEmptyString">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="Menees.Analyzers.Settings">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="TabSize" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="MaxLineColumns" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="MaxMethodLines" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="MaxPropertyAccessorLines" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="MaxFileLines" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="MaxUnregionedLines" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1"/>
+
+				<xs:element name="TypeFileNameExclusions" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="FileName" type="NonEmptyString"/>
+							<xs:element name="FileRegex" type="NonEmptyString"/>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="AllowedNumericLiterals" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence maxOccurs="unbounded">
+							<xs:element name="Literal" type="xs:decimal"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="UnitTestAttributes" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+							<xs:element name="Class" type="NonEmptyString"/>
+							<xs:element name="Method" type="NonEmptyString"/>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

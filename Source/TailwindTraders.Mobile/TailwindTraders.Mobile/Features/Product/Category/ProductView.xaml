@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<AbsoluteLayout
+  x:Class="TailwindTraders.Mobile.Features.Product.Category.ProductView"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:productCategory="clr-namespace:TailwindTraders.Mobile.Features.Product.Category"
+  x:DataType="productCategory:ProductViewModel">
+
+  <AbsoluteLayout.GestureRecognizers>
+    <TapGestureRecognizer
+      Command="{Binding Command}"
+      CommandParameter="{Binding Product.Id}" />
+  </AbsoluteLayout.GestureRecognizers>
+
+  <BoxView
+    AbsoluteLayout.LayoutFlags="All"
+    AbsoluteLayout.LayoutBounds="0,0,1,1"
+    Margin="0,28,0,-8"
+    android:VisualElement.Elevation="10"
+    ios:VisualElement.IsShadowEnabled="true"
+    ios:VisualElement.ShadowColor="Black"
+    ios:VisualElement.ShadowOffset="2,2"
+    ios:VisualElement.ShadowOpacity="0.1"
+    Style="{StaticResource ShadowfullBoxViewStyle}" />
+
+  <StackLayout
+    AbsoluteLayout.LayoutFlags="All"
+    AbsoluteLayout.LayoutBounds="0,0,1,1"
+    android:VisualElement.Elevation="{StaticResource DefaultElevation}"
+    Spacing="{StaticResource 0.5xDefaultMargin}">
+
+    <Frame x:Name="imageFrame"
+      CornerRadius="{Binding Source={x:Reference imageFrame}, Path=Width, Converter={StaticResource DoubleToHalfFloatConverter}}"
+      HeightRequest="{Binding Source={x:Reference imageFrame}, Path=Width}"
+      IsClippedToBounds="true">
+
+      <Frame.Margin>
+        <Thickness
+          Left="{StaticResource 0.5xDefaultMargin}"
+          Right="{StaticResource 0.5xDefaultMargin}" />
+      </Frame.Margin>
+
+      <Image
+        Aspect="AspectFill"
+        Source="{Binding Product.ImageUrl}" />
+
+    </Frame>
+
+    <Label
+      HorizontalOptions="Center"
+      Style="{StaticResource BrandonGrotesqueMediumMediumFontStyle}"
+      Text="{Binding Product.Price, StringFormat='${0}'}" />
+
+    <Label
+      HorizontalOptions="Center"
+      LineBreakMode="TailTruncation"
+      MaxLines="1"
+      Style="{StaticResource BrandonGrotesqueLightSmallFontStyle}"
+      Text="{Binding Product.Name}">
+
+      <Label.Margin>
+        <Thickness
+          Left="{StaticResource 0.5xDefaultMargin}"
+          Right="{StaticResource 0.5xDefaultMargin}" />
+      </Label.Margin>
+
+    </Label>
+
+  </StackLayout>
+
+</AbsoluteLayout>

@@ -1,0 +1,19 @@
+<Project>
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\ruleset.ruleset</CodeAnalysisRuleSet>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<LangVersion>7.1</LangVersion>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<AdditionalFiles Include="$(MSBuildThisFileDirectory)\Menees.Analyzers.Settings.xml" />
+	</ItemGroup>
+	
+</Project>
