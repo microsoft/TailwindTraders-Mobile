@@ -158,30 +158,6 @@
     <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w%403x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\logo_horizontal-b.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\logo_horizontal-b%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\logo_horizontal-b%403x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w%403x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\splash_screen.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
