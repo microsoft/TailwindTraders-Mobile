@@ -2,11 +2,11 @@
 
 ![Mobile Apps](/Documents/Images/Mobile.png)
 
-> Note: This app use as endpoints the bakend services detailed in the [Backend](https://github.com/Microsoft/TailwindTraders-Backend) repository.
+> Note: This app uses backend services detailed in the [Backend](https://github.com/Microsoft/TailwindTraders-Backend) repository.
 
 # Repositories
 
-For this demo reference, we built several consumer and line-of-business applications and a set of backend services. You can find all repositories in the following locations:
+For this demo we built several consumer and line-of-business applications with a common set of backend services. You can find all repositories below:
 
 * [Tailwind Traders](https://github.com/Microsoft/TailwindTraders)
 * [Backend (AKS)](https://github.com/Microsoft/TailwindTraders-Backend)
