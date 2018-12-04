@@ -2,6 +2,19 @@
 
 ![Mobile Apps](/Documents/Images/Mobile.png)
 
+> Note: This app use as endpoints the bakend services detailed in the [Backend](https://github.com/Microsoft/TailwindTraders-Backend) repository.
+
+# Repositories
+
+For this demo reference, we built several consumer and line-of-business applications and a set of backend services. You can find all repositories in the following locations:
+
+* [Tailwind Traders](https://github.com/Microsoft/TailwindTraders)
+* [Backend (AKS)](https://github.com/Microsoft/TailwindTraders-Backend)
+* [Website (ASP.NET & React)](https://github.com/Microsoft/TailwindTraders-Website)
+* [Desktop (WinForms & WPF -.NET Core)](https://github.com/Microsoft/TailwindTraders-Desktop)
+* [Rewards (ASP.NET Framework)](https://github.com/Microsoft/TailwindTraders-Rewards)
+* [Mobile (Xamarin Forms 4.0)](https://github.com/Microsoft/TailwindTraders-Mobile)
+
 # Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
