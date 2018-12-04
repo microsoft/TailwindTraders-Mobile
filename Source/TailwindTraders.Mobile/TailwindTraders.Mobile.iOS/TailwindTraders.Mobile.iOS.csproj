@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -140,34 +140,10 @@
     <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\logo_horizontal-b.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\logo_horizontal-b%402x.png">
+    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\logo_horizontal-b@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\logo_horizontal-b%403x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w%403x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\logo_horizontal-b.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\logo_horizontal-b%402x.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\logo_horizontal-b%403x.png">
+    <ImageAsset Include="Assets.xcassets\logo_horizontal_b.imageset\logo_horizontal-b@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\Contents.json">
@@ -176,10 +152,10 @@
     <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w%402x.png">
+    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w%403x.png">
+    <ImageAsset Include="Assets.xcassets\logo_microsoft_w.imageset\logo_microsoft_w@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\splash_screen.imageset\Contents.json">
@@ -188,10 +164,10 @@
     <ImageAsset Include="Assets.xcassets\splash_screen.imageset\Splash_screen.jpg">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\splash_screen.imageset\Splash_screen%402x.jpg">
+    <ImageAsset Include="Assets.xcassets\splash_screen.imageset\Splash_screen@2x.jpg">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\splash_screen.imageset\Splash_screen%403x.jpg">
+    <ImageAsset Include="Assets.xcassets\splash_screen.imageset\Splash_screen@3x.jpg">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ia.imageset\Contents.json">
@@ -200,10 +176,10 @@
     <ImageAsset Include="Assets.xcassets\ia.imageset\ia.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ia.imageset\ia%402x.png">
+    <ImageAsset Include="Assets.xcassets\ia.imageset\ia@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\ia.imageset\ia%403x.png">
+    <ImageAsset Include="Assets.xcassets\ia.imageset\ia@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\photo.imageset\Contents.json">
@@ -212,10 +188,10 @@
     <ImageAsset Include="Assets.xcassets\photo.imageset\photo.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\photo.imageset\photo%402x.png">
+    <ImageAsset Include="Assets.xcassets\photo.imageset\photo@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\photo.imageset\photo%403x.png">
+    <ImageAsset Include="Assets.xcassets\photo.imageset\photo@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\logo_vertical_w.imageset\Contents.json">
@@ -224,10 +200,10 @@
     <ImageAsset Include="Assets.xcassets\logo_vertical_w.imageset\logo_vertical_w.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_vertical_w.imageset\logo_vertical_w%402x.png">
+    <ImageAsset Include="Assets.xcassets\logo_vertical_w.imageset\logo_vertical_w@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_vertical_w.imageset\logo_vertical_w%403x.png">
+    <ImageAsset Include="Assets.xcassets\logo_vertical_w.imageset\logo_vertical_w@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\logo_header_b.imageset\Contents.json">
@@ -236,28 +212,28 @@
     <ImageAsset Include="Assets.xcassets\logo_header_b.imageset\logo_header_b.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_header_b.imageset\logo_header_b%402x.png">
+    <ImageAsset Include="Assets.xcassets\logo_header_b.imageset\logo_header_b@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\logo_header_b.imageset\logo_header_b%403x.png">
+    <ImageAsset Include="Assets.xcassets\logo_header_b.imageset\logo_header_b@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\cart.imageset\cart.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\cart.imageset\cart%402x.png">
+    <ImageAsset Include="Assets.xcassets\cart.imageset\cart@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\cart.imageset\cart%403x.png">
+    <ImageAsset Include="Assets.xcassets\cart.imageset\cart@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\search.imageset\search.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\search.imageset\search%402x.png">
+    <ImageAsset Include="Assets.xcassets\search.imageset\search@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\search.imageset\search%403x.png">
+    <ImageAsset Include="Assets.xcassets\search.imageset\search@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\free_shipping.imageset\Contents.json">
@@ -266,7 +242,7 @@
     <ImageAsset Include="Assets.xcassets\free_shipping.imageset\free_shipping.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\free_shipping.imageset\free_shipping%402x.png">
+    <ImageAsset Include="Assets.xcassets\free_shipping.imageset\free_shipping@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\filters.imageset\Contents.json">
@@ -275,13 +251,13 @@
     <ImageAsset Include="Assets.xcassets\filters.imageset\filters.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\filters.imageset\filters%402x.png">
+    <ImageAsset Include="Assets.xcassets\filters.imageset\filters@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\filters.imageset\filters%403x.png">
+    <ImageAsset Include="Assets.xcassets\filters.imageset\filters@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\free_shipping.imageset\free_shipping%403x.png">
+    <ImageAsset Include="Assets.xcassets\free_shipping.imageset\free_shipping@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\3bar.imageset\Contents.json">
@@ -290,7 +266,7 @@
     <ImageAsset Include="Assets.xcassets\3bar.imageset\3bar.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\3bar.imageset\3bar%402x.png">
+    <ImageAsset Include="Assets.xcassets\3bar.imageset\3bar@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\star.imageset\Contents.json">
@@ -299,10 +275,10 @@
     <ImageAsset Include="Assets.xcassets\star.imageset\star.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\star.imageset\star%402x.png">
+    <ImageAsset Include="Assets.xcassets\star.imageset\star@2x.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\star.imageset\star%403x.png">
+    <ImageAsset Include="Assets.xcassets\star.imageset\star@3x.png">
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
