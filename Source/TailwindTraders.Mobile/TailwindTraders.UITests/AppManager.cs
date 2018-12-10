@@ -5,9 +5,9 @@ namespace TailwindTraders.UITests
 {
     static class AppManager
     {
-        const string ApkPath = "../../../Binaries/TaskyDroid.apk";
-        const string AppPath = "../../../Binaries/TaskyiOS.app";
-        const string IpaBundleId = "com.xamarin.samples.taskytouch";
+        const string ApkPath = "../../../Binaries/com.microsoft.tailwindtraders-Signed.apk";
+        const string AppPath = "../../../Binaries/TailwindTraders.Mobile.iOS.app";
+        const string IpaBundleId = "com.microsoft.TailwindTraders-df";
 
         static IApp app;
         public static IApp App
@@ -54,7 +54,7 @@ namespace TailwindTraders.UITests
                     // Used to run a .app file on an ios simulator:
                     .AppBundle(AppPath)
                     // Used to run a .ipa file on a physical ios device:
-                    //.InstalledApp(ipaBundleId)
+                    //.InstalledApp(IpaBundleId)
                     .StartApp();
             }
         }

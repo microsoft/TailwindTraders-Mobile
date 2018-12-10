@@ -41,15 +41,15 @@
 	<string>Needs Calendar Permission</string>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleLightContent</string>
-  <key>NSCameraUsageDescription</key>
-  <string>This app needs access to the camera to take photos.</string>
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string>This app needs access to photos.</string>
-  <key>NSMicrophoneUsageDescription</key>
-  <string>This app needs access to microphone.</string>
-  <key>NSPhotoLibraryAddUsageDescription</key>
-  <string>This app needs access to the photo gallery.</string>
-  <key>CFBundleURLTypes</key>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to the camera to take photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to photos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs access to microphone.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app needs access to the photo gallery.</string>
+	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleURLSchemes</key>

@@ -15,10 +15,16 @@ namespace TailwindTraders.UITests
         }
 
         [Test]
-        public void AppLaunches()
+        public void AddToCartTest()
         {
-            app.Repl();
-            app.Screenshot("First screen.");
+            new HomePage()
+                    .SelectMenuOption("Home Appliances");
+
+            new HomeAppliancesListPage()
+                    .SelectFirstItem();
+
+            new ApplianceDetailPage()
+                .AddToCart();
         }
     }
 }
