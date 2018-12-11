@@ -46,6 +46,15 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Sharpnado.Infrastructure">
+      <HintPath>..\ThirdParties\Sharpnado.Forms.HorizontalListView\Sharpnado.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Sharpnado.Presentation.Forms">
+      <HintPath>..\ThirdParties\Sharpnado.Forms.HorizontalListView\Sharpnado.Presentation.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Sharpnado.Presentation.Forms.Droid">
+      <HintPath>..\ThirdParties\Sharpnado.Forms.HorizontalListView\Sharpnado.Presentation.Forms.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SkiaSharp.Views.Forms">
@@ -66,7 +75,7 @@
       <Version>27.0.2.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.0.0.8055-pre1</Version>
+      <Version>4.0.0.941-pre1</Version>
     </PackageReference>
     <PackageReference Include="Plugin.XSnack">
       <Version>1.0.17</Version>
@@ -82,6 +91,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Common\PlatformService.cs" />
+    <Compile Include="Features\Scanning\Photo\GalleryService.cs" />
     <Compile Include="ThirdParties\Camera\AutoFitTextureView.cs" />
     <Compile Include="ThirdParties\Camera\CameraState.cs" />
     <Compile Include="ThirdParties\Camera\CompareSizesByArea.cs" />
@@ -89,14 +100,15 @@
     <Compile Include="ThirdParties\Camera\Listeners\CameraSurfaceTextureListener.cs" />
     <Compile Include="ThirdParties\Camera\Listeners\CameraCaptureListener.cs" />
     <Compile Include="ThirdParties\Camera\Listeners\CameraCaptureSessionCallback.cs" />
-    <Compile Include="ThirdParties\Camera\Listeners\CameraCaptureStillPictureSessionCallback.cs" />
     <Compile Include="ThirdParties\Camera\Listeners\CameraStateListener.cs" />
     <Compile Include="ThirdParties\Camera\Listeners\ImageAvailableListener.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
+    <Compile Include="Renderers\CameraPreviewRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashActivity.cs" />
+    <Compile Include="ThirdParties\Touch\TouchEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -230,5 +242,18 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\close.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\capture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\capture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\capture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\capture.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
