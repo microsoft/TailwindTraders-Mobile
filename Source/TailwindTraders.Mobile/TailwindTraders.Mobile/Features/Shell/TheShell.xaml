@@ -45,6 +45,15 @@
     </DataTemplate>
   </Shell.ItemTemplate>
 
+    <ShellItem
+    Title="Home"
+    Route="home">
+        <ShellSection>
+          <ShellContent ContentTemplate="{DataTemplate home:HomePage}" />
+        </ShellSection>
+    </ShellItem>
+
+  <Shell.MenuItems>
   <MenuItem
     BindingContext="{x:Reference theShell}"
     Command="{Binding BindingContext.ProductTypeCommand}"
@@ -63,12 +72,6 @@
     CommandParameter="4"
     Text="Gardening" />
 
-  <ShellItem
-    Title="Home"
-    Route="home">
-    <ShellContent ContentTemplate="{DataTemplate home:HomePage}" />
-  </ShellItem>
-
   <MenuItem
     BindingContext="{x:Reference theShell}"
     Command="{Binding BindingContext.ProfileCommand}"
@@ -78,5 +81,5 @@
     BindingContext="{x:Reference theShell}"
     Command="{Binding BindingContext.LogOutCommand}"
     Text="Log out" />
-
+    </Shell.MenuItems>
 </Shell>
