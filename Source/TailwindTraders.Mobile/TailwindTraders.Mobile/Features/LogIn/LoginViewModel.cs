@@ -28,20 +28,21 @@ namespace TailwindTraders.Mobile.Features.LogIn
 
         public ICommand LogInCommand => new AsyncCommand(LogInAsync);
 
-#if DEBUG
         public override async Task InitializeAsync()
         {
-            IsBusy = true;
+            if (Settings.Settings.ForceAutomaticLogin)
+            {
+                IsBusy = true;
+
+                // We simulate someone typing her credentials
+                await Task.Delay(TimeSpan.FromSeconds(0.5f));
+                Email = "foo";
+                Password = "bar";
+                LogInCommand.Execute(null);
+            }
 
             await base.InitializeAsync();
-
-            // We simulate someone typing her credentials
-            await Task.Delay(TimeSpan.FromSeconds(0.5f));
-            Email = "foo";
-            Password = "bar";
-            LogInCommand.Execute(null);
         }
-#endif
 
         public ICommand MicrosoftLogInCommand => FeatureNotAvailableCommand;
 
@@ -52,12 +53,6 @@ namespace TailwindTraders.Mobile.Features.LogIn
             MessagingCenter.Send(this, LogInFinishedMessage);
         }
 
-        private async Task CloseLogInAsync()
-        {
-            var navigation = Application.Current.MainPage.Navigation;
-            await navigation.PopModalAsync();
-        }
-
         private async Task LogInAsync()
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
@@ -66,12 +61,12 @@ namespace TailwindTraders.Mobile.Features.LogIn
                 return;
             }
 
-            var result = await ExecuteWithLoadingIndicatorsAsync(
+            var result = await TryExecuteWithLoadingIndicatorsAsync(
                 () => AuthenticationService.LogInAsync(email, password));
 
             if (result.IsSucceded)
             {
-                await CloseLogInAsync();
+                await App.NavigateModallyBackAsync();
             }
         }
     }

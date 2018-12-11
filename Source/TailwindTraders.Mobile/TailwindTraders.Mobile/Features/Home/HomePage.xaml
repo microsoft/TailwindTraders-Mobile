@@ -18,7 +18,6 @@
     <ResourceDictionary>
 
       <local:RecommendedItemTemplate x:Key="RecommendedItemTemplate" />
-      <local:PopularItemTemplate x:Key="PopularItemTemplate" />
       <local:PreviouslySeenItemTemplate x:Key="PreviouslySeenItemTemplate" />
 
       <Style
@@ -170,7 +169,7 @@
               Style="{StaticResource HeaderLabelStyle}"
               Text="POPULAR PRODUCTS" />
 
-            <local:FixedRatioCarouselViewControl x:Name="popularProductsCarousel"
+            <local:FixedRatioCarouselViewControl
               InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
               ItemTemplate="{StaticResource PopularItemTemplate}"
               ItemsSource="{Binding PopularProducts}" />

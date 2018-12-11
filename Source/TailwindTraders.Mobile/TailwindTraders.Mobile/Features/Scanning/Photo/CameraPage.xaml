@@ -21,31 +21,25 @@
   <ContentPage.Content>
 
     <Grid BackgroundColor="{StaticResource BackgroundPageColor}">
-      <Label
-        Margin="{StaticResource DefaultMargin}"
-        HorizontalOptions="CenterAndExpand"
-        HorizontalTextAlignment="Center"
-        Style="{StaticResource BrandonGrotesqueMediumLargeFontStyle}"
-        Text="Take a photo to start the smart shopping experience!"
-        VerticalOptions="CenterAndExpand" />
 
       <Image
         Aspect="AspectFill"
         Source="{Binding CameraImage}" />
 
-
       <Grid>
 
-        <Button
-          BackgroundColor="Transparent"
+        <ImageButton
+          BackgroundColor="#20FFFFFF"
           Command="{Binding CloseCommand}"
           HorizontalOptions="Start"
-          Image="close"
+          Source="close"
           VerticalOptions="Start">
-          <Button.Margin>
-            <Thickness Left="{StaticResource Negative0.5xDefaultMargin}" />
-          </Button.Margin>
-        </Button>
+          <ImageButton.Margin>
+            <Thickness
+              Left="{StaticResource DefaultMargin}"
+              Top="{StaticResource DefaultMargin}" />
+          </ImageButton.Margin>
+        </ImageButton>
 
         <Grid VerticalOptions="End">
           <Grid.RowDefinitions>
@@ -60,7 +54,6 @@
             ItemTemplate="{StaticResource RecommendedItemTemplate}"
             ItemsSource="{Binding RecommendedProducts}" />
 
-
           <Grid
             Grid.Row="2"
             Margin="{StaticResource Default2Margin}">
@@ -71,7 +64,8 @@
 
             <Button x:Name="takePhotoButton"
               Grid.Column="0"
-              Padding="0"
+              Padding="{OnPlatform Android=0,
+                                   iOS=8}"
               Command="{Binding TakePhotoCommand}"
               CornerRadius="{Binding Source={x:Reference takePhotoButton}, Path=Height, Converter={StaticResource DoubleToHalfFloatConverter}}"
               Image="photo"

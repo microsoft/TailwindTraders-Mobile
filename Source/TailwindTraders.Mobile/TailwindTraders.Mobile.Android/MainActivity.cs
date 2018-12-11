@@ -4,6 +4,9 @@ using Android.OS;
 using CarouselView.FormsPlugin.Android;
 using Plugin.CurrentActivity;
 using Plugin.XSnack;
+using Sharpnado.Presentation.Forms.Droid;
+using TailwindTraders.Mobile.Droid.Features.Common;
+using TailwindTraders.Mobile.Features.Common;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Droid
@@ -47,11 +50,13 @@ namespace TailwindTraders.Mobile.Droid
         {
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             CarouselViewRenderer.Init();
+            SharpnadoInitializer.Initialize();
         }
 
         private void RegisterServices()
         {
             DependencyService.Register<IXSnack, XSnackImplementation>();
+            DependencyService.Register<IPlatformService, PlatformService>();
         }
     }
 }

@@ -36,8 +36,6 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera
 
         void ConfigureTransform(int width, int height);
 
-        void UnlockFocus();
-
-        void OnCaptureComplete();
+        void OnCaptureComplete(string path);
     }
 }

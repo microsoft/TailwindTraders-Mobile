@@ -11,6 +11,9 @@ namespace UnitTests.Features.Home
 {
     public class HomeAPITests
     {
+#if !DEBUG
+        [Ignore(Constants.IgnoreReason)]
+#endif
         [Test]
         public async Task GetProductsAsync()
         {

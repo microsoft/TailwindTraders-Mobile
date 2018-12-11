@@ -89,21 +89,9 @@ namespace TailwindTraders.Mobile.Features.Localization {
             }
         }
         
-        internal static string Alert_Message_CameraPermissionsNotGranted {
+        internal static string Alert_Message_PermissionsNotGranted {
             get {
-                return ResourceManager.GetString("Alert_Message_CameraPermissionsNotGranted", resourceCulture);
-            }
-        }
-        
-        internal static string Alert_Title_NoCameraAccess {
-            get {
-                return ResourceManager.GetString("Alert_Title_NoCameraAccess", resourceCulture);
-            }
-        }
-        
-        internal static string Alert_Message_NoCameraAccess {
-            get {
-                return ResourceManager.GetString("Alert_Message_NoCameraAccess", resourceCulture);
+                return ResourceManager.GetString("Alert_Message_PermissionsNotGranted", resourceCulture);
             }
         }
         
@@ -119,9 +107,9 @@ namespace TailwindTraders.Mobile.Features.Localization {
             }
         }
         
-        internal static string Alert_Title_CameraPermissionsNotGranted {
+        internal static string Alert_Title_PermissionsNotGranted {
             get {
-                return ResourceManager.GetString("Alert_Title_CameraPermissionsNotGranted", resourceCulture);
+                return ResourceManager.GetString("Alert_Title_PermissionsNotGranted", resourceCulture);
             }
         }
     }

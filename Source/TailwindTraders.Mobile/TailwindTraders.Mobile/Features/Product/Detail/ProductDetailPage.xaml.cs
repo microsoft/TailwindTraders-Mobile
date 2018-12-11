@@ -8,12 +8,5 @@
 
             BindingContext = new ProductDetailViewModel(productId);
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            NavigationProxy.Inner = App.NavigationRoot.NavigationProxy;
-        }
     }
 }

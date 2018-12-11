@@ -11,6 +11,8 @@ namespace TailwindTraders.Mobile.Features.Common
         {
             base.OnAppearing();
 
+            NavigationProxy.Inner = App.NavigationRoot.NavigationProxy;
+
             ViewModel.InitializeAsync();
         }
 

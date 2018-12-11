@@ -16,6 +16,7 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
         private string name;
         private string price;
         private IEnumerable<FeatureDTO> features;
+        private IEnumerable<ProductDTO> similarProducts;
 
         public string Title
         {
@@ -53,6 +54,12 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
             set => SetAndRaisePropertyChanged(ref features, value);
         }
 
+        public IEnumerable<ProductDTO> SimilarProducts
+        {
+            get => similarProducts;
+            set => SetAndRaisePropertyChanged(ref similarProducts, value);
+        }
+
         public ProductDetailViewModel(int productId)
         {
             productsAPI = DependencyService.Get<IRestPoolService>().ProductsAPI.Value;
@@ -69,16 +76,16 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
         private async Task LoadDataAsync(int product)
         {
-            var response = await ExecuteWithLoadingIndicatorsAsync(
+            var detailResponse = await TryExecuteWithLoadingIndicatorsAsync(
                 () => productsAPI.GetDetailAsync(AuthenticationService.AuthorizationHeader, product.ToString()));
 
-            if (!response.IsSucceded || response.Result == null)
+            if (!detailResponse.IsSucceded || detailResponse.Result == null)
             {
                 await App.NavigateBackAsync();
                 return;
             }
 
-            var result = response.Result;
+            var result = detailResponse.Result;
             var brandName = result.Brand.Name;
             var productName = result.Name;
             Title = $"{brandName}. {productName}";
@@ -87,6 +94,18 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
             Name = productName;
             Price = $"${result.Price}";
             Features = result.Features;
+
+            if (result.Type != null)
+            {
+                var type = result.Type.Id.ToString();
+                var similarResponse = await TryExecuteWithLoadingIndicatorsAsync(
+                    () => productsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
+
+                if (similarResponse.IsSucceded && similarResponse.Result != null)
+                {
+                    SimilarProducts = similarResponse.Result.Products;
+                }
+            }
         }
     }
 }

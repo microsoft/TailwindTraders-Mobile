@@ -2,33 +2,29 @@
 using Java.IO;
 using Java.Lang;
 using Java.Nio;
+using System;
 
 namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
 {
     public class ImageAvailableListener : Java.Lang.Object, ImageReader.IOnImageAvailableListener
     {
-        public ImageAvailableListener(ICamera fragment, File file)
+        public ImageAvailableListener(ICamera fragment)
         {
             if (fragment == null)
             {
                 throw new System.ArgumentNullException("fragment");
             }
 
-            if (file == null)
-            {
-                throw new System.ArgumentNullException("file");
-            }
-
             owner = fragment;
-            this.file = file;
         }
 
-        private readonly File file;
         private readonly ICamera owner;
 
         public void OnImageAvailable(ImageReader reader)
         {
-            owner.mBackgroundHandler.Post(new ImageSaver(reader.AcquireNextImage(), file, owner));
+            Image image = reader.AcquireNextImage();
+            ImageSaver r = new ImageSaver(image, owner);
+            owner.mBackgroundHandler.Post(r);
         }
 
         // Saves a JPEG {@link Image} into the specified {@link File}.
@@ -37,30 +33,26 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
             // The JPEG image
             private Image mImage;
 
-            // The file we save the image into.
-            private File mFile;
-
             private ICamera mOwner;
 
-            public ImageSaver(Image image, File file, ICamera owner)
+            public ImageSaver(Image image, ICamera owner)
             {
                 if (image == null)
                 {
                     throw new System.ArgumentNullException("image");
                 }
 
-                if (file == null)
-                {
-                    throw new System.ArgumentNullException("file");
-                }
-
                 mImage = image;
-                mFile = file;
                 mOwner = owner;
             }
 
             public void Run()
             {
+                var path = System.IO.Path.Combine(
+                    global::Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath,
+                    $"photo_{Guid.NewGuid().ToString()}.jpg");
+                var mFile = new File(path);
+
                 ByteBuffer buffer = mImage.GetPlanes()[0].Buffer;
                 byte[] bytes = new byte[buffer.Remaining()];
                 buffer.Get(bytes);
@@ -77,7 +69,7 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                     finally
                     {
                         mImage.Close();
-                        mOwner.OnCaptureComplete();
+                        mOwner.OnCaptureComplete(path);
                     }
                 }
             }

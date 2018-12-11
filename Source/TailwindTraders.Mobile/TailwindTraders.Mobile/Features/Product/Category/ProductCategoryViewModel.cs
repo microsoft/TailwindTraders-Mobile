@@ -69,7 +69,7 @@ namespace TailwindTraders.Mobile.Features.Product.Category
             CurrentState = State.EverythingOK;
             Products = null;
 
-            var response = await ExecuteWithLoadingIndicatorsAsync(
+            var response = await TryExecuteWithLoadingIndicatorsAsync(
                 () => productsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
 
             if (!response.IsSucceded)

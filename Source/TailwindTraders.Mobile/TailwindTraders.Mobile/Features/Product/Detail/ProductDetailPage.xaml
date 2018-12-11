@@ -5,6 +5,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
   xmlns:common="clr-namespace:TailwindTraders.Mobile.Features.Common"
+  xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Detail"
   Title="{Binding Title}"
@@ -134,6 +135,15 @@
             </common:BindableStackLayout.Margin>
 
           </common:BindableStackLayout>
+
+          <Label
+            Style="{StaticResource HeaderLabelStyle}"
+            Text="SIMILAR PRODUCTS" />
+
+          <home:FixedRatioCarouselViewControl
+            InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
+            ItemTemplate="{StaticResource PopularItemTemplate}"
+            ItemsSource="{Binding SimilarProducts}" />
 
         </StackLayout>
 

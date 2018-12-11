@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<common:BaseContentPage x:Name="cameraPreviewPage"
+  x:Class="TailwindTraders.Mobile.Features.Scanning.AR.CameraPreviewPage"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:ar="clr-namespace:TailwindTraders.Mobile.Features.Scanning.AR"
+  xmlns:common="clr-namespace:TailwindTraders.Mobile.Features.Common"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+  Title="AR Mode"
+  ios:Page.UseSafeArea="true"
+  x:DataType="ar:CameraPreviewViewModel"
+  x:TypeArguments="ar:CameraPreviewViewModel"
+  ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+
+  <ContentPage.Content>
+
+    <Grid>
+      <ContentPresenter x:Name="cameraControl" />
+
+      <skia:SKCanvasView x:Name="canvasView"
+        PaintSurface="CanvasView_PaintSurface" />
+    </Grid>
+
+  </ContentPage.Content>
+</common:BaseContentPage>

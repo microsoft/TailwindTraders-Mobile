@@ -48,7 +48,7 @@ namespace TailwindTraders.Mobile.Features.Common
                 Resources.Alert_OK);
         }
 
-        protected async Task<WrapResult<object>> ExecuteWithLoadingIndicatorsAsync(
+        protected async Task<WrapResult<object>> TryExecuteWithLoadingIndicatorsAsync(
             Func<Task> operation,
             Func<Exception, Task<bool>> onError = null) =>
             await TaskHelper.Create()
@@ -56,7 +56,7 @@ namespace TailwindTraders.Mobile.Features.Common
                 .WhenFinished(() => IsBusy = false)
                 .TryWithErrorHandlingAsync(operation, onError);
 
-        protected async Task<WrapResult<T>> ExecuteWithLoadingIndicatorsAsync<T>(
+        protected async Task<WrapResult<T>> TryExecuteWithLoadingIndicatorsAsync<T>(
             Func<Task<T>> operation,
             Func<Exception, Task<bool>> onError = null) =>
             await TaskHelper.Create()

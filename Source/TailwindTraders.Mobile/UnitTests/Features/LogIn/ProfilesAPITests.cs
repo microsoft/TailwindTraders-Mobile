@@ -7,6 +7,9 @@ using TailwindTraders.Mobile.Features.Settings;
 
 namespace UnitTests.Features.LogIn
 {
+#if !DEBUG
+    [Ignore(Constants.IgnoreReason)]
+#endif
     public class ProfilesAPITests
     {
         [Test]

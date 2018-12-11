@@ -138,14 +138,8 @@
   <data name="Alert_Title_FeatureNotAvailable" xml:space="preserve">
     <value>Feature not available</value>
   </data>
-  <data name="Alert_Message_CameraPermissionsNotGranted" xml:space="preserve">
-    <value>Unable to enter this page without camera permission granted.</value>
-  </data>
-  <data name="Alert_Title_NoCameraAccess" xml:space="preserve">
-    <value>Error accessing camera</value>
-  </data>
-  <data name="Alert_Message_NoCameraAccess" xml:space="preserve">
-    <value>Sorry, we couldn't access the camera. May you check we have permission to do so? Thanks in advance.</value>
+  <data name="Alert_Message_PermissionsNotGranted" xml:space="preserve">
+    <value>Unable to enter this page without permissions granted.</value>
   </data>
   <data name="Alert_Message_NoCameraSupport" xml:space="preserve">
     <value>Sorry, we couldn't find a camera on this device. Thanks in advance.</value>
@@ -153,7 +147,7 @@
   <data name="Alert_Title_NoCameraSupport" xml:space="preserve">
     <value>Unable to find a camera</value>
   </data>
-  <data name="Alert_Title_CameraPermissionsNotGranted" xml:space="preserve">
-    <value>Camera permission not granted</value>
+  <data name="Alert_Title_PermissionsNotGranted" xml:space="preserve">
+    <value>Permissions not granted</value>
   </data>
 </root>

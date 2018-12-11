@@ -1,6 +1,11 @@
-﻿using Foundation;
+using Foundation;
 using Microsoft.AppCenter.Distribute;
 using Plugin.XSnack;
+using Sharpnado.Presentation.Forms.iOS;
+using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.IOS.Features.Common;
+using TailwindTraders.Mobile.IOS.Renderers;
+using TouchTracking.iOS;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -49,12 +54,16 @@ namespace TailwindTraders.Mobile.IOS
 
         private void InitRenderersAndServices()
         {
+            CameraPreviewRenderer.Initialize();
             CarouselView.FormsPlugin.iOS.CarouselViewRenderer.Init();
+            SharpnadoInitializer.Initialize();
+            TouchRecognizer.Initialize();
         }
 
         private void RegisterServices()
         {
             DependencyService.Register<IXSnack, XSnackImplementation>();
+            DependencyService.Register<IPlatformService, PlatformService>();
         }
     }
 }

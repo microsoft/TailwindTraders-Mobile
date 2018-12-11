@@ -93,7 +93,6 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
 
                 case CameraState.STATE_PICTURE_TAKEN:
                     {
-                        System.Diagnostics.Debug.WriteLine("STATE_PICTURE_TAKEN");
                         break;
                     }
             }

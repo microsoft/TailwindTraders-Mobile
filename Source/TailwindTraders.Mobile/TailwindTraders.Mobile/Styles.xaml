@@ -4,12 +4,15 @@
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile">
   <ResourceDictionary.MergedDictionaries>
     <local:FontStyles />
     <local:Sizes />
   </ResourceDictionary.MergedDictionaries>
+
+  <home:PopularItemTemplate x:Key="PopularItemTemplate" />
 
   <Style x:Key="DefaultButtonStyle"
     TargetType="Button">

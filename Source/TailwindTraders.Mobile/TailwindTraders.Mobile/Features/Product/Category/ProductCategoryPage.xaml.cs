@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 
 namespace TailwindTraders.Mobile.Features.Product.Category
 {
@@ -27,8 +26,6 @@ namespace TailwindTraders.Mobile.Features.Product.Category
             ViewModel.PropertyChanged += ViewModel_PropertyChanged;
 
             base.OnAppearing();
-
-            NavigationProxy.Inner = App.NavigationRoot.NavigationProxy;
         }
 
         protected override void OnDisappearing()

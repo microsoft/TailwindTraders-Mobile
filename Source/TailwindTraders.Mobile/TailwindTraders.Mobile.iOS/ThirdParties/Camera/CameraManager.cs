@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using AssetsLibrary;
 using AVFoundation;
 using CoreFoundation;
-using CoreMedia;
 using Foundation;
 using UIKit;
 
@@ -35,8 +33,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
     public enum CameraOutputMode
     {
         StillImage,
-        VideoWithMic,
-        VideoOnly,
     }
 
     public enum CameraOutputQuality : int
@@ -62,41 +58,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         /// you want to show it manually. Default value is true. Be carful cause using the camera requires permission,
         /// if you set this value to false and don't ask manually you won't be able to use the camera.
         public bool showAccessPermissionPopupAutomatically = true;
-
-        /// A block creating UI to present error message to the user. This can be customised to be presented on the
-        /// Window root view controller, or to pass in the viewController which will present the UIAlertController, for
-        /// example.
-        // public void showErrorBlock(string erTitle, string erMessage) {
-        //            (erTitle: String, erMessage: String) -> Void in
-        //
-        //
-        //        }
-
-        /// Property to determine if manager should write the resources to the phone library. Default value is true.
-        public bool writeFilesToPhoneLibrary = true;
-
-        public bool shouldRespondToOrientationChanges = true;
-
-        public bool ShouldRespondToOrientationChanges
-        {
-            get
-            {
-                return shouldRespondToOrientationChanges;
-            }
-
-            set
-            {
-                shouldRespondToOrientationChanges = value;
-                if (shouldRespondToOrientationChanges)
-                {
-                    _startFollowingDeviceOrientation();
-                }
-                else
-                {
-                    _stopFollowingDeviceOrientation();
-                }
-            }
-        }
 
         public bool cameraIsReady
         {
@@ -142,8 +103,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                     {
                         cameraDevice = value;
                         _updateCameraDevice(cameraDevice);
-                        _setupMaxZoomScale();
-                        _zoom(0);
                     }
                 }
             }
@@ -212,31 +171,11 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                         _setupOutputMode(value, outputMode);
                         outputMode = value;
                     }
-
-                    _setupMaxZoomScale();
-                    _zoom(0);
-                }
-            }
-        }
-
-        public CMTime recordedDuration
-        {
-            get
-            {
-                if (movieOutput != null)
-                {
-                    return movieOutput.RecordedDuration;
-                }
-                else
-                {
-                    return CMTime.Zero;
                 }
             }
         }
 
         private UIView embeddingView;
-
-        private Action<NSUrl, AVCaptureVideoOrientation, NSError> videoCompletion;
 
         // TODO not sure what to do with a queue
         //     private var sessionQueue: dispatch_queue_t = dispatch_queue_create("CameraSessionQueue",
@@ -259,67 +198,10 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
         }
 
-        private AVCaptureDevice mic
-        {
-            get
-            {
-                var devices = AVCaptureDevice.DevicesWithMediaType(AVMediaType.Audio);
-                return devices.FirstOrDefault();
-            }
-        }
-
         private AVCaptureStillImageOutput stillImageOutput;
-        private AVCaptureMovieFileOutput movieOutput;
         private AVCaptureVideoPreviewLayer previewLayer;
-        private ALAssetsLibrary library;
 
         private bool cameraIsSetup = false;
-        private bool cameraIsObservingDeviceOrientation = false;
-
-        private nfloat zoomScale = 1.0f;
-        private nfloat beginZoomScale = 1.0f;
-        private nfloat maxZoomScale = 1.0f;
-
-        private string filename = "tempMovie.mp4";
-
-        public string Filename
-        {
-            get
-            {
-                return filename;
-            }
-
-            set
-            {
-                filename = value;
-                Debug.WriteLine("_filename {0}", filename);
-            }
-        }
-
-        private NSUrl tempFilePath
-        {
-            get
-            {
-                var tempPath = NSUrl.FromFilename(Path.Combine(Path.GetTempPath(), filename));
-                if (NSFileManager.DefaultManager.FileExists(tempPath.Path))
-                {
-                    NSError error;
-                    NSFileManager.DefaultManager.Remove(tempPath, out error);
-                }
-
-                return tempPath;
-            }
-        }
-
-        public CameraState addPreviewLayerToView(UIView view)
-        {
-            return addPreviewLayerToView(view, OutputMode);
-        }
-
-        public CameraState addPreviewLayerToView(UIView view, CameraOutputMode newCameraOutputMode)
-        {
-            return addPreviewLayerToView(view, newCameraOutputMode, null);
-        }
 
         public CameraState addPreviewLayerToView(UIView view, CameraOutputMode newCameraOutputMode, Action completion)
         {
@@ -337,10 +219,7 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                 {
                     _addPreviewLayerToView(view);
                     OutputMode = newCameraOutputMode;
-                    if (completion != null)
-                    {
-                        completion();
-                    }
+                    completion?.Invoke();
                 }
                 else
                 {
@@ -349,10 +228,7 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                         {
                             this._addPreviewLayerToView(view);
                             this.OutputMode = newCameraOutputMode;
-                            if (completion != null)
-                            {
-                                completion();
-                            }
+                            completion?.Invoke();
                         });
                 }
             }
@@ -364,17 +240,7 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         {
             AVCaptureDevice.RequestAccessForMediaType(AVMediaType.Video, allowed =>
             {
-                if (this.OutputMode == CameraOutputMode.VideoWithMic)
-                {
-                    AVCaptureDevice.RequestAccessForMediaType(AVMediaType.Audio, audioAllowed =>
-                    {
-                        completion(audioAllowed);
-                    });
-                }
-                else
-                {
-                    completion(allowed);
-                }
+                completion(allowed);
             });
         }
 
@@ -384,8 +250,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             {
                 captureSession.StopRunning();
             }
-
-            _stopFollowingDeviceOrientation();
         }
 
         public void stopAndRemoveCaptureSession()
@@ -395,12 +259,7 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             cameraIsSetup = false;
             previewLayer = null;
             captureSession = null;
-
-            // frontCameraDevice = null;
-            //            backCameraDevice = null;
-            //            mic = null;
             stillImageOutput = null;
-            movieOutput = null;
             embeddingView = null;
         }
 
@@ -436,211 +295,9 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                 });
         }
 
-        public void startRecordingVideo()
-        {
-            Debug.Print("tempFilePath {0}", tempFilePath);
-            _getMovieOutput().StartRecordingToOutputFile(tempFilePath, this);
-        }
-
-        /**
-        Stop recording a video. Save it to the cameraRoll and give back the url.
-        */
-        public void stopRecordingVideo(Action<NSUrl, AVCaptureVideoOrientation, NSError> completion)
-        {
-            if (movieOutput != null)
-            {
-                if (movieOutput.Recording)
-                {
-                    videoCompletion = completion;
-                    movieOutput.StopRecording();
-                }
-            }
-        }
-
         public CameraState currentCameraStatus()
         {
             return _checkIfCameraIsAvailable();
-        }
-
-        public void captureOutput(AVCaptureFileOutput captureOutput, NSUrl fileURL)
-        {
-            if (captureSession != null)
-            {
-                captureSession.BeginConfiguration();
-            }
-
-            if (flashMode != CameraFlashMode.Off)
-            {
-                _updateTorch(flashMode);
-            }
-
-            if (captureSession != null)
-            {
-                captureSession.CommitConfiguration();
-            }
-        }
-
-        public void captureOutput(AVCaptureFileOutput captureOutput, NSUrl outputFileURL, NSError error = null)
-        {
-            _updateTorch(CameraFlashMode.Off);
-            var orientation = _currentVideoOrientation();
-            if (library != null)
-            {
-                if (writeFilesToPhoneLibrary)
-                {
-                    library.WriteVideoToSavedPhotosAlbum(outputFileURL, (assetUrl, err) =>
-                    {
-                        if (err != null)
-                        {
-                            this._executeVideoCompletionWithURL(null, orientation, err);
-                        }
-                        else
-                        {
-                            if (assetUrl != null)
-                            {
-                                this._executeVideoCompletionWithURL(assetUrl, orientation, err);
-                            }
-                        }
-                    });
-                }
-                else
-                {
-                    _executeVideoCompletionWithURL(outputFileURL, orientation, null);
-                }
-            }
-        }
-
-        private void attachZoom(UIView view)
-        {
-            var pinch = new UIPinchGestureRecognizer(_zoomStart);
-            view.AddGestureRecognizer(pinch);
-            pinch.Delegate = new GestureDelegate();
-        }
-
-        public bool gestureRecognizerShouldBegin(UIGestureRecognizer gestureRecognizer)
-        {
-            if (gestureRecognizer.GetType() == typeof(UIPinchGestureRecognizer))
-            {
-                beginZoomScale = zoomScale;
-            }
-
-            return true;
-        }
-
-        private void _zoomStart(UIPinchGestureRecognizer recognizer)
-        {
-            if (embeddingView == null || previewLayer == null)
-            {
-                return;
-            }
-
-            var allTouchesOnPreviewLayer = true;
-            var numTouch = recognizer.NumberOfTouches;
-
-            for (int i = 0; i < numTouch; i++)
-            {
-                var location = recognizer.LocationOfTouch(i, embeddingView);
-                var convertedTouch = previewLayer.ConvertPointFromLayer(location, previewLayer.SuperLayer);
-                if (!previewLayer.Contains(convertedTouch))
-                {
-                    allTouchesOnPreviewLayer = false;
-                    break;
-                }
-            }
-
-            if (allTouchesOnPreviewLayer)
-            {
-                _zoom(recognizer.Scale);
-            }
-        }
-
-        private void _zoom(nfloat scale)
-        {
-            try
-            {
-                var captureDevice = AVCaptureDevice.Devices.First();
-                NSError err;
-                if (captureDevice != null)
-                {
-                    captureDevice.LockForConfiguration(out err);
-                    zoomScale = (nfloat)Math.Max(1.0, Math.Min(beginZoomScale * scale, maxZoomScale));
-                    captureDevice.VideoZoomFactor = zoomScale;
-                    captureDevice.UnlockForConfiguration();
-                }
-            }
-            catch
-            {
-                Debug.WriteLine("error locked config");
-            }
-        }
-
-        private void _updateTorch(CameraFlashMode flashMode)
-        {
-            if (captureSession != null)
-            {
-                captureSession.BeginConfiguration();
-
-                var devices = AVCaptureDevice.DevicesWithMediaType(AVMediaType.Video);
-                foreach (var captureDevice in devices)
-                {
-                    if (captureDevice.Position == AVCaptureDevicePosition.Back)
-                    {
-                        var avTorchMode = (AVCaptureTorchMode)Enum.ToObject(typeof(AVCaptureTorchMode), flashMode);
-
-                        if (captureDevice.IsTorchModeSupported(avTorchMode))
-                        {
-                            try
-                            {
-                                NSError err;
-                                captureDevice.LockForConfiguration(out err);
-                            }
-                            catch
-                            {
-                                return;
-                            }
-
-                            captureDevice.TorchMode = avTorchMode;
-                            captureDevice.UnlockForConfiguration();
-                        }
-                    }
-                }
-
-                captureSession.CommitConfiguration();
-            }
-        }
-
-        private void _executeVideoCompletionWithURL(NSUrl url, AVCaptureVideoOrientation orientation, NSError error)
-        {
-            if (videoCompletion != null)
-            {
-                videoCompletion(url, orientation, error);
-                videoCompletion = null;
-            }
-        }
-
-        private AVCaptureMovieFileOutput _getMovieOutput()
-        {
-            var shouldReinitializeMovieOutput = movieOutput == null;
-            if (!shouldReinitializeMovieOutput)
-            {
-                var connection = movieOutput.ConnectionFromMediaType(AVMediaType.Video);
-                if (connection != null)
-                {
-                    shouldReinitializeMovieOutput = shouldReinitializeMovieOutput || !connection.Active;
-                }
-            }
-
-            if (shouldReinitializeMovieOutput)
-            {
-                movieOutput = new AVCaptureMovieFileOutput();
-                movieOutput.MovieFragmentInterval = CMTime.Invalid;
-
-                captureSession.BeginConfiguration();
-                captureSession.AddOutput(movieOutput);
-                captureSession.CommitConfiguration();
-            }
-
-            return movieOutput;
         }
 
         private AVCaptureStillImageOutput _getStillImageOutput()
@@ -669,17 +326,11 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
         private void _orientationChanged()
         {
-            Debug.WriteLine("~~ ORIENTATION CHANGED ~~");
-            AVCaptureConnection currentConnection;
+            AVCaptureConnection currentConnection = null;
             switch (OutputMode)
             {
                 case CameraOutputMode.StillImage:
                     currentConnection = stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
-                    break;
-                case CameraOutputMode.VideoOnly:
-                case CameraOutputMode.VideoWithMic:
-                default:
-                    currentConnection = _getMovieOutput().ConnectionFromMediaType(AVMediaType.Video);
                     break;
             }
 
@@ -692,9 +343,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                     if (validPreviewLayerConnection.SupportsVideoOrientation)
                     {
                         validPreviewLayerConnection.VideoOrientation = _currentVideoOrientation();
-                        Debug.WriteLine(
-                            "~~ Updating PreviewLayer VideoOrientation {0} ~~",
-                            validPreviewLayerConnection.VideoOrientation);
                     }
                 }
 
@@ -704,9 +352,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                     if (validOutputLayerConnection.SupportsVideoOrientation)
                     {
                         validOutputLayerConnection.VideoOrientation = _currentVideoOrientation();
-                        Debug.WriteLine(
-                            "~~ Updating validOutputLayerConnection VideoOrientation {0} ~~",
-                            validOutputLayerConnection.VideoOrientation);
                     }
                 }
 
@@ -716,10 +361,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                     if (validEmbeddingView != null)
                     {
                         validPreviewLayer.Frame = validEmbeddingView.Bounds;
-                        Debug.WriteLine(
-                            "~~ validPreviewLayer.Frame {0},{1}",
-                            validPreviewLayer.Frame.Width,
-                            validPreviewLayer.Frame.Height);
                     }
                 });
             }
@@ -764,7 +405,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                     this._updateFlasMode(this.FlashMode);
                     this._updateCameraQualityMode(this.CameraOutputQuality);
                     validCaptureSession.StartRunning();
-                    this._startFollowingDeviceOrientation();
                     this.cameraIsSetup = true;
                     this._orientationChanged();
 
@@ -773,44 +413,9 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             });
         }
 
-        private void _startFollowingDeviceOrientation()
-        {
-            Debug.WriteLine("~~ _startFollowingDeviceOrientation ~~");
-            if (ShouldRespondToOrientationChanges && !cameraIsObservingDeviceOrientation)
-            {
-                orientationObserver = UIDevice.Notifications.ObserveOrientationDidChange(onOrientationChanged);
-
-                // NSNotificationCenter.DefaultCenter.AddObserver(UIDevice.Notifications.ObserveOrientationDidChange,
-                // _orientationChanged);
-                cameraIsObservingDeviceOrientation = true;
-            }
-        }
-
-        private NSObject orientationObserver;
-
-        private void _stopFollowingDeviceOrientation()
-        {
-            Debug.WriteLine("~~ _stopFollowingDeviceOrientation ~~");
-            if (cameraIsObservingDeviceOrientation)
-            {
-                NSNotificationCenter.DefaultCenter.RemoveObserver(orientationObserver);
-                cameraIsObservingDeviceOrientation = false;
-            }
-        }
-
-        private void onOrientationChanged(object sender, NSNotificationEventArgs e)
-        {
-            if (cameraIsObservingDeviceOrientation)
-            {
-                Debug.WriteLine("~~ onOrientationChanged ~~");
-                _orientationChanged();
-            }
-        }
-
         private void _addPreviewLayerToView(UIView view)
         {
             embeddingView = view;
-            attachZoom(view);
 
             DispatchQueue.MainQueue.DispatchAsync(() =>
             {
@@ -823,23 +428,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                 view.ClipsToBounds = false;
                 view.Layer.AddSublayer(this.previewLayer);
             });
-        }
-
-        private void _setupMaxZoomScale()
-        {
-            var maxZoom = 1.0f;
-            beginZoomScale = 1.0f;
-
-            if (CameraDevice == CameraDevice.Back)
-            {
-                maxZoom = (float)backCameraDevice.ActiveFormat.VideoMaxZoomFactor;
-            }
-            else if (CameraDevice == CameraDevice.Front)
-            {
-                maxZoom = (float)frontCameraDevice.ActiveFormat.VideoMaxZoomFactor;
-            }
-
-            maxZoomScale = maxZoom;
         }
 
         private CameraState _checkIfCameraIsAvailable()
@@ -890,19 +478,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                         }
 
                         break;
-                    case CameraOutputMode.VideoOnly:
-                    case CameraOutputMode.VideoWithMic:
-                        if (movieOutput != null)
-                        {
-                            captureSession.RemoveOutput(movieOutput);
-                        }
-
-                        if (oldCameraOutputMode == CameraOutputMode.VideoWithMic)
-                        {
-                            _removeMicInput();
-                        }
-
-                        break;
                     default:
                         break;
                 }
@@ -923,20 +498,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                     }
 
                     break;
-                case CameraOutputMode.VideoOnly:
-                case CameraOutputMode.VideoWithMic:
-                    captureSession.AddOutput(_getMovieOutput());
-
-                    if (newCameraOutputMode == CameraOutputMode.VideoWithMic)
-                    {
-                        var validMic = _deviceInputFromDevice(mic);
-                        if (validMic != null)
-                        {
-                            captureSession.AddInput(validMic);
-                        }
-                    }
-
-                    break;
                 default:
                     break;
             }
@@ -952,24 +513,12 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             {
                 stillImageOutput = new AVCaptureStillImageOutput();
             }
-
-            if (movieOutput == null)
-            {
-                movieOutput = new AVCaptureMovieFileOutput();
-                movieOutput.MovieFragmentInterval = CMTime.Invalid;
-            }
-
-            if (library == null)
-            {
-                library = new ALAssetsLibrary();
-            }
         }
 
         private void _setupPreviewLayer()
         {
             if (captureSession != null)
             {
-                Debug.WriteLine("_setupPreviewLayer");
                 previewLayer = new AVCaptureVideoPreviewLayer(captureSession);
                 previewLayer.VideoGravity = AVLayerVideoGravity.ResizeAspectFill;
             }
@@ -1023,7 +572,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                         {
                             if (!inputs.Contains(validBackDevice))
                             {
-                                Debug.WriteLine("~~~~~ Attaching Back device ~~~~~~");
                                 validCaptureSession.AddInput(validBackDevice);
                             }
                         }
@@ -1106,36 +654,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
         }
 
-        private void _removeMicInput()
-        {
-            if (captureSession == null || captureSession.Inputs == null)
-            {
-                return;
-            }
-
-            var inputs = captureSession.Inputs;
-            foreach (var input in inputs)
-            {
-                if (input != null)
-                {
-                    var deviceInput = input as AVCaptureDeviceInput;
-                    if (deviceInput.Device == mic)
-                    {
-                        captureSession.RemoveInput(input);
-                        break;
-                    }
-                }
-            }
-        }
-
-        private void _show(string title, string message)
-        {
-            if (showErrorsToUsers)
-            {
-                Debug.WriteLine("{0},{1}", title, message);
-            }
-        }
-
         private AVCaptureDeviceInput _deviceInputFromDevice(AVCaptureDevice device = null)
         {
             if (device == null)
@@ -1158,7 +676,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         {
             base.Dispose(disposing);
             stopAndRemoveCaptureSession();
-            _stopFollowingDeviceOrientation();
         }
 
         public CameraManager()
@@ -1168,11 +685,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         public void FinishedRecording(
             AVCaptureFileOutput captureOutput, NSUrl outputFileUrl, NSObject[] connections, NSError error)
         {
-            this.captureOutput(captureOutput, outputFileUrl, error);
         }
-    }
-
-    public class GestureDelegate : UIGestureRecognizerDelegate
-    {
     }
 }

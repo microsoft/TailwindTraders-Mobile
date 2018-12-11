@@ -6,6 +6,7 @@ using System.Windows.Input;
 using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
+using TailwindTraders.Mobile.Features.Scanning.AR;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
 using Xamarin.Forms;
 
@@ -52,11 +53,10 @@ namespace TailwindTraders.Mobile.Features.Home
             set => SetAndRaisePropertyChanged(ref previouslySeenProducts, value);
         }
 
-        public ICommand PhotoCommand => new AsyncCommand(_ => App.NavigateModallyToAsync(
-            new CameraPage(), 
-            animated: false));
+        public ICommand PhotoCommand => new AsyncCommand(_ => App.NavigateToAsync(
+            new CameraPreviewTakePhotoPage()));
 
-        public ICommand ARCommand => FeatureNotAvailableCommand;
+        public ICommand ARCommand => new AsyncCommand(_ => App.NavigateToAsync(new CameraPreviewPage()));
 
         public ICommand LoadCommand => new AsyncCommand(_ => LoadDataAsync());
 
@@ -95,7 +95,7 @@ namespace TailwindTraders.Mobile.Features.Home
                 Tuple.Create("Lighting", "recommended_lighting.jpg", FeatureNotAvailableCommand),
             };
 
-            var homeResult = await ExecuteWithLoadingIndicatorsAsync(
+            var homeResult = await TryExecuteWithLoadingIndicatorsAsync(
                 () => homeAPI.GetAsync(AuthenticationService.AuthorizationHeader));
 
             if (!homeResult.IsSucceded || homeResult.Result == null || homeResult.Result.PopularProducts == null)
