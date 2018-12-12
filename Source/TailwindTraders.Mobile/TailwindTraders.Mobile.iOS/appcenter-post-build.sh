@@ -9,9 +9,6 @@
 
 PROJECTNAME="UnitTests"
 
-echo "Building projects matching \"${PROJECTNAME}\":"
-find $APPCENTER_SOURCE_DIRECTORY -regex '.*'"$PROJECTNAME"'\.csproj' -exec msbuild {} /p:Configuration=Release \;
-echo
 echo "Running tests matching \"${PROJECTNAME}\":"
 find $APPCENTER_SOURCE_DIRECTORY -regex '.*bin.*'"$PROJECTNAME"'\.dll' -exec nunit3-console {} \;
 echo
