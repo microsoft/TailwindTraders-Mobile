@@ -26,9 +26,11 @@ echo
 grep -q 'result="Failed"' $pathOfTestResults
 
 if [[ $? -eq 0 ]]
-then 
+then
+echo
 echo "At least one test failed :-(" 
 exit 1
-else 
+else
+echo 
 echo "All tests passed :-)" 
 fi
