@@ -4,8 +4,5 @@ if [[ ("$(uname)" == "Darwin") || ("$(expr substr $(uname -s) 1 5)" == "Linux") 
     RUNTIME="mono"
 fi
 
-pushd ../../$SOLUTIONNAME/
-
+cd ../../$SOLUTIONNAME/
 $RUNTIME ../Tools/XamlStyler/XamlStyler.Console/xstyler.exe -c XamlStylerSettings.json -d . -r true
-
-popd

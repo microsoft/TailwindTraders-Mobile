@@ -34,6 +34,7 @@ fi
 # XAML policies
 ########################################################################################################################
 
+echo
 echo "Verifying XAML policies:"
 cd $APPCENTER_SOURCE_DIRECTORY/Source/Tools/XamlStyler
 ./verify.sh
