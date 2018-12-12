@@ -10,7 +10,7 @@
 PROJECTNAME="UnitTests"
 
 echo "Running tests matching \"${PROJECTNAME}\":"
-find $APPCENTER_SOURCE_DIRECTORY -regex '.*bin.*'"$PROJECTNAME"'\.dll' -exec nunit3-console {} \;
+find $APPCENTER_SOURCE_DIRECTORY -regex '.*bin.*$PROJECTNAME\.dll' -exec nunit3-console {} \;
 echo
 echo "Result:"
 pathOfTestResults=$(find $APPCENTER_SOURCE_DIRECTORY -name 'TestResult.xml')
