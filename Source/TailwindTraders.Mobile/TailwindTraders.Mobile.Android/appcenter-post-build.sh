@@ -35,7 +35,7 @@ fi
 ########################################################################################################################
 
 echo "Verifying XAML policies:"
-cd $APPCENTER_SOURCE_DIRECTORY/Tools/XamlStyler
+cd $APPCENTER_SOURCE_DIRECTORY/Source/Tools/XamlStyler
 ./verify.sh
 
 if [[ $? -eq 0 ]]
