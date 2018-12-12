@@ -1,8 +1,13 @@
 # Tailwind Traders Mobile Reference App
 
-![Mobile Apps](/Documents/Images/Mobile.png)
+![Mobile Apps](Documents/Images/Mobile.png)
 
 > Note: This app uses backend services detailed in the [Backend](https://github.com/Microsoft/TailwindTraders-Backend) repository.
+
+| App Center builds | master                                                       | develop                                                      |
+| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Android           | [![Build<br/>status](https://build.appcenter.ms/v0.1/apps/6cbcbb55-791d-469f-9671-a185c1174f61/branches/master/badge)](https://appcenter.ms) | [![Build<br/>status](https://build.appcenter.ms/v0.1/apps/6cbcbb55-791d-469f-9671-a185c1174f61/branches/develop/badge)](https://appcenter.ms) |
+| iOS               | [![Build<br/>status](https://build.appcenter.ms/v0.1/apps/6614c35b-a538-4de4-b971-976456ff6355/branches/master/badge)](https://appcenter.ms) | [![Build<br/>status](https://build.appcenter.ms/v0.1/apps/6614c35b-a538-4de4-b971-976456ff6355/branches/develop/badge)](https://appcenter.ms) |
 
 # Repositories
 
