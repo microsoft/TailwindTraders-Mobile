@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
-#
-# Taken from: https://github.com/Microsoft/appcenter-build-scripts-examples/blob/master/xamarin/nunit-test/appcenter-post-build.sh
 
-echo "Found NUnit test projects:"
-find $APPCENTER_SOURCE_DIRECTORY -regex '.*UnitTests\.csproj' -exec echo {} \;
+########################################################################################################################
+# Unit Tests
+# 
+# (Based on:
+# https://github.com/Microsoft/appcenter-build-scripts-examples/blob/master/xamarin/nunit-test/appcenter-post-build.sh)
+########################################################################################################################
+
+PROJECTNAME="UnitTests"
+
+echo "Building projects matching \"${PROJECTNAME}\":"
+find $APPCENTER_SOURCE_DIRECTORY -regex '.*${PROJECTNAME}\.csproj' -exec msbuild {} /p:Configuration=Release \;
 echo
-echo "Building NUnit test projects:"
-find $APPCENTER_SOURCE_DIRECTORY -regex '.*UnitTests\.csproj' -exec msbuild {} \;
+echo "Running tests matching \"${PROJECTNAME}\":"
+find $APPCENTER_SOURCE_DIRECTORY -regex '.*bin.*${PROJECTNAME}\.dll' -exec nunit3-console {} \;
 echo
-echo "Compiled projects to run NUnit tests:"
-find $APPCENTER_SOURCE_DIRECTORY -regex '.*bin.*UnitTests\.dll' -exec echo {} \;
-echo
-echo "Running NUnit tests:"
-find $APPCENTER_SOURCE_DIRECTORY -regex '.*bin.*UnitTests\.dll' -exec nunit3-console {} \;
-echo
-echo "NUnit tests result:"
+echo "Result:"
 pathOfTestResults=$(find $APPCENTER_SOURCE_DIRECTORY -name 'TestResult.xml')
 cat $pathOfTestResults
 echo
 
-#look for a failing test
 grep -q 'result="Failed"' $pathOfTestResults
 
 if [[ $? -eq 0 ]]
@@ -30,14 +30,18 @@ else
 echo "All tests passed :-)" 
 fi
 
-echo "Running XamlStyler verify"
+########################################################################################################################
+# XAML policies
+########################################################################################################################
+
+echo "Verifying XAML policies:"
 cd $APPCENTER_SOURCE_DIRECTORY/Tools/XamlStyler
 ./verify.sh
 
 if [[ $? -eq 0 ]]
 then 
-echo "XamlStyler errors :-(" 
+echo "Not every XAML follows defined policies :-(" 
 exit 1
 else 
-echo "XamlStyler is ok :-)" 
+echo "Every XAML follows defined policies :-)" 
 fi
