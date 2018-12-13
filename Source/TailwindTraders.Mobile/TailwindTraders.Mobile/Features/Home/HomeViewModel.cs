@@ -23,7 +23,7 @@ namespace TailwindTraders.Mobile.Features.Home
         }
 
         private IEnumerable<Tuple<string, string, ICommand>> recommendedProducts;
-        private IEnumerable<Tuple<ProductDTO, ICommand>> popularProducts;
+        private IEnumerable<ProductViewModel> popularProducts;
         private IEnumerable<ProductDTO> previouslySeenProducts;
 
         public HomeViewModel()
@@ -41,7 +41,7 @@ namespace TailwindTraders.Mobile.Features.Home
             set => SetAndRaisePropertyChanged(ref recommendedProducts, value);
         }
 
-        public IEnumerable<Tuple<ProductDTO, ICommand>> PopularProducts
+        public IEnumerable<ProductViewModel> PopularProducts
         {
             get => popularProducts;
             set => SetAndRaisePropertyChanged(ref popularProducts, value);
@@ -106,8 +106,8 @@ namespace TailwindTraders.Mobile.Features.Home
 
             var popularProductsRaw = homeResult.Result.PopularProducts;
             var popularProductsWithCommand = popularProductsRaw.Select(
-                item => Tuple.Create(item, FeatureNotAvailableCommand));
-            PopularProducts = new List<Tuple<ProductDTO, ICommand>>(popularProductsWithCommand);
+                item => new ProductViewModel(item, FeatureNotAvailableCommand));
+            PopularProducts = new List<ProductViewModel>(popularProductsWithCommand);
 
             var randomProducts = popularProductsRaw.Shuffle().Take(3);
             PreviouslySeenProducts = new List<ProductDTO>(randomProducts);

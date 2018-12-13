@@ -41,19 +41,6 @@
         <Setter Property="ios:VisualElement.ShadowOpacity">0.2</Setter>
       </Style>
 
-      <Style x:Key="HeaderLabelStyle"
-        BasedOn="{StaticResource Header1FontStyle}"
-        TargetType="Label">
-        <Setter Property="Margin">
-          <Thickness
-            Left="{StaticResource 2xDefaultMargin}"
-            Top="{StaticResource 3xDefaultMargin}"
-            Right="{StaticResource 2xDefaultMargin}"
-            Bottom="{StaticResource 2xDefaultMargin}" />
-        </Setter>
-        <Setter Property="HorizontalOptions" Value="Center" />
-      </Style>
-
     </ResourceDictionary>
   </ContentPage.Resources>
 

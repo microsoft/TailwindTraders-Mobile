@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace TailwindTraders.Mobile.Features.Product.Category
+namespace TailwindTraders.Mobile.Features.Product
 {
     public class ProductViewModel
     {

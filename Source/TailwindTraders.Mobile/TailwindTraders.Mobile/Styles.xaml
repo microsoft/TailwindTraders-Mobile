@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ResourceDictionary
   x:Class="TailwindTraders.Mobile.Styles"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-  xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
+  xmlns:product="clr-namespace:TailwindTraders.Mobile.Features.Product"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile">
   <ResourceDictionary.MergedDictionaries>
@@ -12,7 +12,25 @@
     <local:Sizes />
   </ResourceDictionary.MergedDictionaries>
 
-  <home:PopularItemTemplate x:Key="PopularItemTemplate" />
+  <!--
+    Dear Developer,
+    
+    Here you'll find every named style which can be consumed from +1 places.
+    
+    Within each group we're trying to sort them alphabetically by their target type, in order to help find them later.
+    Please, help us by following this small guideline.
+    
+    Thanks,
+    
+    —A Developer
+  -->
+
+  <product:PopularItemTemplate x:Key="PopularItemTemplate" />
+
+  <Style x:Key="ShadowfullBoxViewStyle"
+    TargetType="BoxView">
+    <Setter Property="BackgroundColor">White</Setter>
+  </Style>
 
   <Style x:Key="DefaultButtonStyle"
     TargetType="Button">
@@ -54,9 +72,17 @@
     <Setter Property="ios:VisualElement.ShadowOpacity">0.2</Setter>
   </Style>
 
-  <Style x:Key="ShadowfullBoxViewStyle"
-    TargetType="BoxView">
-    <Setter Property="BackgroundColor">White</Setter>
+  <Style x:Key="HeaderLabelStyle"
+    BasedOn="{StaticResource Header1FontStyle}"
+    TargetType="Label">
+    <Setter Property="Margin">
+      <Thickness
+        Left="{StaticResource 2xDefaultMargin}"
+        Top="{StaticResource 3xDefaultMargin}"
+        Right="{StaticResource 2xDefaultMargin}"
+        Bottom="{StaticResource 2xDefaultMargin}" />
+    </Setter>
+    <Setter Property="HorizontalOptions" Value="Center" />
   </Style>
 
 </ResourceDictionary>
