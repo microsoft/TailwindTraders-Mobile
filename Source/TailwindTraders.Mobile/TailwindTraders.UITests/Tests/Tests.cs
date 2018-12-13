@@ -26,5 +26,11 @@ namespace TailwindTraders.UITests
             new ApplianceDetailPage()
                 .AddToCart();
         }
+
+        [Test]
+        public void Repl()
+        {
+            app.Repl();
+        }
     }
 }
