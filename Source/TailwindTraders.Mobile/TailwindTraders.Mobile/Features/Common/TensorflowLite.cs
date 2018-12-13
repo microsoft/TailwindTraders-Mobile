@@ -21,6 +21,7 @@ namespace TailwindTraders.Mobile.Features.Common
         private static string[] labels = null;
         private static FlatBufferModel model;
         private static IPlatformService platformService;
+        private static bool useNumThreads;
 
         public static void DoNotStripMe()
         {
@@ -34,6 +35,8 @@ namespace TailwindTraders.Mobile.Features.Common
             }
 
             platformService = DependencyService.Get<IPlatformService>();
+
+            useNumThreads = Device.RuntimePlatform == Device.Android;
 
             var labelContent = platformService.GetContent(LabelFilename);
             labels = labelContent.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
@@ -58,7 +61,10 @@ namespace TailwindTraders.Mobile.Features.Common
             var watchInterpreter = Stopwatch.StartNew();
 
             var interpreter = new Interpreter(model, new BuildinOpResolver());
-            interpreter.SetNumThreads(NumThreads);
+            if (useNumThreads)
+            {
+                interpreter.SetNumThreads(NumThreads);
+            }
 
             var allocateTensorStatus = interpreter.AllocateTensors();
             if (allocateTensorStatus == Status.Error)
