@@ -5,8 +5,8 @@ using CarouselView.FormsPlugin.Android;
 using Plugin.CurrentActivity;
 using Plugin.XSnack;
 using Sharpnado.Presentation.Forms.Droid;
-using TailwindTraders.Mobile.Droid.Features.Common;
-using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Droid.Features.Scanning.Photo;
+using TailwindTraders.Mobile.Features.Scanning.Photo;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Droid

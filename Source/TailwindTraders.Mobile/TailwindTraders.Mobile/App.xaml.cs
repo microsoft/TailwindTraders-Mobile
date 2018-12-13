@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Settings;
 using TailwindTraders.Mobile.Features.Shell;

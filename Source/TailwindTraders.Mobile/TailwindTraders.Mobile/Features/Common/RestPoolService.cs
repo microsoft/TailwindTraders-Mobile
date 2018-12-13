@@ -3,6 +3,7 @@ using Refit;
 using TailwindTraders.Mobile.Features.Home;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
+using TailwindTraders.Mobile.Helpers;
 
 namespace TailwindTraders.Mobile.Features.Common
 {

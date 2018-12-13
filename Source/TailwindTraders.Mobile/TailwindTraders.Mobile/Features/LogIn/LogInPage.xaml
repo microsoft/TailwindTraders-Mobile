@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<common:BaseContentPage
+<mvvm:BaseContentPage
   x:Class="TailwindTraders.Mobile.Features.LogIn.LogInPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-  xmlns:common="clr-namespace:TailwindTraders.Mobile.Features.Common"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.LogIn"
+  xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
   x:DataType="local:LoginViewModel"
   x:TypeArguments="local:LoginViewModel"
   ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
@@ -114,4 +114,4 @@
     </Grid>
 
   </ContentPage.Content>
-</common:BaseContentPage>
+</mvvm:BaseContentPage>

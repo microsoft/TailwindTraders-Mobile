@@ -69,12 +69,10 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Features\Common\PlatformService.cs" />
     <Compile Include="Features\Scanning\Photo\GalleryService.cs" />
     <Compile Include="ThirdParties\Camera\CameraManager.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Renderers\CameraPreviewRenderer.cs" />
     <Compile Include="ThirdParties\Touch\TouchEffect.cs" />
     <Compile Include="ThirdParties\Touch\TouchRecognizer.cs" />
     <None Include="Entitlements.plist" />
@@ -82,6 +80,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Features\LogIn\BorderlessEntryEffect.cs" />
     <Compile Include="Features\Home\MultilineButtonEffect.cs" />
+    <Compile Include="Features\Scanning\Photo\PlatformService.cs" />
+    <Compile Include="Features\Scanning\CameraPreviewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

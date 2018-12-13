@@ -1,9 +1,9 @@
-using System.Windows.Input;
-using TailwindTraders.Mobile.Features.Common;
+﻿using System.Windows.Input;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product.Category;
 using TailwindTraders.Mobile.Features.Scanning.AR;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
+using TailwindTraders.Mobile.Framework;
 
 namespace TailwindTraders.Mobile.Features.Shell
 {

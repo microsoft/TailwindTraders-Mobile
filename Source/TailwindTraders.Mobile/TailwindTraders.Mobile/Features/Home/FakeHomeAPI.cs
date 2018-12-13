@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Refit;
-using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Product;
+using TailwindTraders.Mobile.Helpers;
 
 namespace TailwindTraders.Mobile.Features.Home
 {

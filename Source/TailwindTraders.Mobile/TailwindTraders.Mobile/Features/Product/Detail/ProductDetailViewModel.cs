@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Product.Detail
@@ -16,7 +18,7 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
         private string name;
         private string price;
         private IEnumerable<FeatureDTO> features;
-        private IEnumerable<ProductDTO> similarProducts;
+        private IEnumerable<ProductViewModel> similarProducts;
 
         public string Title
         {
@@ -54,7 +56,7 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
             set => SetAndRaisePropertyChanged(ref features, value);
         }
 
-        public IEnumerable<ProductDTO> SimilarProducts
+        public IEnumerable<ProductViewModel> SimilarProducts
         {
             get => similarProducts;
             set => SetAndRaisePropertyChanged(ref similarProducts, value);
@@ -103,7 +105,8 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
                 if (similarResponse.IsSucceded && similarResponse.Result != null)
                 {
-                    SimilarProducts = similarResponse.Result.Products;
+                    SimilarProducts = similarResponse.Result.Products
+                        .Select(item => new ProductViewModel(item, FeatureNotAvailableCommand));
                 }
             }
         }
