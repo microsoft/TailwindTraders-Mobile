@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Refit;
-using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Home;
 using TailwindTraders.Mobile.Features.Settings;
+using TailwindTraders.Mobile.Helpers;
 
 namespace UnitTests.Features.Home
 {

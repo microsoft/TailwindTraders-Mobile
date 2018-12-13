@@ -1,11 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using CoreGraphics;
-using Foundation;
 using TailwindTraders.Mobile.Features.Scanning;
-using TailwindTraders.Mobile.IOS.Renderers;
+using TailwindTraders.Mobile.IOS.Features.Scanning;
 using TailwindTraders.Mobile.IOS.ThirdParties.Camera;
 using UIKit;
 using Xamarin.Essentials;
@@ -13,7 +10,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(CameraPreview), typeof(CameraPreviewRenderer))]
-namespace TailwindTraders.Mobile.IOS.Renderers
+namespace TailwindTraders.Mobile.IOS.Features.Scanning
 {
     public class CameraPreviewRenderer : ViewRenderer<CameraPreview, UIView>
     {

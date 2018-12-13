@@ -14,7 +14,7 @@ using Java.Lang;
 using Java.Util;
 using Java.Util.Concurrent;
 using Plugin.CurrentActivity;
-using TailwindTraders.Mobile.Droid.Renderers;
+using TailwindTraders.Mobile.Droid.Features.Scanning;
 using TailwindTraders.Mobile.Droid.ThirdParties.Camera;
 using TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners;
 using TailwindTraders.Mobile.Features.Scanning;
@@ -27,7 +27,7 @@ using Point = Android.Graphics.Point;
 using Size = Android.Util.Size;
 
 [assembly: ExportRenderer(typeof(CameraPreview), typeof(CameraPreviewRenderer))]
-namespace TailwindTraders.Mobile.Droid.Renderers
+namespace TailwindTraders.Mobile.Droid.Features.Scanning
 {
     public class CameraPreviewRenderer : ViewRenderer<CameraPreview, AutoFitTextureView>, ICamera
     {

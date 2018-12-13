@@ -1,10 +1,11 @@
 ﻿using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
-using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Features.Logging;
+using TailwindTraders.Mobile.Features.Scanning.Photo;
 using UIKit;
 
-namespace TailwindTraders.Mobile.IOS.Features.Common
+namespace TailwindTraders.Mobile.IOS.Features.Scanning.Photo
 {
     public class PlatformService : IPlatformService
     {

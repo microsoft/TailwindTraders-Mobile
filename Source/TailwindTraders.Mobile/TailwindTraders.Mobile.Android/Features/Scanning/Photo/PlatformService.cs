@@ -1,13 +1,14 @@
-﻿using Android.Graphics;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using Android.Graphics;
 using Android.Media;
 using Android.Views;
 using Plugin.CurrentActivity;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Features.Logging;
+using TailwindTraders.Mobile.Features.Scanning.Photo;
 
-namespace TailwindTraders.Mobile.Droid.Features.Common
+namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
 {
     public class PlatformService : IPlatformService
     {

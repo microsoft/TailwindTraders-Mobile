@@ -91,7 +91,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Features\Common\PlatformService.cs" />
     <Compile Include="Features\Scanning\Photo\GalleryService.cs" />
     <Compile Include="ThirdParties\Camera\AutoFitTextureView.cs" />
     <Compile Include="ThirdParties\Camera\CameraState.cs" />
@@ -104,11 +103,12 @@
     <Compile Include="ThirdParties\Camera\Listeners\ImageAvailableListener.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
-    <Compile Include="Renderers\CameraPreviewRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashActivity.cs" />
     <Compile Include="ThirdParties\Touch\TouchEffect.cs" />
+    <Compile Include="Features\Scanning\Photo\PlatformService.cs" />
+    <Compile Include="Features\Scanning\CameraPreviewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

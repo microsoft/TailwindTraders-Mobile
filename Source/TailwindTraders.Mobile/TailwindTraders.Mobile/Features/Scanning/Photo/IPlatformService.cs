@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace TailwindTraders.Mobile.Features.Common
+namespace TailwindTraders.Mobile.Features.Scanning.Photo
 {
     public interface IPlatformService
     {
