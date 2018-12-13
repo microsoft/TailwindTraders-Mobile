@@ -31,8 +31,9 @@ echo "All tests passed :-)"
 fi
 
 echo "Running XamlStyler verify"
-cd $APPCENTER_SOURCE_DIRECTORY/Tools/XamlStyler
-./verify.sh
+pushd $APPCENTER_SOURCE_DIRECTORY/Source/TailwindTraders.Mobile/
+
+mono ../Tools/XamlStyler/XamlStyler.Console/xstyler.exe -c ./CodeAnalysis/XamlStylerSettings.json -d . -r true -v
 
 if [[ $? -eq 0 ]]
 then 
@@ -41,3 +42,5 @@ exit 1
 else 
 echo "XamlStyler is ok :-)" 
 fi
+
+popd
