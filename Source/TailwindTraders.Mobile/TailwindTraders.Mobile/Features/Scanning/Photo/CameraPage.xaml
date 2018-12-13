@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <mvvm:BaseContentPage x:Name="cameraPage"
   x:Class="TailwindTraders.Mobile.Features.Scanning.Photo.CameraPage"
   xmlns="http://xamarin.com/schemas/2014/forms"

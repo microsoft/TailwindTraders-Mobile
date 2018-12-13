@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <mvvm:BaseContentPage
   x:Class="TailwindTraders.Mobile.Features.Product.Detail.ProductDetailPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+  xmlns:controls="clr-namespace:TailwindTraders.Mobile.Controls"
   xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Detail"
@@ -145,10 +146,7 @@
             Style="{StaticResource HeaderLabelStyle}"
             Text="SIMILAR PRODUCTS" />
 
-          <home:FixedRatioCarouselViewControl
-            InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
-            ItemTemplate="{StaticResource PopularItemTemplate}"
-            ItemsSource="{Binding SimilarProducts}">
+          <ContentView>
 
             <View.Margin>
               <Thickness
@@ -156,7 +154,12 @@
                 Right="{StaticResource NegativeDefaultMargin}" />
             </View.Margin>
 
-          </home:FixedRatioCarouselViewControl>
+            <controls:FixedRatioCarouselViewControl
+              InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
+              ItemTemplate="{StaticResource PopularItemTemplate}"
+              ItemsSource="{Binding SimilarProducts}" />
+
+          </ContentView>
 
         </StackLayout>
 

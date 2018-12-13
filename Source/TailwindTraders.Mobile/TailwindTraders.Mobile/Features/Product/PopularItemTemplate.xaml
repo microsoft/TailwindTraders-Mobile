@@ -30,7 +30,8 @@
     <StackLayout
       AbsoluteLayout.LayoutFlags="All"
       AbsoluteLayout.LayoutBounds="0,0,1,1"
-      android:VisualElement.Elevation="{StaticResource DefaultElevation}">
+      android:VisualElement.Elevation="{StaticResource DefaultElevation}"
+      Spacing="{StaticResource 0.5xDefaultMargin}">
 
       <StackLayout.Padding>
         <Thickness

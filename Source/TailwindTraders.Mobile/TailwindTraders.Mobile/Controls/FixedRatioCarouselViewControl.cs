@@ -1,7 +1,7 @@
 ﻿using CarouselView.FormsPlugin.Abstractions;
 using Xamarin.Forms;
 
-namespace TailwindTraders.Mobile.Features.Home
+namespace TailwindTraders.Mobile.Controls
 {
     public class FixedRatioCarouselViewControl : CarouselViewControl
     {

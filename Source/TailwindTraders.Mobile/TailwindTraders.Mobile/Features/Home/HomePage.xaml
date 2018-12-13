@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <mvvm:BaseStateAwareContentPage x:Name="homePage"
   x:Class="TailwindTraders.Mobile.Features.Home.HomePage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+  xmlns:controls="clr-namespace:TailwindTraders.Mobile.Controls"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Home"
   xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
@@ -157,7 +158,7 @@
               Style="{StaticResource HeaderLabelStyle}"
               Text="POPULAR PRODUCTS" />
 
-            <local:FixedRatioCarouselViewControl
+            <controls:FixedRatioCarouselViewControl
               InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
               ItemTemplate="{StaticResource PopularItemTemplate}"
               ItemsSource="{Binding PopularProducts}" />
