@@ -58,6 +58,7 @@ namespace TailwindTraders.Mobile.IOS
             CarouselView.FormsPlugin.iOS.CarouselViewRenderer.Init();
             SharpnadoInitializer.Initialize();
             TouchRecognizer.Initialize();
+            TensorflowLite.DoNotStripMe();
         }
 
         private void RegisterServices()

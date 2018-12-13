@@ -35,12 +35,10 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 await App.NavigateBackAsync();
                 return;
             }
-            else
-            {
-                MessagingCenter.Send(this, AddCameraControlMessage);
-            }
 
-            TensorflowLite.Init();
+            MessagingCenter.Send(this, AddCameraControlMessage);
+
+            TensorflowLite.Initialize();
 
             await AddFakeBoundingBoxesAsync();
         }

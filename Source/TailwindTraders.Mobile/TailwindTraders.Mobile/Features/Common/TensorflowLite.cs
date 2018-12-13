@@ -22,7 +22,11 @@ namespace TailwindTraders.Mobile.Features.Common
         private static FlatBufferModel model;
         private static IPlatformService platformService;
 
-        public static void Init()
+        public static void DoNotStripMe()
+        {
+        }
+
+        public static void Initialize()
         {
             if (initialized)
             {
