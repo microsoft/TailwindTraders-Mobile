@@ -22,6 +22,7 @@ namespace TailwindTraders.Mobile.IOS
             RegisterServices();
 
             Distribute.DontCheckForUpdatesInDebug();
+            Xamarin.Calabash.Start();
 
             LoadApplication(new App());
 
