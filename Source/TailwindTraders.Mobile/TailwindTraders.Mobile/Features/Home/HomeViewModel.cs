@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +8,7 @@ using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
 using TailwindTraders.Mobile.Features.Scanning.AR;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
+using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Home

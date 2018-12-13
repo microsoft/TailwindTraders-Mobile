@@ -2,18 +2,24 @@
 using System.Globalization;
 using Xamarin.Forms;
 
-namespace TailwindTraders.Mobile.Features.Common
+namespace TailwindTraders.Mobile.TheConverters
 {
-    public class IsNotNullConverter : IValueConverter
+    public class NotConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
+            bool result;
+
+            if (value is bool input)
             {
-                return false;
+                result = !input;
+            }
+            else
+            {
+                result = false;
             }
 
-            return true;
+            return result;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

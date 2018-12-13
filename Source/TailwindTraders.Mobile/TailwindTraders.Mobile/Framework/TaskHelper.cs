@@ -2,9 +2,10 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Localization;
+using TailwindTraders.Mobile.Features.Logging;
 using Xamarin.Forms;
 
-namespace TailwindTraders.Mobile.Features.Common
+namespace TailwindTraders.Mobile.Framework
 {
     public class TaskHelper
     {

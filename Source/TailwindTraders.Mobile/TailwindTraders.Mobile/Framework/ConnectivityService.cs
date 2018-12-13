@@ -1,10 +1,10 @@
-﻿using TailwindTraders.Mobile.Features.Common;
+﻿using TailwindTraders.Mobile.Framework;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(ConnectivityService))]
 
-namespace TailwindTraders.Mobile.Features.Common
+namespace TailwindTraders.Mobile.Framework
 {
     internal class ConnectivityService : IConnectivityService
     {

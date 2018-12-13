@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Plugin.XSnack;
 using TailwindTraders.Mobile.Features.Localization;
+using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.LogIn;
 using Xamarin.Forms;
 
-namespace TailwindTraders.Mobile.Features.Common
+namespace TailwindTraders.Mobile.Framework
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {

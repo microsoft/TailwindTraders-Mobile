@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TailwindTraders.Mobile.Features.Common
+namespace TailwindTraders.Mobile.Features.Logging
 {
     public interface ILoggingService
     {

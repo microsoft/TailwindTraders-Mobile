@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Helpers;
 
 namespace TailwindTraders.Mobile.Features.Product
 {

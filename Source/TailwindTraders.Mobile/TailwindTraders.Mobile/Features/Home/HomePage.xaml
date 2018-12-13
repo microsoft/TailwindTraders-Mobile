@@ -1,13 +1,14 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<common:BaseStateAwareContentPage x:Name="homePage"
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvvm:BaseStateAwareContentPage x:Name="homePage"
   x:Class="TailwindTraders.Mobile.Features.Home.HomePage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
-  xmlns:common="clr-namespace:TailwindTraders.Mobile.Features.Common"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Home"
+  xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
+  xmlns:xfbindablestacklayout="clr-namespace:XFBindableStackLayout"
   Title="Home"
   ios:Page.UseSafeArea="true"
   x:DataType="local:HomeViewModel"
@@ -175,14 +176,14 @@
 
             </Label>
 
-            <common:BindableStackLayout
+            <xfbindablestacklayout:BindableStackLayout
               ItemTemplate="{StaticResource PreviouslySeenItemTemplate}"
               ItemsSource="{Binding PreviouslySeenProducts}"
               Spacing="{StaticResource DefaultMargin}">
-              <common:BindableStackLayout.Margin>
+              <View.Margin>
                 <Thickness Bottom="{StaticResource 4xDefaultMargin}" />
-              </common:BindableStackLayout.Margin>
-            </common:BindableStackLayout>
+              </View.Margin>
+            </xfbindablestacklayout:BindableStackLayout>
 
             <VisualStateManager.VisualStateGroups>
               <VisualStateGroup Name="States">
@@ -224,4 +225,4 @@
 
   </ContentPage.Content>
 
-</common:BaseStateAwareContentPage>
+</mvvm:BaseStateAwareContentPage>

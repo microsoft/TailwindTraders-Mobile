@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ResourceDictionary
   x:Class="TailwindTraders.Mobile.Styles"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-  xmlns:product="clr-namespace:TailwindTraders.Mobile.Features.Product"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-  xmlns:local="clr-namespace:TailwindTraders.Mobile">
+  xmlns:local="clr-namespace:TailwindTraders.Mobile"
+  xmlns:product="clr-namespace:TailwindTraders.Mobile.Features.Product">
   <ResourceDictionary.MergedDictionaries>
     <local:FontStyles />
     <local:Sizes />
@@ -27,6 +27,10 @@
 
   <product:PopularItemTemplate x:Key="PopularItemTemplate" />
 
+  <!--
+    Appart from the style it-self, it's used because still don't know why makes the shadows render. Probably it's to do
+    with how view properties and styles are applied which acts as a trigger for the shadows.
+  -->
   <Style x:Key="ShadowfullBoxViewStyle"
     TargetType="BoxView">
     <Setter Property="BackgroundColor">White</Setter>

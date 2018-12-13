@@ -1,4 +1,4 @@
-﻿namespace TailwindTraders.Mobile.Features.Common
+﻿namespace TailwindTraders.Mobile.Framework
 {
     public struct WrapResult<T>
     {

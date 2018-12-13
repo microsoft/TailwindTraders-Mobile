@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace TailwindTraders.Mobile.Features.Common
+namespace TailwindTraders.Mobile.Framework
 {
     public abstract class BaseContentPage<T> : ContentPage
         where T : BaseViewModel

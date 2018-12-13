@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using Xamarin.Forms;
 
-namespace TailwindTraders.Mobile.Features.Common
+namespace TailwindTraders.Mobile.Framework
 {
     public abstract class BaseStateAwareContentPage<TViewModel, TEnum> : BaseContentPage<TViewModel>
         where TViewModel : BaseStateAwareViewModel<TEnum>

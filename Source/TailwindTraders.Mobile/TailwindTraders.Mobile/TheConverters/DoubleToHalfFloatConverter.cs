@@ -2,24 +2,23 @@
 using System.Globalization;
 using Xamarin.Forms;
 
-namespace TailwindTraders.Mobile.Features.Common
+namespace TailwindTraders.Mobile.TheConverters
 {
-    public class NotConverter : IValueConverter
+    public class DoubleToHalfFloatConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool result;
+            var @double = (double)value;
+            var result = (float)@double;
 
-            if (value is bool input)
+            if (result < 0)
             {
-                result = !input;
-            }
-            else
-            {
-                result = false;
+                return 0;
             }
 
-            return result;
+            var half = result / 2;
+
+            return half;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

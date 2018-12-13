@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Plugin.Permissions.Abstractions;
-using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Scanning.Photo

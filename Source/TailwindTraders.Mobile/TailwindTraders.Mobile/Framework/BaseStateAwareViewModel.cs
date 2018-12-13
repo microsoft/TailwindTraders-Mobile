@@ -1,4 +1,4 @@
-﻿namespace TailwindTraders.Mobile.Features.Common
+﻿namespace TailwindTraders.Mobile.Framework
 {
     public abstract class BaseStateAwareViewModel<T> : BaseViewModel
         where T : struct

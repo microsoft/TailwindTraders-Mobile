@@ -26,7 +26,7 @@
 using System.Collections;
 using Xamarin.Forms;
 
-namespace TailwindTraders.Mobile.Features.Common
+namespace XFBindableStackLayout
 {
     public class BindableStackLayout : StackLayout
     {
