@@ -19,7 +19,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
         {
             InitializeComponent();
 
-            platformService = DependencyService.Resolve<IPlatformService>();
+            platformService = DependencyService.Get<IPlatformService>();
             loggingService = DependencyService.Get<ILoggingService>();
 
             BindingContext = new CameraPreviewTakePhotoViewModel();

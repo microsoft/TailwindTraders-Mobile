@@ -404,4 +404,7 @@
       <Link>Resources\header.jpg</Link>
     </BundleResource>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pets\pets_labels_list.txt" />
+  </ItemGroup>
 </Project>

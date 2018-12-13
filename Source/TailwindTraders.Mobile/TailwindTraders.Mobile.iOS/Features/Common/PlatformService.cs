@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using CoreGraphics;
+using System;
+using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Common;
@@ -34,11 +36,66 @@ namespace TailwindTraders.Mobile.IOS.Features.Common
                     return InternalResize(filePath, photoSize, quality);
                 });
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 loggingService.Error(ex);
 
                 return Task.FromResult(false);
+            }
+        }
+
+        public string GetContent(string v)
+        {
+            return File.ReadAllText(v);
+        }
+
+        public string CopyToFilesAndGetPath(string v)
+        {
+            return v;
+        }
+
+        public void ReadImageFileToTensor(
+            string fileName,
+            bool quantized,
+            IntPtr dest,
+            int inputHeight = -1,
+            int inputWidth = -1)
+        {
+            using (var image = new UIImage(fileName))
+            {
+                using (var resized = image.Scale(new CGSize(inputWidth, inputHeight)))
+                {
+                    int[] intValues = new int[(int)(resized.Size.Width * resized.Size.Height)];
+                    var byteValues = new byte[(int)(resized.Size.Width * resized.Size.Height * 3)];
+                    System.Runtime.InteropServices.GCHandle handle = System.Runtime.InteropServices.GCHandle.Alloc(
+                        intValues, 
+                        System.Runtime.InteropServices.GCHandleType.Pinned);
+                    using (CGImage cgimage = resized.CGImage)
+                    using (CGColorSpace cspace = CGColorSpace.CreateDeviceRGB())
+                    using (CGBitmapContext context = new CGBitmapContext(
+                        handle.AddrOfPinnedObject(),
+                        (nint)resized.Size.Width,
+                        (nint)resized.Size.Height,
+                        8,
+                        (nint)resized.Size.Width * 4,
+                        cspace,
+                        CGImageAlphaInfo.PremultipliedLast))
+                    {
+                        context.DrawImage(new CGRect(new CGPoint(), resized.Size), cgimage);
+                    }
+
+                    handle.Free();
+
+                    for (int i = 0; i < intValues.Length; ++i)
+                    {
+                        int val = intValues[i];
+                        byteValues[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
+                        byteValues[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
+                        byteValues[(i * 3) + 2] = (byte)(val & 0xFF);
+                    }
+
+                    System.Runtime.InteropServices.Marshal.Copy(byteValues, 0, dest, byteValues.Length);
+                }
             }
         }
 

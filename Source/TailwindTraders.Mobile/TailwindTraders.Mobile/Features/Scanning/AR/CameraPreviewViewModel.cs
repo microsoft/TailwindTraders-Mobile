@@ -40,6 +40,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 MessagingCenter.Send(this, AddCameraControlMessage);
             }
 
+            TensorflowLite.Init();
+
             await AddFakeBoundingBoxesAsync();
         }
 
@@ -68,6 +70,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 });
 
                 await Task.Delay(TimeSpan.FromSeconds(2));
+
+                TensorflowLite.Work();
             }
         }
     }

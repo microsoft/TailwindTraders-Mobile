@@ -99,7 +99,6 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\images\beagle.jpg" />
     <AndroidAsset Include="Assets\images\cat.jpg" />
-    <AndroidAsset Include="Assets\images\monkey2_600.jpg" />
     <AndroidAsset Include="Assets\images\mouse.jpg" />
     <AndroidAsset Include="Assets\images\ragdoll.jpg" />
     <AndroidAsset Include="Assets\images\test.jpg" />
@@ -125,6 +124,7 @@
     <Compile Include="ThirdParties\Touch\TouchEffect.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\pets\detect.tflite" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -272,6 +272,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\capture.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\pets\pets_labels_list.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

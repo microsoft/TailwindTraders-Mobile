@@ -48,6 +48,10 @@
   </ItemGroup>
     
   <ItemGroup>
+    <ProjectReference Include="..\ThirdParties\Emgu.TF.Lite\Emgu.TF.Lite.csproj" />
+  </ItemGroup>
+    
+  <ItemGroup>
     <Reference Include="Sharpnado.Infrastructure">
       <HintPath>..\ThirdParties\Sharpnado.Forms.HorizontalListView\Sharpnado.Infrastructure.dll</HintPath>
     </Reference>
