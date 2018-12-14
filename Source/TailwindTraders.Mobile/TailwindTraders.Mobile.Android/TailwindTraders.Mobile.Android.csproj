@@ -91,10 +91,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidNativeLibrary Include="lib\arm64-v8a\libtfliteextern.so" />
-    <AndroidNativeLibrary Include="lib\armeabi-v7a\libtfliteextern.so" />
-    <AndroidNativeLibrary Include="lib\x86\libtfliteextern.so" />
-    <AndroidNativeLibrary Include="lib\x86_64\libtfliteextern.so" />
+    <AndroidNativeLibrary Include="Libs\EmguTF\arm64-v8a\libtfliteextern.so" />
+    <AndroidNativeLibrary Include="Libs\EmguTF\armeabi-v7a\libtfliteextern.so" />
+    <AndroidNativeLibrary Include="Libs\EmguTF\x86\libtfliteextern.so" />
+    <AndroidNativeLibrary Include="Libs\EmguTF\x86_64\libtfliteextern.so" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\images\beagle.jpg" />
@@ -274,6 +274,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\pets\pets_labels_list.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Libs\emgutf\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

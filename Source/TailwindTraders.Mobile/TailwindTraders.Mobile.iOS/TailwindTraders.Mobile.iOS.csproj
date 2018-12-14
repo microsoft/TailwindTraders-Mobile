@@ -15,7 +15,7 @@
     <MtouchHttpClientHandler>CFNetworkHandler</MtouchHttpClientHandler>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <MtouchExtraArgs>$(MtouchExtraArgs) -cxx -gcc_flags "-L${ProjectDir}/lib/ -ltfliteextern -framework Foundation -framework Accelerate -framework CoreFoundation -framework CoreGraphics -framework AssetsLibrary -framework AVFoundation -framework CoreImage -framework CoreMedia -framework CoreVideo -framework QuartzCore -framework ImageIO -force_load ${ProjectDir}/lib/libtfliteextern.a"</MtouchExtraArgs>
+    <MtouchExtraArgs>$(MtouchExtraArgs) -cxx -gcc_flags "-L${ProjectDir}Libs/EmguTF/ -ltfliteextern -framework Foundation -framework Accelerate -framework CoreFoundation -framework CoreGraphics -framework AssetsLibrary -framework AVFoundation -framework CoreImage -framework CoreMedia -framework CoreVideo -framework QuartzCore -framework ImageIO -force_load ${ProjectDir}Libs/EmguTF/libtfliteextern.a"</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -86,7 +86,7 @@
     <Compile Include="Features\Scanning\CameraPreviewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\libtfliteextern.a">
+    <None Include="Libs\EmguTF\libtfliteextern.a">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <BundleResource Include="Resources\pets\detect.tflite" />
