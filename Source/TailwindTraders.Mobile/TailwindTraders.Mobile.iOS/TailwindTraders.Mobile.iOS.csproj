@@ -77,9 +77,6 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="ThirdParties\Touch\TouchEffect.cs" />
     <Compile Include="ThirdParties\Touch\TouchRecognizer.cs" />
-    <None Include="Emgu.TF.Lite.dll.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
