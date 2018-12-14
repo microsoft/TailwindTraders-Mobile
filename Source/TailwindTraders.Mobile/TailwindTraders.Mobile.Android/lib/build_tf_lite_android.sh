@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 pushd tensorflow/tensorflow
 
@@ -10,4 +10,4 @@ bazel build -c opt \
       //tensorflow/tfliteextern:libtfliteextern.so
 popd
 
-cp tensorflow/tensorflow/bazel-bin/tensorflow/tfliteextern/*.so $1
+cp tensorflow/bazel-bin/tensorflow/tfliteextern/*.so $1
