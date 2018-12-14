@@ -3,9 +3,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Refit;
-using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Product;
 using TailwindTraders.Mobile.Features.Settings;
+using TailwindTraders.Mobile.Helpers;
 
 namespace UnitTests.Features.Product
 {

@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<common:BaseContentPage
+<mvvm:BaseContentPage
   x:Class="TailwindTraders.Mobile.Features.Product.Detail.ProductDetailPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
-  xmlns:common="clr-namespace:TailwindTraders.Mobile.Features.Common"
+  xmlns:controls="clr-namespace:TailwindTraders.Mobile.Controls"
   xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Detail"
+  xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
+  xmlns:xfbindablestacklayout="clr-namespace:XFBindableStackLayout"
   Title="{Binding Title}"
   ios:Page.UseSafeArea="true"
   x:DataType="local:ProductDetailViewModel"
@@ -19,6 +21,10 @@
 
       <local:PictureItemTemplate x:Key="PictureItemTemplate" />
       <local:FeatureItemTemplate x:Key="FeatureItemTemplate" />
+
+      <Style
+        BasedOn="{StaticResource ShadowfullBoxViewStyle}"
+        TargetType="BoxView" />
 
       <Style x:Key="StarImageStyle"
         TargetType="Image">
@@ -126,24 +132,34 @@
 
           </Button>
 
-          <common:BindableStackLayout
+          <xfbindablestacklayout:BindableStackLayout
             ItemTemplate="{StaticResource FeatureItemTemplate}"
             ItemsSource="{Binding Features}">
 
-            <common:BindableStackLayout.Margin>
+            <View.Margin>
               <Thickness Top="{StaticResource 2xDefaultMargin}" />
-            </common:BindableStackLayout.Margin>
+            </View.Margin>
 
-          </common:BindableStackLayout>
+          </xfbindablestacklayout:BindableStackLayout>
 
           <Label
             Style="{StaticResource HeaderLabelStyle}"
             Text="SIMILAR PRODUCTS" />
 
-          <home:FixedRatioCarouselViewControl
-            InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
-            ItemTemplate="{StaticResource PopularItemTemplate}"
-            ItemsSource="{Binding SimilarProducts}" />
+          <ContentView>
+
+            <View.Margin>
+              <Thickness
+                Left="{StaticResource NegativeDefaultMargin}"
+                Right="{StaticResource NegativeDefaultMargin}" />
+            </View.Margin>
+
+            <controls:FixedRatioCarouselViewControl
+              InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
+              ItemTemplate="{StaticResource PopularItemTemplate}"
+              ItemsSource="{Binding SimilarProducts}" />
+
+          </ContentView>
 
         </StackLayout>
 
@@ -153,4 +169,4 @@
 
   </ContentPage.Content>
 
-</common:BaseContentPage>
+</mvvm:BaseContentPage>

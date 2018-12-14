@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using TailwindTraders.Mobile.Features.Scanning.Photo;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Common

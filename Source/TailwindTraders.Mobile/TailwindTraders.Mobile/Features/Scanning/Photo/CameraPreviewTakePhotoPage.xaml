@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<common:BaseContentPage x:Name="cameraPage"
+<mvvm:BaseContentPage x:Name="cameraPage"
   x:Class="TailwindTraders.Mobile.Features.Scanning.Photo.CameraPreviewTakePhotoPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-  xmlns:common="clr-namespace:TailwindTraders.Mobile.Features.Common"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:photo="clr-namespace:TailwindTraders.Mobile.Features.Scanning.Photo"
   xmlns:sharpnado="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
   xmlns:sharpnado-effects="clr-namespace:Sharpnado.Presentation.Forms.Effects;assembly=Sharpnado.Presentation.Forms"
@@ -15,13 +15,13 @@
   x:TypeArguments="photo:CameraPreviewTakePhotoViewModel"
   ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
 
-  <common:BaseContentPage.Resources>
+  <ContentPage.Resources>
     <ResourceDictionary>
 
       <photo:GalleryImageTemplate x:Key="GalleryImageTemplate" />
 
     </ResourceDictionary>
-  </common:BaseContentPage.Resources>
+  </ContentPage.Resources>
 
   <ContentPage.Content>
 
@@ -93,4 +93,4 @@
 
   </ContentPage.Content>
 
-</common:BaseContentPage>
+</mvvm:BaseContentPage>

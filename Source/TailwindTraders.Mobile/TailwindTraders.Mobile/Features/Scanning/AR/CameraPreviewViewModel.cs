@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Scanning.AR
@@ -67,9 +68,13 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                     Ymax = ymax,
                 });
 
-                await Task.Delay(TimeSpan.FromSeconds(2));
+                await Task.Delay(TimeSpan.FromSeconds(0.5));
 
-                TensorflowLite.Work();
+                await Task.Run(() =>
+                {
+                    TensorflowLite.Work();
+                });
+
             }
         }
     }
