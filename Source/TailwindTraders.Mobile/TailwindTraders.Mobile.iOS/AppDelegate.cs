@@ -2,6 +2,7 @@ using Foundation;
 using Microsoft.AppCenter.Distribute;
 using Plugin.XSnack;
 using Sharpnado.Presentation.Forms.iOS;
+using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
 using TailwindTraders.Mobile.IOS.Features.Scanning;
 using TailwindTraders.Mobile.IOS.Features.Scanning.Photo;
