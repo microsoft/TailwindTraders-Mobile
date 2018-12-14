@@ -275,8 +275,5 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\pets\pets_labels_list.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Libs\emgutf\" />
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
