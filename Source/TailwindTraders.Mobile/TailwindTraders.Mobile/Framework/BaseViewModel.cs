@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using OperationResult;
 using Plugin.XSnack;
 using TailwindTraders.Mobile.Features.Localization;
 using TailwindTraders.Mobile.Features.Logging;
@@ -49,16 +50,16 @@ namespace TailwindTraders.Mobile.Framework
                 Resources.Alert_OK);
         }
 
-        protected async Task<WrapResult<object>> TryExecuteWithLoadingIndicatorsAsync(
-            Func<Task> operation,
+        protected async Task<Status> TryExecuteWithLoadingIndicatorsAsync(
+            Task operation,
             Func<Exception, Task<bool>> onError = null) =>
             await TaskHelper.Create()
                 .WhenStarting(() => IsBusy = true)
                 .WhenFinished(() => IsBusy = false)
                 .TryWithErrorHandlingAsync(operation, onError);
 
-        protected async Task<WrapResult<T>> TryExecuteWithLoadingIndicatorsAsync<T>(
-            Func<Task<T>> operation,
+        protected async Task<Result<T>> TryExecuteWithLoadingIndicatorsAsync<T>(
+            Task<T> operation,
             Func<Exception, Task<bool>> onError = null) =>
             await TaskHelper.Create()
                 .WhenStarting(() => IsBusy = true)

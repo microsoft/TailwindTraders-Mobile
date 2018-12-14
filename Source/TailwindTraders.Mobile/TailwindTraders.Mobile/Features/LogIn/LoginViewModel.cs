@@ -61,10 +61,9 @@ namespace TailwindTraders.Mobile.Features.LogIn
                 return;
             }
 
-            var result = await TryExecuteWithLoadingIndicatorsAsync(
-                () => AuthenticationService.LogInAsync(email, password));
+            var result = await TryExecuteWithLoadingIndicatorsAsync(AuthenticationService.LogInAsync(email, password));
 
-            if (result.IsSucceded)
+            if (result)
             {
                 await App.NavigateModallyBackAsync();
             }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TailwindTraders.Mobile.Features.Common;
+using OperationResult;
 using TailwindTraders.Mobile.Features.Logging;
-using TailwindTraders.Mobile.Framework;
 using TouchTracking;
 using Xamarin.Forms;
+using static OperationResult.Helpers;
 
 namespace TailwindTraders.Mobile.Features.Scanning.Photo
 {
@@ -43,9 +43,9 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
                 async (sender) =>
                 {
                     var result = await TryCapturePictureAsync();
-                    if (result.IsSucceded)
+                    if (result)
                     {
-                        ViewModel.PhotoTakenCommand.Execute(result.Result);
+                        ViewModel.PhotoTakenCommand.Execute(result.Value);
                     }
                 });
 
@@ -79,13 +79,13 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
             base.OnDisappearing();
         }
 
-        private async Task<WrapResult<string>> TryCapturePictureAsync()
+        private async Task<Result<string>> TryCapturePictureAsync()
         {
             ViewModel.IsBusy = true;
             try
             {
                 var mediaPath = await cameraPreview.TakePicture();
-                return new WrapResult<string>(mediaPath, true);
+                return Ok(mediaPath);
             }
             catch (OperationCanceledException ex)
             {
@@ -96,7 +96,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
                 ViewModel.IsBusy = false;
             }
 
-            return WrapResult<string>.Failed;
+            return Error();
         }
 
         private void AddCameraControl()

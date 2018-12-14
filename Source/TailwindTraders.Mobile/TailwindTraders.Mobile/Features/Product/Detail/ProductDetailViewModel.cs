@@ -79,15 +79,15 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
         private async Task LoadDataAsync(int product)
         {
             var detailResponse = await TryExecuteWithLoadingIndicatorsAsync(
-                () => productsAPI.GetDetailAsync(AuthenticationService.AuthorizationHeader, product.ToString()));
+                productsAPI.GetDetailAsync(AuthenticationService.AuthorizationHeader, product.ToString()));
 
-            if (!detailResponse.IsSucceded || detailResponse.Result == null)
+            if (detailResponse.IsError || detailResponse.Value == null)
             {
                 await App.NavigateBackAsync();
                 return;
             }
 
-            var result = detailResponse.Result;
+            var result = detailResponse.Value;
             var brandName = result.Brand.Name;
             var productName = result.Name;
             Title = $"{brandName}. {productName}";
@@ -101,11 +101,11 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
             {
                 var type = result.Type.Id.ToString();
                 var similarResponse = await TryExecuteWithLoadingIndicatorsAsync(
-                    () => productsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
+                    productsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
 
-                if (similarResponse.IsSucceded && similarResponse.Result != null)
+                if (similarResponse && similarResponse.Value != null)
                 {
-                    SimilarProducts = similarResponse.Result.Products
+                    SimilarProducts = similarResponse.Value.Products
                         .Select(item => new ProductViewModel(item, FeatureNotAvailableCommand));
                 }
             }

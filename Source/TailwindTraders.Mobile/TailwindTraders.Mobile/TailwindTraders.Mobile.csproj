@@ -28,6 +28,7 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.11.0" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.11.0" />
     <PackageReference Include="Microsoft.AppCenter.Distribute" Version="1.11.0" />
+    <PackageReference Include="CSharp.OperationResult" Version="0.1.5" />
   </ItemGroup>
   
   <ItemGroup>
