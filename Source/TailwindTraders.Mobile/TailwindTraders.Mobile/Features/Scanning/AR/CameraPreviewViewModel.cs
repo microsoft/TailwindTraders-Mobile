@@ -74,7 +74,6 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 {
                     TensorflowLite.Work();
                 });
-
             }
         }
     }
