@@ -39,8 +39,6 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
             MessagingCenter.Send(this, AddCameraControlMessage);
 
-            TensorflowLite.Initialize();
-
             await AddFakeBoundingBoxesAsync();
         }
 
@@ -72,7 +70,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
                 await Task.Run(() =>
                 {
-                    TensorflowLite.Work();
+                    TensorflowLite.Recognize();
                 });
             }
         }

@@ -27,7 +27,23 @@ namespace TailwindTraders.Mobile.Features.Common
         {
         }
 
-        public static void Initialize()
+        public static void Recognize()
+        {
+            Initialize();
+
+            var imagePath = platformService.CopyToFilesAndGetPath(ImageFilename);
+            Console.WriteLine($"Using image: {imagePath}");
+
+            using (var op = new BuildinOpResolver())
+            {
+                using (var interpreter = new Interpreter(model, op))
+                {
+                    InvokeInterpreter(imagePath, interpreter);
+                }
+            }
+        }
+
+        private static void Initialize()
         {
             if (initialized)
             {
@@ -50,20 +66,6 @@ namespace TailwindTraders.Mobile.Features.Common
             }
 
             initialized = true;
-        }
-
-        public static void Work()
-        {
-            var imagePath = platformService.CopyToFilesAndGetPath(ImageFilename);
-            Console.WriteLine($"Using image: {imagePath}");
-
-            using (var op = new BuildinOpResolver())
-            {
-                using (var interpreter = new Interpreter(model, op))
-                {
-                    InvokeInterpreter(imagePath, interpreter);
-                }
-            }
         }
 
         private static void InvokeInterpreter(string imagePath, Interpreter interpreter)
