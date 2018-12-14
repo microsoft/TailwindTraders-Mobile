@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 pushd tensorflow/tensorflow/contrib/lite/tools/make
 ./download_dependencies.sh
