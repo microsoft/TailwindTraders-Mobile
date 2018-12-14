@@ -25,7 +25,7 @@ namespace Emgu.TF.Lite
         /// <param name="filename">The name of the file where the FlatBufferModel will be loaded from.</param>
         public FlatBufferModel(string filename)
         {
-            ptr = TfLiteInvoke.tfeFlatBufferModelBuildFromFile(filename);
+            ptr = TfLiteInvoke.TfeFlatBufferModelBuildFromFile(filename);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Emgu.TF.Lite
             handle = GCHandle.Alloc(this.buffer, GCHandleType.Pinned);
             try
             {
-                ptr = TfLiteInvoke.tfeFlatBufferModelBuildFromBuffer(handle.AddrOfPinnedObject(), buffer.Length);
+                ptr = TfLiteInvoke.TfeFlatBufferModelBuildFromBuffer(handle.AddrOfPinnedObject(), buffer.Length);
             }
             catch
             {
@@ -56,7 +56,7 @@ namespace Emgu.TF.Lite
         {
             get
             {
-                return TfLiteInvoke.tfeFlatBufferModelInitialized(ptr);
+                return TfLiteInvoke.TfeFlatBufferModelInitialized(ptr);
             }
         }
 
@@ -66,7 +66,7 @@ namespace Emgu.TF.Lite
         /// </summary> 
         public bool CheckModelIdentifier()
         {
-            return TfLiteInvoke.tfeFlatBufferModelCheckModelIdentifier(ptr);
+            return TfLiteInvoke.TfeFlatBufferModelCheckModelIdentifier(ptr);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Emgu.TF.Lite
         {
             if (ptr != IntPtr.Zero)
             {
-                TfLiteInvoke.tfeFlatBufferModelRelease(ref ptr);
+                TfLiteInvoke.TfeFlatBufferModelRelease(ref ptr);
             }
 
             if (buffer != null)
@@ -85,27 +85,5 @@ namespace Emgu.TF.Lite
                 buffer = null;
             }
         }
-    }
-
-    public static partial class TfLiteInvoke
-    {
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern IntPtr tfeFlatBufferModelBuildFromFile(
-            [MarshalAs(StringMarshalType)]
-            string filename);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern IntPtr tfeFlatBufferModelBuildFromBuffer(IntPtr buffer, int bufferSize);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern void tfeFlatBufferModelRelease(ref IntPtr model);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        [return: MarshalAs(BoolMarshalType)]
-        internal static extern bool tfeFlatBufferModelInitialized(IntPtr model);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        [return: MarshalAs(BoolMarshalType)]
-        internal static extern bool tfeFlatBufferModelCheckModelIdentifier(IntPtr model);
     }
 }

@@ -37,7 +37,7 @@ namespace Emgu.TF.Lite
         {
             get
             {
-                return TfLiteInvoke.tfeTensorGetType(ptr);
+                return TfLiteInvoke.TfeTensorGetType(ptr);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Emgu.TF.Lite
         {
             get
             {
-                return TfLiteInvoke.tfeTensorGetData(ptr);
+                return TfLiteInvoke.TfeTensorGetData(ptr);
             }
         }
 
@@ -60,7 +60,7 @@ namespace Emgu.TF.Lite
             get
             {
                 QuantizationParams p = new QuantizationParams();
-                TfLiteInvoke.tfeTensorGetQuantizationParams(ptr, ref p);
+                TfLiteInvoke.TfeTensorGetQuantizationParams(ptr, ref p);
                 return p;
             }
         }
@@ -76,7 +76,7 @@ namespace Emgu.TF.Lite
         {
             get
             {
-                return TfLiteInvoke.tfeTensorGetAllocationType(ptr);
+                return TfLiteInvoke.TfeTensorGetAllocationType(ptr);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Emgu.TF.Lite
         {
             get
             {
-                return TfLiteInvoke.tfeTensorGetByteSize(ptr);
+                return TfLiteInvoke.TfeTensorGetByteSize(ptr);
             }
         }
 
@@ -101,7 +101,7 @@ namespace Emgu.TF.Lite
         {
             get
             {
-                return Marshal.PtrToStringAnsi(TfLiteInvoke.tfeTensorGetName(ptr));
+                return Marshal.PtrToStringAnsi(TfLiteInvoke.TfeTensorGetName(ptr));
             }
         }
 
@@ -112,7 +112,7 @@ namespace Emgu.TF.Lite
         public Array GetData()
         {
             DataType type = this.Type;
-            Type t = TfLiteInvoke.GetNativeType(type);
+            Type t = GetNativeType(type);
             if (t == null)
             {
                 return null;
@@ -125,9 +125,28 @@ namespace Emgu.TF.Lite
             array = Array.CreateInstance(t, len);
 
             GCHandle handle = GCHandle.Alloc(array, GCHandleType.Pinned);
-            TfLiteInvoke.tfeMemcpy(handle.AddrOfPinnedObject(), DataPointer, byteSize);
+            TfLiteInvoke.TfeMemcpy(handle.AddrOfPinnedObject(), DataPointer, byteSize);
             handle.Free();
             return array;
+        }
+
+        private Type GetNativeType(DataType dataType)
+        {
+            switch (dataType)
+            {
+                case DataType.Float32:
+                    return typeof(float);
+                case DataType.Int32:
+                    return typeof(int);
+                case DataType.UInt8:
+                    return typeof(byte);
+                case DataType.Int64:
+                    return typeof(long);
+                case DataType.String:
+                    return typeof(byte);
+                default:
+                    return null;
+            }
         }
 
         /// <summary>
@@ -229,50 +248,5 @@ namespace Emgu.TF.Lite
         /// Tensors that are allocated during evaluation
         /// </summary>
         Dynamic,
-    }
-
-    public static partial class TfLiteInvoke
-    {
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern DataType tfeTensorGetType(IntPtr tensor);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern IntPtr tfeTensorGetData(IntPtr tensor);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern void tfeTensorGetQuantizationParams(IntPtr tensor, ref QuantizationParams p);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern AllocationType tfeTensorGetAllocationType(IntPtr tensor);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern int tfeTensorGetByteSize(IntPtr tensor);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern IntPtr tfeTensorGetName(IntPtr tensor);
-
-        /// <summary>
-        /// Get the equivalent native type from Tensorflow DataType
-        /// </summary>
-        /// <param name="dataType">The tensorflow DataType</param>
-        /// <returns>The equivalent native type</returns>
-        public static Type GetNativeType(DataType dataType)
-        {
-            switch (dataType)
-            {
-                case DataType.Float32:
-                    return typeof(float);
-                case DataType.Int32:
-                    return typeof(int);
-                case DataType.UInt8:
-                    return typeof(byte);
-                case DataType.Int64:
-                    return typeof(long);
-                case DataType.String:
-                    return typeof(byte);
-                default:
-                    return null;
-            }
-        }
     }
 }

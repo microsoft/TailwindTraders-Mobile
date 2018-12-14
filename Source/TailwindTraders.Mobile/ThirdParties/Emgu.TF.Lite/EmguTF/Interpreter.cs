@@ -23,7 +23,7 @@ namespace Emgu.TF.Lite
         /// and builtin op codes to op registrations.</param>
         public Interpreter(FlatBufferModel flatBufferModel, IOpResolver resolver)
         {
-            ptr = TfLiteInvoke.tfeInterpreterCreateFromModel(flatBufferModel.Ptr, resolver.OpResolverPtr);
+            ptr = TfLiteInvoke.TfeInterpreterCreateFromModel(flatBufferModel.Ptr, resolver.OpResolverPtr);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Emgu.TF.Lite
         /// <returns>Status of success or failure.</returns>
         public Status AllocateTensors()
         {
-            return TfLiteInvoke.tfeInterpreterAllocateTensors(ptr);
+            return TfLiteInvoke.TfeInterpreterAllocateTensors(ptr);
         }
 
         /// <summary>
@@ -47,12 +47,12 @@ namespace Emgu.TF.Lite
         /// </remarks>
         public Status Invoke()
         {
-            return TfLiteInvoke.tfeInterpreterInvoke(ptr);
+            return TfLiteInvoke.TfeInterpreterInvoke(ptr);
         }
 
         public void SetNumThreads(int num_threads)
         {
-            TfLiteInvoke.tfeInterpreterSetNumThreads(ptr, num_threads);
+            TfLiteInvoke.TfeInterpreterSetNumThreads(ptr, num_threads);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Emgu.TF.Lite
         {
             get
             {
-                return TfLiteInvoke.tfeInterpreterTensorSize(ptr);
+                return TfLiteInvoke.TfeInterpreterTensorSize(ptr);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Emgu.TF.Lite
         {
             get
             {
-                return TfLiteInvoke.tfeInterpreterNodesSize(ptr);
+                return TfLiteInvoke.TfeInterpreterNodesSize(ptr);
             }
         }
 
@@ -84,7 +84,7 @@ namespace Emgu.TF.Lite
         /// <returns>The tensor in the specific index</returns>
         public Tensor GetTensor(int index)
         {
-            return new Tensor(TfLiteInvoke.tfeInterpreterGetTensor(ptr, index), false);
+            return new Tensor(TfLiteInvoke.TfeInterpreterGetTensor(ptr, index), false);
         }
 
         /// <summary>
@@ -93,10 +93,10 @@ namespace Emgu.TF.Lite
         /// <returns>The list of tensor index of the inputs tensors.</returns>
         public int[] GetInput()
         {
-            int size = TfLiteInvoke.tfeInterpreterGetInputSize(ptr);
+            int size = TfLiteInvoke.TfeInterpreterGetInputSize(ptr);
             int[] input = new int[size];
             GCHandle handle = GCHandle.Alloc(input, GCHandleType.Pinned);
-            TfLiteInvoke.tfeInterpreterGetInput(ptr, handle.AddrOfPinnedObject());
+            TfLiteInvoke.TfeInterpreterGetInput(ptr, handle.AddrOfPinnedObject());
             handle.Free();
             return input;
         }
@@ -107,10 +107,10 @@ namespace Emgu.TF.Lite
         /// <returns>The list of tensor index of the outputs tensors.</returns>
         public int[] GetOutput()
         {
-            int size = TfLiteInvoke.tfeInterpreterGetOutputSize(ptr);
+            int size = TfLiteInvoke.TfeInterpreterGetOutputSize(ptr);
             int[] output = new int[size];
             GCHandle handle = GCHandle.Alloc(output, GCHandleType.Pinned);
-            TfLiteInvoke.tfeInterpreterGetOutput(ptr, handle.AddrOfPinnedObject());
+            TfLiteInvoke.TfeInterpreterGetOutput(ptr, handle.AddrOfPinnedObject());
             handle.Free();
             return output;
         }
@@ -122,7 +122,7 @@ namespace Emgu.TF.Lite
         /// <returns>The name of the input tesnsor at the index</returns>
         public string GetInputName(int index)
         {
-            IntPtr namePtr = TfLiteInvoke.tfeInterpreterGetInputName(ptr, index);
+            IntPtr namePtr = TfLiteInvoke.TfeInterpreterGetInputName(ptr, index);
             return Marshal.PtrToStringAnsi(namePtr);
         }
 
@@ -133,7 +133,7 @@ namespace Emgu.TF.Lite
         /// <returns>The name of the output tesnsor at the index</returns>
         public string GetOutputName(int index)
         {
-            IntPtr namePtr = TfLiteInvoke.tfeInterpreterGetOutputName(ptr, index);
+            IntPtr namePtr = TfLiteInvoke.TfeInterpreterGetOutputName(ptr, index);
             return Marshal.PtrToStringAnsi(namePtr);
         }
 
@@ -144,56 +144,8 @@ namespace Emgu.TF.Lite
         {
             if (ptr != IntPtr.Zero)
             {
-                TfLiteInvoke.tfeInterpreterRelease(ref ptr);
+                TfLiteInvoke.TfeInterpreterRelease(ref ptr);
             }
         }
-    }
-
-    public static partial class TfLiteInvoke
-    {
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern IntPtr tfeInterpreterCreate();
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern IntPtr tfeInterpreterCreateFromModel(IntPtr model, IntPtr opResolver);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern Status tfeInterpreterAllocateTensors(IntPtr interpreter);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern Status tfeInterpreterInvoke(IntPtr interpreter);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern IntPtr tfeInterpreterGetTensor(IntPtr interpreter, int index);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern int tfeInterpreterTensorSize(IntPtr interpreter);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern int tfeInterpreterNodesSize(IntPtr interpreter);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern int tfeInterpreterGetInputSize(IntPtr interpreter);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern void tfeInterpreterGetInput(IntPtr interpreter, IntPtr input);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern IntPtr tfeInterpreterGetInputName(IntPtr interpreter, int index);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern int tfeInterpreterGetOutputSize(IntPtr interpreter);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern void tfeInterpreterGetOutput(IntPtr interpreter, IntPtr output);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern IntPtr tfeInterpreterGetOutputName(IntPtr interpreter, int index);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern void tfeInterpreterRelease(ref IntPtr interpreter);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern void tfeInterpreterSetNumThreads(IntPtr interpreter, int num_threads);
     }
 }

@@ -22,7 +22,7 @@ namespace Emgu.TF.Lite
         /// </summary>
         public BuildinOpResolver()
         {
-            ptr = TfLiteInvoke.tfeBuiltinOpResolverCreate(ref opResolverPtr);
+            ptr = TfLiteInvoke.TfeBuiltinOpResolverCreate(ref opResolverPtr);
         }
         
         IntPtr IOpResolver.OpResolverPtr
@@ -40,21 +40,9 @@ namespace Emgu.TF.Lite
         {
             if (ptr != IntPtr.Zero)
             {
-                TfLiteInvoke.tfeBuiltinOpResolverRelease(ref ptr);
+                TfLiteInvoke.TfeBuiltinOpResolverRelease(ref ptr);
                 opResolverPtr = IntPtr.Zero;
             }
         }
-    }
-
-    /// <summary>
-    /// Class that provide access to native tensorflow lite functions
-    /// </summary>
-    public static partial class TfLiteInvoke
-    {
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern IntPtr tfeBuiltinOpResolverCreate(ref IntPtr opResolver);
-
-        [DllImport(ExternLibrary, CallingConvention = TfLiteInvoke.TFCallingConvention)]
-        internal static extern void tfeBuiltinOpResolverRelease(ref IntPtr resolver);
     }
 }
