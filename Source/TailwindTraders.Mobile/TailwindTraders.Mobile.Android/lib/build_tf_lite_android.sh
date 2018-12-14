@@ -1,7 +1,6 @@
 #!/bin/sh
 
-cd ..
-cd tensorflow/
+pushd tensorflow/tensorflow
 
 bazel build -c opt \
       --cpu=$1\
@@ -9,8 +8,6 @@ bazel build -c opt \
       --crosstool_top=external:android/crosstool \
       --host_crosstool_top=@bazel_tools//tools/cpp:toolchain \
       //tensorflow/tfliteextern:libtfliteextern.so
-      
-cd ..
+popd
 
-mkdir -p lib/android/$1
-cp tensorflow/bazel-bin/tensorflow/tfliteextern/*.so lib/android/$1
+cp tensorflow/tensorflow/bazel-bin/tensorflow/tfliteextern/*.so $1
