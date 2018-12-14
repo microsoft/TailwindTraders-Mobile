@@ -4,11 +4,11 @@
 # XAML policies
 ########################################################################################################################
 
-PROJECTNAME="TailwindTraders.Mobile"
+PROJECTPATH="$APPCENTER_SOURCE_DIRECTORY/Source/TailwindTraders.Mobile"
 
 echo "Verifying XAML policies:"
 
-pushd $APPCENTER_SOURCE_DIRECTORY/Source/$PROJECTNAME/
+pushd $PROJECTPATH
 mono ../Tools/XamlStyler/XamlStyler.Console/xstyler.exe -c ./CodeAnalysis/XamlStylerSettings.json -d . -r true -v
 
 if [[ $? -eq 0 ]]

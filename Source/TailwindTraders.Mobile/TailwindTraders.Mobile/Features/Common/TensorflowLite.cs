@@ -13,7 +13,6 @@ namespace TailwindTraders.Mobile.Features.Common
         private const string LabelFilename = "pets/pets_labels_list.txt";
         private const string ModelFilename = "pets/detect.tflite";
         private const float MinScore = 0.4f;
-        private const int NumThreads = 4;
         private const int ModelInputSize = 300;
         private const bool QuantizedModel = true;
         private const int LabelOffset = 1;
@@ -56,15 +55,22 @@ namespace TailwindTraders.Mobile.Features.Common
         public static void Work()
         {
             var imagePath = platformService.CopyToFilesAndGetPath(ImageFilename);
-
             Console.WriteLine($"Using image: {imagePath}");
 
-            var watchInterpreter = Stopwatch.StartNew();
+            using (var op = new BuildinOpResolver())
+            {
+                using (var interpreter = new Interpreter(model, op))
+                {
+                    InvokeInterpreter(imagePath, interpreter);
+                }
+            }
+        }
 
-            var interpreter = new Interpreter(model, new BuildinOpResolver());
+        private static void InvokeInterpreter(string imagePath, Interpreter interpreter)
+        {
             if (useNumThreads)
             {
-                interpreter.SetNumThreads(NumThreads);
+                interpreter.SetNumThreads(Environment.ProcessorCount);
             }
 
             var allocateTensorStatus = interpreter.AllocateTensors();
@@ -73,24 +79,22 @@ namespace TailwindTraders.Mobile.Features.Common
                 throw new Exception("Failed to allocate tensor");
             }
 
-            watchInterpreter.Stop();
-
-            Console.WriteLine($"Interpreter startup: {watchInterpreter.ElapsedMilliseconds}ms");
-
             var input = interpreter.GetInput();
-            var inputTensor = interpreter.GetTensor(input[0]);
-            platformService.ReadImageFileToTensor(
-                imagePath, 
-                QuantizedModel,
-                inputTensor.DataPointer,
-                ModelInputSize,
-                ModelInputSize);
+            using (var inputTensor = interpreter.GetTensor(input[0]))
+            {
+                platformService.ReadImageFileToTensor(
+                    imagePath,
+                    QuantizedModel,
+                    inputTensor.DataPointer,
+                    ModelInputSize,
+                    ModelInputSize);
 
-            var watchInvoke = Stopwatch.StartNew();
-            interpreter.Invoke();
-            watchInvoke.Stop();
+                var watchInvoke = Stopwatch.StartNew();
+                interpreter.Invoke();
+                watchInvoke.Stop();
 
-            Console.WriteLine($"Interpreter invoke: {watchInvoke.ElapsedMilliseconds}ms");
+                Console.WriteLine($"Interpreter invoke: {watchInvoke.ElapsedMilliseconds}ms");
+            }
 
             var output = interpreter.GetOutput();
             var outputIndex = output[0];
@@ -108,6 +112,19 @@ namespace TailwindTraders.Mobile.Features.Common
 
             var numDetections = num_detections_out[0];
 
+            LogDetectionResults(detection_classes_out, detection_scores_out, numDetections);
+
+            for (var i = 0; i < output.Length; i++)
+            {
+                outputTensors[i].Dispose();
+            }
+        }
+
+        private static void LogDetectionResults(
+            float[] detection_classes_out,
+            float[] detection_scores_out,
+            float numDetections)
+        {
             Console.WriteLine($"NumDetections: {numDetections}");
 
             for (int i = 0; i < numDetections; i++)
