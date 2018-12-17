@@ -20,7 +20,6 @@
     <ResourceDictionary>
 
       <local:RecommendedItemTemplate x:Key="RecommendedItemTemplate" />
-      <local:PreviouslySeenItemTemplate x:Key="PreviouslySeenItemTemplate" />
 
       <Style
         BasedOn="{StaticResource ShadowfullBoxViewStyle}"

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Framework;
+using TailwindTraders.Mobile.Helpers;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Product.Detail
@@ -19,6 +20,7 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
         private string price;
         private IEnumerable<FeatureDTO> features;
         private IEnumerable<ProductViewModel> similarProducts;
+        private IEnumerable<ProductDTO> alsoBoughtProducts;
 
         public string Title
         {
@@ -62,6 +64,12 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
             set => SetAndRaisePropertyChanged(ref similarProducts, value);
         }
 
+        public IEnumerable<ProductDTO> AlsoBoughtProducts
+        {
+            get => alsoBoughtProducts;
+            set => SetAndRaisePropertyChanged(ref alsoBoughtProducts, value);
+        }
+
         public ProductDetailViewModel(int productId)
         {
             productsAPI = DependencyService.Get<IRestPoolService>().ProductsAPI.Value;
@@ -73,42 +81,53 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
         {
             await base.InitializeAsync();
 
-            await LoadDataAsync(productId).ConfigureAwait(false);
+            await LoadDataAsync().ConfigureAwait(false);
         }
 
-        private async Task LoadDataAsync(int product)
+        private async Task LoadDataAsync()
         {
-            var detailResponse = await TryExecuteWithLoadingIndicatorsAsync(
-                productsAPI.GetDetailAsync(AuthenticationService.AuthorizationHeader, product.ToString()));
+            var status = await TryExecuteWithLoadingIndicatorsAsync(MakeAPICallsAsync());
 
-            if (detailResponse.IsError || detailResponse.Value == null)
+            if (status.IsError)
             {
                 await App.NavigateBackAsync();
-                return;
             }
+        }
 
-            var result = detailResponse.Value;
-            var brandName = result.Brand.Name;
-            var productName = result.Name;
-            Title = $"{brandName}. {productName}";
-            Pictures = new List<string> { result.ImageUrl };
-            Brand = brandName;
-            Name = productName;
-            Price = $"${result.Price}";
-            Features = result.Features;
+        private async Task MakeAPICallsAsync()
+        {
+            var product = await productsAPI.GetDetailAsync(
+                AuthenticationService.AuthorizationHeader, productId.ToString());
 
-            if (result.Type != null)
+            if (product != null)
             {
-                var type = result.Type.Id.ToString();
-                var similarResponse = await TryExecuteWithLoadingIndicatorsAsync(
-                    productsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
+                UpdateProduct(product);
 
-                if (similarResponse && similarResponse.Value != null)
+                var type = product.Type.Id.ToString();
+                var productsPerType = await productsAPI.GetProductsAsync(
+                    AuthenticationService.AuthorizationHeader, type);
+
+                if (productsPerType != null)
                 {
-                    SimilarProducts = similarResponse.Value.Products
+                    SimilarProducts = productsPerType.Products
                         .Select(item => new ProductViewModel(item, FeatureNotAvailableCommand));
+
+                    var randomProducts = productsPerType.Products.Shuffle().Take(3);
+                    AlsoBoughtProducts = randomProducts.ToList();
                 }
             }
+        }
+
+        private void UpdateProduct(ProductDTO product)
+        {
+            var brandName = product.Brand.Name;
+            var productName = product.Name;
+            Title = $"{brandName}. {productName}";
+            Pictures = new List<string> { product.ImageUrl };
+            Brand = brandName;
+            Name = productName;
+            Price = $"${product.Price}";
+            Features = product.Features;
         }
     }
 }

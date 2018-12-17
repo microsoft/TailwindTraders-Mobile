@@ -33,6 +33,19 @@
         <Setter Property="WidthRequest" Value="28" />
       </Style>
 
+      <Style x:Key="HeaderLabelStyle"
+        BasedOn="{StaticResource Header1FontStyle}"
+        TargetType="Label">
+        <Setter Property="Margin">
+          <Thickness
+            Left="{StaticResource 2xDefaultMargin}"
+            Top="{StaticResource 2xDefaultMargin}"
+            Right="{StaticResource 2xDefaultMargin}"
+            Bottom="{StaticResource 2xDefaultMargin}" />
+        </Setter>
+        <Setter Property="HorizontalOptions" Value="Center" />
+      </Style>
+
     </ResourceDictionary>
   </ContentPage.Resources>
 
@@ -158,6 +171,29 @@
               InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
               ItemTemplate="{StaticResource PopularItemTemplate}"
               ItemsSource="{Binding SimilarProducts}" />
+
+          </ContentView>
+
+          <Label
+            Style="{StaticResource HeaderLabelStyle}"
+            Text="CUSTOMERS ALSO BOUGHT" />
+
+          <ContentView>
+
+            <View.Margin>
+              <Thickness
+                Left="{StaticResource NegativeDefaultMargin}"
+                Right="{StaticResource NegativeDefaultMargin}" />
+            </View.Margin>
+
+            <xfbindablestacklayout:BindableStackLayout
+              ItemTemplate="{StaticResource PreviouslySeenItemTemplate}"
+              ItemsSource="{Binding AlsoBoughtProducts}"
+              Spacing="{StaticResource DefaultMargin}">
+              <View.Margin>
+                <Thickness Bottom="{StaticResource 2xDefaultMargin}" />
+              </View.Margin>
+            </xfbindablestacklayout:BindableStackLayout>
 
           </ContentView>
 
