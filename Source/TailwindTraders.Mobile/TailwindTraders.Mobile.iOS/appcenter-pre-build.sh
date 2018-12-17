@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -v
-
 PROJECTPATH="$APPCENTER_SOURCE_DIRECTORY/Source/TailwindTraders.Mobile/TailwindTraders.Mobile.iOS"
 
 echo "Environment variables:"
