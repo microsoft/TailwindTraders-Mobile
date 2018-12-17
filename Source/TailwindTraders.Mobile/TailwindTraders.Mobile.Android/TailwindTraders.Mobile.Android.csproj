@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\pets\detect.tflite" />
+    <AndroidAsset Include="Assets\net\exported.tflite" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -274,6 +275,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\pets\pets_labels_list.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\images\hardhat_102.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\net\net_labels_list.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
