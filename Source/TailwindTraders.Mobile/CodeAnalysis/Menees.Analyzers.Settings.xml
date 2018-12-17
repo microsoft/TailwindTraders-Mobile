@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Menees.Analyzers.Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xsi:noNamespaceSchemaLocation="Menees.Analyzers.Settings.xsd">
+  <MaxLineColumns>120</MaxLineColumns>
+</Menees.Analyzers.Settings>

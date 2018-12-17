@@ -15,7 +15,7 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SkiaSharp.Views.Forms">
-      <Version>1.60.3</Version>
+      <Version>1.68.0</Version>
     </PackageReference>
     <PackageReference Include="Plugin.Permissions">
       <Version>3.0.0.12</Version>
@@ -66,16 +66,16 @@
     <PackageReference Include="Xam.Plugin.Media">
       <Version>4.0.1.5</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
-    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
-    <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2.1" />
-    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2.1" />
-    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0-preview8" />
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0-preview8" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0-preview8" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="28.0.0-preview8" />
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0-preview8" />
     <PackageReference Include="Xamarin.Android.Support.Compat">
-      <Version>27.0.2.1</Version>
+      <Version>28.0.0-preview8</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.0.0.941-pre1</Version>
+      <Version>4.0.0.8055-pre1</Version>
     </PackageReference>
     <PackageReference Include="Plugin.XSnack">
       <Version>1.0.17</Version>
@@ -89,6 +89,19 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes">
       <Version>1.11.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidNativeLibrary Include="Libs\EmguTF\arm64-v8a\libtfliteextern.so" />
+    <AndroidNativeLibrary Include="Libs\EmguTF\armeabi-v7a\libtfliteextern.so" />
+    <AndroidNativeLibrary Include="Libs\EmguTF\x86\libtfliteextern.so" />
+    <AndroidNativeLibrary Include="Libs\EmguTF\x86_64\libtfliteextern.so" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\images\beagle.jpg" />
+    <AndroidAsset Include="Assets\images\cat.jpg" />
+    <AndroidAsset Include="Assets\images\mouse.jpg" />
+    <AndroidAsset Include="Assets\images\ragdoll.jpg" />
+    <AndroidAsset Include="Assets\images\test.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Features\Scanning\Photo\GalleryService.cs" />
@@ -111,6 +124,8 @@
     <Compile Include="Features\Scanning\CameraPreviewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\pets\detect.tflite" />
+    <AndroidAsset Include="Assets\net\exported.tflite" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -190,6 +205,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ThirdParties\Emgu.TF.Lite\Emgu.TF.Lite.csproj">
+      <Project>{68867b05-b695-4f1e-9e29-0f38ff72899d}</Project>
+      <Name>Emgu.TF.Lite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TailwindTraders.Mobile\TailwindTraders.Mobile.csproj">
       <Project>{6F35C169-2AAC-45FF-B51E-BD808C577BCF}</Project>
       <Name>TailwindTraders.Mobile</Name>
@@ -254,6 +273,14 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\capture.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\pets\pets_labels_list.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\images\hardhat_102.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\net\net_labels_list.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

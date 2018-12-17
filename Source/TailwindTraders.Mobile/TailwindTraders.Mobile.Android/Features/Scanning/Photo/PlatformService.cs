@@ -47,6 +47,78 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
             }
         }
 
+        public string GetContent(string v)
+        {
+            var assets = Android.App.Application.Context.Assets;
+            using (var sr = new StreamReader(assets.Open(v)))
+            {
+                return sr.ReadToEnd();
+            }
+        }
+
+        public string CopyToFilesAndGetPath(string v)
+        {
+            var ff = v.Replace("/", "_");
+
+            // https://kimsereyblog.blogspot.com/2016/11/differences-between-internal-and.html
+            var path = System.IO.Path.Combine(Android.App.Application.Context.FilesDir.AbsolutePath, ff);
+
+            var assets = Android.App.Application.Context.Assets;
+            using (var f = assets.Open(v))
+            {
+                using (var dest = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    f.CopyTo(dest);
+                }
+            }
+
+            return path;
+        }
+
+        public void ReadImageFileToTensor(
+            string fileName,
+            bool quantized, 
+            IntPtr dest,
+            int inputHeight = -1,
+            int inputWidth = -1)
+        {
+            using (var bmp = BitmapFactory.DecodeFile(fileName))
+            {
+                using (var resized = Bitmap.CreateScaledBitmap(bmp, inputWidth, inputHeight, false))
+                {
+                    var intValues = new int[resized.Width * resized.Height];
+                    resized.GetPixels(intValues, 0, resized.Width, 0, 0, resized.Width, resized.Height);
+
+                    if (quantized)
+                    {
+                        var byteValues = new byte[resized.Width * resized.Height * 3];
+                        for (int i = 0; i < intValues.Length; ++i)
+                        {
+                            int val = intValues[i];
+                            byteValues[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
+                            byteValues[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
+                            byteValues[(i * 3) + 2] = (byte)(val & 0xFF);
+                        }
+
+                        System.Runtime.InteropServices.Marshal.Copy(byteValues, 0, dest, byteValues.Length);
+                    }
+                    else
+                    {
+                        var floatValues = new float[resized.Width * resized.Height * 3];
+                        for (int i = 0; i < intValues.Length; ++i)
+                        {
+                            int val = intValues[i];
+                            floatValues[(i * 3) + 0] = (val >> 16) & 0xFF;
+                            floatValues[(i * 3) + 1] = (val >> 8) & 0xFF;
+                            floatValues[(i * 3) + 2] = val & 0xFF;
+                        }
+
+                        System.Runtime.InteropServices.Marshal.Copy(floatValues, 0, dest, floatValues.Length);
+                    }
+                }
+            }
+        }
+
         private bool InternalResize(string filePath, PhotoSize photoSize, int quality)
         {
             try
