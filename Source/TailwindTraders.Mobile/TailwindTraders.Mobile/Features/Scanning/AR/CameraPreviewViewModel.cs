@@ -1,6 +1,7 @@
 ﻿using Plugin.Permissions.Abstractions;
 using System;
 using System.Threading.Tasks;
+using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
@@ -35,10 +36,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 await App.NavigateBackAsync();
                 return;
             }
-            else
-            {
-                MessagingCenter.Send(this, AddCameraControlMessage);
-            }
+
+            MessagingCenter.Send(this, AddCameraControlMessage);
 
             await AddFakeBoundingBoxesAsync();
         }
@@ -67,7 +66,12 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                     Ymax = ymax,
                 });
 
-                await Task.Delay(TimeSpan.FromSeconds(2));
+                await Task.Delay(TimeSpan.FromSeconds(0.5));
+
+                await Task.Run(() =>
+                {
+                    TensorflowLite.Recognize();
+                });
             }
         }
     }
