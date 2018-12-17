@@ -45,14 +45,14 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning.Photo
             }
         }
 
-        public string GetContent(string v)
+        public string GetContent(string path)
         {
-            return File.ReadAllText(v);
+            return File.ReadAllText(path);
         }
 
-        public string CopyToFilesAndGetPath(string v)
+        public string CopyToFilesAndGetPath(string path)
         {
-            return v;
+            return path;
         }
 
         public void ReadImageFileToTensor(

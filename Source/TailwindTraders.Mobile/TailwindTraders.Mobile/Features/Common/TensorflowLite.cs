@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
 using Xamarin.Forms;
 
@@ -21,6 +22,7 @@ namespace TailwindTraders.Mobile.Features.Common
         private static string[] labels = null;
         private static FlatBufferModel model;
         private static IPlatformService platformService;
+        private static ILoggingService loggingService;
         private static bool useNumThreads;
 
         public static void DoNotStripMe()
@@ -32,7 +34,7 @@ namespace TailwindTraders.Mobile.Features.Common
             Initialize();
 
             var imagePath = platformService.CopyToFilesAndGetPath(ImageFilename);
-            Console.WriteLine($"Using image: {imagePath}");
+            loggingService.Debug($"Using image: {imagePath}");
 
             using (var op = new BuildinOpResolver())
             {
@@ -51,6 +53,7 @@ namespace TailwindTraders.Mobile.Features.Common
             }
 
             platformService = DependencyService.Get<IPlatformService>();
+            loggingService = DependencyService.Get<ILoggingService>();
 
             useNumThreads = Device.RuntimePlatform == Device.Android;
 
@@ -95,7 +98,7 @@ namespace TailwindTraders.Mobile.Features.Common
                 interpreter.Invoke();
                 watchInvoke.Stop();
 
-                Console.WriteLine($"Interpreter invoke: {watchInvoke.ElapsedMilliseconds}ms");
+                loggingService.Debug($"Interpreter invoke: {watchInvoke.ElapsedMilliseconds}ms");
             }
 
             var output = interpreter.GetOutput();
@@ -127,21 +130,21 @@ namespace TailwindTraders.Mobile.Features.Common
             float[] detection_scores_out,
             float numDetections)
         {
-            Console.WriteLine($"NumDetections: {numDetections}");
+            loggingService.Debug($"NumDetections: {numDetections}");
 
             for (int i = 0; i < numDetections; i++)
             {
                 var score = detection_scores_out[i];
                 var classId = (int)detection_classes_out[i];
 
-                Console.WriteLine($"Found classId({classId}) with score({score})");
+                loggingService.Debug($"Found classId({classId}) with score({score})");
 
                 if (classId >= 0 && classId < labels.Length)
                 {
                     var label = labels[classId + LabelOffset];
                     if (score >= MinScore)
                     {
-                        Console.WriteLine($"{label} with score greater than {MinScore}");
+                        loggingService.Debug($"{label} with score greater than {MinScore}");
                     }
                 }
             }

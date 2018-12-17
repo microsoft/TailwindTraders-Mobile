@@ -47,32 +47,32 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
             }
         }
 
-        public string GetContent(string v)
+        public string GetContent(string path)
         {
             var assets = Android.App.Application.Context.Assets;
-            using (var sr = new StreamReader(assets.Open(v)))
+            using (var sr = new StreamReader(assets.Open(path)))
             {
                 return sr.ReadToEnd();
             }
         }
 
-        public string CopyToFilesAndGetPath(string v)
+        public string CopyToFilesAndGetPath(string path)
         {
-            var ff = v.Replace("/", "_");
+            var cleanPath = path.Replace("/", "_");
 
             // https://kimsereyblog.blogspot.com/2016/11/differences-between-internal-and.html
-            var path = System.IO.Path.Combine(Android.App.Application.Context.FilesDir.AbsolutePath, ff);
+            var absoluteFilePath = System.IO.Path.Combine(Android.App.Application.Context.FilesDir.AbsolutePath, cleanPath);
 
             var assets = Android.App.Application.Context.Assets;
-            using (var f = assets.Open(v))
+            using (var f = assets.Open(path))
             {
-                using (var dest = new FileStream(path, FileMode.OpenOrCreate))
+                using (var dest = new FileStream(absoluteFilePath, FileMode.OpenOrCreate))
                 {
                     f.CopyTo(dest);
                 }
             }
 
-            return path;
+            return absoluteFilePath;
         }
 
         public void ReadImageFileToTensor(
