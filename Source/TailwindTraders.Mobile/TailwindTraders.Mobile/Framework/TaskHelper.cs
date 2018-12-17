@@ -102,8 +102,10 @@ namespace TailwindTraders.Mobile.Framework
                         Resources.Alert_OK_OKEllipsis);
                 }
             }
-
-            whenFinished?.Invoke();
+            finally
+            {
+                whenFinished?.Invoke();
+            }
 
             return Error();
         }
