@@ -5,14 +5,16 @@ using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Framework;
 using TailwindTraders.Mobile.Helpers;
 using Xamarin.Forms;
+using System.Windows.Input;
 
 namespace TailwindTraders.Mobile.Features.Product.Detail
 {
-    public class ProductDetailViewModel : BaseViewModel
+    public class ProductDetailViewModel : BaseStateAwareViewModel<ProductDetailViewModel.State>
     {
         private readonly IProductsAPI productsAPI;
         private readonly int productId;
 
+        private int productTypeId;
         private string title;
         private IEnumerable<string> pictures;
         private string brand;
@@ -21,6 +23,12 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
         private IEnumerable<FeatureDTO> features;
         private IEnumerable<ProductViewModel> similarProducts;
         private IEnumerable<ProductDTO> alsoBoughtProducts;
+
+        public enum State
+        {
+            EverythingOK,
+            Error,
+        }
 
         public string Title
         {
@@ -70,11 +78,15 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
             set => SetAndRaisePropertyChanged(ref alsoBoughtProducts, value);
         }
 
+        public ICommand RefreshCommand { get; }
+
         public ProductDetailViewModel(int productId)
         {
             productsAPI = DependencyService.Get<IRestPoolService>().ProductsAPI.Value;
 
             this.productId = productId;
+
+            RefreshCommand = new Command(async () => await RequestSimilarAndAlsoBoughtProductsAsync());
         }
 
         public override async Task InitializeAsync()
@@ -86,15 +98,22 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
         private async Task LoadDataAsync()
         {
-            var status = await TryExecuteWithLoadingIndicatorsAsync(MakeAPICallsAsync());
+            var status = await TryExecuteWithLoadingIndicatorsAsync(RequestProductDetailAsync());
 
             if (status.IsError)
             {
                 await App.NavigateBackAsync();
             }
+
+            status = await TryExecuteWithLoadingIndicatorsAsync(RequestSimilarAndAlsoBoughtProductsAsync());
+
+            if (status.IsError)
+            {
+                CurrentState = State.Error;
+            }
         }
 
-        private async Task MakeAPICallsAsync()
+        private async Task RequestProductDetailAsync()
         {
             var product = await productsAPI.GetDetailAsync(
                 AuthenticationService.AuthorizationHeader, productId.ToString());
@@ -102,24 +121,30 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
             if (product != null)
             {
                 UpdateProduct(product);
+            }
+        }
 
-                var type = product.Type.Id.ToString();
-                var productsPerType = await productsAPI.GetProductsAsync(
-                    AuthenticationService.AuthorizationHeader, type);
+        private async Task RequestSimilarAndAlsoBoughtProductsAsync()
+        {
+            throw new System.Exception();
 
-                if (productsPerType != null)
-                {
-                    SimilarProducts = productsPerType.Products
-                        .Select(item => new ProductViewModel(item, FeatureNotAvailableCommand));
+            var productsPerType = await productsAPI.GetProductsAsync(
+                AuthenticationService.AuthorizationHeader, productTypeId.ToString());
 
-                    var randomProducts = productsPerType.Products.Shuffle().Take(3);
-                    AlsoBoughtProducts = randomProducts.ToList();
-                }
+            if (productsPerType != null)
+            {
+                SimilarProducts = productsPerType.Products
+                    .Select(item => new ProductViewModel(item, FeatureNotAvailableCommand));
+
+                var randomProducts = productsPerType.Products.Shuffle().Take(3);
+                AlsoBoughtProducts = randomProducts.ToList();
             }
         }
 
         private void UpdateProduct(ProductDTO product)
         {
+            productTypeId = product.Type.Id;
+
             var brandName = product.Brand.Name;
             var productName = product.Name;
             Title = $"{brandName}. {productName}";

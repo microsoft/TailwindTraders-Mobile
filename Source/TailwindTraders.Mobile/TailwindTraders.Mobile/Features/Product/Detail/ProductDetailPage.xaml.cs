@@ -1,4 +1,7 @@
-﻿namespace TailwindTraders.Mobile.Features.Product.Detail
+﻿using System.Collections.Generic;
+using Xamarin.Forms;
+
+namespace TailwindTraders.Mobile.Features.Product.Detail
 {
     public partial class ProductDetailPage
     {
@@ -8,5 +11,11 @@
 
             BindingContext = new ProductDetailViewModel(productId);
         }
+
+        internal override IEnumerable<VisualElement> GetStateAwareVisualElements() => new VisualElement[]
+        {
+            refreshButton,
+            stateAwareStackLayout
+        };
     }
 }

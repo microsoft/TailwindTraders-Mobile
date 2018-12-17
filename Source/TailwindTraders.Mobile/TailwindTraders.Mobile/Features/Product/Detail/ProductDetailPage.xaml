@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<mvvm:BaseContentPage
+<?xml version="1.0" encoding="UTF-8" ?>
+<mvvm:BaseStateAwareContentPage
   x:Class="TailwindTraders.Mobile.Features.Product.Detail.ProductDetailPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -13,7 +13,7 @@
   Title="{Binding Title}"
   ios:Page.UseSafeArea="true"
   x:DataType="local:ProductDetailViewModel"
-  x:TypeArguments="local:ProductDetailViewModel"
+  x:TypeArguments="local:ProductDetailViewModel, local:ProductDetailViewModel.State"
   ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
 
   <ContentPage.Resources>
@@ -155,47 +155,76 @@
 
           </xfbindablestacklayout:BindableStackLayout>
 
-          <Label
-            Style="{StaticResource HeaderLabelStyle}"
-            Text="SIMILAR PRODUCTS" />
+          <Button x:Name="refreshButton"
+            Margin="{StaticResource DefaultMargin}"
+            Command="{Binding RefreshCommand}"
+            HorizontalOptions="Center"
+            IsVisible="false"
+            Text="Try fetch products again">
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup Name="States">
 
-          <ContentView>
+                <VisualState Name="EverythingOK">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="false" />
+                  </VisualState.Setters>
+                </VisualState>
 
-            <View.Margin>
-              <Thickness
-                Left="{StaticResource NegativeDefaultMargin}"
-                Right="{StaticResource NegativeDefaultMargin}" />
-            </View.Margin>
+                <VisualState Name="Error">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="true" />
+                  </VisualState.Setters>
+                </VisualState>
 
-            <controls:FixedRatioCarouselViewControl
-              InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
-              ItemTemplate="{StaticResource PopularItemTemplate}"
-              ItemsSource="{Binding SimilarProducts}" />
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Button>
 
-          </ContentView>
+          <StackLayout x:Name="stateAwareStackLayout">
 
-          <Label
-            Style="{StaticResource HeaderLabelStyle}"
-            Text="CUSTOMERS ALSO BOUGHT" />
+            <Label
+              Style="{StaticResource HeaderLabelStyle}"
+              Text="SIMILAR PRODUCTS" />
 
-          <ContentView>
+            <ContentView>
 
-            <View.Margin>
-              <Thickness
-                Left="{StaticResource NegativeDefaultMargin}"
-                Right="{StaticResource NegativeDefaultMargin}" />
-            </View.Margin>
-
-            <xfbindablestacklayout:BindableStackLayout
-              ItemTemplate="{StaticResource PreviouslySeenItemTemplate}"
-              ItemsSource="{Binding AlsoBoughtProducts}"
-              Spacing="{StaticResource DefaultMargin}">
               <View.Margin>
-                <Thickness Bottom="{StaticResource 2xDefaultMargin}" />
+                <Thickness
+                  Left="{StaticResource NegativeDefaultMargin}"
+                  Right="{StaticResource NegativeDefaultMargin}" />
               </View.Margin>
-            </xfbindablestacklayout:BindableStackLayout>
 
-          </ContentView>
+              <controls:FixedRatioCarouselViewControl
+                InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
+                ItemTemplate="{StaticResource PopularItemTemplate}"
+                ItemsSource="{Binding SimilarProducts}" />
+
+            </ContentView>
+
+            <Label
+              Style="{StaticResource HeaderLabelStyle}"
+              Text="CUSTOMERS ALSO BOUGHT" />
+
+            <ContentView>
+
+              <View.Margin>
+                <Thickness
+                  Left="{StaticResource NegativeDefaultMargin}"
+                  Right="{StaticResource NegativeDefaultMargin}" />
+              </View.Margin>
+
+              <xfbindablestacklayout:BindableStackLayout
+                ItemTemplate="{StaticResource PreviouslySeenItemTemplate}"
+                ItemsSource="{Binding AlsoBoughtProducts}"
+                Spacing="{StaticResource DefaultMargin}">
+                <View.Margin>
+                  <Thickness Bottom="{StaticResource 2xDefaultMargin}" />
+                </View.Margin>
+              </xfbindablestacklayout:BindableStackLayout>
+
+            </ContentView>
+
+          </StackLayout>
 
         </StackLayout>
 
@@ -205,4 +234,4 @@
 
   </ContentPage.Content>
 
-</mvvm:BaseContentPage>
+</mvvm:BaseStateAwareContentPage>
