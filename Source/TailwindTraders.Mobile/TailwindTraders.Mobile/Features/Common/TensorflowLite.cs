@@ -9,9 +9,9 @@ namespace TailwindTraders.Mobile.Features.Common
 {
     public static class TensorflowLite
     {
-        private const string ImageFilename = "images/beagle.jpg";
-        private const string LabelFilename = "pets/pets_labels_list.txt";
-        private const string ModelFilename = "pets/detect.tflite";
+        private const string ImageFilename = "AR/images/beagle.jpg";
+        private const string LabelFilename = "AR/pets/pets_labels_list.txt";
+        private const string ModelFilename = "AR/pets/detect.tflite";
         private const float MinScore = 0.4f;
         private const int ModelInputSize = 300;
         private const bool QuantizedModel = true;

@@ -82,7 +82,6 @@
     <Rule Id="CC0125" Action="None" />
   </Rules>
   <Rules AnalyzerId="Menees.Analyzers" RuleNamespace="Menees.Analyzers">
-    <Rule Id="MEN008" Action="None" />
     <Rule Id="MEN009" Action="None" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">

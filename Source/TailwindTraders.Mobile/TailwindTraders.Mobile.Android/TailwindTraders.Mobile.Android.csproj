@@ -97,13 +97,6 @@
     <AndroidNativeLibrary Include="Libs\EmguTF\x86_64\libtfliteextern.so" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\images\beagle.jpg" />
-    <AndroidAsset Include="Assets\images\cat.jpg" />
-    <AndroidAsset Include="Assets\images\mouse.jpg" />
-    <AndroidAsset Include="Assets\images\ragdoll.jpg" />
-    <AndroidAsset Include="Assets\images\test.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Features\Scanning\Photo\GalleryService.cs" />
     <Compile Include="ThirdParties\Camera\AutoFitTextureView.cs" />
     <Compile Include="ThirdParties\Camera\CameraState.cs" />
@@ -124,8 +117,12 @@
     <Compile Include="Features\Scanning\CameraPreviewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\pets\detect.tflite" />
-    <AndroidAsset Include="Assets\net\exported.tflite" />
+    <AndroidAsset Include="..\Resources\AR\net\exported.tflite">
+      <Link>Assets\AR\net\exported.tflite</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="..\Resources\AR\pets\detect.tflite">
+      <Link>Assets\AR\pets\detect.tflite</Link>
+    </AndroidAsset>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -274,13 +271,44 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\capture.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\pets\pets_labels_list.txt" />
+    <AndroidAsset Include="..\Resources\AR\images\beagle.jpg">
+      <Link>Assets\AR\images\beagle.jpg</Link>
+    </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\images\hardhat_102.jpg" />
+    <AndroidAsset Include="..\Resources\AR\images\cat.jpg">
+      <Link>Assets\AR\images\cat.jpg</Link>
+    </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\net\net_labels_list.txt" />
+    <AndroidAsset Include="..\Resources\AR\images\hardhat_102.jpg">
+      <Link>Assets\AR\images\hardhat_102.jpg</Link>
+    </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\Resources\AR\images\mouse.jpg">
+      <Link>Assets\AR\images\mouse.jpg</Link>
+    </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\Resources\AR\images\ragdoll.jpg">
+      <Link>Assets\AR\images\ragdoll.jpg</Link>
+    </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\Resources\AR\images\test.jpg">
+      <Link>Assets\AR\images\test.jpg</Link>
+    </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\Resources\AR\net\net_labels_list.txt">
+      <Link>Assets\AR\net\net_labels_list.txt</Link>
+    </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\Resources\AR\pets\pets_labels_list.txt">
+      <Link>Assets\AR\pets\pets_labels_list.txt</Link>
+    </AndroidAsset>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
