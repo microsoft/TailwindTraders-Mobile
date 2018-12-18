@@ -1,14 +1,19 @@
 ﻿using Emgu.TF.Lite;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Text;
 using TailwindTraders.Mobile.Features.Logging;
+using TailwindTraders.Mobile.Features.Scanning;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
 using Xamarin.Forms;
 
-namespace TailwindTraders.Mobile.Features.Common
+[assembly: Dependency(typeof(TensorflowLiteService))]
+
+namespace TailwindTraders.Mobile.Features.Scanning
 {
-    public static class TensorflowLite
+    public class TensorflowLiteService
     {
         private const string ImageFilename = "AR/images/beagle.jpg";
         private const string LabelFilename = "AR/pets/pets_labels_list.txt";
@@ -25,48 +30,43 @@ namespace TailwindTraders.Mobile.Features.Common
         private const bool QuantizedModel = true;
         private const int LabelOffset = 1;
 
-        private static bool initialized = false;
-        private static string[] labels = null;
-        private static FlatBufferModel model;
-        private static IPlatformService platformService;
-        private static ILoggingService loggingService;
-        private static bool useNumThreads;
+        private bool initialized = false;
+        private string[] labels = null;
+        private FlatBufferModel model;
+        private bool useNumThreads;
+
+        private IPlatformService platformService;
+        private ILoggingService loggingService;
+
+        public TensorflowLiteService()
+        {
+            platformService = DependencyService.Get<IPlatformService>();
+            loggingService = DependencyService.Get<ILoggingService>();
+
+            Initialize();
+        }
 
         public static void DoNotStripMe()
         {
         }
 
-        public static void Recognize()
-        {
-            Initialize();
-
-            var imagePath = platformService.CopyToFilesAndGetPath(ImageFilename);
-            loggingService.Debug($"Using image: {imagePath}");
-
-            using (var op = new BuildinOpResolver())
-            {
-                using (var interpreter = new Interpreter(model, op))
-                {
-                    InvokeInterpreter(imagePath, interpreter);
-                }
-            }
-        }
-
-        private static void Initialize()
+        public void Initialize()
         {
             if (initialized)
             {
                 return;
             }
 
-            platformService = DependencyService.Get<IPlatformService>();
-            loggingService = DependencyService.Get<ILoggingService>();
-
             useNumThreads = Device.RuntimePlatform == Device.Android;
 
-            var labelContent = platformService.GetContent(LabelFilename);
-            labels = labelContent.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => x.Trim()).ToArray();
+            var labelPath = platformService.CopyToFilesAndGetPath(LabelFilename);
+            var labelData = File.ReadAllBytes(labelPath);
+            var labelContent = Encoding.Default.GetString(labelData);
+
+            labels = labelContent
+                .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x.Trim())
+                .ToArray();
 
             var modelFileName = platformService.CopyToFilesAndGetPath(ModelFilename);
             model = new FlatBufferModel(modelFileName);
@@ -78,7 +78,26 @@ namespace TailwindTraders.Mobile.Features.Common
             initialized = true;
         }
 
-        private static void InvokeInterpreter(string imagePath, Interpreter interpreter)
+        public void RecognizeBuiltInImage()
+        {
+            var imagePath = platformService.CopyToFilesAndGetPath(ImageFilename);
+            var imageData = File.ReadAllBytes(imagePath);
+
+            Recognize(imageData);
+        }
+
+        public void Recognize(byte[] imageData)
+        {
+            using (var op = new BuildinOpResolver())
+            {
+                using (var interpreter = new Interpreter(model, op))
+                {
+                    InvokeInterpreter(imageData, interpreter);
+                }
+            }
+        }
+
+        private void InvokeInterpreter(byte[] imageData, Interpreter interpreter)
         {
             if (useNumThreads)
             {
@@ -95,7 +114,7 @@ namespace TailwindTraders.Mobile.Features.Common
             using (var inputTensor = interpreter.GetTensor(input[0]))
             {
                 platformService.ReadImageFileToTensor(
-                    imagePath,
+                    imageData,
                     QuantizedModel,
                     inputTensor.DataPointer,
                     ModelInputSize,
@@ -132,7 +151,7 @@ namespace TailwindTraders.Mobile.Features.Common
             }
         }
 
-        private static void LogDetectionResults(
+        private void LogDetectionResults(
             float[] detection_classes_out,
             float[] detection_scores_out,
             float numDetections)

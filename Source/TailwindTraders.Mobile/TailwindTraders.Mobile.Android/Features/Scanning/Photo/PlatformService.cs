@@ -25,34 +25,22 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
             root.PlaySoundEffect(SoundEffects.Click);
         }
 
-        public Task<bool> ResizeImageAsync(string filePath, PhotoSize photoSize, int quality)
+        public bool ResizeImage(string filePath, PhotoSize photoSize, int quality)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                return Task.FromResult(false);
+                return false;
             }
 
             try
             {
-                return Task.Run(() =>
-                {
-                    return InternalResize(filePath, photoSize, quality);
-                });
+                return InternalResize(filePath, photoSize, quality);
             }
             catch (Exception ex)
             {
                 loggingService.Error(ex);
 
-                return Task.FromResult(false);
-            }
-        }
-
-        public string GetContent(string path)
-        {
-            var assets = Android.App.Application.Context.Assets;
-            using (var sr = new StreamReader(assets.Open(path)))
-            {
-                return sr.ReadToEnd();
+                return false;
             }
         }
 
@@ -78,13 +66,13 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
         }
 
         public void ReadImageFileToTensor(
-            string fileName,
+            byte[] imageData,
             bool quantized, 
             IntPtr dest,
-            int inputHeight = -1,
-            int inputWidth = -1)
+            int inputHeight,
+            int inputWidth)
         {
-            using (var bmp = BitmapFactory.DecodeFile(fileName))
+            using (var bmp = BitmapFactory.DecodeByteArray(imageData, 0, imageData.Length))
             {
                 using (var resized = Bitmap.CreateScaledBitmap(bmp, inputWidth, inputHeight, false))
                 {

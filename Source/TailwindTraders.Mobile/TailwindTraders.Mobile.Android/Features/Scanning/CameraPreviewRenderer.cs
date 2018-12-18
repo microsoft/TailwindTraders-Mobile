@@ -523,9 +523,11 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
                 mPreviewRequestBuilder.AddTarget(mImageReader.Surface);
 
                 // Here, we create a CameraCaptureSession for camera preview.
-                List<Surface> surfaces = new List<Surface>();
-                surfaces.Add(surface);
-                surfaces.Add(mImageReader.Surface);
+                var surfaces = new List<Surface>
+                {
+                    surface,
+                    mImageReader.Surface,
+                };
                 mCameraDevice.CreateCaptureSession(surfaces, new CameraCaptureSessionCallback(this), null);
             }
             catch (CameraAccessException e)

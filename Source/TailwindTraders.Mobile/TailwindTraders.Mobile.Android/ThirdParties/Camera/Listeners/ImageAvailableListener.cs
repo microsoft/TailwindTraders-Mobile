@@ -1,8 +1,8 @@
 ﻿using Android.Media;
-using Android.Util;
-using Android.Views;
 using Java.IO;
 using System;
+using TailwindTraders.Mobile.Features.Scanning;
+using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
 {
@@ -13,6 +13,8 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
 
         private readonly ICamera owner;
 
+        private readonly TensorflowLiteService tensorflowLiteService;
+
         public ImageAvailableListener(ICamera fragment)
         {
             if (fragment == null)
@@ -21,11 +23,13 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
             }
 
             owner = fragment;
+
+            tensorflowLiteService = DependencyService.Get<TensorflowLiteService>();
         }
 
         public void OnImageAvailable(ImageReader reader)
         {
-            Image image = null;
+            Android.Media.Image image = null;
             try
             {
                 image = reader.AcquireNextImage();
@@ -41,10 +45,15 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
             }
         }
 
-        private void HandleImage(Image image)
+        private void HandleImage(Android.Media.Image image)
         {
             if (tensorflowProcess)
             {
+                var buffer = image.GetPlanes()[0].Buffer;
+                var bytes = new byte[buffer.Remaining()];
+                buffer.Get(bytes);
+
+                tensorflowLiteService.Recognize(bytes);
             }
             else if (captureStillImage)
             {
@@ -54,7 +63,7 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
             }
         }
 
-        private void CaptureImage(Image image)
+        private void CaptureImage(Android.Media.Image image)
         {
             var path = System.IO.Path.Combine(
             global::Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath,

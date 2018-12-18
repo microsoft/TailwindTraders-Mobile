@@ -1,7 +1,6 @@
 ﻿using Plugin.Permissions.Abstractions;
 using System;
 using System.Threading.Tasks;
-using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
@@ -67,11 +66,6 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 });
 
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
-
-                await Task.Run(() =>
-                {
-                    TensorflowLite.Recognize();
-                });
             }
         }
     }

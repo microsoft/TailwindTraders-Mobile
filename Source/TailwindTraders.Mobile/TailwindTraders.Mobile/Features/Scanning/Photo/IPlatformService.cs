@@ -7,12 +7,10 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
     {
         void KeyboardClick();
 
-        Task<bool> ResizeImageAsync(string filePath, PhotoSize photoSize, int quality);
-
-        string GetContent(string path);
+        bool ResizeImage(string filePath, PhotoSize photoSize, int quality);
 
         string CopyToFilesAndGetPath(string path);
 
-        void ReadImageFileToTensor(string fileName, bool quantized, IntPtr dest, int inputHeight, int inputWidth);
+        void ReadImageFileToTensor(byte[] imageData, bool quantized, IntPtr dest, int inputHeight, int inputWidth);
     }
 }

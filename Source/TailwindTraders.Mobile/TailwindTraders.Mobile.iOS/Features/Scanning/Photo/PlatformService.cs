@@ -1,8 +1,8 @@
 ﻿using CoreGraphics;
+using Foundation;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
 using UIKit;
@@ -23,31 +23,23 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning.Photo
             UIDevice.CurrentDevice.PlayInputClick();
         }
 
-        public Task<bool> ResizeImageAsync(string filePath, PhotoSize photoSize, int quality)
+        public bool ResizeImage(string filePath, PhotoSize photoSize, int quality)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                return Task.FromResult(false);
+                return false;
             }
 
             try
             {
-                return Task.Run(() =>
-                {
-                    return InternalResize(filePath, photoSize, quality);
-                });
+                return InternalResize(filePath, photoSize, quality);
             }
             catch (Exception ex)
             {
                 loggingService.Error(ex);
 
-                return Task.FromResult(false);
+                return false;
             }
-        }
-
-        public string GetContent(string path)
-        {
-            return File.ReadAllText(path);
         }
 
         public string CopyToFilesAndGetPath(string path)
@@ -56,13 +48,13 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning.Photo
         }
 
         public void ReadImageFileToTensor(
-            string fileName,
+            byte[] imageData,
             bool quantized,
             IntPtr dest,
-            int inputHeight = -1,
-            int inputWidth = -1)
+            int inputHeight,
+            int inputWidth)
         {
-            using (var image = new UIImage(fileName))
+            using (var image = new UIImage(NSData.FromArray(imageData)))
             {
                 using (var resized = image.Scale(new CGSize(inputWidth, inputHeight)))
                 {
