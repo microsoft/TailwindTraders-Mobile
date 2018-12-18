@@ -12,5 +12,7 @@ namespace TailwindTraders.Mobile.Features.Common
         Lazy<IHomeAPI> HomeAPI { get; }
 
         Lazy<IProductsAPI> ProductsAPI { get; }
+
+        void UpdateApiUrl(string newApiUrl);
     }
 }

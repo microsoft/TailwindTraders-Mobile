@@ -7,10 +7,15 @@ namespace TailwindTraders.Mobile.Features.Common
 {
     public class FakeRestPoolService : IRestPoolService
     {
-        public Lazy<IProfilesAPI> ProfilesAPI => new Lazy<IProfilesAPI>(() => new FakeProfilesAPI());
+        public Lazy<IProfilesAPI> ProfilesAPI { get; } = new Lazy<IProfilesAPI>(() => new FakeProfilesAPI());
 
-        public Lazy<IHomeAPI> HomeAPI => new Lazy<IHomeAPI>(() => new FakeHomeAPI());
+        public Lazy<IHomeAPI> HomeAPI { get; } = new Lazy<IHomeAPI>(() => new FakeHomeAPI());
 
-        public Lazy<IProductsAPI> ProductsAPI => new Lazy<IProductsAPI>(() => new FakeProductsAPI());
+        public Lazy<IProductsAPI> ProductsAPI { get; } = new Lazy<IProductsAPI>(() => new FakeProductsAPI());
+
+        public void UpdateApiUrl(string newApiUrl)
+        {
+            // Intentionally blank
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace TailwindTraders.Mobile.Features.Settings
 
         public const string AnonymousToken = "Email anonymous@anonymous.anonymous";
 
-        internal static string RootApiUrl { get; set; } = "ENTER_YOUR_URL_HERE";
+        public static string RootApiUrl { get; set; } = "ENTER_YOUR_URL_HERE";
 
         public static string ProductApiUrl { get; } = $"{RootApiUrl}/products";
 
