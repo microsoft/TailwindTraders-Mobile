@@ -177,9 +177,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
         private UIView embeddingView;
 
-        // TODO not sure what to do with a queue
-        //     private var sessionQueue: dispatch_queue_t = dispatch_queue_create("CameraSessionQueue",
-        //         DISPATCH_QUEUE_SERIAL)
         private AVCaptureDevice frontCameraDevice
         {
             get
@@ -524,7 +521,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
         }
 
-        // TODO review, seems deviceType should be used here
         private void _updateCameraDevice(CameraDevice deviceType)
         {
             var validCaptureSession = captureSession;
