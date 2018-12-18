@@ -14,7 +14,7 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning
 {
     public class CameraPreviewRenderer : ViewRenderer<CameraPreview, UIView>
     {
-        private CameraManager cameraManager = new CameraManager();
+        private CameraManager cameraManager;
         private UIView cameraPreview;
         private TaskCompletionSource<string> captureTcs;
 

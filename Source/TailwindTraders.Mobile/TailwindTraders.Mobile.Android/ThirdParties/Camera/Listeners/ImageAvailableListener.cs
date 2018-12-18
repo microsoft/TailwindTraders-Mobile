@@ -1,6 +1,7 @@
 ﻿using Android.Media;
 using Java.IO;
 using System;
+using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Scanning;
 using Xamarin.Forms;
 
@@ -10,6 +11,8 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
     {
         private bool captureStillImage = false;
         private bool tensorflowProcess = true;
+
+        private int imageCount;
 
         private readonly ICamera owner;
 
@@ -49,11 +52,18 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
         {
             if (tensorflowProcess)
             {
-                var buffer = image.GetPlanes()[0].Buffer;
-                var bytes = new byte[buffer.Remaining()];
-                buffer.Get(bytes);
+                imageCount++;
 
-                tensorflowLiteService.Recognize(bytes);
+                if (imageCount == 10)
+                {
+                    imageCount = 0;
+
+                    var buffer = image.GetPlanes()[0].Buffer;
+                    var bytes = new byte[buffer.Remaining()];
+                    buffer.Get(bytes);
+
+                    Task.Run(() => tensorflowLiteService.Recognize(bytes));
+                }
             }
             else if (captureStillImage)
             {
