@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
+using AssetsLibrary;
 using AVFoundation;
 using CoreFoundation;
 using Foundation;
@@ -40,17 +42,30 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         High = 2,
     }
 
-    public class CameraManager : NSObject
+    public class CameraManager : NSObject, IAVCaptureFileOutputRecordingDelegate
     {
         // MARK: - Public properties
 
         /// Capture session to customize camera settings.
         public AVCaptureSession captureSession;
 
+        /// Property to determine if the manager should show the error for the user. If you want to show the errors
+        /// yourself set this to false. If you want to add custom error UI set showErrorBlock property. Default value is
+        /// false.
+        public bool showErrorsToUsers = false;
+
         /// Property to determine if the manager should show the camera permission popup immediatly when it's needed or
         /// you want to show it manually. Default value is true. Be carful cause using the camera requires permission,
         /// if you set this value to false and don't ask manually you won't be able to use the camera.
         public bool showAccessPermissionPopupAutomatically = true;
+
+        public bool cameraIsReady
+        {
+            get
+            {
+                return cameraIsSetup;
+            }
+        }
 
         public bool hasFrontCamera
         {
@@ -137,6 +152,29 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
         }
 
+        /// Property to change camera output.
+        private CameraOutputMode outputMode = CameraOutputMode.StillImage;
+
+        public CameraOutputMode OutputMode
+        {
+            get
+            {
+                return outputMode;
+            }
+
+            set
+            {
+                if (cameraIsSetup)
+                {
+                    if (value != outputMode)
+                    {
+                        _setupOutputMode(value, outputMode);
+                        outputMode = value;
+                    }
+                }
+            }
+        }
+
         private UIView embeddingView;
 
         private AVCaptureDevice frontCameraDevice
@@ -177,6 +215,7 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                 if (cameraIsSetup)
                 {
                     _addPreviewLayerToView(view);
+                    OutputMode = newCameraOutputMode;
                     completion?.Invoke();
                 }
                 else
@@ -185,6 +224,7 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                         () =>
                         {
                             this._addPreviewLayerToView(view);
+                            this.OutputMode = newCameraOutputMode;
                             completion?.Invoke();
                         });
                 }
@@ -223,6 +263,11 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         public void CapturePicture(Action<UIImage, NSError> completion)
         {
             if (!cameraIsSetup)
+            {
+                return;
+            }
+
+            if (outputMode != CameraOutputMode.StillImage)
             {
                 return;
             }
@@ -278,7 +323,13 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
         private void _orientationChanged()
         {
-            var currentConnection = stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
+            AVCaptureConnection currentConnection = null;
+            switch (OutputMode)
+            {
+                case CameraOutputMode.StillImage:
+                    currentConnection = stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
+                    break;
+            }
 
             var validPreviewLayer = previewLayer;
             if (validPreviewLayer != null)
@@ -345,7 +396,7 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                     validCaptureSession.SessionPreset = AVCaptureSession.PresetHigh;
                     this._updateCameraDevice(this.CameraDevice);
                     this._setupOutputs();
-                    this._setupOutputMode();
+                    this._setupOutputMode(this.OutputMode, null);
                     this._setupPreviewLayer();
                     validCaptureSession.CommitConfiguration();
                     this._updateFlasMode(this.FlashMode);
@@ -408,18 +459,44 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
         }
 
-        private void _setupOutputMode()
+        private void _setupOutputMode(CameraOutputMode newCameraOutputMode, CameraOutputMode? oldCameraOutputMode)
         {
             captureSession.BeginConfiguration();
 
-            if (stillImageOutput == null)
+            if (oldCameraOutputMode != null)
             {
-                _setupOutputs();
+                // remove current setting
+                switch (oldCameraOutputMode)
+                {
+                    case CameraOutputMode.StillImage:
+                        if (stillImageOutput != null)
+                        {
+                            captureSession.RemoveOutput(stillImageOutput);
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
             }
 
-            if (stillImageOutput != null)
+            // configure new devices
+            switch (newCameraOutputMode)
             {
-                captureSession.AddOutput(stillImageOutput);
+                case CameraOutputMode.StillImage:
+                    if (stillImageOutput == null)
+                    {
+                        _setupOutputs();
+                    }
+
+                    if (stillImageOutput != null)
+                    {
+                        captureSession.AddOutput(stillImageOutput);
+                    }
+
+                    break;
+                default:
+                    break;
             }
 
             captureSession.CommitConfiguration();
@@ -550,7 +627,15 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                         sessionPreset = AVCaptureSession.PresetMedium;
                         break;
                     case CameraOutputQuality.High:
-                        sessionPreset = AVCaptureSession.PresetPhoto;
+                        if (OutputMode == CameraOutputMode.StillImage)
+                        {
+                            sessionPreset = AVCaptureSession.PresetPhoto;
+                        }
+                        else
+                        {
+                            sessionPreset = AVCaptureSession.PresetHigh;
+                        }
+
                         break;
                     default:
                         break;
@@ -587,6 +672,15 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         {
             base.Dispose(disposing);
             stopAndRemoveCaptureSession();
+        }
+
+        public CameraManager()
+        {
+        }
+
+        public void FinishedRecording(
+            AVCaptureFileOutput captureOutput, NSUrl outputFileUrl, NSObject[] connections, NSError error)
+        {
         }
     }
 }
