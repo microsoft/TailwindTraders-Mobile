@@ -71,21 +71,21 @@ namespace TailwindTraders.Mobile.Features.Product.Category
             Products = null;
 
             var response = await TryExecuteWithLoadingIndicatorsAsync(
-                () => productsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
+                productsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
 
-            if (!response.IsSucceded)
+            if (response.IsError)
             {
                 CurrentState = State.Error;
                 return;
             }
 
-            if (response.Result == null || response.Result.Products == null || !response.Result.Products.Any())
+            if (response.Value == null || response.Value.Products == null || !response.Value.Products.Any())
             {
                 CurrentState = State.Empty;
                 return;
             }
 
-            Products = response.Result.Products;
+            Products = response.Value.Products;
             Title = products.First().Type.Name;
         }
     }

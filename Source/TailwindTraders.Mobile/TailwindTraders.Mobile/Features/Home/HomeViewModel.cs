@@ -9,6 +9,7 @@ using TailwindTraders.Mobile.Features.Product;
 using TailwindTraders.Mobile.Features.Scanning.AR;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
 using TailwindTraders.Mobile.Framework;
+using TailwindTraders.Mobile.Helpers;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Home
@@ -97,15 +98,15 @@ namespace TailwindTraders.Mobile.Features.Home
             };
 
             var homeResult = await TryExecuteWithLoadingIndicatorsAsync(
-                () => homeAPI.GetAsync(AuthenticationService.AuthorizationHeader));
+                homeAPI.GetAsync(AuthenticationService.AuthorizationHeader));
 
-            if (!homeResult.IsSucceded || homeResult.Result == null || homeResult.Result.PopularProducts == null)
+            if (homeResult.IsError || homeResult.Value == null || homeResult.Value.PopularProducts == null)
             {
                 CurrentState = State.Error;
                 return;
             }
 
-            var popularProductsRaw = homeResult.Result.PopularProducts;
+            var popularProductsRaw = homeResult.Value.PopularProducts;
             var popularProductsWithCommand = popularProductsRaw.Select(
                 item => new ProductViewModel(item, FeatureNotAvailableCommand));
             PopularProducts = new List<ProductViewModel>(popularProductsWithCommand);

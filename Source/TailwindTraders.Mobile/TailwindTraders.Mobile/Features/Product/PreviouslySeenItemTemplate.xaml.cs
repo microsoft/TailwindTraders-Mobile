@@ -1,4 +1,4 @@
-﻿namespace TailwindTraders.Mobile.Features.Home
+﻿namespace TailwindTraders.Mobile.Features.Product
 {
     public partial class PreviouslySeenItemTemplate
     {

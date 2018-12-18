@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace TailwindTraders.Mobile.Features.Home
+namespace TailwindTraders.Mobile.Effects
 {
     public class MultilineButtonEffect : RoutingEffect
     {

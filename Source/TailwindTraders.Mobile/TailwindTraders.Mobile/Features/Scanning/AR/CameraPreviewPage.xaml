@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<mvvm:BaseContentPage x:Name="cameraPreviewPage"
+<framework:BaseContentPage x:Name="cameraPreviewPage"
   x:Class="TailwindTraders.Mobile.Features.Scanning.AR.CameraPreviewPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:ar="clr-namespace:TailwindTraders.Mobile.Features.Scanning.AR"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-  xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
   Title="AR Mode"
   ios:Page.UseSafeArea="true"
@@ -24,4 +24,4 @@
 
   </ContentPage.Content>
 
-</mvvm:BaseContentPage>
+</framework:BaseContentPage>

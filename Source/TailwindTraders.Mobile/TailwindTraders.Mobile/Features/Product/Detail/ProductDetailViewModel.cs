@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Framework;
+using TailwindTraders.Mobile.Helpers;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Product.Detail
 {
-    public class ProductDetailViewModel : BaseViewModel
+    public class ProductDetailViewModel : BaseStateAwareViewModel<ProductDetailViewModel.State>
     {
         private readonly IProductsAPI productsAPI;
         private readonly int productId;
 
+        private int productTypeId;
         private string title;
         private IEnumerable<string> pictures;
         private string brand;
@@ -19,6 +22,13 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
         private string price;
         private IEnumerable<FeatureDTO> features;
         private IEnumerable<ProductViewModel> similarProducts;
+        private IEnumerable<ProductDTO> alsoBoughtProducts;
+
+        public enum State
+        {
+            EverythingOK,
+            Error,
+        }
 
         public string Title
         {
@@ -62,53 +72,86 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
             set => SetAndRaisePropertyChanged(ref similarProducts, value);
         }
 
+        public IEnumerable<ProductDTO> AlsoBoughtProducts
+        {
+            get => alsoBoughtProducts;
+            set => SetAndRaisePropertyChanged(ref alsoBoughtProducts, value);
+        }
+
+        public ICommand RefreshCommand { get; }
+
         public ProductDetailViewModel(int productId)
         {
             productsAPI = DependencyService.Get<IRestPoolService>().ProductsAPI.Value;
 
             this.productId = productId;
+
+            RefreshCommand = new Command(async () => await LoadSecondaryDataAsync());
         }
 
         public override async Task InitializeAsync()
         {
             await base.InitializeAsync();
 
-            await LoadDataAsync(productId).ConfigureAwait(false);
+            await LoadDataAsync().ConfigureAwait(false);
         }
 
-        private async Task LoadDataAsync(int product)
+        private async Task LoadDataAsync()
         {
-            var detailResponse = await TryExecuteWithLoadingIndicatorsAsync(
-                () => productsAPI.GetDetailAsync(AuthenticationService.AuthorizationHeader, product.ToString()));
+            var status = await TryExecuteWithLoadingIndicatorsAsync(RequestProductDetailAsync());
 
-            if (!detailResponse.IsSucceded || detailResponse.Result == null)
+            if (status.IsError)
             {
                 await App.NavigateBackAsync();
-                return;
             }
 
-            var result = detailResponse.Result;
-            var brandName = result.Brand.Name;
-            var productName = result.Name;
+            await LoadSecondaryDataAsync();
+        }
+
+        private async Task LoadSecondaryDataAsync()
+        {
+            var status = await TryExecuteWithLoadingIndicatorsAsync(RequestSimilarAndAlsoBoughtProductsAsync());
+            CurrentState = status ? State.EverythingOK : State.Error;
+        }
+
+        private async Task RequestProductDetailAsync()
+        {
+            var product = await productsAPI.GetDetailAsync(
+                AuthenticationService.AuthorizationHeader, productId.ToString());
+
+            if (product != null)
+            {
+                UpdateProduct(product);
+            }
+        }
+
+        private async Task RequestSimilarAndAlsoBoughtProductsAsync()
+        {
+            var productsPerType = await productsAPI.GetProductsAsync(
+                AuthenticationService.AuthorizationHeader, productTypeId.ToString());
+
+            if (productsPerType != null)
+            {
+                SimilarProducts = productsPerType.Products
+                    .Select(item => new ProductViewModel(item, FeatureNotAvailableCommand));
+
+                var randomProducts = productsPerType.Products.Shuffle().Take(3);
+                AlsoBoughtProducts = randomProducts.ToList();
+            }
+        }
+
+        private void UpdateProduct(ProductDTO product)
+        {
+            productTypeId = product.Type.Id;
+
+            var brandName = product.Brand.Name;
+            var productName = product.Name;
             Title = $"{brandName}. {productName}";
-            Pictures = new List<string> { result.ImageUrl };
+            Pictures = new List<string> { product.ImageUrl };
             Brand = brandName;
             Name = productName;
-            Price = $"${result.Price}";
-            Features = result.Features;
-
-            if (result.Type != null)
-            {
-                var type = result.Type.Id.ToString();
-                var similarResponse = await TryExecuteWithLoadingIndicatorsAsync(
-                    () => productsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
-
-                if (similarResponse.IsSucceded && similarResponse.Result != null)
-                {
-                    SimilarProducts = similarResponse.Result.Products
-                        .Select(item => new ProductViewModel(item, FeatureNotAvailableCommand));
-                }
-            }
+            Price = $"${product.Price}";
+            Features = product.Features;
         }
     }
 }

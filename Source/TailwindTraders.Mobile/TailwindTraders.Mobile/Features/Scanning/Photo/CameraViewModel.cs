@@ -58,16 +58,15 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
             CameraImage = this.mediaPath;
 
             var visionResult = await TryExecuteWithLoadingIndicatorsAsync(
-                () => visionService.GetRecommendedProductsFromPhotoAsync(CameraImage));
+                visionService.GetRecommendedProductsFromPhotoAsync(CameraImage));
 
-            var gotRecommendedProducts = visionResult.IsSucceded && 
-                visionResult.Result != default(IEnumerable<ProductDTO>);
+            var gotRecommendedProducts = visionResult && visionResult.Value != default(IEnumerable<ProductDTO>);
             if (!gotRecommendedProducts)
             {
                 return;
             }
 
-            RecommendedProducts = new List<ProductDTO>(visionResult.Result);
+            RecommendedProducts = new List<ProductDTO>(visionResult.Value);
         }
 
         public override async Task UninitializeAsync()

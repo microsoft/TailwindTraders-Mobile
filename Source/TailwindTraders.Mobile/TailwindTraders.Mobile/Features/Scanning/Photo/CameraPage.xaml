@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<mvvm:BaseContentPage x:Name="cameraPage"
+<framework:BaseContentPage x:Name="cameraPage"
   x:Class="TailwindTraders.Mobile.Features.Scanning.Photo.CameraPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-  xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:photo="clr-namespace:TailwindTraders.Mobile.Features.Scanning.Photo"
   ios:Page.UseSafeArea="true"
   x:DataType="photo:CameraViewModel"
@@ -91,4 +91,4 @@
     </Grid>
 
   </ContentPage.Content>
-</mvvm:BaseContentPage>
+</framework:BaseContentPage>
