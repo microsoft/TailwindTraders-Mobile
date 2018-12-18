@@ -113,18 +113,22 @@ namespace TailwindTraders.Mobile.Features.Scanning
             var input = interpreter.GetInput();
             using (var inputTensor = interpreter.GetTensor(input[0]))
             {
+                var watchReadImageFileToTensor = Stopwatch.StartNew();
                 platformService.ReadImageFileToTensor(
                     imageData,
                     QuantizedModel,
                     inputTensor.DataPointer,
                     ModelInputSize,
                     ModelInputSize);
+                watchReadImageFileToTensor.Stop();
+
+                loggingService.Debug($"ReadImageFileToTensor: {watchReadImageFileToTensor.ElapsedMilliseconds}ms");
 
                 var watchInvoke = Stopwatch.StartNew();
                 interpreter.Invoke();
                 watchInvoke.Stop();
 
-                loggingService.Debug($"Interpreter invoke: {watchInvoke.ElapsedMilliseconds}ms");
+                loggingService.Debug($"InterpreterInvoke: {watchInvoke.ElapsedMilliseconds}ms");
             }
 
             var output = interpreter.GetOutput();

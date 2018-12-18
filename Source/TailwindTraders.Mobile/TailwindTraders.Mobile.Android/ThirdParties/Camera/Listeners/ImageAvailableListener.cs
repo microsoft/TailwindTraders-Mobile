@@ -9,7 +9,7 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
     public class ImageAvailableListener : Java.Lang.Object, ImageReader.IOnImageAvailableListener
     {
         private bool captureStillImage = false;
-        private bool tensorflowProcess = false;
+        private bool tensorflowProcess = true;
 
         private readonly ICamera owner;
 
