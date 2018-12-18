@@ -133,7 +133,7 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning.Photo
 
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 loggingService.Error(ex);
 

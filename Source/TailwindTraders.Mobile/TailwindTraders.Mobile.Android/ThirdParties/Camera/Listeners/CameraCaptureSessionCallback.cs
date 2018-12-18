@@ -43,7 +43,7 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                 owner.mPreviewRequest = owner.mPreviewRequestBuilder.Build();
                 owner.mCaptureSession.SetRepeatingRequest(
                     owner.mPreviewRequest,
-                    owner.mCaptureCallback,
+                    null,
                     owner.mBackgroundHandler);
             }
             catch (CameraAccessException e)

@@ -103,7 +103,6 @@
     <Compile Include="ThirdParties\Camera\CompareSizesByArea.cs" />
     <Compile Include="ThirdParties\Camera\ICamera.cs" />
     <Compile Include="ThirdParties\Camera\Listeners\CameraSurfaceTextureListener.cs" />
-    <Compile Include="ThirdParties\Camera\Listeners\CameraCaptureListener.cs" />
     <Compile Include="ThirdParties\Camera\Listeners\CameraCaptureSessionCallback.cs" />
     <Compile Include="ThirdParties\Camera\Listeners\CameraStateListener.cs" />
     <Compile Include="ThirdParties\Camera\Listeners\ImageAvailableListener.cs" />
