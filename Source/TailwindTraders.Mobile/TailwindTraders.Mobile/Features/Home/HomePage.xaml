@@ -6,6 +6,7 @@
   xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
   xmlns:controls="clr-namespace:TailwindTraders.Mobile.Controls"
+  xmlns:effects="clr-namespace:TailwindTraders.Mobile.Effects"
   xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Home"
@@ -91,7 +92,7 @@
             Text="Start Smart Shopping&#x0a;by taking a photo">
 
             <Button.Effects>
-              <local:MultilineButtonEffect />
+              <effects:MultilineButtonEffect />
             </Button.Effects>
 
           </Button>
@@ -104,7 +105,7 @@
             Text="Start Smart Shopping&#x0a;by using AR">
 
             <Button.Effects>
-              <local:MultilineButtonEffect />
+              <effects:MultilineButtonEffect />
             </Button.Effects>
 
           </Button>

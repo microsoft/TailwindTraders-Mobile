@@ -79,9 +79,9 @@
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Features\LogIn\BorderlessEntryEffect.cs" />
-    <Compile Include="Features\Home\MultilineButtonEffect.cs" />
     <Compile Include="Features\Scanning\Photo\PlatformService.cs" />
     <Compile Include="Features\Scanning\CameraPreviewRenderer.cs" />
+    <Compile Include="Effects\MultilineButtonEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -355,6 +355,7 @@
     <Folder Include="Assets.xcassets\photo.imageset\" />
     <Folder Include="Assets.xcassets\splash_screen.imageset\" />
     <Folder Include="Assets.xcassets\star.imageset\" />
+    <Folder Include="Effects\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="..\Resources\Fonts\Gin-Regular.otf">

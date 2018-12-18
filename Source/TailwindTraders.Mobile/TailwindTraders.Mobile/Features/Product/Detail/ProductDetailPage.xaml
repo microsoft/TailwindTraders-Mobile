@@ -5,6 +5,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
   xmlns:controls="clr-namespace:TailwindTraders.Mobile.Controls"
+  xmlns:effects="clr-namespace:TailwindTraders.Mobile.Effects"
   xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
@@ -161,7 +162,11 @@
             HorizontalOptions="Center"
             IsVisible="false"
             Style="{StaticResource DefaultShadowfullButtonStyle}"
-            Text="Try reload similar and also bought products">
+            Text="Try reload similar and&#x0a;also bought products">
+            <Button.Effects>
+              <effects:MultilineButtonEffect />
+            </Button.Effects>
+
             <VisualStateManager.VisualStateGroups>
               <VisualStateGroup Name="States">
 
