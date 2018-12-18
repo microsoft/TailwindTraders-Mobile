@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<mvvm:BaseStateAwareContentPage x:Name="homePage"
+<framework:BaseStateAwareContentPage x:Name="homePage"
   x:Class="TailwindTraders.Mobile.Features.Home.HomePage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
   xmlns:controls="clr-namespace:TailwindTraders.Mobile.Controls"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Home"
-  xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:xfbindablestacklayout="clr-namespace:XFBindableStackLayout"
   Title="Home"
   ios:Page.UseSafeArea="true"
@@ -25,22 +25,10 @@
         BasedOn="{StaticResource ShadowfullBoxViewStyle}"
         TargetType="BoxView" />
 
-      <Style TargetType="Button">
-        <Setter Property="BackgroundColor">White</Setter>
-        <Setter Property="CornerRadius">32</Setter>
-        <Setter Property="HeightRequest">64</Setter>
-        <Setter Property="Margin">
-          <Thickness
-            Left="40"
-            Top="{StaticResource DefaultMargin}"
-            Right="40" />
-        </Setter>
-        <Setter Property="android:Button.UseDefaultShadow">true</Setter>
-        <Setter Property="ios:VisualElement.IsShadowEnabled">true</Setter>
-        <Setter Property="ios:VisualElement.ShadowColor">Black</Setter>
-        <Setter Property="ios:VisualElement.ShadowOffset" Value="10,10" />
-        <Setter Property="ios:VisualElement.ShadowOpacity">0.2</Setter>
-      </Style>
+      <Thickness x:Key="ButtonMargin"
+        Left="40"
+        Top="{StaticResource DefaultMargin}"
+        Right="40" />
 
     </ResourceDictionary>
   </ContentPage.Resources>
@@ -96,8 +84,10 @@
             Source="header.jpg" />
 
           <Button
+            Margin="{StaticResource ButtonMargin}"
             Command="{Binding PhotoCommand}"
             Image="photo"
+            Style="{StaticResource DefaultShadowfullButtonStyle}"
             Text="Start Smart Shopping&#x0a;by taking a photo">
 
             <Button.Effects>
@@ -107,8 +97,10 @@
           </Button>
 
           <Button
+            Margin="{StaticResource ButtonMargin}"
             Command="{Binding ARCommand}"
             Image="ia"
+            Style="{StaticResource DefaultShadowfullButtonStyle}"
             Text="Start Smart Shopping&#x0a;by using AR">
 
             <Button.Effects>
@@ -122,6 +114,7 @@
             Command="{Binding LoadCommand}"
             HorizontalOptions="Center"
             IsVisible="false"
+            Style="{StaticResource DefaultShadowfullButtonStyle}"
             Text="Try fetch products again">
             <VisualStateManager.VisualStateGroups>
               <VisualStateGroup Name="States">
@@ -225,4 +218,4 @@
 
   </ContentPage.Content>
 
-</mvvm:BaseStateAwareContentPage>
+</framework:BaseStateAwareContentPage>

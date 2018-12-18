@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<mvvm:BaseStateAwareContentPage
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<framework:BaseStateAwareContentPage
   x:Class="TailwindTraders.Mobile.Features.Product.Detail.ProductDetailPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
   xmlns:controls="clr-namespace:TailwindTraders.Mobile.Controls"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Detail"
-  xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:xfbindablestacklayout="clr-namespace:XFBindableStackLayout"
   Title="{Binding Title}"
   ios:Page.UseSafeArea="true"
@@ -160,7 +160,8 @@
             Command="{Binding RefreshCommand}"
             HorizontalOptions="Center"
             IsVisible="false"
-            Text="Try fetch products again">
+            Style="{StaticResource DefaultShadowfullButtonStyle}"
+            Text="Try reload similar and also bought products">
             <VisualStateManager.VisualStateGroups>
               <VisualStateGroup Name="States">
 
@@ -181,7 +182,6 @@
           </Button>
 
           <StackLayout x:Name="stateAwareStackLayout">
-
             <Label
               Style="{StaticResource HeaderLabelStyle}"
               Text="SIMILAR PRODUCTS" />
@@ -224,6 +224,23 @@
 
             </ContentView>
 
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup Name="States">
+
+                <VisualState Name="EverythingOK">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="true" />
+                  </VisualState.Setters>
+                </VisualState>
+
+                <VisualState Name="Error">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="false" />
+                  </VisualState.Setters>
+                </VisualState>
+
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
           </StackLayout>
 
         </StackLayout>
@@ -234,4 +251,4 @@
 
   </ContentPage.Content>
 
-</mvvm:BaseStateAwareContentPage>
+</framework:BaseStateAwareContentPage>

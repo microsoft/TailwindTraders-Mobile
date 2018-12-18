@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Framework;
 using TailwindTraders.Mobile.Helpers;
 using Xamarin.Forms;
-using System.Windows.Input;
 
 namespace TailwindTraders.Mobile.Features.Product.Detail
 {
@@ -86,7 +86,7 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
             this.productId = productId;
 
-            RefreshCommand = new Command(async () => await RequestSimilarAndAlsoBoughtProductsAsync());
+            RefreshCommand = new Command(async () => await LoadSecondaryDataAsync());
         }
 
         public override async Task InitializeAsync()
@@ -105,12 +105,13 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
                 await App.NavigateBackAsync();
             }
 
-            status = await TryExecuteWithLoadingIndicatorsAsync(RequestSimilarAndAlsoBoughtProductsAsync());
+            await LoadSecondaryDataAsync();
+        }
 
-            if (status.IsError)
-            {
-                CurrentState = State.Error;
-            }
+        private async Task LoadSecondaryDataAsync()
+        {
+            var status = await TryExecuteWithLoadingIndicatorsAsync(RequestSimilarAndAlsoBoughtProductsAsync());
+            CurrentState = status ? State.EverythingOK : State.Error;
         }
 
         private async Task RequestProductDetailAsync()
@@ -126,8 +127,6 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
         private async Task RequestSimilarAndAlsoBoughtProductsAsync()
         {
-            throw new System.Exception();
-
             var productsPerType = await productsAPI.GetProductsAsync(
                 AuthenticationService.AuthorizationHeader, productTypeId.ToString());
 

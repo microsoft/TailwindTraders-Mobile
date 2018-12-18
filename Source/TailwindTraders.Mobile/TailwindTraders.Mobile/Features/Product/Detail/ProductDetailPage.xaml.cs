@@ -15,7 +15,7 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
         internal override IEnumerable<VisualElement> GetStateAwareVisualElements() => new VisualElement[]
         {
             refreshButton,
-            stateAwareStackLayout
+            stateAwareStackLayout,
         };
     }
 }
