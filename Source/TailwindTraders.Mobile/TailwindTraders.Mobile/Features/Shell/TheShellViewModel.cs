@@ -3,6 +3,7 @@ using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product.Category;
 using TailwindTraders.Mobile.Features.Scanning.AR;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
+using TailwindTraders.Mobile.Features.Settings;
 using TailwindTraders.Mobile.Framework;
 
 namespace TailwindTraders.Mobile.Features.Shell
@@ -21,5 +22,8 @@ namespace TailwindTraders.Mobile.Features.Shell
             typeId => App.NavigateToAsync(new ProductCategoryPage(typeId as string), closeFlyout: true));
 
         public ICommand ProfileCommand => FeatureNotAvailableCommand;
+
+        public ICommand SettingsCommand => new AsyncCommand(
+            _ => App.NavigateToAsync(new SettingsPage(), closeFlyout: true));
     }
 }
