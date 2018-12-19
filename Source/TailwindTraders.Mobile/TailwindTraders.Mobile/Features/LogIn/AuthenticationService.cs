@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Features.Settings;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.LogIn
@@ -23,7 +24,7 @@ namespace TailwindTraders.Mobile.Features.LogIn
 
         public async Task LogInAsync(string email, string password)
         {
-            var profiles = await restPoolService.ProfilesAPI.Value.GetAsync(Settings.Settings.AnonymousToken);
+            var profiles = await restPoolService.ProfilesAPI.Value.GetAsync(DefaultSettings.AnonymousToken);
 
             if (!profiles.Any())
             {

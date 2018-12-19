@@ -12,7 +12,7 @@ namespace UnitTests.Features.Common
 
         public RestPoolServiceTests()
         {
-            Settings.RootApiUrl = "http://foo.bar";
+            DefaultSettings.RootApiUrl = "http://foo.bar";
         }
 
         [SetUp]

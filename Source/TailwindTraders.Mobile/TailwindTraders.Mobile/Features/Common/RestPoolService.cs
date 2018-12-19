@@ -3,6 +3,7 @@ using Refit;
 using TailwindTraders.Mobile.Features.Home;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
+using TailwindTraders.Mobile.Features.Settings;
 using TailwindTraders.Mobile.Helpers;
 
 namespace TailwindTraders.Mobile.Features.Common
@@ -17,7 +18,7 @@ namespace TailwindTraders.Mobile.Features.Common
 
         public RestPoolService()
         {
-            UpdateApiUrl(Settings.Settings.RootApiUrl);
+            UpdateApiUrl(DefaultSettings.RootApiUrl);
         }
 
         public void UpdateApiUrl(string newApiUrl)

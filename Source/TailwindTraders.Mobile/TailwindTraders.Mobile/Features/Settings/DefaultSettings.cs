@@ -1,6 +1,6 @@
 namespace TailwindTraders.Mobile.Features.Settings
 {
-    public static class Settings
+    public static class DefaultSettings
     {
         public const string ApiAuthorizationHeader = "Authorization";
 

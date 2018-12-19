@@ -17,8 +17,8 @@ namespace UnitTests.Features.Home
         [Test]
         public async Task GetProductsAsync()
         {
-            var productsAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(Settings.ProductApiUrl));
-            var home = await productsAPI.GetAsync(Settings.AnonymousToken);
+            var productsAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(DefaultSettings.ProductApiUrl));
+            var home = await productsAPI.GetAsync(DefaultSettings.AnonymousToken);
 
             Assert.IsNotEmpty(home.PopularProducts);
         }

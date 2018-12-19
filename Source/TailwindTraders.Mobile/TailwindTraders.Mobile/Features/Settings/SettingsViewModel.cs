@@ -17,14 +17,14 @@ namespace TailwindTraders.Mobile.Features.Settings
 
         public SettingsViewModel()
         {
-            rootApiUrl = Settings.RootApiUrl;
+            rootApiUrl = DefaultSettings.RootApiUrl;
 
             SaveCommand = new Command(Save);
         }
 
         private void Save()
         {
-            Settings.RootApiUrl = rootApiUrl;
+            DefaultSettings.RootApiUrl = rootApiUrl;
 
             RestPoolService.UpdateApiUrl(rootApiUrl);
 
