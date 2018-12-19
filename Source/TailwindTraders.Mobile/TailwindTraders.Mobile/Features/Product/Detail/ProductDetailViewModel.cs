@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Framework;
 using TailwindTraders.Mobile.Helpers;
 using Xamarin.Forms;
@@ -11,7 +10,6 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 {
     public class ProductDetailViewModel : BaseStateAwareViewModel<ProductDetailViewModel.State>
     {
-        private readonly IProductsAPI productsAPI;
         private readonly int productId;
 
         private int productTypeId;
@@ -82,8 +80,6 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
         public ProductDetailViewModel(int productId)
         {
-            productsAPI = DependencyService.Get<IRestPoolService>().ProductsAPI.Value;
-
             this.productId = productId;
 
             RefreshCommand = new Command(async () => await LoadSecondaryDataAsync());
@@ -116,7 +112,7 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
         private async Task RequestProductDetailAsync()
         {
-            var product = await productsAPI.GetDetailAsync(
+            var product = await RestPoolService.ProductsAPI.Value.GetDetailAsync(
                 AuthenticationService.AuthorizationHeader, productId.ToString());
 
             if (product != null)
@@ -127,7 +123,7 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
         private async Task RequestSimilarAndAlsoBoughtProductsAsync()
         {
-            var productsPerType = await productsAPI.GetProductsAsync(
+            var productsPerType = await RestPoolService.ProductsAPI.Value.GetProductsAsync(
                 AuthenticationService.AuthorizationHeader, productTypeId.ToString());
 
             if (productsPerType != null)

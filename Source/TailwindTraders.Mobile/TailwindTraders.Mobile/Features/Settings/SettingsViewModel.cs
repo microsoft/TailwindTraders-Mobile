@@ -1,13 +1,10 @@
-﻿using TailwindTraders.Mobile.Features.Common;
-using TailwindTraders.Mobile.Framework;
+﻿using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Settings
 {
     public class SettingsViewModel : BaseViewModel
     {
-        private readonly IRestPoolService restPoolService;
-
         private string rootApiUrl;
 
         public string RootApiUrl
@@ -20,8 +17,6 @@ namespace TailwindTraders.Mobile.Features.Settings
 
         public SettingsViewModel()
         {
-            restPoolService = DependencyService.Get<IRestPoolService>();
-
             rootApiUrl = Settings.RootApiUrl;
 
             SaveCommand = new Command(Save);
@@ -31,7 +26,7 @@ namespace TailwindTraders.Mobile.Features.Settings
         {
             Settings.RootApiUrl = rootApiUrl;
 
-            restPoolService.UpdateApiUrl(rootApiUrl);
+            RestPoolService.UpdateApiUrl(rootApiUrl);
 
             XSnackService.ShowMessage("Settings saved");
         }

@@ -15,12 +15,12 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
     public class VisionService : IVisionService
     {
         private readonly IAuthenticationService authenticationService;
-        private readonly IProductsAPI productsAPI;
+        private readonly IRestPoolService restPoolService;
 
         public VisionService()
         {
             authenticationService = DependencyService.Get<IAuthenticationService>();
-            productsAPI = DependencyService.Get<IRestPoolService>().ProductsAPI.Value;
+            restPoolService = DependencyService.Get<IRestPoolService>();
         }
 
         public async Task<IEnumerable<ProductDTO>> GetRecommendedProductsFromPhotoAsync(string photoPath)
@@ -29,7 +29,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
             {
                 var streamPart = new StreamPart(photoStream, "photo.jpg", "image/jpeg");
 
-                return await productsAPI.GetSimilarProductsAsync(authenticationService.AuthorizationHeader, streamPart);
+                return await restPoolService.ProductsAPI.Value.GetSimilarProductsAsync(
+                    authenticationService.AuthorizationHeader, streamPart);
             }
         }
     }

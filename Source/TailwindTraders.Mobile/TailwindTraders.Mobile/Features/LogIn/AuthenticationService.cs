@@ -8,13 +8,13 @@ namespace TailwindTraders.Mobile.Features.LogIn
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly IProfilesAPI profilesAPI;
+        private readonly IRestPoolService restPoolService;
 
         private string authenticatedUser;
 
         public AuthenticationService()
         {
-            profilesAPI = DependencyService.Get<IRestPoolService>().ProfilesAPI.Value;
+            restPoolService = DependencyService.Get<IRestPoolService>();
         }
 
         public string AuthorizationHeader => $"Email {authenticatedUser}";
@@ -23,7 +23,7 @@ namespace TailwindTraders.Mobile.Features.LogIn
 
         public async Task LogInAsync(string email, string password)
         {
-            var profiles = await profilesAPI.GetAsync(Settings.Settings.AnonymousToken);
+            var profiles = await restPoolService.ProfilesAPI.Value.GetAsync(Settings.Settings.AnonymousToken);
 
             if (!profiles.Any())
             {
