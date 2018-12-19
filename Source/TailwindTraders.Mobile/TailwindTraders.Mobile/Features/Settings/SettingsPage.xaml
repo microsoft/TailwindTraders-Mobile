@@ -1,19 +1,20 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <framework:BaseContentPage
   x:Class="TailwindTraders.Mobile.Features.Settings.SettingsPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:effects="using:TailwindTraders.Mobile.Effects"
   xmlns:framework="using:TailwindTraders.Mobile.Framework"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="using:TailwindTraders.Mobile.Features.Settings"
   Title="Settings"
-  Padding="{StaticResource Default2Margin}"
+  ios:Page.UseSafeArea="true"
   x:DataType="local:SettingsViewModel"
   x:TypeArguments="local:SettingsViewModel">
 
   <ContentPage.Content>
 
-    <Grid>
+    <Grid Margin="{StaticResource Default2Margin}">
 
       <Grid.RowDefinitions>
         <RowDefinition Height="*" />
@@ -21,6 +22,10 @@
       </Grid.RowDefinitions>
 
       <StackLayout>
+
+        <View.Margin>
+          <Thickness Top="{StaticResource 2xDefaultMargin}" />
+        </View.Margin>
 
         <Label
           Style="{StaticResource BrandonGrotesqueLightSmallFontStyle}"
@@ -40,7 +45,7 @@
         Grid.Row="1"
         Command="{Binding SaveCommand}"
         Style="{StaticResource Accent2ColorButtonStyle}"
-        Text="Save" />
+        Text="SAVE" />
 
     </Grid>
 
