@@ -116,11 +116,8 @@
     <Compile Include="Features\Scanning\CameraPreviewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\net\exported.tflite">
-      <Link>Assets\AR\net\exported.tflite</Link>
-    </AndroidAsset>
-    <AndroidAsset Include="..\Resources\AR\pets\detect.tflite">
-      <Link>Assets\AR\pets\detect.tflite</Link>
+    <AndroidAsset Include="..\Resources\AR\net\detect.tflite">
+      <Link>Assets\AR\net\detect.tflite</Link>
     </AndroidAsset>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -270,43 +267,13 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\capture.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\images\beagle.jpg">
-      <Link>Assets\AR\images\beagle.jpg</Link>
+    <AndroidAsset Include="..\Resources\AR\images\IMG_20181220_104230.jpg">
+      <Link>Assets\AR\images\IMG_20181220_104230.jpg</Link>
     </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\images\cat.jpg">
-      <Link>Assets\AR\images\cat.jpg</Link>
-    </AndroidAsset>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\images\hardhat_102.jpg">
-      <Link>Assets\AR\images\hardhat_102.jpg</Link>
-    </AndroidAsset>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\images\mouse.jpg">
-      <Link>Assets\AR\images\mouse.jpg</Link>
-    </AndroidAsset>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\images\ragdoll.jpg">
-      <Link>Assets\AR\images\ragdoll.jpg</Link>
-    </AndroidAsset>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\images\test.jpg">
-      <Link>Assets\AR\images\test.jpg</Link>
-    </AndroidAsset>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\net\net_labels_list.txt">
-      <Link>Assets\AR\net\net_labels_list.txt</Link>
-    </AndroidAsset>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\pets\pets_labels_list.txt">
-      <Link>Assets\AR\pets\pets_labels_list.txt</Link>
+    <AndroidAsset Include="..\Resources\AR\net\labels_list.txt">
+      <Link>Assets\AR\net\labels_list.txt</Link>
     </AndroidAsset>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

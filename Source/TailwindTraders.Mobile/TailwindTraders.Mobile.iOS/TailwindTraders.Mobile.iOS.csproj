@@ -76,11 +76,8 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="ThirdParties\Touch\TouchEffect.cs" />
     <Compile Include="ThirdParties\Touch\TouchRecognizer.cs" />
-    <BundleResource Include="..\Resources\AR\net\exported.tflite">
-      <Link>Resources\AR\net\exported.tflite</Link>
-    </BundleResource>
-    <BundleResource Include="..\Resources\AR\pets\detect.tflite">
-      <Link>Resources\AR\pets\detect.tflite</Link>
+    <BundleResource Include="..\Resources\AR\net\detect.tflite">
+      <Link>Resources\AR\net\detect.tflite</Link>
     </BundleResource>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
@@ -402,43 +399,13 @@
     </BundleResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="..\Resources\AR\images\beagle.jpg">
-      <Link>Resources\AR\images\beagle.jpg</Link>
+    <BundleResource Include="..\Resources\AR\images\IMG_20181220_104230.jpg">
+      <Link>Resources\AR\images\IMG_20181220_104230.jpg</Link>
     </BundleResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="..\Resources\AR\images\cat.jpg">
-      <Link>Resources\AR\images\cat.jpg</Link>
-    </BundleResource>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="..\Resources\AR\images\hardhat_102.jpg">
-      <Link>Resources\AR\images\hardhat_102.jpg</Link>
-    </BundleResource>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="..\Resources\AR\images\mouse.jpg">
-      <Link>Resources\AR\images\mouse.jpg</Link>
-    </BundleResource>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="..\Resources\AR\images\ragdoll.jpg">
-      <Link>Resources\AR\images\ragdoll.jpg</Link>
-    </BundleResource>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="..\Resources\AR\images\test.jpg">
-      <Link>Resources\AR\images\test.jpg</Link>
-    </BundleResource>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="..\Resources\AR\net\net_labels_list.txt">
-      <Link>Resources\AR\net\net_labels_list.txt</Link>
-    </BundleResource>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="..\Resources\AR\pets\pets_labels_list.txt">
-      <Link>Resources\AR\pets\pets_labels_list.txt</Link>
+    <BundleResource Include="..\Resources\AR\net\labels_list.txt">
+      <Link>Resources\AR\net\labels_list.txt</Link>
     </BundleResource>
   </ItemGroup>
 </Project>
