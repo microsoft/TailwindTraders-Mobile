@@ -1,5 +1,4 @@
-﻿using System;
-using Refit;
+﻿using Refit;
 using TailwindTraders.Mobile.Features.Home;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
@@ -10,11 +9,11 @@ namespace TailwindTraders.Mobile.Features.Common
 {
     public class RestPoolService : IRestPoolService
     {
-        public Lazy<IProfilesAPI> ProfilesAPI { get; private set; }
+        public IProfilesAPI ProfilesAPI { get; private set; }
 
-        public Lazy<IHomeAPI> HomeAPI { get; private set; }
+        public IHomeAPI HomeAPI { get; private set; }
 
-        public Lazy<IProductsAPI> ProductsAPI { get; private set; }
+        public IProductsAPI ProductsAPI { get; private set; }
 
         public RestPoolService()
         {
@@ -23,12 +22,9 @@ namespace TailwindTraders.Mobile.Features.Common
 
         public void UpdateApiUrl(string newApiUrl)
         {
-            ProfilesAPI = new Lazy<IProfilesAPI>(
-                () => RestService.For<IProfilesAPI>(HttpClientFactory.Create(newApiUrl)));
-            HomeAPI = new Lazy<IHomeAPI>(
-                () => RestService.For<IHomeAPI>(HttpClientFactory.Create(newApiUrl)));
-            ProductsAPI = new Lazy<IProductsAPI>(
-                () => RestService.For<IProductsAPI>(HttpClientFactory.Create(newApiUrl)));
+            ProfilesAPI = RestService.For<IProfilesAPI>(HttpClientFactory.Create(newApiUrl));
+            HomeAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(newApiUrl));
+            ProductsAPI = RestService.For<IProductsAPI>(HttpClientFactory.Create(newApiUrl));
         }
     }
 }

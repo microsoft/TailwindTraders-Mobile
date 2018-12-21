@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <framework:BaseContentPage
   x:Class="TailwindTraders.Mobile.Features.Settings.SettingsPage"
   xmlns="http://xamarin.com/schemas/2014/forms"

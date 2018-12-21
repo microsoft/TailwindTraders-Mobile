@@ -93,7 +93,7 @@ namespace TailwindTraders.Mobile.Features.Home
             };
 
             var homeResult = await TryExecuteWithLoadingIndicatorsAsync(
-                RestPoolService.HomeAPI.Value.GetAsync(AuthenticationService.AuthorizationHeader));
+                RestPoolService.HomeAPI.GetAsync(AuthenticationService.AuthorizationHeader));
 
             if (homeResult.IsError || homeResult.Value == null || homeResult.Value.PopularProducts == null)
             {

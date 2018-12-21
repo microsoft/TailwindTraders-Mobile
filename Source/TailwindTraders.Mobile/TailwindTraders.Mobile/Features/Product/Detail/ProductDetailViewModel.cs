@@ -112,7 +112,7 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
         private async Task RequestProductDetailAsync()
         {
-            var product = await RestPoolService.ProductsAPI.Value.GetDetailAsync(
+            var product = await RestPoolService.ProductsAPI.GetDetailAsync(
                 AuthenticationService.AuthorizationHeader, productId.ToString());
 
             if (product != null)
@@ -123,7 +123,7 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
         private async Task RequestSimilarAndAlsoBoughtProductsAsync()
         {
-            var productsPerType = await RestPoolService.ProductsAPI.Value.GetProductsAsync(
+            var productsPerType = await RestPoolService.ProductsAPI.GetProductsAsync(
                 AuthenticationService.AuthorizationHeader, productTypeId.ToString());
 
             if (productsPerType != null)

@@ -29,7 +29,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
             {
                 var streamPart = new StreamPart(photoStream, "photo.jpg", "image/jpeg");
 
-                return await restPoolService.ProductsAPI.Value.GetSimilarProductsAsync(
+                return await restPoolService.ProductsAPI.GetSimilarProductsAsync(
                     authenticationService.AuthorizationHeader, streamPart);
             }
         }

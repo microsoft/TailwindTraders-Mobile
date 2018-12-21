@@ -1,19 +1,13 @@
 ﻿using NUnit.Framework;
 using TailwindTraders.Mobile.Features.Common;
-using TailwindTraders.Mobile.Features.Settings;
 
 namespace UnitTests.Features.Common
 {
     public class RestPoolServiceTests
     {
-        private const string NewApiUrl = "foo";
+        private const string NewApiUrl = "http://foo.bar";
 
         private RestPoolService service;
-
-        public RestPoolServiceTests()
-        {
-            DefaultSettings.RootApiUrl = "http://foo.bar";
-        }
 
         [SetUp]
         public void SetUp()
@@ -24,37 +18,31 @@ namespace UnitTests.Features.Common
         [Test]
         public void HomeApiIsRecreated()
         {
-            var useless = service.HomeAPI.Value;
-
-            Assert.True(service.HomeAPI.IsValueCreated);
+            var initialHash = service.HomeAPI.GetHashCode();
 
             service.UpdateApiUrl(NewApiUrl);
 
-            Assert.False(service.HomeAPI.IsValueCreated);
+            Assert.AreNotEqual(service.HomeAPI.GetHashCode(), initialHash);
         }
 
         [Test]
         public void ProductsApiIsRecreated()
         {
-            var useless = service.ProductsAPI.Value;
-
-            Assert.True(service.ProductsAPI.IsValueCreated);
+            var initialHash = service.ProductsAPI.GetHashCode();
 
             service.UpdateApiUrl(NewApiUrl);
 
-            Assert.False(service.ProductsAPI.IsValueCreated);
+            Assert.AreNotEqual(service.ProductsAPI.GetHashCode(), initialHash);
         }
 
         [Test]
         public void ProfilesApiIsRecreated()
         {
-            var useless = service.ProfilesAPI.Value;
-
-            Assert.True(service.ProfilesAPI.IsValueCreated);
+            var initialHash = service.ProfilesAPI.GetHashCode();
 
             service.UpdateApiUrl(NewApiUrl);
 
-            Assert.False(service.ProfilesAPI.IsValueCreated);
+            Assert.AreNotEqual(service.ProfilesAPI.GetHashCode(), initialHash);
         }
     }
 }

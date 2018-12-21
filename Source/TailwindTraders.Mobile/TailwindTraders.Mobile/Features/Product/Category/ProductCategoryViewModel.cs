@@ -67,7 +67,7 @@ namespace TailwindTraders.Mobile.Features.Product.Category
             Products = null;
 
             var response = await TryExecuteWithLoadingIndicatorsAsync(
-                RestPoolService.ProductsAPI.Value.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
+                RestPoolService.ProductsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
 
             if (response.IsError)
             {

@@ -24,7 +24,7 @@ namespace TailwindTraders.Mobile.Features.LogIn
 
         public async Task LogInAsync(string email, string password)
         {
-            var profiles = await restPoolService.ProfilesAPI.Value.GetAsync(DefaultSettings.AnonymousToken);
+            var profiles = await restPoolService.ProfilesAPI.GetAsync(DefaultSettings.AnonymousToken);
 
             if (!profiles.Any())
             {
