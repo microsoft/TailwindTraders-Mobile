@@ -1,4 +1,6 @@
-﻿using TailwindTraders.Mobile.Framework;
+﻿using System;
+using TailwindTraders.Mobile.Features.Localization;
+using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Settings
@@ -24,11 +26,17 @@ namespace TailwindTraders.Mobile.Features.Settings
 
         private void Save()
         {
+            if (!Uri.IsWellFormedUriString(RootApiUrl, UriKind.Absolute))
+            {
+                XSnackService.ShowMessage(Resources.Snack_Message_InvalidAbsoluteURL);
+                return;
+            }
+
             DefaultSettings.RootApiUrl = rootApiUrl;
 
             RestPoolService.UpdateApiUrl(rootApiUrl);
 
-            XSnackService.ShowMessage("Settings saved");
+            XSnackService.ShowMessage(Resources.Snack_Message_SettingsSaved);
         }
     }
 }
