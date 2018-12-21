@@ -3,21 +3,12 @@
   x:Class="TailwindTraders.Mobile.Features.LogIn.LogInPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:effects="clr-namespace:TailwindTraders.Mobile.Effects"
   xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.LogIn"
   x:DataType="local:LoginViewModel"
   x:TypeArguments="local:LoginViewModel"
   ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
-  <ContentPage.Resources>
-    <ResourceDictionary>
-
-      <Style TargetType="Entry">
-        <Setter Property="FontFamily" Value="{StaticResource BrandonGrotesqueMedium}" />
-        <Setter Property="FontSize" Value="Medium" />
-      </Style>
-
-    </ResourceDictionary>
-  </ContentPage.Resources>
 
   <ContentPage.Content>
 
@@ -55,7 +46,7 @@
         <Entry Text="{Binding Email}">
 
           <Entry.Effects>
-            <local:BorderlessEntryEffect />
+            <effects:BorderlessEntryEffect />
           </Entry.Effects>
 
         </Entry>
@@ -72,7 +63,7 @@
           IsPassword="true"
           Text="{Binding Password}">
           <Entry.Effects>
-            <local:BorderlessEntryEffect />
+            <effects:BorderlessEntryEffect />
           </Entry.Effects>
         </Entry>
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using OperationResult;
 using Plugin.XSnack;
+using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Localization;
 using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.LogIn;
@@ -16,6 +17,7 @@ namespace TailwindTraders.Mobile.Framework
     {
         protected static readonly IAuthenticationService AuthenticationService;
         protected static readonly ILoggingService LoggingService;
+        protected static readonly IRestPoolService RestPoolService;
         protected static readonly IXSnack XSnackService;
 
         private bool isBusy;
@@ -23,9 +25,9 @@ namespace TailwindTraders.Mobile.Framework
         static BaseViewModel()
         {
             AuthenticationService = DependencyService.Get<IAuthenticationService>();
-
-            XSnackService = DependencyService.Get<IXSnack>();
             LoggingService = DependencyService.Get<ILoggingService>();
+            RestPoolService = DependencyService.Get<IRestPoolService>();
+            XSnackService = DependencyService.Get<IXSnack>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

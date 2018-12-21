@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
 using TailwindTraders.Mobile.Features.Scanning.AR;
@@ -16,8 +15,6 @@ namespace TailwindTraders.Mobile.Features.Home
 {
     public class HomeViewModel : BaseStateAwareViewModel<HomeViewModel.State>
     {
-        private readonly IHomeAPI homeAPI;
-
         public enum State
         { 
             EverythingOK,
@@ -30,8 +27,6 @@ namespace TailwindTraders.Mobile.Features.Home
 
         public HomeViewModel()
         {
-            homeAPI = DependencyService.Get<IRestPoolService>().HomeAPI.Value;
-
             IsBusy = true;
         }
 
@@ -98,7 +93,7 @@ namespace TailwindTraders.Mobile.Features.Home
             };
 
             var homeResult = await TryExecuteWithLoadingIndicatorsAsync(
-                homeAPI.GetAsync(AuthenticationService.AuthorizationHeader));
+                RestPoolService.HomeAPI.GetAsync(AuthenticationService.AuthorizationHeader));
 
             if (homeResult.IsError || homeResult.Value == null || homeResult.Value.PopularProducts == null)
             {

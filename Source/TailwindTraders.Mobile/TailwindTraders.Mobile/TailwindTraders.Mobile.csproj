@@ -19,7 +19,7 @@
     <PackageReference Include="SkiaSharp.Views.Forms" Version="1.68.0" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="LiveXAML" Version="2.1.58" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Xamarin.Essentials" Version="1.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.8055-pre1" />
     <PackageReference Include="Plugin.XSnack" Version="1.0.17" />

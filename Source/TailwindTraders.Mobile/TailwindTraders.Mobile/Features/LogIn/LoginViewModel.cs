@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TailwindTraders.Mobile.Features.Localization;
+using TailwindTraders.Mobile.Features.Settings;
 using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
@@ -30,7 +31,7 @@ namespace TailwindTraders.Mobile.Features.LogIn
 
         public override async Task InitializeAsync()
         {
-            if (Settings.Settings.ForceAutomaticLogin)
+            if (DefaultSettings.ForceAutomaticLogin)
             {
                 IsBusy = true;
 

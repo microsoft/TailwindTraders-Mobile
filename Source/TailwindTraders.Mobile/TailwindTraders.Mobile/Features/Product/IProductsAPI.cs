@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Refit;
+using TailwindTraders.Mobile.Features.Settings;
 
 namespace TailwindTraders.Mobile.Features.Product
 {
@@ -8,16 +9,16 @@ namespace TailwindTraders.Mobile.Features.Product
     {
         [Get("/{id}")]
         Task<ProductDTO> GetDetailAsync(
-            [Header(Settings.Settings.ApiAuthorizationHeader)] string authorizationHeader, string id);
+            [Header(DefaultSettings.ApiAuthorizationHeader)] string authorizationHeader, string id);
 
         [Get("/")]
         Task<ProductsPerTypeDTO> GetProductsAsync(
-            [Header(Settings.Settings.ApiAuthorizationHeader)] string authorizationHeader, string type);
+            [Header(DefaultSettings.ApiAuthorizationHeader)] string authorizationHeader, string type);
 
         [Multipart]
         [Post("/imageclassifier")]
         Task<IEnumerable<ProductDTO>> GetSimilarProductsAsync(
-            [Header(Settings.Settings.ApiAuthorizationHeader)] string authorizationHeader,
+            [Header(DefaultSettings.ApiAuthorizationHeader)] string authorizationHeader,
             [AliasAs("file")] StreamPart stream);
     }
 }

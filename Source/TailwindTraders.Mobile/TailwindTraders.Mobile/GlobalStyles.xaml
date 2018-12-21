@@ -15,6 +15,11 @@
     TargetType="Button" />
 
   <Style TargetType="Entry">
+    <Setter Property="FontFamily" Value="{StaticResource BrandonGrotesqueMedium}" />
+    <Setter Property="FontSize" Value="Medium" />
+    <Setter Property="Margin">
+      <Thickness Top="{StaticResource 0.5xDefaultMargin}" />
+    </Setter>
     <Setter Property="TextColor" Value="{StaticResource AccentColor}" />
   </Style>
 
