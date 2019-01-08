@@ -73,7 +73,10 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 return;
             }
 
-            cameraControl.Content = new CameraPreview();
+            cameraControl.Content = new CameraPreview()
+            {
+                EnableTensorflowAnalysis = true,
+            };
         }
 
         private void DrawBoundingBox(

@@ -10,12 +10,11 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
     public class ImageAvailableListener : Java.Lang.Object, ImageReader.IOnImageAvailableListener
     {
         private bool captureStillImage = false;
-        private bool tensorflowProcess = true;
+        private bool tensorflowAnalysis = false;
 
         private int imageCount;
 
         private readonly ICamera owner;
-
         private readonly TensorflowLiteService tensorflowLiteService;
 
         public ImageAvailableListener(ICamera fragment)
@@ -24,6 +23,11 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
             {
                 throw new System.ArgumentNullException("fragment");
             }
+
+            imageCount = 0;
+
+            captureStillImage = false;
+            tensorflowAnalysis = false;
 
             owner = fragment;
 
@@ -50,11 +54,11 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
 
         private void HandleImage(Android.Media.Image image)
         {
-            if (tensorflowProcess)
+            if (tensorflowAnalysis)
             {
                 imageCount++;
 
-                if (imageCount == 10)
+                if (imageCount > 10)
                 {
                     imageCount = 0;
 
@@ -111,7 +115,7 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                     ExifInterface.TagOrientation,
                     Java.Lang.Integer.ToString((int)orientation));
 
-                exif.SaveAttributes();
+                ////exif.SaveAttributes();
             }
             catch
             {
@@ -133,14 +137,14 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                 }
         }
 
-        public void SetCaptureStillImage()
+        public void AllowCaptureStillImageShot()
         {
             captureStillImage = true;
         }
 
-        public void SetTensorflowProcess()
+        public void EnableTensorflowAnalysis()
         {
-            tensorflowProcess = true;
+            tensorflowAnalysis = true;
         }
     }
 }

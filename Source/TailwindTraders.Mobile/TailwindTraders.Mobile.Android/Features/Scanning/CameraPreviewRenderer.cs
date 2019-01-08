@@ -131,6 +131,11 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
             mSurfaceTextureListener = new CameraSurfaceTextureListener(this);
             mOnImageAvailableListener = new ImageAvailableListener(this);
 
+            if (element.EnableTensorflowAnalysis)
+            {
+                mOnImageAvailableListener.EnableTensorflowAnalysis();
+            }
+
             StartTheCamera();
 
             base.OnElementChanged(e);
@@ -546,7 +551,7 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
 
             captureTcs = new TaskCompletionSource<string>();
 
-            mOnImageAvailableListener.SetCaptureStillImage();
+            mOnImageAvailableListener.AllowCaptureStillImageShot();
 
             return captureTcs.Task;
         }

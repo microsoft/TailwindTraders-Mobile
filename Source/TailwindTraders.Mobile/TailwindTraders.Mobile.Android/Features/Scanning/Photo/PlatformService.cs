@@ -147,7 +147,7 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
 
                 PerformResizeWithRotation(filePath, quality, exif, rotation, options);
 
-                exif.SaveAttributes();
+                ////exif.SaveAttributes();
 
                 GC.Collect();
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.Scanning;
+using TailwindTraders.Mobile.Features.Scanning.AR;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
 using Xamarin.Forms;
 
@@ -15,7 +16,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
 {
     public class TensorflowLiteService
     {
-        private const string ImageFilename = "AR/images/IMG_20181220_104230.jpg";
+        // private const string ImageFilename = "AR/images/IMG_20181220_104230.jpg";
         private const string LabelFilename = "AR/net/labels_list.txt";
         private const string ModelFilename = "AR/net/detect.tflite";
 
@@ -72,13 +73,13 @@ namespace TailwindTraders.Mobile.Features.Scanning
             initialized = true;
         }
 
-        public void RecognizeBuiltInImage()
+        /*public void RecognizeBuiltInImage()
         {
             var imagePath = platformService.CopyToFilesAndGetPath(ImageFilename);
             var imageData = File.ReadAllBytes(imagePath);
 
             Recognize(imageData);
-        }
+        }*/
 
         public void Recognize(byte[] imageData)
         {
@@ -107,6 +108,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
             var input = interpreter.GetInput();
             using (var inputTensor = interpreter.GetTensor(input[0]))
             {
+                // TODO: Optimize this!
                 var watchReadImageFileToTensor = Stopwatch.StartNew();
                 platformService.ReadImageFileToTensor(
                     imageData,
@@ -141,7 +143,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
 
             var numDetections = num_detections_out[0];
 
-            LogDetectionResults(detection_classes_out, detection_scores_out, numDetections);
+            LogDetectionResults(detection_classes_out, detection_scores_out, detection_boxes_out, numDetections);
 
             for (var i = 0; i < output.Length; i++)
             {
@@ -152,23 +154,46 @@ namespace TailwindTraders.Mobile.Features.Scanning
         private void LogDetectionResults(
             float[] detection_classes_out,
             float[] detection_scores_out,
+            float[] detection_boxes_out,
             float numDetections)
         {
-            loggingService.Debug($"NumDetections: {numDetections}");
+            ////loggingService.Debug($"NumDetections: {numDetections}");
 
             for (int i = 0; i < numDetections; i++)
             {
                 var score = detection_scores_out[i];
                 var classId = (int)detection_classes_out[i];
 
-                loggingService.Debug($"Found classId({classId}) with score({score})");
+                ////loggingService.Debug($"Found classId({classId}) with score({score})");
 
                 if (classId >= 0 && classId < labels.Length)
                 {
                     var label = labels[classId + LabelOffset];
                     if (score >= MinScore)
                     {
-                        loggingService.Debug($"{label} with score greater than {MinScore}");
+                        ////var top = box[0] * height;
+                        ////var left = box[1] * width;
+                        ////var bottom = box[2] * height;
+                        ////var right = box[3] * width;
+
+                        var xmin = detection_boxes_out[0];
+                        var ymin = detection_boxes_out[1];
+                        var xmax = detection_boxes_out[2];
+                        var ymax = detection_boxes_out[3];
+
+                        MessagingCenter.Send(
+                            this, 
+                            CameraPreviewViewModel.DrawBoundingBoxMessage,
+                            new BoundingBoxMessageArgs()
+                        {
+                            Xmin = xmin,
+                            Ymin = ymin,
+                            Xmax = xmax,
+                            Ymax = ymax,
+                        });
+
+                        loggingService.Debug($"{label} with score greater than {MinScore} " +
+                            $"with detection_boxes: {xmin} {ymin} {xmax} {ymax}");
                     }
                 }
             }
