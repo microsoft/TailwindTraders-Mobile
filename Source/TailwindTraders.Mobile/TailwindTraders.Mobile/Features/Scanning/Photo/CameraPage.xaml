@@ -76,7 +76,7 @@
               BackgroundColor="{StaticResource Accent2Color}"
               Command="{Binding AddCommand}"
               CornerRadius="{Binding Source={x:Reference addToListButton}, Path=Height, Converter={StaticResource DoubleToHalfFloatConverter}}"
-              Text="ADD TO LIST"
+              Text="ADD TO CART"
               TextColor="White">
               <Button.Margin>
                 <Thickness Left="{StaticResource 0.5xDefaultMargin}" />
