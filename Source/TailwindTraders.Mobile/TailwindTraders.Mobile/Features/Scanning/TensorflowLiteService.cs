@@ -17,12 +17,12 @@ namespace TailwindTraders.Mobile.Features.Scanning
 {
     public class TensorflowLiteService
     {
-        // private const string ImageFilename = "AR/images/IMG_20181220_104230.jpg";
-        private const string LabelFilename = "AR/pets/labels_list.txt";
-        private const string ModelFilename = "AR/pets/detect.tflite";
+        private const string TFFolder = "AR/net/";
+        private readonly string LabelFilename = TFFolder + "labels_list.txt";
+        private readonly string ModelFilename = TFFolder + "detect.tflite";
 
         public const int ModelInputSize = 300;
-        private const float MinScore = 0.4f;
+        private const float MinScore = 0.7f;
         private const bool QuantizedModel = true;
         private const int LabelOffset = 1;
 
@@ -73,14 +73,6 @@ namespace TailwindTraders.Mobile.Features.Scanning
 
             initialized = true;
         }
-
-        /*public void RecognizeBuiltInImage()
-        {
-            var imagePath = platformService.CopyToFilesAndGetPath(ImageFilename);
-            var imageData = File.ReadAllBytes(imagePath);
-
-            Recognize(imageData);
-        }*/
 
         public void Recognize(byte[] imageData, int rotation)
         {
