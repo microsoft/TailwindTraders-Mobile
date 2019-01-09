@@ -270,11 +270,6 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\capture.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\images\IMG_20181220_104230.jpg">
-      <Link>Assets\AR\images\IMG_20181220_104230.jpg</Link>
-    </AndroidAsset>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidAsset Include="..\Resources\AR\net\labels_list.txt">
       <Link>Assets\AR\net\labels_list.txt</Link>
     </AndroidAsset>

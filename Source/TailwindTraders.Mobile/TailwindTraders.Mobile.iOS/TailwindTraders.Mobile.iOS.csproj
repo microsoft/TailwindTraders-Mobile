@@ -399,11 +399,6 @@
     </BundleResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="..\Resources\AR\images\IMG_20181220_104230.jpg">
-      <Link>Resources\AR\images\IMG_20181220_104230.jpg</Link>
-    </BundleResource>
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="..\Resources\AR\net\labels_list.txt">
       <Link>Resources\AR\net\labels_list.txt</Link>
     </BundleResource>
