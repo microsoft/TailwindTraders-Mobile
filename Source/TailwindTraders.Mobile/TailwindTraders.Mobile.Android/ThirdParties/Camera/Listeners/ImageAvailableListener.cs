@@ -1,6 +1,7 @@
 ﻿using Android.Media;
 using Java.IO;
 using System;
+using System.Buffers;
 using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Scanning;
 using Xamarin.Forms;
@@ -10,12 +11,11 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
     public class ImageAvailableListener : Java.Lang.Object, ImageReader.IOnImageAvailableListener
     {
         private bool captureStillImage = false;
-        private bool tensorflowProcess = true;
+        private bool tensorflowAnalysis = false;
 
         private int imageCount;
 
         private readonly ICamera owner;
-
         private readonly TensorflowLiteService tensorflowLiteService;
 
         public ImageAvailableListener(ICamera fragment)
@@ -24,6 +24,11 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
             {
                 throw new System.ArgumentNullException("fragment");
             }
+
+            imageCount = 0;
+
+            captureStillImage = false;
+            tensorflowAnalysis = false;
 
             owner = fragment;
 
@@ -50,19 +55,22 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
 
         private void HandleImage(Android.Media.Image image)
         {
-            if (tensorflowProcess)
+            if (tensorflowAnalysis)
             {
                 imageCount++;
 
-                if (imageCount == 10)
+                if (imageCount > 10)
                 {
                     imageCount = 0;
 
                     var buffer = image.GetPlanes()[0].Buffer;
-                    var bytes = new byte[buffer.Remaining()];
+
+                    var length = buffer.Remaining();
+                    var bytes = new byte[length];
+
                     buffer.Get(bytes);
 
-                    Task.Run(() => tensorflowLiteService.Recognize(bytes));
+                    Task.Run(() => tensorflowLiteService.Recognize(bytes, owner.GetOrientation()));
                 }
             }
             else if (captureStillImage)
@@ -76,11 +84,14 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
         private void CaptureImage(Android.Media.Image image)
         {
             var path = System.IO.Path.Combine(
-            global::Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath,
+            Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath,
             $"photo_{Guid.NewGuid().ToString()}.jpg");
 
             var buffer = image.GetPlanes()[0].Buffer;
-            var bytes = new byte[buffer.Remaining()];
+
+            var length = buffer.Remaining();
+            var bytes = ArrayPool<byte>.Shared.Rent(length);
+
             buffer.Get(bytes);
 
             using (var mFile = new File(path))
@@ -101,6 +112,8 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                     }
                 }
             }
+
+            ArrayPool<byte>.Shared.Return(bytes);
 
             try
             {
@@ -133,14 +146,14 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                 }
         }
 
-        public void SetCaptureStillImage()
+        public void AllowCaptureStillImageShot()
         {
             captureStillImage = true;
         }
 
-        public void SetTensorflowProcess()
+        public void EnableTensorflowAnalysis()
         {
-            tensorflowProcess = true;
+            tensorflowAnalysis = true;
         }
     }
 }

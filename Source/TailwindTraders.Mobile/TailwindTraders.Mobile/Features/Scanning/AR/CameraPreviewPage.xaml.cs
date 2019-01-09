@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+using PubSub.Extension;
+using SkiaSharp;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Scanning.AR
@@ -25,22 +26,19 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                     AddCameraControl();
                 });
 
-            MessagingCenter.Subscribe<CameraPreviewViewModel, BoundingBoxMessageArgs>(
-                this,
-                CameraPreviewViewModel.DrawBoundingBoxMessage,
-                (sender, args) =>
-                {
-                    boundingBoxArgs = args;
+            this.Subscribe<BoundingBoxMessageArgs>((args) => 
+            {
+                boundingBoxArgs = args;
 
-                    var fadeInAnimation = new Animation(
-                        milliseconds =>
-                        {
-                            currentMilliseconds = milliseconds;
-                            canvasView.InvalidateSurface();
-                        },
-                        easing: Easing.CubicIn);
-                    fadeInAnimation.Commit(this, nameof(fadeInAnimation));
-                });
+                var fadeInAnimation = new Animation(
+                    milliseconds =>
+                    {
+                        currentMilliseconds = milliseconds;
+                        canvasView.InvalidateSurface();
+                    },
+                    easing: Easing.CubicIn);
+                fadeInAnimation.Commit(this, nameof(fadeInAnimation));
+            });
 
             base.OnAppearing();
         }
@@ -69,7 +67,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         protected override void OnDisappearing()
         {
             MessagingCenter.Unsubscribe<CameraPreviewViewModel>(this, CameraPreviewViewModel.AddCameraControlMessage);
-            MessagingCenter.Unsubscribe<CameraPreviewViewModel>(this, CameraPreviewViewModel.DrawBoundingBoxMessage);
+
+            this.Unsubscribe<BoundingBoxMessageArgs>();
 
             base.OnDisappearing();
         }
@@ -81,7 +80,10 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 return;
             }
 
-            cameraControl.Content = new CameraPreview();
+            cameraControl.Content = new CameraPreview()
+            {
+                EnableTensorflowAnalysis = true,
+            };
         }
 
         private void DrawBoundingBox(
@@ -93,10 +95,10 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             float xmax,
             float ymax)
         {
-            var left = xmin * width;
-            var top = ymin * height;
-            var right = xmax * width;
-            var bottom = ymax * height;
+            var top = xmin * height;
+            var left = ymin * width;
+            var bottom = xmax * height;
+            var right = ymax * width;
 
             var alpha = (byte)(currentMilliseconds * byte.MaxValue);
             var paint = new SKPaint
