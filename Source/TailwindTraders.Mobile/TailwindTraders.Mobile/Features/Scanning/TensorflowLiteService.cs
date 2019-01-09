@@ -18,8 +18,8 @@ namespace TailwindTraders.Mobile.Features.Scanning
     public class TensorflowLiteService
     {
         // private const string ImageFilename = "AR/images/IMG_20181220_104230.jpg";
-        private const string LabelFilename = "AR/net/labels_list.txt";
-        private const string ModelFilename = "AR/net/detect.tflite";
+        private const string LabelFilename = "AR/pets/labels_list.txt";
+        private const string ModelFilename = "AR/pets/detect.tflite";
 
         public const int ModelInputSize = 300;
         private const float MinScore = 0.4f;

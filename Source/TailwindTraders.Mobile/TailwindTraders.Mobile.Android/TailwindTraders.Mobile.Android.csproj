@@ -119,6 +119,9 @@
     <AndroidAsset Include="..\Resources\AR\net\detect.tflite">
       <Link>Assets\AR\net\detect.tflite</Link>
     </AndroidAsset>
+    <AndroidAsset Include="..\Resources\AR\pets\detect.tflite">
+      <Link>Assets\AR\pets\detect.tflite</Link>
+    </AndroidAsset>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -274,6 +277,11 @@
   <ItemGroup>
     <AndroidAsset Include="..\Resources\AR\net\labels_list.txt">
       <Link>Assets\AR\net\labels_list.txt</Link>
+    </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="..\Resources\AR\pets\labels_list.txt">
+      <Link>Assets\AR\pets\labels_list.txt</Link>
     </AndroidAsset>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

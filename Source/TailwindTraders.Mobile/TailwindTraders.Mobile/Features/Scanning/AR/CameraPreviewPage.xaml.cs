@@ -87,10 +87,10 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             float xmax,
             float ymax)
         {
-            var left = xmin * width;
-            var top = ymin * height;
-            var right = xmax * width;
-            var bottom = ymax * height;
+            var top = xmin * height;
+            var left = ymin * width;
+            var bottom = xmax * height;
+            var right = ymax * width;
 
             var paint = new SKPaint()
             {
