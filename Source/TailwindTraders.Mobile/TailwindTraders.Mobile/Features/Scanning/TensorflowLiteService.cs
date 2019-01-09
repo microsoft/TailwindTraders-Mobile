@@ -1,4 +1,5 @@
 ﻿using Emgu.TF.Lite;
+using PubSub.Extension;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -20,8 +21,8 @@ namespace TailwindTraders.Mobile.Features.Scanning
         private const string LabelFilename = "AR/net/labels_list.txt";
         private const string ModelFilename = "AR/net/detect.tflite";
 
+        public const int ModelInputSize = 300;
         private const float MinScore = 0.4f;
-        private const int ModelInputSize = 300;
         private const bool QuantizedModel = true;
         private const int LabelOffset = 1;
 
@@ -81,18 +82,18 @@ namespace TailwindTraders.Mobile.Features.Scanning
             Recognize(imageData);
         }*/
 
-        public void Recognize(byte[] imageData)
+        public void Recognize(byte[] imageData, int rotation)
         {
             using (var op = new BuildinOpResolver())
             {
                 using (var interpreter = new Interpreter(model, op))
                 {
-                    InvokeInterpreter(imageData, interpreter);
+                    InvokeInterpreter(imageData, interpreter, rotation);
                 }
             }
         }
 
-        private void InvokeInterpreter(byte[] imageData, Interpreter interpreter)
+        private void InvokeInterpreter(byte[] imageData, Interpreter interpreter, int rotation)
         {
             if (useNumThreads)
             {
@@ -115,7 +116,8 @@ namespace TailwindTraders.Mobile.Features.Scanning
                     QuantizedModel,
                     inputTensor.DataPointer,
                     ModelInputSize,
-                    ModelInputSize);
+                    ModelInputSize,
+                    rotation);
                 watchReadImageFileToTensor.Stop();
 
                 loggingService.Debug($"ReadImageFileToTensor: {watchReadImageFileToTensor.ElapsedMilliseconds}ms");
@@ -181,10 +183,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
                         var xmax = detection_boxes_out[2];
                         var ymax = detection_boxes_out[3];
 
-                        MessagingCenter.Send(
-                            this, 
-                            CameraPreviewViewModel.DrawBoundingBoxMessage,
-                            new BoundingBoxMessageArgs()
+                        this.Publish(new BoundingBoxMessageArgs()
                         {
                             Xmin = xmin,
                             Ymin = ymin,
@@ -192,8 +191,8 @@ namespace TailwindTraders.Mobile.Features.Scanning
                             Ymax = ymax,
                         });
 
-                        loggingService.Debug($"{label} with score greater than {MinScore} " +
-                            $"with detection_boxes: {xmin} {ymin} {xmax} {ymax}");
+                        loggingService.Debug($"{label} with score {score} " +
+                            $"with detection boxes: {xmin} {ymin} {xmax} {ymax}");
                     }
                 }
             }

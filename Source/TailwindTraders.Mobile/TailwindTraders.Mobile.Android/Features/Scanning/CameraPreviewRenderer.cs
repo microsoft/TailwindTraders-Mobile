@@ -112,7 +112,7 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
             {
             }
 
-            var element = e.NewElement;
+            this.element = e.NewElement;
             if (element == null)
             {
                 return;
@@ -259,11 +259,19 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
                         Arrays.AsList(map.GetOutputSizes((int)ImageFormatType.Jpeg)),
                         new CompareSizesByArea());
 
+                    var imageWidth = largest.Width;
+                    var imageHeight = largest.Height;
+
+                    if (element.EnableTensorflowAnalysis)
+                    {
+                        imageWidth = imageHeight = TensorflowLiteService.ModelInputSize;
+                    }
+
                     mImageReader = ImageReader.NewInstance(
-                        largest.Width,
-                        largest.Height,
+                        imageWidth,
+                        imageHeight,
                         ImageFormatType.Jpeg,
-                        /*maxImages*/2);
+                        maxImages: 1);
                     mImageReader.SetOnImageAvailableListener(
                         mOnImageAvailableListener,
                         mBackgroundHandler);
@@ -557,6 +565,7 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
         }
 
         private TaskCompletionSource<string> captureTcs;
+        private CameraPreview element;
 
         public int GetOrientation()
         {

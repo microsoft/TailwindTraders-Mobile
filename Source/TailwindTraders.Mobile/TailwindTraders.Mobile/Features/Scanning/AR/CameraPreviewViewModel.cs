@@ -10,8 +10,6 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
     {
         public const string AddCameraControlMessage = nameof(AddCameraControlMessage);
 
-        public const string DrawBoundingBoxMessage = nameof(DrawBoundingBoxMessage);
-
         private readonly PhotoService photoService;
 
         private Random rnd = new Random();

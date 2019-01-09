@@ -1,4 +1,5 @@
-﻿using SkiaSharp;
+﻿using PubSub.Extension;
+using SkiaSharp;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Scanning.AR
@@ -24,15 +25,12 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                     AddCameraControl();
                 });
 
-            MessagingCenter.Subscribe<CameraPreviewViewModel, BoundingBoxMessageArgs>(
-                this,
-                CameraPreviewViewModel.DrawBoundingBoxMessage,
-                (sender, args) =>
-                {
-                    boundingBoxArgs = args;
+            this.Subscribe<BoundingBoxMessageArgs>((args) => 
+            {
+                boundingBoxArgs = args;
 
-                    canvasView.InvalidateSurface();
-                });
+                canvasView.InvalidateSurface();
+            });
 
             base.OnAppearing();
         }
@@ -61,7 +59,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         protected override void OnDisappearing()
         {
             MessagingCenter.Unsubscribe<CameraPreviewViewModel>(this, CameraPreviewViewModel.AddCameraControlMessage);
-            MessagingCenter.Unsubscribe<CameraPreviewViewModel>(this, CameraPreviewViewModel.DrawBoundingBoxMessage);
+
+            this.Unsubscribe<BoundingBoxMessageArgs>();
 
             base.OnDisappearing();
         }

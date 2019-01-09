@@ -52,7 +52,8 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning.Photo
             bool quantized,
             IntPtr dest,
             int inputHeight,
-            int inputWidth)
+            int inputWidth,
+            int rotation)
         {
             using (var image = new UIImage(NSData.FromArray(imageData)))
             {

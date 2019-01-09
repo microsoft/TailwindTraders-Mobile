@@ -1,6 +1,7 @@
 ﻿using Android.Media;
 using Java.IO;
 using System;
+using System.Buffers;
 using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Scanning;
 using Xamarin.Forms;
@@ -63,10 +64,13 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                     imageCount = 0;
 
                     var buffer = image.GetPlanes()[0].Buffer;
-                    var bytes = new byte[buffer.Remaining()];
+
+                    var length = buffer.Remaining();
+                    var bytes = new byte[length];
+
                     buffer.Get(bytes);
 
-                    Task.Run(() => tensorflowLiteService.Recognize(bytes));
+                    Task.Run(() => tensorflowLiteService.Recognize(bytes, owner.GetOrientation()));
                 }
             }
             else if (captureStillImage)
@@ -80,11 +84,14 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
         private void CaptureImage(Android.Media.Image image)
         {
             var path = System.IO.Path.Combine(
-            global::Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath,
+            Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath,
             $"photo_{Guid.NewGuid().ToString()}.jpg");
 
             var buffer = image.GetPlanes()[0].Buffer;
-            var bytes = new byte[buffer.Remaining()];
+
+            var length = buffer.Remaining();
+            var bytes = ArrayPool<byte>.Shared.Rent(length);
+
             buffer.Get(bytes);
 
             using (var mFile = new File(path))
@@ -106,6 +113,8 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                 }
             }
 
+            ArrayPool<byte>.Shared.Return(bytes);
+
             try
             {
                 var orientation = GetExifOrientation(owner.GetOrientation());
@@ -115,7 +124,7 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                     ExifInterface.TagOrientation,
                     Java.Lang.Integer.ToString((int)orientation));
 
-                ////exif.SaveAttributes();
+                exif.SaveAttributes();
             }
             catch
             {
