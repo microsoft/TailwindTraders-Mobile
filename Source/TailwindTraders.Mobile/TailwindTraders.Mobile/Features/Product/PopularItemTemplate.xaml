@@ -67,7 +67,7 @@
         Command="{Binding Command}"
         CornerRadius="28"
         HeightRequest="56"
-        Text="ADD TO LIST"
+        Text="ADD TO CART"
         TextColor="White"
         WidthRequest="228" />
 
