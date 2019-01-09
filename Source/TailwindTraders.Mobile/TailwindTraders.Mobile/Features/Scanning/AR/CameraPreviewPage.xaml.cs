@@ -6,6 +6,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
     public partial class CameraPreviewPage
     {
         private BoundingBoxMessageArgs boundingBoxArgs;
+        private double currentMilliseconds;
 
         public CameraPreviewPage()
         {
@@ -31,7 +32,14 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 {
                     boundingBoxArgs = args;
 
-                    canvasView.InvalidateSurface();
+                    var fadeInAnimation = new Animation(
+                        milliseconds =>
+                        {
+                            currentMilliseconds = milliseconds;
+                            canvasView.InvalidateSurface();
+                        },
+                        easing: Easing.CubicIn);
+                    fadeInAnimation.Commit(this, nameof(fadeInAnimation));
                 });
 
             base.OnAppearing();
@@ -90,10 +98,11 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             var right = xmax * width;
             var bottom = ymax * height;
 
-            var paint = new SKPaint()
+            var alpha = (byte)(currentMilliseconds * byte.MaxValue);
+            var paint = new SKPaint
             {
-                StrokeWidth = 5,
-                Color = SKColors.Red,
+                StrokeWidth = 3,
+                Color = SKColors.White.WithAlpha(alpha),
                 Style = SKPaintStyle.Stroke,
             };
 
