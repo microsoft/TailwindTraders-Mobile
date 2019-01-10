@@ -21,8 +21,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         }
 
         private BoundingBoxState currentBoundingBoxState = BoundingBoxState.Initial;
-        private BoundingBoxMessageArgs boundingBoxArgs;
-        private BoundingBoxMessageArgs previousBoundingBoxArgs;
+        private DetectionMessage boundingBox;
+        private DetectionMessage previousBoundingBox;
         private double currentAnimationTicks;
         private Timer fadeOutTimer;
 
@@ -51,7 +51,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 CameraPreviewViewModel.AddCameraControlMessage,
                 _ => AddCameraControl());
 
-            this.Subscribe<BoundingBoxMessageArgs>(args => UpdateBoundingBoxState(BoundingBoxState.Showing, args));
+            this.Subscribe<DetectionMessage>(message => UpdateBoundingBoxState(BoundingBoxState.Showing, message));
 
             base.OnAppearing();
         }
@@ -60,7 +60,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         {
             MessagingCenter.Unsubscribe<CameraPreviewViewModel>(this, CameraPreviewViewModel.AddCameraControlMessage);
 
-            this.Unsubscribe<BoundingBoxMessageArgs>();
+            this.Unsubscribe<DetectionMessage>();
 
             base.OnDisappearing();
         }
@@ -99,14 +99,14 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             if (currentBoundingBoxState == BoundingBoxState.Showing)
             {
                 var ticks = (float)currentAnimationTicks;
-                var xmin = previousBoundingBoxArgs.Xmin +
-                    ((boundingBoxArgs.Xmin - previousBoundingBoxArgs.Xmin) * ticks);
-                var ymin = previousBoundingBoxArgs.Ymin +
-                    ((boundingBoxArgs.Ymin - previousBoundingBoxArgs.Ymin) * ticks);
-                var xmax = previousBoundingBoxArgs.Xmax +
-                    ((boundingBoxArgs.Xmax - previousBoundingBoxArgs.Xmax) * ticks);
-                var ymax = previousBoundingBoxArgs.Ymax +
-                    ((boundingBoxArgs.Ymax - previousBoundingBoxArgs.Ymax) * ticks);
+                var xmin = previousBoundingBox.Xmin +
+                    ((boundingBox.Xmin - previousBoundingBox.Xmin) * ticks);
+                var ymin = previousBoundingBox.Ymin +
+                    ((boundingBox.Ymin - previousBoundingBox.Ymin) * ticks);
+                var xmax = previousBoundingBox.Xmax +
+                    ((boundingBox.Xmax - previousBoundingBox.Xmax) * ticks);
+                var ymax = previousBoundingBox.Ymax +
+                    ((boundingBox.Ymax - previousBoundingBox.Ymax) * ticks);
                 BoundingBoxDrawingHelper.Draw(canvas, width, height, xmin, ymin, xmax, ymax, currentAnimationTicks);
             }
             else if (currentBoundingBoxState == BoundingBoxState.Disappearing)
@@ -115,10 +115,10 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                     canvas,
                     width,
                     height,
-                    boundingBoxArgs.Xmin,
-                    boundingBoxArgs.Ymin,
-                    boundingBoxArgs.Xmax,
-                    boundingBoxArgs.Ymax,
+                    boundingBox.Xmin,
+                    boundingBox.Ymin,
+                    boundingBox.Xmax,
+                    boundingBox.Ymax,
                     currentAnimationTicks,
                     applyAlpha: true);
             }
@@ -151,7 +151,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             fadeOutTimer.Change(boundingBoxPersistanceTime, TimeSpan.Zero);
         }
 
-        private void UpdateBoundingBoxState(BoundingBoxState newState, BoundingBoxMessageArgs newBoundingBox = null)
+        private void UpdateBoundingBoxState(BoundingBoxState newState, DetectionMessage newBoundingBox = null)
         {
             switch (newState)
             {
@@ -160,11 +160,11 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                         $"{nameof(BoundingBoxState.Initial)} state can be set just at the beginning.");
                 case BoundingBoxState.Missing:
                     canvasView.InvalidateSurface();
-                    boundingBoxArgs = BoundingBoxMessageArgs.FullScreen;
+                    boundingBox = DetectionMessage.FullScreen;
                     break;
                 case BoundingBoxState.Showing:
-                    previousBoundingBoxArgs = boundingBoxArgs;
-                    boundingBoxArgs = newBoundingBox;
+                    previousBoundingBox = boundingBox;
+                    boundingBox = newBoundingBox;
 
                     if (fadeOutTimer != null)
                     {
