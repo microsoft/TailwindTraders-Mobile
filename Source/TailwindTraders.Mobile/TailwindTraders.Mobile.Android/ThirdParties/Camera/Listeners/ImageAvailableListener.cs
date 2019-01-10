@@ -1,8 +1,7 @@
 ﻿using Android.Media;
 using Java.IO;
 using System;
-using System.Buffers;
-using System.Threading.Tasks;
+using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.Scanning;
 using Xamarin.Forms;
 
@@ -13,10 +12,9 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
         private bool captureStillImage = false;
         private bool tensorflowAnalysis = false;
 
-        private int imageCount;
-
         private readonly ICamera owner;
         private readonly TensorflowLiteService tensorflowLiteService;
+        private readonly ILoggingService loggingService;
 
         public ImageAvailableListener(ICamera fragment)
         {
@@ -25,24 +23,32 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                 throw new System.ArgumentNullException("fragment");
             }
 
-            imageCount = 0;
-
             captureStillImage = false;
             tensorflowAnalysis = false;
 
             owner = fragment;
 
             tensorflowLiteService = DependencyService.Get<TensorflowLiteService>();
+            loggingService = DependencyService.Get<ILoggingService>();
         }
 
         public void OnImageAvailable(ImageReader reader)
         {
             Android.Media.Image image = null;
+            byte[] bytes = null;
+
             try
             {
                 image = reader.AcquireNextImage();
 
-                HandleImage(image);
+                var buffer = image.GetPlanes()[0].Buffer;
+                var length = buffer.Remaining();
+
+                bytes = new byte[length];
+
+                buffer.Get(bytes);
+
+                HandleImage(bytes);
             }
             finally
             {
@@ -53,46 +59,28 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
             }
         }
 
-        private void HandleImage(Android.Media.Image image)
+        private void HandleImage(byte[] bytes)
         {
             if (tensorflowAnalysis)
             {
-                imageCount++;
-
-                if (imageCount > 10)
+                System.Threading.Tasks.Task.Run(() =>
                 {
-                    imageCount = 0;
-
-                    var buffer = image.GetPlanes()[0].Buffer;
-
-                    var length = buffer.Remaining();
-                    var bytes = new byte[length];
-
-                    buffer.Get(bytes);
-
-                    Task.Run(() => tensorflowLiteService.Recognize(bytes, owner.GetOrientation()));
-                }
+                    tensorflowLiteService.Recognize(bytes, owner.GetOrientation());
+                }).ConfigureAwait(false);
             }
             else if (captureStillImage)
             {
                 captureStillImage = false;
 
-                CaptureImage(image);
+                CaptureImage(bytes);
             }
         }
 
-        private void CaptureImage(Android.Media.Image image)
+        private void CaptureImage(byte[] bytes)
         {
             var path = System.IO.Path.Combine(
             Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath,
             $"photo_{Guid.NewGuid().ToString()}.jpg");
-
-            var buffer = image.GetPlanes()[0].Buffer;
-
-            var length = buffer.Remaining();
-            var bytes = ArrayPool<byte>.Shared.Rent(length);
-
-            buffer.Get(bytes);
 
             using (var mFile = new File(path))
             {
@@ -112,8 +100,6 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                     }
                 }
             }
-
-            ArrayPool<byte>.Shared.Return(bytes);
 
             try
             {

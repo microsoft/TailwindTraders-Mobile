@@ -34,6 +34,9 @@ namespace TailwindTraders.Mobile.Features.Scanning
         private IPlatformService platformService;
         private ILoggingService loggingService;
 
+        private DateTime lastAnalysis = DateTime.UtcNow;
+        private readonly TimeSpan pace = new TimeSpan(0, 0, 0, 0, 333);
+
         public TensorflowLiteService()
         {
             platformService = DependencyService.Get<IPlatformService>();
@@ -76,6 +79,17 @@ namespace TailwindTraders.Mobile.Features.Scanning
 
         public void Recognize(byte[] imageData, int rotation)
         {
+            var currentDate = DateTime.UtcNow;
+
+            if (currentDate - lastAnalysis >= pace)
+            {
+                lastAnalysis = currentDate;
+            }
+            else
+            {
+                return;
+            }
+
             using (var op = new BuildinOpResolver())
             {
                 using (var interpreter = new Interpreter(model, op))
@@ -137,11 +151,6 @@ namespace TailwindTraders.Mobile.Features.Scanning
             var numDetections = num_detections_out[0];
 
             LogDetectionResults(detection_classes_out, detection_scores_out, detection_boxes_out, numDetections);
-
-            for (var i = 0; i < output.Length; i++)
-            {
-                outputTensors[i].Dispose();
-            }
         }
 
         private void LogDetectionResults(
@@ -155,7 +164,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
                 var score = detection_scores_out[i];
                 var classId = (int)detection_classes_out[i];
 
-                loggingService.Debug($"Found classId({classId}) with score({score})");
+                //// loggingService.Debug($"Found classId({classId}) with score({score})");
 
                 if (classId >= 0 && classId < labels.Length)
                 {
