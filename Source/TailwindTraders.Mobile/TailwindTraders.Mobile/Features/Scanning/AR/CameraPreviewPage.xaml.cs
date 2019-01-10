@@ -32,8 +32,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         private readonly Animation fadeInAnimation;
         private readonly Animation fadeOutAnimation;
 
-        private BoundingBoxMessageArgs boundingBoxArgs;
-        private BoundingBoxMessageArgs previousBoundingBoxArgs;
+        private DetectionMessage boundingBoxArgs;
+        private DetectionMessage previousBoundingBoxArgs;
         private double currentAnimationTicks;
         private Timer fadeOutTimer;
 
@@ -59,7 +59,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 CameraPreviewViewModel.AddCameraControlMessage,
                 sender => AddCameraControl());
 
-            this.Subscribe<BoundingBoxMessageArgs>(args =>
+            this.Subscribe<DetectionMessage>(args =>
             {
                 if (fadeOutTimer != null)
                 {
@@ -83,7 +83,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         {
             MessagingCenter.Unsubscribe<CameraPreviewViewModel>(this, CameraPreviewViewModel.AddCameraControlMessage);
 
-            this.Unsubscribe<BoundingBoxMessageArgs>();
+            this.Unsubscribe<DetectionMessage>();
 
             base.OnDisappearing();
         }
