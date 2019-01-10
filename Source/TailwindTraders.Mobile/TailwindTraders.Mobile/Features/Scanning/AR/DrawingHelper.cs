@@ -1,9 +1,11 @@
-﻿using SkiaSharp;
+﻿using System;
+using SkiaSharp;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Scanning.AR
 {
-    public static class BoundingBoxDrawingHelper
+    public static class DrawingHelper
     {
         private static readonly SKSize boundingBoxCornerRadius = new SKSize(23, 23);
         private static readonly SKColor boundingBoxColor = SKColors.White;
@@ -24,7 +26,26 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             IsAntialias = true,
         };
 
-        internal static void Draw(
+        private static readonly float elapsedTimeMargin = 5 * (float)DeviceDisplay.MainDisplayInfo.Density;
+        private static readonly SKPaint elapsedTimePaint = new SKPaint
+        {
+            Color = SKColors.White,
+            IsAntialias = true,
+            Style = SKPaintStyle.Fill,
+            TextSize = (float)(Device.GetNamedSize(NamedSize.Small, typeof(Label)) *
+                DeviceDisplay.MainDisplayInfo.Density),
+        };
+
+        private static readonly float elapsedTimeHeight;
+
+        static DrawingHelper()
+        {
+            var textBounds = new SKRect();
+            elapsedTimePaint.MeasureText("123", ref textBounds);
+            elapsedTimeHeight = textBounds.Height;
+        }
+
+        internal static void DrawBoundingBox(
             SKCanvas canvas,
             float width,
             float height,
@@ -63,6 +84,15 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             canvas.Clear();
             canvas.DrawRoundRect(rect, boundingBoxCornerRadius, boundingBoxShadowPaint);
             canvas.DrawRoundRect(rect, boundingBoxCornerRadius, boundingBoxPaint);
+        }
+
+        internal static void DrawElapsedTime(TimeSpan elapsedTime, SKCanvas canvas, float height)
+        {
+            canvas.DrawText(
+                $"{elapsedTime.TotalMilliseconds.ToString("#")} ms",
+                elapsedTimeMargin,
+                height - (elapsedTimeHeight / 2) - elapsedTimeMargin,
+                elapsedTimePaint);
         }
     }
 }

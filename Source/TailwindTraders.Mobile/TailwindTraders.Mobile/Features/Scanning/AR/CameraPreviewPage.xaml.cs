@@ -23,6 +23,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         private BoundingBoxState currentBoundingBoxState = BoundingBoxState.Initial;
         private DetectionMessage boundingBox;
         private DetectionMessage previousBoundingBox;
+        private DateTime lastDetectionDate;
+        private TimeSpan elapsedTimeSinceLastDetection;
         private double currentAnimationTicks;
         private Timer fadeOutTimer;
 
@@ -107,11 +109,11 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                     ((boundingBox.Xmax - previousBoundingBox.Xmax) * ticks);
                 var ymax = previousBoundingBox.Ymax +
                     ((boundingBox.Ymax - previousBoundingBox.Ymax) * ticks);
-                BoundingBoxDrawingHelper.Draw(canvas, width, height, xmin, ymin, xmax, ymax, currentAnimationTicks);
+                DrawingHelper.DrawBoundingBox(canvas, width, height, xmin, ymin, xmax, ymax, currentAnimationTicks);
             }
             else if (currentBoundingBoxState == BoundingBoxState.Disappearing)
             {
-                BoundingBoxDrawingHelper.Draw(
+                DrawingHelper.DrawBoundingBox(
                     canvas,
                     width,
                     height,
@@ -121,6 +123,11 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                     boundingBox.Ymax,
                     currentAnimationTicks,
                     applyAlpha: true);
+            }
+
+            if (Settings.Settings.DebugMode)
+            {
+                DrawingHelper.DrawElapsedTime(elapsedTimeSinceLastDetection, canvas, height);
             }
         }
 
@@ -163,6 +170,9 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                     boundingBox = DetectionMessage.FullScreen;
                     break;
                 case BoundingBoxState.Showing:
+                    elapsedTimeSinceLastDetection = DateTime.UtcNow - lastDetectionDate;
+                    lastDetectionDate = DateTime.UtcNow;
+
                     previousBoundingBox = boundingBox;
                     boundingBox = newBoundingBox;
 
