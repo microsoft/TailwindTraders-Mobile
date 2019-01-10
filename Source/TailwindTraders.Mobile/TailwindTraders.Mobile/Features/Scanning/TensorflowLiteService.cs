@@ -17,12 +17,12 @@ namespace TailwindTraders.Mobile.Features.Scanning
 {
     public class TensorflowLiteService
     {
-        private const string TFFolder = "AR/net/";
+        private const string TFFolder = "AR/pets/";
         private readonly string LabelFilename = TFFolder + "labels_list.txt";
         private readonly string ModelFilename = TFFolder + "detect.tflite";
 
         public const int ModelInputSize = 300;
-        private const float MinScore = 0.7f;
+        private const float MinScore = 0.6f;
         private const bool QuantizedModel = true;
         private const int LabelOffset = 1;
 
@@ -101,7 +101,6 @@ namespace TailwindTraders.Mobile.Features.Scanning
             var input = interpreter.GetInput();
             using (var inputTensor = interpreter.GetTensor(input[0]))
             {
-                // TODO: Optimize this!
                 var watchReadImageFileToTensor = Stopwatch.StartNew();
                 platformService.ReadImageFileToTensor(
                     imageData,
@@ -151,36 +150,31 @@ namespace TailwindTraders.Mobile.Features.Scanning
             float[] detection_boxes_out,
             float numDetections)
         {
-            ////loggingService.Debug($"NumDetections: {numDetections}");
-
             for (int i = 0; i < numDetections; i++)
             {
                 var score = detection_scores_out[i];
                 var classId = (int)detection_classes_out[i];
 
-                ////loggingService.Debug($"Found classId({classId}) with score({score})");
+                loggingService.Debug($"Found classId({classId}) with score({score})");
 
                 if (classId >= 0 && classId < labels.Length)
                 {
                     var label = labels[classId + LabelOffset];
                     if (score >= MinScore)
                     {
-                        ////var top = box[0] * height;
-                        ////var left = box[1] * width;
-                        ////var bottom = box[2] * height;
-                        ////var right = box[3] * width;
-
                         var xmin = detection_boxes_out[0];
                         var ymin = detection_boxes_out[1];
                         var xmax = detection_boxes_out[2];
                         var ymax = detection_boxes_out[3];
 
-                        this.Publish(new BoundingBoxMessageArgs()
+                        this.Publish(new DetectionMessage()
                         {
                             Xmin = xmin,
                             Ymin = ymin,
                             Xmax = xmax,
                             Ymax = ymax,
+                            Score = score,
+                            Label = label,
                         });
 
                         loggingService.Debug($"{label} with score {score} " +
