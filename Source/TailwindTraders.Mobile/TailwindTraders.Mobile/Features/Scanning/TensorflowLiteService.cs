@@ -17,7 +17,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
 {
     public class TensorflowLiteService
     {
-        private const string TFFolder = "AR/net/";
+        private const string TFFolder = "AR/pets/";
         private readonly string LabelFilename = TFFolder + "labels_list.txt";
         private readonly string ModelFilename = TFFolder + "detect.tflite";
 
