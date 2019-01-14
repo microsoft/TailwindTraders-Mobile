@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <mvvm:BaseContentPage x:Name="cameraPage"
   x:Class="TailwindTraders.Mobile.Features.Scanning.Photo.CameraPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
@@ -7,13 +7,14 @@
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:photo="clr-namespace:TailwindTraders.Mobile.Features.Scanning.Photo"
+  xmlns:scanning="clr-namespace:TailwindTraders.Mobile.Features.Scanning"
   ios:Page.UseSafeArea="true"
   x:DataType="photo:CameraViewModel"
   x:TypeArguments="photo:CameraViewModel"
   ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
   <ContentPage.Resources>
     <ResourceDictionary>
-      <photo:RecommendedItemTemplate x:Key="RecommendedItemTemplate" />
+      <scanning:RecommendedItemTemplate x:Key="RecommendedItemTemplate" />
       <Color x:Key="BackgroundPageColor">#1B2D2C2C</Color>
     </ResourceDictionary>
   </ContentPage.Resources>

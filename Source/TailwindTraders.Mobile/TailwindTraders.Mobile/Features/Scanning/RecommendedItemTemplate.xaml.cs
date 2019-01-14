@@ -1,4 +1,4 @@
-﻿namespace TailwindTraders.Mobile.Features.Scanning.Photo
+﻿namespace TailwindTraders.Mobile.Features.Scanning
 {
     public partial class RecommendedItemTemplate
     {

@@ -1,25 +1,49 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <mvvm:BaseContentPage x:Name="cameraPreviewPage"
   x:Class="TailwindTraders.Mobile.Features.Scanning.AR.CameraPreviewPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:ar="clr-namespace:TailwindTraders.Mobile.Features.Scanning.AR"
+  xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
+  xmlns:scanning="clr-namespace:TailwindTraders.Mobile.Features.Scanning"
   xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
   Title="AR Mode"
   ios:Page.UseSafeArea="true"
   x:DataType="ar:CameraPreviewViewModel"
   x:TypeArguments="ar:CameraPreviewViewModel"
   ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+    
+  <ContentPage.Resources>
+    <ResourceDictionary>
+            
+      <scanning:RecommendedItemTemplate x:Key="RecommendedItemTemplate" />
+            
+    </ResourceDictionary>
+  </ContentPage.Resources>
 
   <ContentPage.Content>
 
     <Grid>
-      <ContentPresenter x:Name="cameraControl" />
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <ContentPresenter x:Name="cameraControl"
+        Grid.RowSpan="2" />
 
       <skia:SKCanvasView x:Name="canvasView"
+        Grid.RowSpan="2"
         PaintSurface="CanvasView_PaintSurface" />
+
+      <carousel:CarouselViewControl
+        Grid.Row="1"
+        InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
+        ItemTemplate="{StaticResource RecommendedItemTemplate}"
+        ItemsSource="{Binding RecommendedProducts}" />
+
     </Grid>
 
   </ContentPage.Content>

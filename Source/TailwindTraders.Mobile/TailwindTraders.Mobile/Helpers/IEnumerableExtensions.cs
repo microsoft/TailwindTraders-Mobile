@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TailwindTraders.Mobile.Features.Home
+namespace TailwindTraders.Mobile.Helpers
 {
     internal static class IEnumerableExtensions
     {
