@@ -81,7 +81,6 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
             var rect = new SKRect(left, top, right, bottom);
 
-            canvas.Clear();
             canvas.DrawRoundRect(rect, boundingBoxCornerRadius, boundingBoxShadowPaint);
             canvas.DrawRoundRect(rect, boundingBoxCornerRadius, boundingBoxPaint);
         }
