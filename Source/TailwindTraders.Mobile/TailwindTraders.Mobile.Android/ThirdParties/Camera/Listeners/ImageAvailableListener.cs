@@ -2,6 +2,7 @@
 using Android.Media;
 using Java.IO;
 using System;
+using System.Buffers;
 using System.IO;
 using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.Scanning;
@@ -11,6 +12,7 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
 {
     public class ImageAvailableListener : Java.Lang.Object, ImageReader.IOnImageAvailableListener
     {
+        private int[] colorArray;
         private bool captureStillImage = false;
         private bool tensorflowAnalysis = false;
 
@@ -18,12 +20,16 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
         private readonly TensorflowLiteService tensorflowLiteService;
         private readonly ILoggingService loggingService;
 
+        private int frameCount = 0;
+
         public ImageAvailableListener(ICamera fragment)
         {
             if (fragment == null)
             {
                 throw new System.ArgumentNullException("fragment");
             }
+
+            colorArray = new int[TensorflowLiteService.ModelInputSize * TensorflowLiteService.ModelInputSize];
 
             captureStillImage = false;
             tensorflowAnalysis = false;
@@ -65,35 +71,13 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
         {
             if (tensorflowAnalysis)
             {
-                using (var bmp = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length))
+                frameCount++;
+
+                if (frameCount >= 3)
                 {
-                    var width = TensorflowLiteService.ModelInputSize;
-                    var height = TensorflowLiteService.ModelInputSize;
+                    frameCount = 0;
 
-                    using (var resized = Bitmap.CreateScaledBitmap(bmp, width, height, false))
-                    {
-                        var orientation = owner.GetOrientation();
-
-                        var matrix = new Matrix();
-                        matrix.PostRotate(orientation);
-                        using (var rotatedImage = Bitmap.CreateBitmap(
-                            resized,
-                            0,
-                            0,
-                            resized.Width,
-                            resized.Height,
-                            matrix,
-                            true))
-                        {
-                            //// SaveImg(rotatedImage);
-                            var colors = GetColorsFromBmp(rotatedImage);
-
-                            System.Threading.Tasks.Task.Run(() =>
-                            {
-                                tensorflowLiteService.Recognize(colors);
-                            }).ConfigureAwait(false);
-                        }
-                    }
+                    AnalyzeFrame(bytes);
                 }
             }
             else if (captureStillImage)
@@ -104,6 +88,50 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
             }
         }
 
+        private void AnalyzeFrame(byte[] bytes)
+        {
+            using (var bmp = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length))
+            {
+                var orientation = owner.GetOrientation();
+
+                using (var scaledImage = ScaleImage(bmp))
+                {
+                    using (var rotatedImage = RotateImage(scaledImage, orientation))
+                    {
+                        //// SaveImg(rotatedImage);
+                        CopyColors(rotatedImage);
+
+                        //System.Threading.Tasks.Task.Run(() =>
+                        //{
+                        tensorflowLiteService.Recognize(colorArray);
+                        //}).ConfigureAwait(false);
+                    }
+                }
+            }
+        }
+
+        private Bitmap ScaleImage(Bitmap bmp)
+        {
+            var width = TensorflowLiteService.ModelInputSize;
+            var height = TensorflowLiteService.ModelInputSize;
+
+            return Bitmap.CreateScaledBitmap(bmp, width, height, false);
+        }
+
+        private Bitmap RotateImage(Bitmap image, int orientation)
+        {
+            var matrix = new Matrix();
+            matrix.PostRotate(orientation);
+
+            var rotatedImage = Bitmap.CreateBitmap(image, 0, 0, image.Width, image.Height, matrix, true);
+            return rotatedImage;
+        }
+
+        private void CopyColors(Bitmap bmp)
+        {
+            bmp.GetPixels(colorArray, 0, bmp.Width, 0, 0, bmp.Width, bmp.Height);
+        }
+
         private void SaveImg(Bitmap resized)
         {
             var path = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
@@ -111,15 +139,6 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
             var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
             resized.Compress(Bitmap.CompressFormat.Png, 100, stream);
             stream.Close();
-        }
-
-        private int[] GetColorsFromBmp(Bitmap bmp)
-        {
-            var size = bmp.Width * bmp.Height;
-            var intValues = new int[size];
-
-            bmp.GetPixels(intValues, 0, bmp.Width, 0, 0, bmp.Width, bmp.Height);
-            return intValues;
         }
 
         private void CaptureImage(byte[] bytes)

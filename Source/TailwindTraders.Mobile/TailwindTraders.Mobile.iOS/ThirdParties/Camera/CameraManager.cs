@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using AVFoundation;
 using CoreFoundation;
 using CoreGraphics;
@@ -157,6 +158,7 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
         private bool cameraIsSetup = false;
         private bool tensorflowAnalysis;
+        private int[] colors;
 
         public CameraState addPreviewLayerToView(UIView view, Action completion, bool tensorflowAnalysis)
         {
@@ -373,6 +375,8 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
             if (this.tensorflowAnalysis)
             {
+                colors = new int[TensorflowLiteService.ModelInputSize * TensorflowLiteService.ModelInputSize];
+
                 var captureDelegate = new VideoCaptureDelegate(OnFrameCaptured);
 
                 var videoOutput = new AVCaptureVideoDataOutput();
@@ -566,21 +570,29 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         {
             var image = args.Value;
 
+            using (var scaledImage = CreateScaledImage(image))
+            {
+                using (var rotatedImage = UIImage.FromImage(scaledImage.CGImage, 1, UIImageOrientation.Right))
+                {
+                    ////SaveImage(rotatedImage);
+
+                    CopyColorsFromImage(rotatedImage);
+
+                    tensorflowLiteService.Recognize(colors);
+                }
+            }
+        }
+
+        private UIImage CreateScaledImage(UIImage image)
+        {
             var width = TensorflowLiteService.ModelInputSize;
             var height = TensorflowLiteService.ModelInputSize;
 
             UIGraphics.BeginImageContext(new CGSize(width, height));
             image.Draw(new CGRect(0, 0, width, height));
-            var resizedImage = UIGraphics.GetImageFromCurrentImageContext();
+            var scaledImage = UIGraphics.GetImageFromCurrentImageContext();
             UIGraphics.EndImageContext();
-
-            var rotatedImage = UIImage.FromImage(resizedImage.CGImage, 1, UIImageOrientation.Right);
-
-            ////SaveImage(rotatedImage);
-
-            var colors = GetColorsFromImage(rotatedImage);
-
-            tensorflowLiteService.Recognize(colors);
+            return scaledImage;
         }
 
         private void SaveImage(UIImage image)
@@ -593,12 +605,10 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             });
         }
 
-        private int[] GetColorsFromImage(UIImage image)
+        private void CopyColorsFromImage(UIImage image)
         {
-            var intValues = new int[(int)(image.Size.Width * image.Size.Height)];
-            System.Runtime.InteropServices.GCHandle handle = System.Runtime.InteropServices.GCHandle.Alloc(
-                intValues,
-                System.Runtime.InteropServices.GCHandleType.Pinned);
+            var handle = GCHandle.Alloc(colors, GCHandleType.Pinned);
+
             using (CGImage cgimage = image.CGImage)
             using (CGColorSpace cspace = CGColorSpace.CreateDeviceRGB())
             using (CGBitmapContext context = new CGBitmapContext(
@@ -614,8 +624,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
 
             handle.Free();
-
-            return intValues;
         }
     }
 }

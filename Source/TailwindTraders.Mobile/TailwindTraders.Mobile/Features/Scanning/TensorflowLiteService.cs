@@ -23,6 +23,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
 
         private const int LabelOffset = 1;
 
+        private byte[] quantizedColors;
         private bool initialized = false;
         private string[] labels = null;
         private FlatBufferModel model;
@@ -54,6 +55,8 @@ namespace TailwindTraders.Mobile.Features.Scanning
             {
                 throw new Exception("Model identifier check failed");
             }
+
+            quantizedColors = new byte[ModelInputSize * ModelInputSize * 3];
 
             initialized = true;
         }
@@ -120,16 +123,15 @@ namespace TailwindTraders.Mobile.Features.Scanning
 
         private void CopyColorsToTensor(IntPtr dest, int[] colors)
         {
-            var byteValues = new byte[colors.Length * 3];
             for (int i = 0; i < colors.Length; ++i)
             {
                 int val = colors[i];
-                byteValues[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
-                byteValues[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
-                byteValues[(i * 3) + 2] = (byte)(val & 0xFF);
+                quantizedColors[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
+                quantizedColors[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
+                quantizedColors[(i * 3) + 2] = (byte)(val & 0xFF);
             }
 
-            System.Runtime.InteropServices.Marshal.Copy(byteValues, 0, dest, byteValues.Length);
+            System.Runtime.InteropServices.Marshal.Copy(quantizedColors, 0, dest, quantizedColors.Length);
         }
 
         private void LogDetectionResults(
