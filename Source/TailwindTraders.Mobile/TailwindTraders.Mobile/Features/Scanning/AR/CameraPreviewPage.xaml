@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <mvvm:BaseContentPage x:Name="cameraPreviewPage"
   x:Class="TailwindTraders.Mobile.Features.Scanning.AR.CameraPreviewPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
@@ -14,12 +14,12 @@
   x:DataType="ar:CameraPreviewViewModel"
   x:TypeArguments="ar:CameraPreviewViewModel"
   ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
-    
+
   <ContentPage.Resources>
     <ResourceDictionary>
-            
+
       <scanning:RecommendedItemTemplate x:Key="RecommendedItemTemplate" />
-            
+
     </ResourceDictionary>
   </ContentPage.Resources>
 
@@ -28,7 +28,7 @@
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="*" />
-        <RowDefinition Height="Auto" />
+        <RowDefinition Height="200" />
       </Grid.RowDefinitions>
 
       <ContentPresenter x:Name="cameraControl"
@@ -42,7 +42,11 @@
         Grid.Row="1"
         InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
         ItemTemplate="{StaticResource RecommendedItemTemplate}"
-        ItemsSource="{Binding RecommendedProducts}" />
+        ItemsSource="{Binding RecommendedProducts}">
+        <View.Margin>
+          <Thickness Bottom="{StaticResource Default2Margin}" />
+        </View.Margin>
+      </carousel:CarouselViewControl>
 
     </Grid>
 

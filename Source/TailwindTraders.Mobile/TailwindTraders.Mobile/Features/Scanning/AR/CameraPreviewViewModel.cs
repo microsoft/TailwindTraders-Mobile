@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Plugin.Permissions.Abstractions;
@@ -17,8 +18,12 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
         private readonly PhotoService photoService;
         private readonly IProductsAPI productsAPI;
+        private static readonly TimeSpan minSameMessageLabelTime = TimeSpan.FromSeconds(3);
 
         private IEnumerable<ProductDTO> recommendedProducts;
+        private string lastMessageLabel = string.Empty;
+        private DateTime lastMessageDate = DateTime.MinValue;
+        private TimeSpan sameMessageLabelTime = TimeSpan.Zero;
 
         public CameraPreviewViewModel()
         {
@@ -34,8 +39,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
         public override async Task InitializeAsync()
         {
-            // TODO rely on message.Label when having final network
-            this.Subscribe<DetectionMessage>(message => LoadRecommendedProductsAsync("1").ConfigureAwait(true));
+            this.Subscribe<DetectionMessage>(GatherRecommendedProducts);
 
             await base.InitializeAsync();
 
@@ -56,6 +60,31 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             this.Unsubscribe<DetectionMessage>();
 
             return base.UninitializeAsync();
+        }
+
+        private void GatherRecommendedProducts(DetectionMessage message)
+        {
+            var now = DateTime.UtcNow;
+
+            if (lastMessageLabel == message.Label)
+            {
+                sameMessageLabelTime += now - lastMessageDate;
+            }
+            else
+            {
+                lastMessageLabel = message.Label;
+                sameMessageLabelTime = TimeSpan.Zero;
+            }
+
+            if (sameMessageLabelTime >= minSameMessageLabelTime)
+            {
+                // TODO rely on message.Label when having final network
+                LoadRecommendedProductsAsync("1").ConfigureAwait(true);
+                lastMessageLabel = string.Empty;
+                sameMessageLabelTime = -(minSameMessageLabelTime + minSameMessageLabelTime);
+            }
+
+            lastMessageDate = now;
         }
 
         private async Task LoadRecommendedProductsAsync(string productType)
