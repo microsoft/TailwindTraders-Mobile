@@ -74,7 +74,7 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
             {
                 frameCount++;
 
-                if (frameCount >= 3)
+                if (frameCount >= 6)
                 {
                     frameCount = 0;
 
