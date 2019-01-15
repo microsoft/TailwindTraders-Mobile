@@ -22,8 +22,10 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
         private IEnumerable<ProductDTO> recommendedProducts;
         private string lastMessageLabel = string.Empty;
+        private string lastProcessedMessageLabel = string.Empty;
         private DateTime lastMessageDate = DateTime.MinValue;
         private TimeSpan sameMessageLabelTime = TimeSpan.Zero;
+        private Task loadingTask = Task.CompletedTask;
 
         public CameraPreviewViewModel()
         {
@@ -64,6 +66,11 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
         private void GatherRecommendedProducts(DetectionMessage message)
         {
+            if (lastProcessedMessageLabel == message.Label || !loadingTask.IsCompleted)
+            {
+                return;
+            }
+
             var now = DateTime.UtcNow;
 
             if (lastMessageLabel == message.Label)
@@ -79,7 +86,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             if (sameMessageLabelTime >= minSameMessageLabelTime)
             {
                 // TODO rely on message.Label when having final network
-                LoadRecommendedProductsAsync("1").ConfigureAwait(true);
+                loadingTask = LoadRecommendedProductsAsync("1");
+                lastProcessedMessageLabel = lastMessageLabel;
                 lastMessageLabel = string.Empty;
                 sameMessageLabelTime = -(minSameMessageLabelTime + minSameMessageLabelTime);
             }
