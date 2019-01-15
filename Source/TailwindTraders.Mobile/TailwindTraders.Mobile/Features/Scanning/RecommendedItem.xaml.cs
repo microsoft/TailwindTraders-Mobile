@@ -1,8 +1,8 @@
 ﻿namespace TailwindTraders.Mobile.Features.Scanning
 {
-    public partial class RecommendedItemTemplate
+    public partial class RecommendedItem
     {
-        public RecommendedItemTemplate()
+        public RecommendedItem()
         {
             InitializeComponent();
         }

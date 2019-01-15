@@ -7,7 +7,6 @@ using PubSub.Extension;
 using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Product;
 using TailwindTraders.Mobile.Framework;
-using TailwindTraders.Mobile.Helpers;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Scanning.AR
@@ -20,7 +19,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         private readonly IProductsAPI productsAPI;
         private static readonly TimeSpan minSameMessageLabelTime = TimeSpan.FromSeconds(3);
 
-        private IEnumerable<ProductDTO> recommendedProducts;
+        private IEnumerable<ProductViewModel> recommendedProducts;
         private string lastMessageLabel = string.Empty;
         private string lastProcessedMessageLabel = string.Empty;
         private DateTime lastMessageDate = DateTime.MinValue;
@@ -33,7 +32,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             productsAPI = DependencyService.Get<IRestPoolService>().ProductsAPI.Value;
         }
 
-        public IEnumerable<ProductDTO> RecommendedProducts
+        public IEnumerable<ProductViewModel> RecommendedProducts
         {
             get => recommendedProducts;
             set => SetAndRaisePropertyChanged(ref recommendedProducts, value);
@@ -102,8 +101,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
             if (result.IsSucceded)
             {
-                var randomProducts = result.Result.Products.Shuffle().Take(3);
-                RecommendedProducts = new List<ProductDTO>(randomProducts);
+                RecommendedProducts = result.Result.Products.Select(
+                    item => new ProductViewModel(item, FeatureNotAvailableCommand));
             }
         }
     }

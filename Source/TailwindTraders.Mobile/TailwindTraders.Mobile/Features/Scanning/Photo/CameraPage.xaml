@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <mvvm:BaseContentPage x:Name="cameraPage"
   x:Class="TailwindTraders.Mobile.Features.Scanning.Photo.CameraPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
@@ -14,7 +14,6 @@
   ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
   <ContentPage.Resources>
     <ResourceDictionary>
-      <scanning:RecommendedItemTemplate x:Key="RecommendedItemTemplate" />
       <Color x:Key="BackgroundPageColor">#1B2D2C2C</Color>
     </ResourceDictionary>
   </ContentPage.Resources>
@@ -52,8 +51,13 @@
           <carousel:CarouselViewControl
             Grid.Row="1"
             InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
-            ItemTemplate="{StaticResource RecommendedItemTemplate}"
-            ItemsSource="{Binding RecommendedProducts}" />
+            ItemsSource="{Binding RecommendedProducts}">
+            <carousel:CarouselViewControl.ItemTemplate>
+              <DataTemplate>
+                <scanning:RecommendedItem />
+              </DataTemplate>
+            </carousel:CarouselViewControl.ItemTemplate>
+          </carousel:CarouselViewControl>
 
           <Grid
             Grid.Row="2"
