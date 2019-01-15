@@ -5,24 +5,22 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.Scanning;
 using TailwindTraders.Mobile.Features.Scanning.AR;
-using TailwindTraders.Mobile.Features.Scanning.Photo;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(TensorflowLiteService))]
-
 namespace TailwindTraders.Mobile.Features.Scanning
 {
     public class TensorflowLiteService
     {
-        private const string TFFolder = "AR/pets/";
-        private readonly string LabelFilename = TFFolder + "labels_list.txt";
-        private readonly string ModelFilename = TFFolder + "detect.tflite";
-
+        public const string TFFolder = "AR/pets/";
         public const int ModelInputSize = 300;
-        private const float MinScore = 0.6f;
+        public const float MinScore = 0.6f;
+
+        public readonly string LabelFilename = TFFolder + "labels_list.txt";
+        public readonly string ModelFilename = TFFolder + "detect.tflite";
+
         private const int LabelOffset = 1;
 
         private bool initialized = false;
@@ -30,25 +28,14 @@ namespace TailwindTraders.Mobile.Features.Scanning
         private FlatBufferModel model;
         private bool useNumThreads;
 
-        private IPlatformService platformService;
-        private ILoggingService loggingService;
-
         private DateTime lastAnalysis = DateTime.UtcNow;
         private readonly TimeSpan pace = new TimeSpan(0, 0, 0, 0, 333);
-
-        public TensorflowLiteService()
-        {
-            platformService = DependencyService.Get<IPlatformService>();
-            loggingService = DependencyService.Get<ILoggingService>();
-
-            Initialize();
-        }
 
         public static void DoNotStripMe()
         {
         }
 
-        public void Initialize()
+        public void Initialize(string labelPath, string modelPath)
         {
             if (initialized)
             {
@@ -57,7 +44,6 @@ namespace TailwindTraders.Mobile.Features.Scanning
 
             useNumThreads = Device.RuntimePlatform == Device.Android;
 
-            var labelPath = platformService.CopyToFilesAndGetPath(LabelFilename);
             var labelData = File.ReadAllBytes(labelPath);
             var labelContent = Encoding.Default.GetString(labelData);
 
@@ -66,8 +52,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
                 .Select(x => x.Trim())
                 .ToArray();
 
-            var modelFileName = platformService.CopyToFilesAndGetPath(ModelFilename);
-            model = new FlatBufferModel(modelFileName);
+            model = new FlatBufferModel(modelPath);
             if (!model.CheckModelIdentifier())
             {
                 throw new Exception("Model identifier check failed");
@@ -76,8 +61,13 @@ namespace TailwindTraders.Mobile.Features.Scanning
             initialized = true;
         }
 
-        public void Recognize(byte[] imageData, int rotation)
+        public void Recognize(int[] colors)
         {
+            if (!initialized)
+            {
+                throw new Exception("Initialize TensorflowLiteService first");
+            }
+
             var currentDate = DateTime.UtcNow;
 
             if (currentDate - lastAnalysis >= pace)
@@ -93,12 +83,12 @@ namespace TailwindTraders.Mobile.Features.Scanning
             {
                 using (var interpreter = new Interpreter(model, op))
                 {
-                    InvokeInterpreter(imageData, interpreter, rotation);
+                    InvokeInterpreter(colors, interpreter);
                 }
             }
         }
 
-        private void InvokeInterpreter(byte[] imageData, Interpreter interpreter, int rotation)
+        private void InvokeInterpreter(int[] colors, Interpreter interpreter)
         {
             if (useNumThreads)
             {
@@ -114,20 +104,13 @@ namespace TailwindTraders.Mobile.Features.Scanning
             var input = interpreter.GetInput();
             using (var inputTensor = interpreter.GetTensor(input[0]))
             {
-                var watchReadImageFileToTensor = Stopwatch.StartNew();
-                platformService.ReadImageFileToTensor(
-                    imageData,
-                    inputTensor.DataPointer,
-                    rotation);
-                watchReadImageFileToTensor.Stop();
-
-                loggingService.Debug($"ReadImageFileToTensor: {watchReadImageFileToTensor.ElapsedMilliseconds}ms");
+                CopyColorsToTensor(inputTensor.DataPointer, colors);
 
                 var watchInvoke = Stopwatch.StartNew();
                 interpreter.Invoke();
                 watchInvoke.Stop();
 
-                loggingService.Debug($"InterpreterInvoke: {watchInvoke.ElapsedMilliseconds}ms");
+                Console.WriteLine($"InterpreterInvoke: {watchInvoke.ElapsedMilliseconds}ms");
             }
 
             var output = interpreter.GetOutput();
@@ -149,6 +132,20 @@ namespace TailwindTraders.Mobile.Features.Scanning
             LogDetectionResults(detection_classes_out, detection_scores_out, detection_boxes_out, numDetections);
         }
 
+        private void CopyColorsToTensor(IntPtr dest, int[] colors)
+        {
+            var byteValues = new byte[colors.Length * 3];
+            for (int i = 0; i < colors.Length; ++i)
+            {
+                int val = colors[i];
+                byteValues[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
+                byteValues[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
+                byteValues[(i * 3) + 2] = (byte)(val & 0xFF);
+            }
+
+            System.Runtime.InteropServices.Marshal.Copy(byteValues, 0, dest, byteValues.Length);
+        }
+
         private void LogDetectionResults(
             float[] detection_classes_out,
             float[] detection_scores_out,
@@ -160,7 +157,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
                 var score = detection_scores_out[i];
                 var classId = (int)detection_classes_out[i];
 
-                //// loggingService.Debug($"Found classId({classId}) with score({score})");
+                //// Console.WriteLine($"Found classId({classId}) with score({score})");
 
                 if (classId >= 0 && classId < labels.Length)
                 {
@@ -182,7 +179,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
                             Label = label,
                         });
 
-                        loggingService.Debug($"{label} with score {score} " +
+                        Console.WriteLine($"{label} with score {score} " +
                             $"with detection boxes: {xmin} {ymin} {xmax} {ymax}");
                     }
                 }

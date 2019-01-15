@@ -3,7 +3,6 @@ using System.Linq;
 using AVFoundation;
 using CoreFoundation;
 using CoreGraphics;
-using CoreImage;
 using CoreVideo;
 using Foundation;
 using TailwindTraders.Mobile.Features.Scanning;
@@ -589,25 +588,56 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         {
             var image = args.Value;
 
-            var width = 300;
-            var height = 300;
+            var width = TensorflowLiteService.ModelInputSize;
+            var height = TensorflowLiteService.ModelInputSize;
 
             UIGraphics.BeginImageContext(new CGSize(width, height));
             image.Draw(new CGRect(0, 0, width, height));
             var resizedImage = UIGraphics.GetImageFromCurrentImageContext();
             UIGraphics.EndImageContext();
 
-            using (var imageData = resizedImage.AsJPEG())
-            {
-                var byteArray = new byte[imageData.Length];
-                System.Runtime.InteropServices.Marshal.Copy(
-                    imageData.Bytes,
-                    byteArray,
-                    0,
-                    Convert.ToInt32(imageData.Length));
+            var rotatedImage = UIImage.FromImage(resizedImage.CGImage, 1, UIImageOrientation.Right);
 
-                tensorflowLiteService.Recognize(byteArray, 0);
+            ////SaveImage(rotatedImage);
+
+            var colors = GetColorsFromImage(rotatedImage);
+
+            tensorflowLiteService.Recognize(colors);
+        }
+
+        private void SaveImage(UIImage image)
+        {
+            DispatchQueue.MainQueue.DispatchAsync(() =>
+            {
+                image.SaveToPhotosAlbum((a, b) =>
+                {
+                });
+            });
+        }
+
+        private int[] GetColorsFromImage(UIImage image)
+        {
+            var intValues = new int[(int)(image.Size.Width * image.Size.Height)];
+            System.Runtime.InteropServices.GCHandle handle = System.Runtime.InteropServices.GCHandle.Alloc(
+                intValues,
+                System.Runtime.InteropServices.GCHandleType.Pinned);
+            using (CGImage cgimage = image.CGImage)
+            using (CGColorSpace cspace = CGColorSpace.CreateDeviceRGB())
+            using (CGBitmapContext context = new CGBitmapContext(
+                handle.AddrOfPinnedObject(),
+                (nint)image.Size.Width,
+                (nint)image.Size.Height,
+                8,
+                (nint)image.Size.Width * 4,
+                cspace,
+                CGImageAlphaInfo.PremultipliedLast))
+            {
+                context.DrawImage(new CGRect(new CGPoint(), image.Size), cgimage);
             }
+
+            handle.Free();
+
+            return intValues;
         }
     }
 }

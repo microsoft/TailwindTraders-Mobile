@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CoreGraphics;
-using CoreVideo;
 using TailwindTraders.Mobile.Features.Scanning;
-using TailwindTraders.Mobile.Helpers;
 using TailwindTraders.Mobile.IOS.Features.Scanning;
 using TailwindTraders.Mobile.IOS.ThirdParties.Camera;
 using UIKit;

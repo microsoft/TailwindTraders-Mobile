@@ -2,6 +2,7 @@
 using Android.Media;
 using Java.IO;
 using System;
+using System.IO;
 using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.Scanning;
 using Xamarin.Forms;
@@ -64,11 +65,36 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
         {
             if (tensorflowAnalysis)
             {
-                var orientation = owner.GetOrientation();
-                System.Threading.Tasks.Task.Run(() =>
+                using (var bmp = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length))
                 {
-                    tensorflowLiteService.Recognize(bytes, orientation);
-                }).ConfigureAwait(false);
+                    var width = TensorflowLiteService.ModelInputSize;
+                    var height = TensorflowLiteService.ModelInputSize;
+
+                    using (var resized = Bitmap.CreateScaledBitmap(bmp, width, height, false))
+                    {
+                        var orientation = owner.GetOrientation();
+
+                        var matrix = new Matrix();
+                        matrix.PostRotate(orientation);
+                        using (var rotatedImage = Bitmap.CreateBitmap(
+                            resized,
+                            0,
+                            0,
+                            resized.Width,
+                            resized.Height,
+                            matrix,
+                            true))
+                        {
+                            //// SaveImg(rotatedImage);
+                            var colors = GetColorsFromBmp(rotatedImage);
+
+                            System.Threading.Tasks.Task.Run(() =>
+                            {
+                                tensorflowLiteService.Recognize(colors);
+                            }).ConfigureAwait(false);
+                        }
+                    }
+                }
             }
             else if (captureStillImage)
             {
@@ -78,13 +104,31 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
             }
         }
 
+        private void SaveImg(Bitmap resized)
+        {
+            var path = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            var filePath = System.IO.Path.Combine(path, "test.png");
+            var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
+            resized.Compress(Bitmap.CompressFormat.Png, 100, stream);
+            stream.Close();
+        }
+
+        private int[] GetColorsFromBmp(Bitmap bmp)
+        {
+            var size = bmp.Width * bmp.Height;
+            var intValues = new int[size];
+
+            bmp.GetPixels(intValues, 0, bmp.Width, 0, 0, bmp.Width, bmp.Height);
+            return intValues;
+        }
+
         private void CaptureImage(byte[] bytes)
         {
             var path = System.IO.Path.Combine(
             Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath,
             $"photo_{Guid.NewGuid().ToString()}.jpg");
 
-            using (var mFile = new File(path))
+            using (var mFile = new Java.IO.File(path))
             {
                 using (var output = new FileOutputStream(mFile))
                 {
@@ -92,7 +136,7 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                     {
                         output.Write(bytes);
                     }
-                    catch (IOException e)
+                    catch (Java.IO.IOException e)
                     {
                         e.PrintStackTrace();
                     }
