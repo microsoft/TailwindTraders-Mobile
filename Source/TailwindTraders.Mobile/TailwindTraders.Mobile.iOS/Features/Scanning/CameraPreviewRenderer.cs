@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CoreGraphics;
+using CoreVideo;
 using TailwindTraders.Mobile.Features.Scanning;
+using TailwindTraders.Mobile.Helpers;
 using TailwindTraders.Mobile.IOS.Features.Scanning;
 using TailwindTraders.Mobile.IOS.ThirdParties.Camera;
 using UIKit;
@@ -17,6 +19,7 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning
         private CameraManager cameraManager = new CameraManager();
         private UIView cameraPreview;
         private TaskCompletionSource<string> captureTcs;
+        private CameraPreview element;
 
         public static void Initialize()
         {
@@ -46,7 +49,7 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning
                 return;
             }
 
-            var element = e.NewElement;
+            element = e.NewElement;
 
             if (element == null)
             {
@@ -130,7 +133,7 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning
                 cameraManager = new CameraManager();
             }
 
-            cameraManager.addPreviewLayerToView(Control, CameraOutputMode.StillImage, OnCameraReady);
+            cameraManager.addPreviewLayerToView(Control, OnCameraReady, element.EnableTensorflowAnalysis);
         }
 
         private void OnCameraReady()

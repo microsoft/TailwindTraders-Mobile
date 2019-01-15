@@ -23,7 +23,6 @@ namespace TailwindTraders.Mobile.Features.Scanning
 
         public const int ModelInputSize = 300;
         private const float MinScore = 0.6f;
-        private const bool QuantizedModel = true;
         private const int LabelOffset = 1;
 
         private bool initialized = false;
@@ -118,10 +117,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
                 var watchReadImageFileToTensor = Stopwatch.StartNew();
                 platformService.ReadImageFileToTensor(
                     imageData,
-                    QuantizedModel,
                     inputTensor.DataPointer,
-                    ModelInputSize,
-                    ModelInputSize,
                     rotation);
                 watchReadImageFileToTensor.Stop();
 

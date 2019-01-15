@@ -1,6 +1,9 @@
-﻿using CoreGraphics;
+﻿using CoreFoundation;
+using CoreGraphics;
+using CoreImage;
 using Foundation;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using TailwindTraders.Mobile.Features.Logging;
@@ -49,48 +52,64 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning.Photo
 
         public void ReadImageFileToTensor(
             byte[] imageData,
-            bool quantized,
             IntPtr dest,
-            int inputHeight,
-            int inputWidth,
             int rotation)
         {
             using (var image = new UIImage(NSData.FromArray(imageData)))
             {
-                using (var resized = image.Scale(new CGSize(inputWidth, inputHeight)))
-                {
-                    int[] intValues = new int[(int)(resized.Size.Width * resized.Size.Height)];
-                    var byteValues = new byte[(int)(resized.Size.Width * resized.Size.Height * 3)];
-                    System.Runtime.InteropServices.GCHandle handle = System.Runtime.InteropServices.GCHandle.Alloc(
-                        intValues, 
-                        System.Runtime.InteropServices.GCHandleType.Pinned);
-                    using (CGImage cgimage = resized.CGImage)
-                    using (CGColorSpace cspace = CGColorSpace.CreateDeviceRGB())
-                    using (CGBitmapContext context = new CGBitmapContext(
-                        handle.AddrOfPinnedObject(),
-                        (nint)resized.Size.Width,
-                        (nint)resized.Size.Height,
-                        8,
-                        (nint)resized.Size.Width * 4,
-                        cspace,
-                        CGImageAlphaInfo.PremultipliedLast))
-                    {
-                        context.DrawImage(new CGRect(new CGPoint(), resized.Size), cgimage);
-                    }
+                Debug.Assert(image.Size.Width == 300);
+                Debug.Assert(image.Size.Height == 300);
 
-                    handle.Free();
+                var rotatedImage = UIImage.FromImage(image.CGImage, 1, UIImageOrientation.Right);
 
-                    for (int i = 0; i < intValues.Length; ++i)
-                    {
-                        int val = intValues[i];
-                        byteValues[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
-                        byteValues[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
-                        byteValues[(i * 3) + 2] = (byte)(val & 0xFF);
-                    }
+                ////SaveImage(rotatedImage);
 
-                    System.Runtime.InteropServices.Marshal.Copy(byteValues, 0, dest, byteValues.Length);
-                }
+                CopyColors(dest, rotatedImage);
             }
+        }
+
+        private void SaveImage(UIImage image)
+        {
+            DispatchQueue.MainQueue.DispatchAsync(() =>
+            {
+                image.SaveToPhotosAlbum((a, b) =>
+                {
+                });
+            });
+        }
+
+        private void CopyColors(IntPtr dest, UIImage image)
+        {
+            var intValues = new int[(int)(image.Size.Width * image.Size.Height)];
+            var byteValues = new byte[(int)(image.Size.Width * image.Size.Height * 3)];
+            System.Runtime.InteropServices.GCHandle handle = System.Runtime.InteropServices.GCHandle.Alloc(
+                intValues,
+                System.Runtime.InteropServices.GCHandleType.Pinned);
+            using (CGImage cgimage = image.CGImage)
+            using (CGColorSpace cspace = CGColorSpace.CreateDeviceRGB())
+            using (CGBitmapContext context = new CGBitmapContext(
+                handle.AddrOfPinnedObject(),
+                (nint)image.Size.Width,
+                (nint)image.Size.Height,
+                8,
+                (nint)image.Size.Width * 4,
+                cspace,
+                CGImageAlphaInfo.PremultipliedLast))
+            {
+                context.DrawImage(new CGRect(new CGPoint(), image.Size), cgimage);
+            }
+
+            handle.Free();
+
+            for (int i = 0; i < intValues.Length; ++i)
+            {
+                int val = intValues[i];
+                byteValues[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
+                byteValues[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
+                byteValues[(i * 3) + 2] = (byte)(val & 0xFF);
+            }
+
+            System.Runtime.InteropServices.Marshal.Copy(byteValues, 0, dest, byteValues.Length);
         }
 
         private bool InternalResize(string filePath, PhotoSize photoSize, int quality)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Buffers;
+using System.Diagnostics;
 using System.IO;
 using Android.Graphics;
 using Android.Media;
@@ -68,31 +69,28 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
 
         public void ReadImageFileToTensor(
             byte[] imageData,
-            bool quantized, 
             IntPtr dest,
-            int inputHeight,
-            int inputWidth,
             int rotation)
         {
             using (var bmp = BitmapFactory.DecodeByteArray(imageData, 0, imageData.Length))
             {
-                using (var resized = Bitmap.CreateScaledBitmap(bmp, inputWidth, inputHeight, false))
-                {
-                    var matrix = new Matrix();
-                    matrix.PostRotate(rotation);
-                    using (var rotatedImage = Bitmap.CreateBitmap(
-                        resized,
-                        0,
-                        0,
-                        resized.Width,
-                        resized.Height,
-                        matrix,
-                        true))
-                    {
-                        //// SaveImg(rotatedImage);
+                Debug.Assert(bmp.Width == 300);
+                Debug.Assert(bmp.Height == 300);
 
-                        CopyColors(quantized, dest, rotatedImage);
-                    }
+                var matrix = new Matrix();
+                matrix.PostRotate(rotation);
+                using (var rotatedImage = Bitmap.CreateBitmap(
+                    bmp,
+                    0,
+                    0,
+                    bmp.Width,
+                    bmp.Height,
+                    matrix,
+                    true))
+                {
+                    //// SaveImg(rotatedImage);
+
+                    CopyColors(dest, rotatedImage);
                 }
             }
         }
@@ -106,39 +104,23 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
             stream.Close();
         }
 
-        private void CopyColors(bool quantized, IntPtr dest, Bitmap bmp)
+        private void CopyColors(IntPtr dest, Bitmap bmp)
         {
             var size = bmp.Width * bmp.Height;
             var intValues = new int[size];
 
             bmp.GetPixels(intValues, 0, bmp.Width, 0, 0, bmp.Width, bmp.Height);
 
-            if (quantized)
+            var byteValues = new byte[bmp.Width * bmp.Height * 3];
+            for (int i = 0; i < intValues.Length; ++i)
             {
-                var byteValues = new byte[bmp.Width * bmp.Height * 3];
-                for (int i = 0; i < intValues.Length; ++i)
-                {
-                    int val = intValues[i];
-                    byteValues[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
-                    byteValues[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
-                    byteValues[(i * 3) + 2] = (byte)(val & 0xFF);
-                }
-
-                System.Runtime.InteropServices.Marshal.Copy(byteValues, 0, dest, byteValues.Length);
+                int val = intValues[i];
+                byteValues[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
+                byteValues[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
+                byteValues[(i * 3) + 2] = (byte)(val & 0xFF);
             }
-            else
-            {
-                var floatValues = new float[bmp.Width * bmp.Height * 3];
-                for (int i = 0; i < intValues.Length; ++i)
-                {
-                    int val = intValues[i];
-                    floatValues[(i * 3) + 0] = (val >> 16) & 0xFF;
-                    floatValues[(i * 3) + 1] = (val >> 8) & 0xFF;
-                    floatValues[(i * 3) + 2] = val & 0xFF;
-                }
 
-                System.Runtime.InteropServices.Marshal.Copy(floatValues, 0, dest, floatValues.Length);
-            }
+            System.Runtime.InteropServices.Marshal.Copy(byteValues, 0, dest, byteValues.Length);
         }
 
         private bool InternalResize(string filePath, PhotoSize photoSize, int quality)

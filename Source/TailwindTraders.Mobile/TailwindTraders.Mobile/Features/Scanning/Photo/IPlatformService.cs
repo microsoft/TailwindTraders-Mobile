@@ -13,10 +13,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
 
         void ReadImageFileToTensor(
             byte[] imageData,
-            bool quantized,
             IntPtr dest,
-            int inputHeight,
-            int inputWidth,
             int rotation);
     }
 }

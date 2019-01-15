@@ -1,4 +1,5 @@
-﻿using Android.Media;
+﻿using Android.Graphics;
+using Android.Media;
 using Java.IO;
 using System;
 using TailwindTraders.Mobile.Features.Logging;
@@ -63,9 +64,10 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
         {
             if (tensorflowAnalysis)
             {
+                var orientation = owner.GetOrientation();
                 System.Threading.Tasks.Task.Run(() =>
                 {
-                    tensorflowLiteService.Recognize(bytes, owner.GetOrientation());
+                    tensorflowLiteService.Recognize(bytes, orientation);
                 }).ConfigureAwait(false);
             }
             else if (captureStillImage)
