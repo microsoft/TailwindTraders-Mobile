@@ -123,7 +123,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
             if (Settings.Settings.DebugMode)
             {
-                DrawingHelper.DrawElapsedTime(elapsedTimeSinceLastDetection, canvas, height);
+                DrawingHelper.DrawElapsedTime(elapsedTimeSinceLastDetection, canvas, height, boundingBox);
             }
         }
 

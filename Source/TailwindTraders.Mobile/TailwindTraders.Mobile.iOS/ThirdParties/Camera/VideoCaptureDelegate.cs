@@ -12,12 +12,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 {
     public class VideoCaptureDelegate : NSObject, IAVCaptureVideoDataOutputSampleBufferDelegate
     {
-        private DateTime lastAnalysis = DateTime.UtcNow;  // controlling the pace of the machine vision analysis
-        private TimeSpan pace = new TimeSpan(0, 0, 0, 0, 333); // in milliseconds
-
-        /// <summary>
-        /// Keep a single context around, to avoid per-frame allocation
-        /// </summary>
         private CIContext context = CIContext.Create();
 
         public event EventHandler<EventArgsT<UIImage>> FrameCaptured = (sender, e) => { };
@@ -35,22 +29,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         {
             try
             {
-                var currentDate = DateTime.UtcNow;
-
-                // control the pace of the machine vision to protect battery life
-                if (currentDate - lastAnalysis >= pace)
-                {
-                    lastAnalysis = currentDate;
-                }
-                else
-                {
-                    return; // don't run the classifier more often than we need
-                }
-
-                // Crop and resize the image data.
-                // Note, this uses a Core Image pipeline that could be appended with other pre-processing.
-                // If we don't want to do anything custom, we can remove this step and let the Vision framework handle
-                // crop and resize as long as we are careful to pass the orientation properly.
                 using (var uiImage = GetUIImage(sampleBuffer))
                 {
                     if (uiImage == null)

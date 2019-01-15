@@ -28,9 +28,6 @@ namespace TailwindTraders.Mobile.Features.Scanning
         private FlatBufferModel model;
         private bool useNumThreads;
 
-        private DateTime lastAnalysis = DateTime.UtcNow;
-        private readonly TimeSpan pace = new TimeSpan(0, 0, 0, 0, 333);
-
         public static void DoNotStripMe()
         {
         }
@@ -66,17 +63,6 @@ namespace TailwindTraders.Mobile.Features.Scanning
             if (!initialized)
             {
                 throw new Exception("Initialize TensorflowLiteService first");
-            }
-
-            var currentDate = DateTime.UtcNow;
-
-            if (currentDate - lastAnalysis >= pace)
-            {
-                lastAnalysis = currentDate;
-            }
-            else
-            {
-                return;
             }
 
             using (var op = new BuildinOpResolver())

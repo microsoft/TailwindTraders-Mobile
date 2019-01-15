@@ -131,28 +131,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
         }
 
-        private CameraOutputQuality cameraOutputQuality = CameraOutputQuality.High;
-
-        public CameraOutputQuality CameraOutputQuality
-        {
-            get
-            {
-                return cameraOutputQuality;
-            }
-
-            set
-            {
-                if (cameraIsSetup)
-                {
-                    if (cameraOutputQuality != value)
-                    {
-                        cameraOutputQuality = value;
-                        _updateCameraQualityMode(cameraOutputQuality);
-                    }
-                }
-            }
-        }
-
         private UIView embeddingView;
 
         private AVCaptureDevice frontCameraDevice
@@ -332,7 +310,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                     this._setupPreviewLayer();
                     validCaptureSession.CommitConfiguration();
                     this._updateFlasMode(this.FlashMode);
-                    this._updateCameraQualityMode(this.CameraOutputQuality);
                     validCaptureSession.StartRunning();
                     this.cameraIsSetup = true;
 
@@ -417,7 +394,8 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
 
             captureSession.CommitConfiguration();
-            _updateCameraQualityMode(CameraOutputQuality);
+
+            _updateCameraQualityMode(CameraOutputQuality.High);
         }
 
         private void _setupPreviewLayer()

@@ -85,10 +85,14 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             canvas.DrawRoundRect(rect, boundingBoxCornerRadius, boundingBoxPaint);
         }
 
-        internal static void DrawElapsedTime(TimeSpan elapsedTime, SKCanvas canvas, float height)
+        internal static void DrawElapsedTime(
+            TimeSpan elapsedTime,
+            SKCanvas canvas, 
+            float height, 
+            DetectionMessage detectionMessage)
         {
             canvas.DrawText(
-                $"{elapsedTime.TotalMilliseconds.ToString("#")} ms",
+                $"{elapsedTime.TotalMilliseconds.ToString("#")} ms - {detectionMessage.Score} - {detectionMessage.Label}",
                 elapsedTimeMargin,
                 height - (elapsedTimeHeight / 2) - elapsedTimeMargin,
                 elapsedTimePaint);
