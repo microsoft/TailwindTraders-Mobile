@@ -74,10 +74,14 @@
     <Compile Include="ThirdParties\Camera\CameraManager.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="ThirdParties\Camera\VideoCaptureDelegate.cs" />
     <Compile Include="ThirdParties\Touch\TouchEffect.cs" />
     <Compile Include="ThirdParties\Touch\TouchRecognizer.cs" />
     <BundleResource Include="..\Resources\AR\net\detect.tflite">
       <Link>Resources\AR\net\detect.tflite</Link>
+    </BundleResource>
+    <BundleResource Include="..\Resources\AR\pets\detect.tflite">
+      <Link>Resources\AR\pets\detect.tflite</Link>
     </BundleResource>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
@@ -401,6 +405,11 @@
   <ItemGroup>
     <BundleResource Include="..\Resources\AR\net\labels_list.txt">
       <Link>Resources\AR\net\labels_list.txt</Link>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="..\Resources\AR\pets\labels_list.txt">
+      <Link>Resources\AR\pets\labels_list.txt</Link>
     </BundleResource>
   </ItemGroup>
 </Project>

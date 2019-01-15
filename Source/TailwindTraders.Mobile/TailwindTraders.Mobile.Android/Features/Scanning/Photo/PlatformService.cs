@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Buffers;
 using System.IO;
 using Android.Graphics;
 using Android.Media;
 using Android.Views;
-using Java.IO;
 using Plugin.CurrentActivity;
 using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
@@ -42,102 +40,6 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
                 loggingService.Error(ex);
 
                 return false;
-            }
-        }
-
-        public string CopyToFilesAndGetPath(string path)
-        {
-            var cleanPath = path.Replace("/", "_");
-
-            // https://kimsereyblog.blogspot.com/2016/11/differences-between-internal-and.html
-            var absoluteFilePath = System.IO.Path.Combine(
-                Android.App.Application.Context.FilesDir.AbsolutePath,
-                cleanPath);
-
-            var assets = Android.App.Application.Context.Assets;
-            using (var f = assets.Open(path))
-            {
-                using (var dest = new FileStream(absoluteFilePath, FileMode.OpenOrCreate))
-                {
-                    f.CopyTo(dest);
-                }
-            }
-
-            return absoluteFilePath;
-        }
-
-        public void ReadImageFileToTensor(
-            byte[] imageData,
-            bool quantized, 
-            IntPtr dest,
-            int inputHeight,
-            int inputWidth,
-            int rotation)
-        {
-            using (var bmp = BitmapFactory.DecodeByteArray(imageData, 0, imageData.Length))
-            {
-                using (var resized = Bitmap.CreateScaledBitmap(bmp, inputWidth, inputHeight, false))
-                {
-                    var matrix = new Matrix();
-                    matrix.PostRotate(rotation);
-                    using (var rotatedImage = Bitmap.CreateBitmap(
-                        resized,
-                        0,
-                        0,
-                        resized.Width,
-                        resized.Height,
-                        matrix,
-                        true))
-                    {
-                        //// SaveImg(rotatedImage);
-
-                        CopyColors(quantized, dest, rotatedImage);
-                    }
-                }
-            }
-        }
-
-        private void SaveImg(Bitmap resized)
-        {
-            var path = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-            var filePath = System.IO.Path.Combine(path, "test.png");
-            var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
-            resized.Compress(Bitmap.CompressFormat.Png, 100, stream);
-            stream.Close();
-        }
-
-        private void CopyColors(bool quantized, IntPtr dest, Bitmap bmp)
-        {
-            var size = bmp.Width * bmp.Height;
-            var intValues = new int[size];
-
-            bmp.GetPixels(intValues, 0, bmp.Width, 0, 0, bmp.Width, bmp.Height);
-
-            if (quantized)
-            {
-                var byteValues = new byte[bmp.Width * bmp.Height * 3];
-                for (int i = 0; i < intValues.Length; ++i)
-                {
-                    int val = intValues[i];
-                    byteValues[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
-                    byteValues[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
-                    byteValues[(i * 3) + 2] = (byte)(val & 0xFF);
-                }
-
-                System.Runtime.InteropServices.Marshal.Copy(byteValues, 0, dest, byteValues.Length);
-            }
-            else
-            {
-                var floatValues = new float[bmp.Width * bmp.Height * 3];
-                for (int i = 0; i < intValues.Length; ++i)
-                {
-                    int val = intValues[i];
-                    floatValues[(i * 3) + 0] = (val >> 16) & 0xFF;
-                    floatValues[(i * 3) + 1] = (val >> 8) & 0xFF;
-                    floatValues[(i * 3) + 2] = val & 0xFF;
-                }
-
-                System.Runtime.InteropServices.Marshal.Copy(floatValues, 0, dest, floatValues.Length);
             }
         }
 

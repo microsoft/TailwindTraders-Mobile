@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Features\Scanning\Photo\GalleryService.cs" />
+    <Compile Include="Helpers\PathHelper.cs" />
     <Compile Include="ThirdParties\Camera\AutoFitTextureView.cs" />
     <Compile Include="ThirdParties\Camera\CameraState.cs" />
     <Compile Include="ThirdParties\Camera\CompareSizesByArea.cs" />

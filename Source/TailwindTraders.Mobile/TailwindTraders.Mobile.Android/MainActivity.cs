@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using CarouselView.FormsPlugin.Android;
@@ -6,6 +7,8 @@ using Plugin.CurrentActivity;
 using Plugin.XSnack;
 using Sharpnado.Presentation.Forms.Droid;
 using TailwindTraders.Mobile.Droid.Features.Scanning.Photo;
+using TailwindTraders.Mobile.Droid.Helpers;
+using TailwindTraders.Mobile.Features.Scanning;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
 using Xamarin.Forms;
 
@@ -30,7 +33,9 @@ namespace TailwindTraders.Mobile.Droid
             Forms.SetFlags(new[] { "CollectionView_Experimental", "Shell_Experimental", "Visual_Experimental" });
             Forms.Init(this, savedInstanceState);
 
-            RegisterServices();
+            RegisterPlatformServices();
+
+            InitTensorflowService();
 
             LoadApplication(new App());
         }
@@ -53,10 +58,20 @@ namespace TailwindTraders.Mobile.Droid
             SharpnadoInitializer.Initialize();
         }
 
-        private void RegisterServices()
+        private void RegisterPlatformServices()
         {
             DependencyService.Register<IXSnack, XSnackImplementation>();
             DependencyService.Register<IPlatformService, PlatformService>();
+        }
+
+        private void InitTensorflowService()
+        {
+            var tensorflowLiteService = DependencyService.Get<TensorflowLiteService>();
+
+            var labelPath = PathHelper.CopyToFilesDirAndGetPath(tensorflowLiteService.LabelFilename);
+            var modelPath = PathHelper.CopyToFilesDirAndGetPath(tensorflowLiteService.ModelFilename);
+
+            tensorflowLiteService.Initialize(labelPath, modelPath);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Foundation;
 using Microsoft.AppCenter.Distribute;
 using Plugin.XSnack;
@@ -25,7 +26,9 @@ namespace TailwindTraders.Mobile.IOS
             Forms.SetFlags(new[] { "CollectionView_Experimental", "Shell_Experimental", "Visual_Experimental" });
             Forms.Init();
 
-            RegisterServices();
+            RegisterPlatformServices();
+
+            InitTensorflowService();
 
             Distribute.DontCheckForUpdatesInDebug();
 
@@ -62,10 +65,17 @@ namespace TailwindTraders.Mobile.IOS
             TensorflowLiteService.DoNotStripMe();
         }
 
-        private void RegisterServices()
+        private void RegisterPlatformServices()
         {
             DependencyService.Register<IXSnack, XSnackImplementation>();
             DependencyService.Register<IPlatformService, PlatformService>();
+            DependencyService.Register<TensorflowLiteService, TensorflowLiteService>();
+        }
+
+        private void InitTensorflowService()
+        {
+            var tensorflowLiteService = DependencyService.Get<TensorflowLiteService>();
+            tensorflowLiteService.Initialize(tensorflowLiteService.LabelFilename, tensorflowLiteService.ModelFilename);
         }
     }
 }
