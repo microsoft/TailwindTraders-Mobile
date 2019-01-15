@@ -78,7 +78,8 @@
         <Label
           Grid.Row="2"
           Style="{StaticResource BrandonGrotesqueMediumMediumFontStyle}"
-          Text="{Binding Price, StringFormat='${0}'}">
+          Text="{Binding Price, StringFormat='${0}'}"
+          VerticalTextAlignment="Start">
           <Label.Margin>
             <Thickness Bottom="{StaticResource Negative0.25xDefaultMargin}" />
           </Label.Margin>
