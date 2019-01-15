@@ -2,7 +2,6 @@
 using Android.Media;
 using Java.IO;
 using System;
-using System.Buffers;
 using System.IO;
 using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.Scanning;
@@ -12,6 +11,8 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
 {
     public class ImageAvailableListener : Java.Lang.Object, ImageReader.IOnImageAvailableListener
     {
+        private readonly bool TFAnalysisInBackground = true;
+
         private int[] colorArray;
         private bool captureStillImage = false;
         private bool tensorflowAnalysis = false;
@@ -99,12 +100,20 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
                     using (var rotatedImage = RotateImage(scaledImage, orientation))
                     {
                         //// SaveImg(rotatedImage);
+
                         CopyColors(rotatedImage);
 
-                        //System.Threading.Tasks.Task.Run(() =>
-                        //{
-                        tensorflowLiteService.Recognize(colorArray);
-                        //}).ConfigureAwait(false);
+                        if (TFAnalysisInBackground)
+                        {
+                            System.Threading.Tasks.Task.Run(() =>
+                            {
+                                tensorflowLiteService.Recognize(colorArray);
+                            }).ConfigureAwait(false);
+                        }
+                        else
+                        {
+                            tensorflowLiteService.Recognize(colorArray);
+                        }
                     }
                 }
             }
