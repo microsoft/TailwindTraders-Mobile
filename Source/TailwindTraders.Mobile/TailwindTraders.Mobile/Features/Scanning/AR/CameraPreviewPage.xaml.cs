@@ -7,16 +7,18 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 {
     public partial class CameraPreviewPage
     {
-        private static readonly TimeSpan boundingBoxPersistanceTime = TimeSpan.FromSeconds(1.5f);
+        private const int AnimationLengthMilliseconds = 125;
 
-        private readonly Animation fadeInAnimation;
+        private static readonly TimeSpan boundingBoxPersistanceTime = TimeSpan.FromSeconds(3);
+
+        private readonly Animation framingAnimation;
         private readonly Animation fadeOutAnimation;
 
         private enum BoundingBoxState
         {
             Initial,
             Missing,
-            Showing,
+            Framing,
             Disappearing,
         }
 
@@ -30,14 +32,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
         public CameraPreviewPage()
         {
-            void callback(double ticks)
-            {
-                currentAnimationTicks = ticks;
-                canvasView.InvalidateSurface();
-            }
-
-            fadeInAnimation = new Animation(callback, easing: Easing.SinOut);
-            fadeOutAnimation = new Animation(callback, start: 1, end: 0, easing: Easing.CubicIn);
+            framingAnimation = new Animation(InvalidateCanvasSurface, easing: Easing.SinOut);
+            fadeOutAnimation = new Animation(InvalidateCanvasSurface, start: 1, end: 0, easing: Easing.CubicIn);
 
             InitializeComponent();
 
@@ -53,7 +49,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 CameraPreviewViewModel.AddCameraControlMessage,
                 _ => AddCameraControl());
 
-            this.Subscribe<DetectionMessage>(message => UpdateBoundingBoxState(BoundingBoxState.Showing, message));
+            this.Subscribe<DetectionMessage>(message => UpdateBoundingBoxState(BoundingBoxState.Framing, message));
 
             base.OnAppearing();
         }
@@ -88,17 +84,17 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             }
 
             var canvas = e.Surface.Canvas;
+            canvas.Clear();
 
             if (currentBoundingBoxState == BoundingBoxState.Missing)
             {
-                canvas.Clear();
                 return;
             }
 
             var width = canvasView.CanvasSize.Width;
             var height = canvasView.CanvasSize.Height;
 
-            if (currentBoundingBoxState == BoundingBoxState.Showing)
+            if (currentBoundingBoxState == BoundingBoxState.Framing)
             {
                 var ticks = (float)currentAnimationTicks;
                 var xmin = previousBoundingBox.Xmin +
@@ -131,13 +127,14 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             }
         }
 
-        private void CommitFadeOutAnimation(object state)
+        private void CommitFadeOutAnimation()
         {
             UpdateBoundingBoxState(BoundingBoxState.Disappearing);
 
             fadeOutAnimation.Commit(
                 this, 
                 nameof(fadeOutAnimation), 
+                length: AnimationLengthMilliseconds,
                 finished: (_, __) => UpdateBoundingBoxState(BoundingBoxState.Missing));
 
             DisposeFadeOutTimer();
@@ -154,8 +151,14 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
         private void InitializeFadeOutTimer()
         {
-            fadeOutTimer = new Timer(CommitFadeOutAnimation);
+            fadeOutTimer = new Timer(_ => CommitFadeOutAnimation());
             fadeOutTimer.Change(boundingBoxPersistanceTime, TimeSpan.Zero);
+        }
+
+        private void InvalidateCanvasSurface(double ticks)
+        {
+            currentAnimationTicks = ticks;
+            canvasView.InvalidateSurface();
         }
 
         private void UpdateBoundingBoxState(BoundingBoxState newState, DetectionMessage newBoundingBox = null)
@@ -169,22 +172,24 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                     canvasView.InvalidateSurface();
                     boundingBox = DetectionMessage.FullScreen;
                     break;
-                case BoundingBoxState.Showing:
+                case BoundingBoxState.Framing:
+                    DisposeFadeOutTimer();
+
                     elapsedTimeSinceLastDetection = DateTime.UtcNow - lastDetectionDate;
                     lastDetectionDate = DateTime.UtcNow;
 
                     previousBoundingBox = boundingBox;
                     boundingBox = newBoundingBox;
 
-                    if (fadeOutTimer != null)
+                    if (!this.AnimationIsRunning(nameof(framingAnimation)))
                     {
-                        DisposeFadeOutTimer();
+                        framingAnimation.Commit(
+                            this,
+                            nameof(framingAnimation),
+                            length: AnimationLengthMilliseconds,
+                            finished: (_, __) => InitializeFadeOutTimer());
                     }
 
-                    fadeInAnimation.Commit(
-                        this, 
-                        nameof(fadeInAnimation), 
-                        finished: (_, __) => InitializeFadeOutTimer());
                     break;
                 case BoundingBoxState.Disappearing:
                     break;
