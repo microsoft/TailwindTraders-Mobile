@@ -126,10 +126,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                     applyAlpha: true);
             }
 
-            if (DefaultSettings.DebugMode)
-            {
-                DrawingHelper.DrawElapsedTime(elapsedTimeSinceLastDetection, canvas, height, boundingBox);
-            }
+            // DrawingHelper.DrawStats(elapsedTimeSinceLastDetection, canvas, height, boundingBox);
         }
 
         private void CommitFadeOutAnimation()
