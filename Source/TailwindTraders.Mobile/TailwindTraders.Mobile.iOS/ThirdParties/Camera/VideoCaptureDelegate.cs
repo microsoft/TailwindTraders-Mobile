@@ -1,17 +1,15 @@
 ﻿using System;
 using AVFoundation;
+using CoreGraphics;
 using CoreMedia;
+using CoreVideo;
 using TailwindTraders.Mobile.Helpers;
 using UIKit;
-using CoreVideo;
-using CoreGraphics;
 
 namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 {
     public class VideoCaptureDelegate : AVCaptureVideoDataOutputSampleBufferDelegate
     {
-        private bool disposed = false;
-
         public event EventHandler<EventArgsT<UIImage>> FrameCaptured = (sender, e) => { };
 
         public VideoCaptureDelegate(EventHandler<EventArgsT<UIImage>> callback)
@@ -40,18 +38,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             {
                 sampleBuffer.Dispose();
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposed)
-            {
-                return;
-            }
-
-            disposed = true;
-
-            base.Dispose(disposing);
         }
 
         private UIImage GetUIImage(CMSampleBuffer sampleBuffer)
