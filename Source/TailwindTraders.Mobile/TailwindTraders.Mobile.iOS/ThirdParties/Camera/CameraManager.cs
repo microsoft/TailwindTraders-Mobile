@@ -159,6 +159,8 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         private bool cameraIsSetup = false;
         private bool tensorflowAnalysis;
         private int[] colors;
+        private VideoCaptureDelegate captureDelegate;
+        private AVCaptureVideoDataOutput videoOutput;
 
         public CameraState addPreviewLayerToView(UIView view, Action completion, bool tensorflowAnalysis)
         {
@@ -377,9 +379,9 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             {
                 colors = new int[TensorflowLiteService.ModelInputSize * TensorflowLiteService.ModelInputSize];
 
-                var captureDelegate = new VideoCaptureDelegate(OnFrameCaptured);
+                this.captureDelegate = new VideoCaptureDelegate(OnFrameCaptured);
 
-                var videoOutput = new AVCaptureVideoDataOutput();
+                this.videoOutput = new AVCaptureVideoDataOutput();
 
                 var settings = new CVPixelBufferAttributes
                 {

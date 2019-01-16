@@ -125,7 +125,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
         {
             for (int i = 0; i < colors.Length; ++i)
             {
-                int val = colors[i];
+                var val = colors[i];
                 quantizedColors[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
                 quantizedColors[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
                 quantizedColors[(i * 3) + 2] = (byte)(val & 0xFF);

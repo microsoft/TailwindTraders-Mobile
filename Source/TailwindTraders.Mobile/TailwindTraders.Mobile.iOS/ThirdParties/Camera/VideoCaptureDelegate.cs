@@ -1,7 +1,6 @@
 ﻿using System;
 using AVFoundation;
 using CoreGraphics;
-using CoreImage;
 using CoreMedia;
 using CoreVideo;
 using Foundation;
@@ -12,8 +11,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 {
     public class VideoCaptureDelegate : NSObject, IAVCaptureVideoDataOutputSampleBufferDelegate
     {
-        private CIContext context = CIContext.Create();
-
         public event EventHandler<EventArgsT<UIImage>> FrameCaptured = (sender, e) => { };
 
         public VideoCaptureDelegate(EventHandler<EventArgsT<UIImage>> callback)
@@ -99,10 +96,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
 
             disposed = true;
-            if (context != null)
-            {
-                context.Dispose();
-            }
 
             base.Dispose(disposing);
         }
