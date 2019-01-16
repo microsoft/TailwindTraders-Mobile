@@ -34,13 +34,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         Auto = 2,
     }
 
-    public enum CameraOutputQuality : int
-    {
-        Low = 0,
-        Medium = 1,
-        High = 2,
-    }
-
     public class CameraManager : NSObject, IAVCaptureFileOutputRecordingDelegate
     {
         // MARK: - Public properties
@@ -401,7 +394,14 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
             captureSession.CommitConfiguration();
 
-            _updateCameraQualityMode(CameraOutputQuality.High);
+            if (this.tensorflowAnalysis)
+            {
+                _updateCameraQualityMode(AVCaptureSession.Preset352x288);
+            }
+            else
+            {
+                _updateCameraQualityMode(AVCaptureSession.PresetHigh);
+            }
         }
 
         private void _setupPreviewLayer()
@@ -504,33 +504,15 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             captureSession.CommitConfiguration();
         }
 
-        private void _updateCameraQualityMode(CameraOutputQuality newCameraOutputQuality)
+        private void _updateCameraQualityMode(NSString sessionPreset)
         {
             var validCaptureSession = captureSession;
-            if (validCaptureSession != null)
-            {
-                var sessionPreset = AVCaptureSession.PresetLow;
-                switch (newCameraOutputQuality)
-                {
-                    case CameraOutputQuality.Low:
-                        sessionPreset = AVCaptureSession.PresetLow;
-                        break;
-                    case CameraOutputQuality.Medium:
-                        sessionPreset = AVCaptureSession.PresetMedium;
-                        break;
-                    case CameraOutputQuality.High:
-                        sessionPreset = AVCaptureSession.PresetHigh;
-                        break;
-                    default:
-                        break;
-                }
 
-                if (validCaptureSession.CanSetSessionPreset(sessionPreset))
-                {
-                    validCaptureSession.BeginConfiguration();
-                    validCaptureSession.SessionPreset = sessionPreset;
-                    validCaptureSession.CommitConfiguration();
-                }
+            if (validCaptureSession.CanSetSessionPreset(sessionPreset))
+            {
+                validCaptureSession.BeginConfiguration();
+                validCaptureSession.SessionPreset = sessionPreset;
+                validCaptureSession.CommitConfiguration();
             }
         }
 
@@ -574,9 +556,11 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
             using (var scaledImage = CreateScaledImage(image))
             {
+                SaveImage(scaledImage);
+
                 using (var rotatedImage = UIImage.FromImage(scaledImage.CGImage, 1, UIImageOrientation.Right))
                 {
-                    ////SaveImage(rotatedImage);
+                    SaveImage(rotatedImage);
 
                     CopyColorsFromImage(rotatedImage);
 
@@ -590,10 +574,8 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             var width = TensorflowLiteService.ModelInputSize;
             var height = TensorflowLiteService.ModelInputSize;
 
-            UIGraphics.BeginImageContext(new CGSize(width, height));
-            image.Draw(new CGRect(0, 0, width, height));
-            var scaledImage = UIGraphics.GetImageFromCurrentImageContext();
-            UIGraphics.EndImageContext();
+            var scaledImage = image.Scale(new CGSize(width, height));
+
             return scaledImage;
         }
 
