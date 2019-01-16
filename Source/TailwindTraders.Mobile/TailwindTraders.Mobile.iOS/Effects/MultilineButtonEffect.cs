@@ -1,12 +1,12 @@
-﻿using TailwindTraders.Mobile.Features.Home;
+﻿using TailwindTraders.Mobile.Effects;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportEffect(
-    typeof(TailwindTraders.Mobile.IOS.Features.Home.MultilineButtonEffect), nameof(MultilineButtonEffect))]
+    typeof(TailwindTraders.Mobile.IOS.Effects.MultilineButtonEffect), nameof(MultilineButtonEffect))]
 
-namespace TailwindTraders.Mobile.IOS.Features.Home
+namespace TailwindTraders.Mobile.IOS.Effects
 {
     public class MultilineButtonEffect : PlatformEffect
     {

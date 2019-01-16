@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<mvvm:BaseStateAwareContentPage
+<framework:BaseStateAwareContentPage
   x:Class="TailwindTraders.Mobile.Features.Product.Category.ProductCategoryPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Category"
-  xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
   Title="{Binding Title}"
   ios:Page.UseSafeArea="true"
   x:DataType="local:ProductCategoryViewModel"
@@ -129,4 +129,4 @@
 
   </ContentPage.Content>
 
-</mvvm:BaseStateAwareContentPage>
+</framework:BaseStateAwareContentPage>

@@ -3,7 +3,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using OperationResult;
 using Plugin.XSnack;
+using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Localization;
 using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.LogIn;
@@ -15,6 +17,7 @@ namespace TailwindTraders.Mobile.Framework
     {
         protected static readonly IAuthenticationService AuthenticationService;
         protected static readonly ILoggingService LoggingService;
+        protected static readonly IRestPoolService RestPoolService;
         protected static readonly IXSnack XSnackService;
 
         private bool isBusy;
@@ -22,9 +25,9 @@ namespace TailwindTraders.Mobile.Framework
         static BaseViewModel()
         {
             AuthenticationService = DependencyService.Get<IAuthenticationService>();
-
-            XSnackService = DependencyService.Get<IXSnack>();
             LoggingService = DependencyService.Get<ILoggingService>();
+            RestPoolService = DependencyService.Get<IRestPoolService>();
+            XSnackService = DependencyService.Get<IXSnack>();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -49,16 +52,16 @@ namespace TailwindTraders.Mobile.Framework
                 Resources.Alert_OK);
         }
 
-        protected async Task<WrapResult<object>> TryExecuteWithLoadingIndicatorsAsync(
-            Func<Task> operation,
+        protected async Task<Status> TryExecuteWithLoadingIndicatorsAsync(
+            Task operation,
             Func<Exception, Task<bool>> onError = null) =>
             await TaskHelper.Create()
                 .WhenStarting(() => IsBusy = true)
                 .WhenFinished(() => IsBusy = false)
                 .TryWithErrorHandlingAsync(operation, onError);
 
-        protected async Task<WrapResult<T>> TryExecuteWithLoadingIndicatorsAsync<T>(
-            Func<Task<T>> operation,
+        protected async Task<Result<T>> TryExecuteWithLoadingIndicatorsAsync<T>(
+            Task<T> operation,
             Func<Exception, Task<bool>> onError = null) =>
             await TaskHelper.Create()
                 .WhenStarting(() => IsBusy = true)

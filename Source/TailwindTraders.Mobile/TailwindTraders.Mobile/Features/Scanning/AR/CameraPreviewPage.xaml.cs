@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using TailwindTraders.Mobile.Features.Settings;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Scanning.AR
@@ -125,10 +126,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                     applyAlpha: true);
             }
 
-            if (Settings.Settings.DebugMode)
-            {
-                DrawingHelper.DrawElapsedTime(elapsedTimeSinceLastDetection, canvas, height, boundingBox);
-            }
+            // DrawingHelper.DrawStats(elapsedTimeSinceLastDetection, canvas, height, boundingBox);
         }
 
         private void CommitFadeOutAnimation()

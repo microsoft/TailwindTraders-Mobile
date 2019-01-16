@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Refit;
+using TailwindTraders.Mobile.Features.Settings;
 
 namespace TailwindTraders.Mobile.Features.LogIn
 {
@@ -8,6 +9,6 @@ namespace TailwindTraders.Mobile.Features.LogIn
     {
         [Get("/")]
         Task<IEnumerable<ProfileDTO>> GetAsync(
-            [Header(Settings.Settings.ApiAuthorizationHeader)] string authorizationHeader);
+            [Header(DefaultSettings.ApiAuthorizationHeader)] string authorizationHeader);
     }
 }

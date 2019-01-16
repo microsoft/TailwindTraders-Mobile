@@ -71,6 +71,18 @@ namespace TailwindTraders.Mobile.Features.Localization {
             }
         }
         
+        internal static string Snack_Message_InvalidAbsoluteURL {
+            get {
+                return ResourceManager.GetString("Snack_Message_InvalidAbsoluteURL", resourceCulture);
+            }
+        }
+        
+        internal static string Snack_Message_SettingsSaved {
+            get {
+                return ResourceManager.GetString("Snack_Message_SettingsSaved", resourceCulture);
+            }
+        }
+        
         internal static string Alert_Message_DemoApp {
             get {
                 return ResourceManager.GetString("Alert_Message_DemoApp", resourceCulture);
