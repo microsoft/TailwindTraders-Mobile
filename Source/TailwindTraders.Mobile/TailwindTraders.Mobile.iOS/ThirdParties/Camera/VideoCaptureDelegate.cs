@@ -1,10 +1,10 @@
 ﻿using System;
 using AVFoundation;
+using CoreGraphics;
 using CoreMedia;
+using CoreVideo;
 using TailwindTraders.Mobile.Helpers;
 using UIKit;
-using CoreVideo;
-using CoreGraphics;
 
 namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 {
