@@ -19,13 +19,13 @@ namespace UnitTests.Features.Product
         [SetUp]
         public void Init()
         {
-            productsAPI = RestService.For<IProductsAPI>(HttpClientFactory.Create(Settings.ProductApiUrl));
+            productsAPI = RestService.For<IProductsAPI>(HttpClientFactory.Create(DefaultSettings.ProductApiUrl));
         }
 
         [Test]
         public async Task GetDetailAsync()
         {
-            var product = await productsAPI.GetDetailAsync(Settings.AnonymousToken, "1");
+            var product = await productsAPI.GetDetailAsync(DefaultSettings.AnonymousToken, "1");
 
             Assert.AreEqual(product.Id, 1);
         }
@@ -33,7 +33,7 @@ namespace UnitTests.Features.Product
         [Test]
         public async Task GetProductsAsync()
         {
-            var products = await productsAPI.GetProductsAsync(Settings.AnonymousToken, "1");
+            var products = await productsAPI.GetProductsAsync(DefaultSettings.AnonymousToken, "1");
 
             Assert.IsNotEmpty(products.Products);
         }
@@ -50,7 +50,7 @@ namespace UnitTests.Features.Product
             {
                 var streamPart = new StreamPart(photoStream, "photo.jpg", "image/jpeg");
 
-                var products = await productsAPI.GetSimilarProductsAsync(Settings.AnonymousToken, streamPart);
+                var products = await productsAPI.GetSimilarProductsAsync(DefaultSettings.AnonymousToken, streamPart);
 
                 Assert.IsNotEmpty(products);
             }

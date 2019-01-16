@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace TailwindTraders.Mobile.Features.LogIn
+namespace TailwindTraders.Mobile.Effects
 {
     public class BorderlessEntryEffect : RoutingEffect
     {

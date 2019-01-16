@@ -1,12 +1,12 @@
 namespace TailwindTraders.Mobile.Features.Settings
 {
-    public static class Settings
+    public static class DefaultSettings
     {
         public const string ApiAuthorizationHeader = "Authorization";
 
         public const string AnonymousToken = "Email anonymous@anonymous.anonymous";
 
-        public const string RootApiUrl = "ENTER_YOUR_URL_HERE";
+        public static string RootApiUrl { get; set; } = "http://ENTER/YOUR/URL/HERE";
 
         public static string ProductApiUrl { get; } = $"{RootApiUrl}/products";
 

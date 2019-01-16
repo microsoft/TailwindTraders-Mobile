@@ -15,8 +15,8 @@ namespace UnitTests.Features.LogIn
         [Test]
         public async Task GetAsync()
         {
-            var profileAPI = RestService.For<IProfilesAPI>(HttpClientFactory.Create(Settings.ProfilesApiUrl));
-            var profiles = await profileAPI.GetAsync(Settings.AnonymousToken);
+            var profileAPI = RestService.For<IProfilesAPI>(HttpClientFactory.Create(DefaultSettings.ProfilesApiUrl));
+            var profiles = await profileAPI.GetAsync(DefaultSettings.AnonymousToken);
 
             Assert.IsNotEmpty(profiles);
         }

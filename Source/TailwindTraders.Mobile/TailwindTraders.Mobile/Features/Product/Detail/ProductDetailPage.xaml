@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<mvvm:BaseContentPage
+<framework:BaseStateAwareContentPage
   x:Class="TailwindTraders.Mobile.Features.Product.Detail.ProductDetailPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
   xmlns:controls="clr-namespace:TailwindTraders.Mobile.Controls"
+  xmlns:effects="clr-namespace:TailwindTraders.Mobile.Effects"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Detail"
-  xmlns:mvvm="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:xfbindablestacklayout="clr-namespace:XFBindableStackLayout"
   Title="{Binding Title}"
   ios:Page.UseSafeArea="true"
   x:DataType="local:ProductDetailViewModel"
-  x:TypeArguments="local:ProductDetailViewModel"
+  x:TypeArguments="local:ProductDetailViewModel, local:ProductDetailViewModel.State"
   ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
 
   <ContentPage.Resources>
@@ -31,6 +32,19 @@
         <Setter Property="Margin" Value="-8,0,0,0" />
         <Setter Property="HeightRequest" Value="28" />
         <Setter Property="WidthRequest" Value="28" />
+      </Style>
+
+      <Style x:Key="HeaderLabelStyle"
+        BasedOn="{StaticResource Header1FontStyle}"
+        TargetType="Label">
+        <Setter Property="Margin">
+          <Thickness
+            Left="{StaticResource 2xDefaultMargin}"
+            Top="{StaticResource 2xDefaultMargin}"
+            Right="{StaticResource 2xDefaultMargin}"
+            Bottom="{StaticResource 2xDefaultMargin}" />
+        </Setter>
+        <Setter Property="HorizontalOptions" Value="Center" />
       </Style>
 
     </ResourceDictionary>
@@ -142,24 +156,97 @@
 
           </xfbindablestacklayout:BindableStackLayout>
 
-          <Label
-            Style="{StaticResource HeaderLabelStyle}"
-            Text="SIMILAR PRODUCTS" />
+          <Button x:Name="refreshButton"
+            Margin="{StaticResource DefaultMargin}"
+            Command="{Binding RefreshCommand}"
+            HorizontalOptions="Center"
+            IsVisible="false"
+            Style="{StaticResource DefaultShadowfullButtonStyle}"
+            Text="Try reload similar and&#x0a;also bought products">
+            <Button.Effects>
+              <effects:MultilineButtonEffect />
+            </Button.Effects>
 
-          <ContentView>
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup Name="States">
 
-            <View.Margin>
-              <Thickness
-                Left="{StaticResource NegativeDefaultMargin}"
-                Right="{StaticResource NegativeDefaultMargin}" />
-            </View.Margin>
+                <VisualState Name="EverythingOK">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="false" />
+                  </VisualState.Setters>
+                </VisualState>
 
-            <controls:FixedRatioCarouselViewControl
-              InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
-              ItemTemplate="{StaticResource PopularItemTemplate}"
-              ItemsSource="{Binding SimilarProducts}" />
+                <VisualState Name="Error">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="true" />
+                  </VisualState.Setters>
+                </VisualState>
 
-          </ContentView>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Button>
+
+          <StackLayout x:Name="stateAwareStackLayout">
+            <Label
+              Style="{StaticResource HeaderLabelStyle}"
+              Text="SIMILAR PRODUCTS" />
+
+            <ContentView>
+
+              <View.Margin>
+                <Thickness
+                  Left="{StaticResource NegativeDefaultMargin}"
+                  Right="{StaticResource NegativeDefaultMargin}" />
+              </View.Margin>
+
+              <controls:FixedRatioCarouselViewControl
+                InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
+                ItemTemplate="{StaticResource PopularItemTemplate}"
+                ItemsSource="{Binding SimilarProducts}" />
+
+            </ContentView>
+
+            <Label
+              Style="{StaticResource HeaderLabelStyle}"
+              Text="CUSTOMERS ALSO BOUGHT" />
+
+            <ContentView>
+
+              <View.Margin>
+                <Thickness
+                  Left="{StaticResource NegativeDefaultMargin}"
+                  Right="{StaticResource NegativeDefaultMargin}" />
+              </View.Margin>
+
+              <xfbindablestacklayout:BindableStackLayout
+                ItemTemplate="{StaticResource PreviouslySeenItemTemplate}"
+                ItemsSource="{Binding AlsoBoughtProducts}"
+                Spacing="{StaticResource DefaultMargin}">
+                <View.Margin>
+                  <Thickness Bottom="{StaticResource 2xDefaultMargin}" />
+                </View.Margin>
+              </xfbindablestacklayout:BindableStackLayout>
+
+            </ContentView>
+
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup Name="States">
+
+                <VisualState Name="EverythingOK">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="true" />
+                  </VisualState.Setters>
+                </VisualState>
+
+                <VisualState Name="Error">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="false" />
+                  </VisualState.Setters>
+                </VisualState>
+
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </StackLayout>
 
         </StackLayout>
 
@@ -169,4 +256,4 @@
 
   </ContentPage.Content>
 
-</mvvm:BaseContentPage>
+</framework:BaseStateAwareContentPage>

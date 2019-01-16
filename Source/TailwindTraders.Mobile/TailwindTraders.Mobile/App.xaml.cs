@@ -80,7 +80,7 @@ namespace TailwindTraders.Mobile
 
         private void RegisterServicesAndProviders()
         {
-            if (Settings.UseDebugLogging)
+            if (DefaultSettings.UseDebugLogging)
             {
                 DependencyService.Register<DebugLoggingService>();
             }
@@ -89,7 +89,7 @@ namespace TailwindTraders.Mobile
                 DependencyService.Register<AppCenterLoggingService>();
             }
 
-            if (Settings.UseFakeAPIs)
+            if (DefaultSettings.UseFakeAPIs)
             {
                 DependencyService.Register<FakeRestPoolService>();
             }
@@ -98,7 +98,7 @@ namespace TailwindTraders.Mobile
                 DependencyService.Register<RestPoolService>();
             }
 
-            if (Settings.UseFakeAuthentication)
+            if (DefaultSettings.UseFakeAuthentication)
             {
                 DependencyService.Register<FakeAuthenticationService>();
             }

@@ -127,7 +127,13 @@
     <value>OK...</value>
   </data>
   <data name="Snack_Message_InvalidUsernameOrPassword" xml:space="preserve">
-    <value>Please, type non-empty email and password</value>
+    <value>Please, type non-empty email and password.</value>
+  </data>
+  <data name="Snack_Message_InvalidAbsoluteURL" xml:space="preserve">
+    <value>Please, type a well-formed absolute URL.</value>
+  </data>
+  <data name="Snack_Message_SettingsSaved" xml:space="preserve">
+    <value>Settings saved!</value>
   </data>
   <data name="Alert_Message_DemoApp" xml:space="preserve">
     <value>You reached one of the ends for this demo app.</value>

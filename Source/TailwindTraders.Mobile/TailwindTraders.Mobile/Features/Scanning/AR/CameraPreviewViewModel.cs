@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Plugin.Permissions.Abstractions;
 using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Product;
+using TailwindTraders.Mobile.Features.Settings;
 using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
@@ -28,7 +29,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         public CameraPreviewViewModel()
         {
             photoService = DependencyService.Get<PhotoService>();
-            productsAPI = DependencyService.Get<IRestPoolService>().ProductsAPI.Value;
+            productsAPI = DependencyService.Get<IRestPoolService>().ProductsAPI;
         }
 
         public IEnumerable<ProductViewModel> RecommendedProducts
@@ -101,11 +102,11 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         private async Task LoadRecommendedProductsAsync(string productType)
         {
             var result = await TryExecuteWithLoadingIndicatorsAsync(
-                () => productsAPI.GetProductsAsync(Settings.Settings.AnonymousToken, productType));
+                productsAPI.GetProductsAsync(DefaultSettings.AnonymousToken, productType));
 
-            if (result.IsSucceded)
+            if (result)
             {
-                RecommendedProducts = result.Result.Products.Select(
+                RecommendedProducts = result.Value.Products.Select(
                     item => new ProductViewModel(item, FeatureNotAvailableCommand));
             }
         }

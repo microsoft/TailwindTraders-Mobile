@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Product.Detail;
 using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
@@ -11,7 +10,6 @@ namespace TailwindTraders.Mobile.Features.Product.Category
 {
     public class ProductCategoryViewModel : BaseStateAwareViewModel<ProductCategoryViewModel.State>
     {
-        private readonly IProductsAPI productsAPI;
         private readonly string typeId;
 
         public enum State
@@ -43,8 +41,6 @@ namespace TailwindTraders.Mobile.Features.Product.Category
 
         public ProductCategoryViewModel(string typeId)
         {
-            productsAPI = DependencyService.Get<IRestPoolService>().ProductsAPI.Value;
-
             this.typeId = typeId;
 
             LoadCommand = new AsyncCommand(() => LoadDataAsync(typeId));
@@ -71,21 +67,21 @@ namespace TailwindTraders.Mobile.Features.Product.Category
             Products = null;
 
             var response = await TryExecuteWithLoadingIndicatorsAsync(
-                () => productsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
+                RestPoolService.ProductsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, type));
 
-            if (!response.IsSucceded)
+            if (response.IsError)
             {
                 CurrentState = State.Error;
                 return;
             }
 
-            if (response.Result == null || response.Result.Products == null || !response.Result.Products.Any())
+            if (response.Value == null || response.Value.Products == null || !response.Value.Products.Any())
             {
                 CurrentState = State.Empty;
                 return;
             }
 
-            Products = response.Result.Products;
+            Products = response.Value.Products;
             Title = products.First().Type.Name;
         }
     }

@@ -4,6 +4,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.AppCenter.Distribute;
+using TailwindTraders.Mobile.Features.Settings;
 
 namespace TailwindTraders.Mobile.Features.Logging
 {
@@ -13,7 +14,7 @@ namespace TailwindTraders.Mobile.Features.Logging
         {
             AppCenter.LogLevel = LogLevel.Verbose;
             AppCenter.Start(
-                $"ios={Settings.Settings.AppCenteriOSSecret}​;android={Settings.Settings.AppCenterAndroidSecret}",
+                $"ios={DefaultSettings.AppCenteriOSSecret}​;android={DefaultSettings.AppCenterAndroidSecret}",
                 typeof(Analytics),
                 typeof(Crashes),
                 typeof(Distribute));

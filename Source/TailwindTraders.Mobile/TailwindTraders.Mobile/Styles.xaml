@@ -26,6 +26,7 @@
   -->
 
   <product:PopularItemTemplate x:Key="PopularItemTemplate" />
+  <product:PreviouslySeenItemTemplate x:Key="PreviouslySeenItemTemplate" />
 
   <!--
     Appart from the style it-self, it's used because still don't know why makes the shadows render. Probably it's to do
