@@ -9,6 +9,7 @@ using TailwindTraders.Mobile.Features.Product;
 using TailwindTraders.Mobile.Features.Scanning.AR;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
 using TailwindTraders.Mobile.Framework;
+using TailwindTraders.Mobile.Helpers;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Home

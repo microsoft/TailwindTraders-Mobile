@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using PubSub.Extension;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Scanning.AR
@@ -49,7 +48,10 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 CameraPreviewViewModel.AddCameraControlMessage,
                 _ => AddCameraControl());
 
-            this.Subscribe<DetectionMessage>(message => UpdateBoundingBoxState(BoundingBoxState.Framing, message));
+            MessagingCenter.Instance.Subscribe<TensorflowLiteService, DetectionMessage>(
+                this,
+                TensorflowLiteService.ObjectDetectedMessage,
+                (_, message) => UpdateBoundingBoxState(BoundingBoxState.Framing, message));
 
             base.OnAppearing();
         }
@@ -58,7 +60,9 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         {
             MessagingCenter.Unsubscribe<CameraPreviewViewModel>(this, CameraPreviewViewModel.AddCameraControlMessage);
 
-            this.Unsubscribe<DetectionMessage>();
+            MessagingCenter.Instance.Unsubscribe<TensorflowLiteService, DetectionMessage>(
+                this,
+                TensorflowLiteService.ObjectDetectedMessage);
 
             base.OnDisappearing();
         }

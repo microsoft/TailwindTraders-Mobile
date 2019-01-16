@@ -1,5 +1,4 @@
 ﻿using Emgu.TF.Lite;
-using PubSub.Extension;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -17,6 +16,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
         public const string TFFolder = "AR/pets/";
         public const int ModelInputSize = 300;
         public const float MinScore = 0.6f;
+        public const string ObjectDetectedMessage = nameof(ObjectDetectedMessage);
 
         public readonly string LabelFilename = TFFolder + "labels_list.txt";
         public readonly string ModelFilename = TFFolder + "detect.tflite";
@@ -157,7 +157,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
                         var xmax = detection_boxes_out[2];
                         var ymax = detection_boxes_out[3];
 
-                        this.Publish(new DetectionMessage()
+                        MessagingCenter.Instance.Send(this, nameof(ObjectDetectedMessage), new DetectionMessage
                         {
                             Xmin = xmin,
                             Ymin = ymin,
