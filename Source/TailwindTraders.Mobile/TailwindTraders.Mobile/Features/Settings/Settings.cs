@@ -24,9 +24,9 @@ namespace TailwindTraders.Mobile.Features.Settings
 
         public static bool ForceAutomaticLogin = DebugMode;
 
-        public const bool AndroidDebuggable = DebugMode;
+        public static bool AndroidDebuggable = DebugMode;
 
-        public const bool DebugMode =
+        public static bool DebugMode =
 #if DEBUG
             true;
 #else

@@ -92,7 +92,9 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             DetectionMessage detectionMessage)
         {
             canvas.DrawText(
-                $"{elapsedTime.TotalMilliseconds.ToString("#")} ms - {detectionMessage.Score} - {detectionMessage.Label}",
+                $"{elapsedTime.TotalMilliseconds.ToString("#")} ms - " +
+                $"{detectionMessage.Score} - " +
+                $"{detectionMessage.Label}",
                 elapsedTimeMargin,
                 height - (elapsedTimeHeight / 2) - elapsedTimeMargin,
                 elapsedTimePaint);

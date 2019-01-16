@@ -1,6 +1,7 @@
 ﻿using System;
 using AVFoundation;
 using CoreGraphics;
+using CoreImage;
 using CoreMedia;
 using CoreVideo;
 using Foundation;
@@ -24,35 +25,37 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             CMSampleBuffer sampleBuffer, 
             AVCaptureConnection connection)
         {
-            try
-            {
-                using (var uiImage = GetUIImage(sampleBuffer))
-                {
-                    if (uiImage == null)
-                    {
-                        return;
-                    }
+            Console.WriteLine("holaaa");
 
-                    FrameCaptured(this, new EventArgsT<UIImage>(uiImage));
-                }
-            }
-            finally
-            {
-                sampleBuffer.Dispose();
-            }
+            sampleBuffer.Dispose();
+
+            //try
+            //{
+            //    using (var uiImage = GetUIImage(sampleBuffer))
+            //    {
+            //        if (uiImage == null)
+            //        {
+            //            return;
+            //        }
+
+            //        FrameCaptured(this, new EventArgsT<UIImage>(uiImage));
+            //    }
+            //}
+            //finally
+            //{
+            //    sampleBuffer.Dispose();
+            //}
         }
 
         public UIImage GetUIImage(CMSampleBuffer sampleBuffer)
         {
-            var imageBuffer = (CVPixelBuffer)sampleBuffer.GetImageBuffer();
-            if (imageBuffer == null)
+            using (var imageBuffer = sampleBuffer.GetImageBuffer())
             {
-                throw new ArgumentException("Cannot convert to CVPixelBuffer");
+                var pixelBuffer = (CVPixelBuffer)imageBuffer;
+
+                var image = ImageBufferToUIImage(pixelBuffer);
+                return image;
             }
-
-            var image = ImageBufferToUIImage(imageBuffer);
-
-            return image;
         }
 
         public static UIImage ImageBufferToUIImage(CVPixelBuffer imageBuffer)
@@ -84,20 +87,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
                 return image;
             }
-        }
-
-        private bool disposed = false;
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposed)
-            {
-                return;
-            }
-
-            disposed = true;
-
-            base.Dispose(disposing);
         }
     }
 }
