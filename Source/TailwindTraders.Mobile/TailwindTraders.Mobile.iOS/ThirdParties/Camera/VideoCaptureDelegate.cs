@@ -1,16 +1,17 @@
 ﻿using System;
 using AVFoundation;
-using CoreGraphics;
 using CoreMedia;
-using CoreVideo;
-using Foundation;
 using TailwindTraders.Mobile.Helpers;
 using UIKit;
+using CoreVideo;
+using CoreGraphics;
 
 namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 {
-    public class VideoCaptureDelegate : NSObject, IAVCaptureVideoDataOutputSampleBufferDelegate
+    public class VideoCaptureDelegate : AVCaptureVideoDataOutputSampleBufferDelegate
     {
+        private bool disposed = false;
+
         public event EventHandler<EventArgsT<UIImage>> FrameCaptured = (sender, e) => { };
 
         public VideoCaptureDelegate(EventHandler<EventArgsT<UIImage>> callback)
@@ -18,8 +19,7 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             this.FrameCaptured = callback;
         }
 
-        [Export("captureOutput:didOutputSampleBuffer:fromConnection:")]
-        public void DidOutputSampleBuffer(
+        public override void DidOutputSampleBuffer(
             AVCaptureOutput captureOutput, 
             CMSampleBuffer sampleBuffer, 
             AVCaptureConnection connection)
@@ -42,52 +42,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
         }
 
-        public UIImage GetUIImage(CMSampleBuffer sampleBuffer)
-        {
-            var imageBuffer = (CVPixelBuffer)sampleBuffer.GetImageBuffer();
-            if (imageBuffer == null)
-            {
-                throw new ArgumentException("Cannot convert to CVPixelBuffer");
-            }
-
-            var image = ImageBufferToUIImage(imageBuffer);
-
-            return image;
-        }
-
-        public static UIImage ImageBufferToUIImage(CVPixelBuffer imageBuffer)
-        {
-            imageBuffer.Lock(CVPixelBufferLock.None);
-
-            var baseAddress = imageBuffer.BaseAddress;
-            var bytesPerRow = imageBuffer.BytesPerRow;
-
-            var width = imageBuffer.Width;
-            var height = imageBuffer.Height;
-
-            var colorSpace = CGColorSpace.CreateDeviceRGB();
-            var bitmapInfo = (uint)CGImageAlphaInfo.NoneSkipFirst | (uint)CGBitmapFlags.ByteOrder32Little;
-
-            using (var context = new CGBitmapContext(
-                baseAddress,
-                width, 
-                height,
-                8, 
-                bytesPerRow,
-                colorSpace,
-                (CGImageAlphaInfo)bitmapInfo))
-            {
-                var quartzImage = context?.ToImage();
-                imageBuffer.Unlock(CVPixelBufferLock.None);
-
-                var image = new UIImage(quartzImage, 1.0f, UIImageOrientation.Up);
-
-                return image;
-            }
-        }
-
-        private bool disposed = false;
-
         protected override void Dispose(bool disposing)
         {
             if (disposed)
@@ -98,6 +52,33 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             disposed = true;
 
             base.Dispose(disposing);
+        }
+
+        private UIImage GetUIImage(CMSampleBuffer sampleBuffer)
+        {
+            using (var imageBuffer = (CVPixelBuffer)sampleBuffer.GetImageBuffer())
+            {
+                imageBuffer.Lock(CVPixelBufferLock.None);
+
+                var bitmapInfo = (CGImageAlphaInfo)((uint)CGBitmapFlags.ByteOrder32Little |
+                    (uint)CGImageAlphaInfo.PremultipliedFirst);
+                var colorSpace = CGColorSpace.CreateDeviceRGB();
+                var context = new CGBitmapContext(
+                    imageBuffer.BaseAddress,
+                    imageBuffer.Width,
+                    imageBuffer.Height,
+                    8,
+                    imageBuffer.BytesPerRow, 
+                    colorSpace, 
+                    bitmapInfo);
+                var cgImage = context.ToImage();
+
+                imageBuffer.Unlock(CVPixelBufferLock.None);
+
+                var uiImage = new UIImage(cgImage);
+                
+                return uiImage;
+            }
         }
     }
 }
