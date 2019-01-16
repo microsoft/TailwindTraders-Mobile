@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Plugin.Permissions.Abstractions;
-using PubSub.Extension;
 using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Product;
 using TailwindTraders.Mobile.Framework;
@@ -40,7 +39,10 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
         public override async Task InitializeAsync()
         {
-            this.Subscribe<DetectionMessage>(GatherRecommendedProducts);
+            MessagingCenter.Instance.Subscribe<TensorflowLiteService, DetectionMessage>(
+                this, 
+                TensorflowLiteService.ObjectDetectedMessage, 
+                (_, message) => GatherRecommendedProducts(message));
 
             await base.InitializeAsync();
 
@@ -58,7 +60,9 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
         public override Task UninitializeAsync()
         {
-            this.Unsubscribe<DetectionMessage>();
+            MessagingCenter.Instance.Unsubscribe<TensorflowLiteService, DetectionMessage>(
+                this,
+                TensorflowLiteService.ObjectDetectedMessage);
 
             return base.UninitializeAsync();
         }
