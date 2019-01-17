@@ -556,11 +556,48 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
             using (var scaledImage = CreateScaledImage(image))
             {
-                using (var rotatedImage = RotateImage(scaledImage, 90))
-                {
-                    CopyColorsFromImage(rotatedImage);
+                CopyColorsFromImage(scaledImage);
 
-                    tensorflowLiteService.Recognize(colors);
+                RotateColors();
+
+                tensorflowLiteService.Recognize(colors);
+            }
+        }
+
+        private void RotateColors()
+        {
+            transpose(colors);
+            reverseColumns(colors);
+        }
+
+        private void reverseColumns(int[] arr)
+        {
+            for (int i = 0; i < 300; i++)
+            {
+                for (int j = 0, k = 300 - 1; j < k; j++, k--)
+                {
+                    var j_i = (j * 300) + i;
+                    var k_i = (k * 300) + i;
+
+                    int temp = arr[j_i];
+                    arr[j_i] = arr[k_i];
+                    arr[k_i] = temp;
+                }
+            }
+        }
+
+        private void transpose(int[] arr)
+        {
+            for (int i = 0; i < 300; i++)
+            {
+                for (int j = i; j < 300; j++)
+                {
+                    var j_i = (j * 300) + i;
+                    var i_j = i + (j * 300);
+
+                    int temp = arr[j_i];
+                    arr[j_i] = arr[i_j];
+                    arr[i_j] = temp;
                 }
             }
         }
@@ -606,32 +643,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             handle.Free();
 
             ////FixColors(colors);
-        }
-
-        public UIImage RotateImage(UIImage image, float degree)
-        {
-            float radians = degree * (float)Math.PI / 180;
-
-            UIView view = new UIView(frame: new CGRect(0, 0, image.Size.Width, image.Size.Height));
-            CGAffineTransform t = CGAffineTransform.MakeRotation(radians);
-            view.Transform = t;
-            CGSize size = view.Frame.Size;
-
-            UIGraphics.BeginImageContext(size);
-            CGContext context = UIGraphics.GetCurrentContext();
-
-            context.TranslateCTM(size.Width / 2, size.Height / 2);
-            context.RotateCTM(radians);
-            context.ScaleCTM(1, -1);
-
-            context.DrawImage(
-                new CGRect(-image.Size.Width / 2, -image.Size.Height / 2, image.Size.Width, image.Size.Height),
-                image.CGImage);
-
-            UIImage imageCopy = UIGraphics.GetImageFromCurrentImageContext();
-            UIGraphics.EndImageContext();
-
-            return imageCopy;
         }
 
         private void FixColors(int[] colors)
