@@ -5,8 +5,8 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:ar="clr-namespace:TailwindTraders.Mobile.Features.Scanning.AR"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
-  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:product="clr-namespace:TailwindTraders.Mobile.Features.Product"
   xmlns:scanning="clr-namespace:TailwindTraders.Mobile.Features.Scanning"
   xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
@@ -27,6 +27,11 @@
         AbsoluteLayout.LayoutFlags="All"
         AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
         PaintSurface="CanvasView_PaintSurface" />
+
+      <skia:SKCanvasView x:Name="canvasDebugView"
+        AbsoluteLayout.LayoutFlags="All"
+        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+        PaintSurface="canvasDebugView_PaintSurface" />
 
       <carousel:CarouselViewControl
         AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"

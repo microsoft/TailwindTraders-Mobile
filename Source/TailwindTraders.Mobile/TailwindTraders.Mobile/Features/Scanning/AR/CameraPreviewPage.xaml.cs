@@ -2,7 +2,6 @@ using SkiaSharp;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
-using TailwindTraders.Mobile.Features.Settings;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Scanning.AR
@@ -52,10 +51,10 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 CameraPreviewViewModel.AddCameraControlMessage,
                 _ => AddCameraControl());
 
-            //MessagingCenter.Instance.Subscribe<TensorflowLiteService, DetectionMessage>(
-            //    this,
-            //    TensorflowLiteService.ObjectDetectedMessage,
-            //    (_, message) => UpdateBoundingBoxState(BoundingBoxState.Framing, message));
+            MessagingCenter.Instance.Subscribe<TensorflowLiteService, DetectionMessage>(
+                this,
+                TensorflowLiteService.ObjectDetectedMessage,
+                (_, message) => UpdateBoundingBoxState(BoundingBoxState.Framing, message));
 
             MessagingCenter.Instance.Subscribe<TensorflowLiteService, InputTensorMessage>(
                 this,
@@ -63,7 +62,11 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
                 (_, message) =>
                 {
                     colors = message.Colors;
-                    canvasView.InvalidateSurface();
+
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        canvasDebugView.InvalidateSurface();
+                    });
                 });
 
             base.OnAppearing();
@@ -73,9 +76,9 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         {
             MessagingCenter.Unsubscribe<CameraPreviewViewModel>(this, CameraPreviewViewModel.AddCameraControlMessage);
 
-            //MessagingCenter.Instance.Unsubscribe<TensorflowLiteService, DetectionMessage>(
-            //    this,
-            //    TensorflowLiteService.ObjectDetectedMessage);
+            MessagingCenter.Instance.Unsubscribe<TensorflowLiteService, DetectionMessage>(
+                this,
+                TensorflowLiteService.ObjectDetectedMessage);
 
             MessagingCenter.Instance.Unsubscribe<TensorflowLiteService, InputTensorMessage>(
                 this,
@@ -97,26 +100,28 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             };
         }
 
-        private void CanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
+        private void canvasDebugView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
         {
             var canvas = e.Surface.Canvas;
 
             DrawBitmap(canvas);
+        }
 
-            // DrawBoundingBox(canvas);
+        private void CanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
+        {
+            var canvas = e.Surface.Canvas;
+
+            DrawBoundingBox(canvas);
 
             // DrawingHelper.DrawStats(elapsedTimeSinceLastDetection, canvas, height, boundingBox);
         }
 
         private void DrawBitmap(SKCanvas canvas)
         {
-            // create an empty bitmap
             var bitmap = new SKBitmap();
 
-            // pin the managed array so that the GC doesn't move it
             var gcHandle = GCHandle.Alloc(colors, GCHandleType.Pinned);
 
-            // install the pixels with the color type of the pixel data
             var info = new SKImageInfo(
                 TensorflowLiteService.ModelInputSize, 
                 TensorflowLiteService.ModelInputSize,
