@@ -117,9 +117,6 @@
     <Compile Include="Features\Scanning\CameraPreviewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\net\detect.tflite">
-      <Link>Assets\AR\net\detect.tflite</Link>
-    </AndroidAsset>
     <AndroidAsset Include="..\Resources\AR\pets\detect.tflite">
       <Link>Assets\AR\pets\detect.tflite</Link>
     </AndroidAsset>
@@ -269,11 +266,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\capture.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidAsset Include="..\Resources\AR\net\labels_list.txt">
-      <Link>Assets\AR\net\labels_list.txt</Link>
-    </AndroidAsset>
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="..\Resources\AR\pets\labels_list.txt">

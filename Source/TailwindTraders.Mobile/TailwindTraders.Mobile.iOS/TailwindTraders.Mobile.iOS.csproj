@@ -77,9 +77,6 @@
     <Compile Include="ThirdParties\Camera\VideoCaptureDelegate.cs" />
     <Compile Include="ThirdParties\Touch\TouchEffect.cs" />
     <Compile Include="ThirdParties\Touch\TouchRecognizer.cs" />
-    <BundleResource Include="..\Resources\AR\net\detect.tflite">
-      <Link>Resources\AR\net\detect.tflite</Link>
-    </BundleResource>
     <BundleResource Include="..\Resources\AR\pets\detect.tflite">
       <Link>Resources\AR\pets\detect.tflite</Link>
     </BundleResource>
@@ -372,7 +369,6 @@
     <Folder Include="Assets.xcassets\photo.imageset\" />
     <Folder Include="Assets.xcassets\splash_screen.imageset\" />
     <Folder Include="Assets.xcassets\star.imageset\" />
-    <Folder Include="Effects\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="..\Resources\Fonts\Gin-Regular.otf">
@@ -401,11 +397,6 @@
     </BundleResource>
     <BundleResource Include="..\Resources\Images\header.jpg">
       <Link>Resources\header.jpg</Link>
-    </BundleResource>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="..\Resources\AR\net\labels_list.txt">
-      <Link>Resources\AR\net\labels_list.txt</Link>
     </BundleResource>
   </ItemGroup>
   <ItemGroup>
