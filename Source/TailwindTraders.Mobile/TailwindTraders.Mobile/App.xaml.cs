@@ -78,6 +78,7 @@ namespace TailwindTraders.Mobile
             await NavigationRoot.Navigation.PushModalAsync(page, animated).ConfigureAwait(false);
         }
 
+#pragma warning disable CS0162 
         private void RegisterServicesAndProviders()
         {
             if (DefaultSettings.UseDebugLogging)
@@ -107,5 +108,6 @@ namespace TailwindTraders.Mobile
                 DependencyService.Register<AuthenticationService>();
             }
         }
+#pragma warning restore CS0162 
     }
 }

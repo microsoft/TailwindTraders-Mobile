@@ -2,6 +2,7 @@ using SkiaSharp;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
+using TailwindTraders.Mobile.Features.Settings;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Scanning.AR
@@ -104,17 +105,27 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         {
             var canvas = e.Surface.Canvas;
 
-            DrawInputTensor(canvas);
+#pragma warning disable CS0162
+            if (DefaultSettings.EnableARDiagnostics)
+            {
+                DrawInputTensor(canvas);
+            }
+#pragma warning restore CS0162
         }
 
         private void CanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
         {
             var canvas = e.Surface.Canvas;
-            var height = canvasView.CanvasSize.Height;
 
             DrawBoundingBox(canvas);
 
-            DrawingHelper.DrawStats(elapsedTimeSinceLastDetection, canvas, height, boundingBox);
+#pragma warning disable CS0162
+            if (DefaultSettings.EnableARDiagnostics)
+            {
+                var height = canvasView.CanvasSize.Height;
+                DrawingHelper.DrawStats(elapsedTimeSinceLastDetection, canvas, height, boundingBox);
+            }
+#pragma warning restore CS0162
         }
 
         private void DrawInputTensor(SKCanvas canvas)
