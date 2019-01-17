@@ -609,6 +609,30 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
 
             handle.Free();
+
+            ////FixColors(colors);
+        }
+
+        private void FixColors(int[] colors)
+        {
+            for (int i = 0; i < colors.Length; i++)
+            {
+                //// BB GG RR AA
+                var color = (uint)colors[i];
+
+                var b = (color >> 24) & 0xFFU;
+                var g = (color >> 16) & 0xFFU;
+                var r = (color >> 8) & 0xFFU;
+                var a = color & 0xFFU;
+
+                //// AA RR GG BB
+                var colorFixed = b & 0xFFU;
+                colorFixed |= (g << 8) & 0xFF00U;
+                colorFixed |= (r << 16) & 0xFF0000U;
+                colorFixed |= (a << 24) & 0xFF000000U;
+
+                colors[i] = (int)colorFixed;
+            }
         }
     }
 }
