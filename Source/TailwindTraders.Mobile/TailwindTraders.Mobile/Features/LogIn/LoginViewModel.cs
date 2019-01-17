@@ -29,6 +29,7 @@ namespace TailwindTraders.Mobile.Features.LogIn
 
         public ICommand LogInCommand => new AsyncCommand(LogInAsync);
 
+#pragma warning disable CS0162
         public override async Task InitializeAsync()
         {
             if (DefaultSettings.ForceAutomaticLogin)
@@ -44,6 +45,7 @@ namespace TailwindTraders.Mobile.Features.LogIn
 
             await base.InitializeAsync();
         }
+#pragma warning restore CS0162
 
         public ICommand MicrosoftLogInCommand => FeatureNotAvailableCommand;
 

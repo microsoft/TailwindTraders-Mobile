@@ -1,8 +1,6 @@
-﻿using CoreGraphics;
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Threading.Tasks;
 using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
 using UIKit;
@@ -23,80 +21,22 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning.Photo
             UIDevice.CurrentDevice.PlayInputClick();
         }
 
-        public Task<bool> ResizeImageAsync(string filePath, PhotoSize photoSize, int quality)
+        public bool ResizeImage(string filePath, PhotoSize photoSize, int quality)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                return Task.FromResult(false);
+                return false;
             }
 
             try
             {
-                return Task.Run(() =>
-                {
-                    return InternalResize(filePath, photoSize, quality);
-                });
+                return InternalResize(filePath, photoSize, quality);
             }
             catch (Exception ex)
             {
                 loggingService.Error(ex);
 
-                return Task.FromResult(false);
-            }
-        }
-
-        public string GetContent(string path)
-        {
-            return File.ReadAllText(path);
-        }
-
-        public string CopyToFilesAndGetPath(string path)
-        {
-            return path;
-        }
-
-        public void ReadImageFileToTensor(
-            string fileName,
-            bool quantized,
-            IntPtr dest,
-            int inputHeight = -1,
-            int inputWidth = -1)
-        {
-            using (var image = new UIImage(fileName))
-            {
-                using (var resized = image.Scale(new CGSize(inputWidth, inputHeight)))
-                {
-                    int[] intValues = new int[(int)(resized.Size.Width * resized.Size.Height)];
-                    var byteValues = new byte[(int)(resized.Size.Width * resized.Size.Height * 3)];
-                    System.Runtime.InteropServices.GCHandle handle = System.Runtime.InteropServices.GCHandle.Alloc(
-                        intValues, 
-                        System.Runtime.InteropServices.GCHandleType.Pinned);
-                    using (CGImage cgimage = resized.CGImage)
-                    using (CGColorSpace cspace = CGColorSpace.CreateDeviceRGB())
-                    using (CGBitmapContext context = new CGBitmapContext(
-                        handle.AddrOfPinnedObject(),
-                        (nint)resized.Size.Width,
-                        (nint)resized.Size.Height,
-                        8,
-                        (nint)resized.Size.Width * 4,
-                        cspace,
-                        CGImageAlphaInfo.PremultipliedLast))
-                    {
-                        context.DrawImage(new CGRect(new CGPoint(), resized.Size), cgimage);
-                    }
-
-                    handle.Free();
-
-                    for (int i = 0; i < intValues.Length; ++i)
-                    {
-                        int val = intValues[i];
-                        byteValues[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
-                        byteValues[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
-                        byteValues[(i * 3) + 2] = (byte)(val & 0xFF);
-                    }
-
-                    System.Runtime.InteropServices.Marshal.Copy(byteValues, 0, dest, byteValues.Length);
-                }
+                return false;
             }
         }
 
@@ -133,7 +73,7 @@ namespace TailwindTraders.Mobile.IOS.Features.Scanning.Photo
 
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 loggingService.Error(ex);
 

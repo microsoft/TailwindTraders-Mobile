@@ -6,25 +6,21 @@ namespace TailwindTraders.Mobile.Features.Settings
 
         public const string AnonymousToken = "Email anonymous@anonymous.anonymous";
 
-        public static string RootApiUrl { get; set; } = "http://ENTER/YOUR/URL/HERE";
-
-        public static string ProductApiUrl { get; } = $"{RootApiUrl}/products";
-
-        public static string ProfilesApiUrl { get; } = $"{RootApiUrl}/profiles";
-
         public const string AppCenterAndroidSecret = "ENTER_YOUR_GUID_HERE";
 
         public const string AppCenteriOSSecret = "ENTER_YOUR_GUID_HERE";
 
-        public static bool UseFakeAPIs = DebugMode;
+        public const bool UseFakeAPIs = DebugMode;
 
-        public static bool UseFakeAuthentication = DebugMode;
+        public const bool UseFakeAuthentication = DebugMode;
 
-        public static bool UseDebugLogging = DebugMode;
-
-        public static bool ForceAutomaticLogin = DebugMode;
+        public const bool ForceAutomaticLogin = DebugMode;
 
         public const bool AndroidDebuggable = DebugMode;
+
+        public const bool UseDebugLogging = DebugMode;
+
+        public const bool EnableARDiagnostics = DebugMode;
 
         public const bool DebugMode =
 #if DEBUG
@@ -32,5 +28,11 @@ namespace TailwindTraders.Mobile.Features.Settings
 #else
             false;
 #endif
+
+        public static string RootApiUrl { get; set; } = "http://ENTER/YOUR/URL/HERE";
+
+        public static string ProductApiUrl { get; } = $"{RootApiUrl}/products";
+
+        public static string ProfilesApiUrl { get; } = $"{RootApiUrl}/profiles";
     }
 }

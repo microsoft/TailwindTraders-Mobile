@@ -21,7 +21,6 @@ using TailwindTraders.Mobile.Features.Scanning;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Boolean = Java.Lang.Boolean;
-using Math = Java.Lang.Math;
 using Orientation = Android.Content.Res.Orientation;
 using Point = Android.Graphics.Point;
 using Size = Android.Util.Size;
@@ -31,8 +30,6 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
 {
     public class CameraPreviewRenderer : ViewRenderer<CameraPreview, AutoFitTextureView>, ICamera
     {
-        private static readonly SparseIntArray ORIENTATIONS = new SparseIntArray();
-
         // Max preview width that is guaranteed by Camera2 API
         private static readonly int MAX_PREVIEW_WIDTH = 1920;
 
@@ -91,18 +88,17 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
         // Orientation of the camera sensor
         private int mSensorOrientation;
 
-        // A {@link CameraCaptureSession.CaptureCallback} that handles events related to JPEG capture.
-        public CameraCaptureListener mCaptureCallback { get; set; }
-
         public Activity Activity { get; set; }
+
+        private static readonly SparseIntArray Orientations = new SparseIntArray();
 
         public CameraPreviewRenderer(Context context)
             : base(context)
         {
-            ORIENTATIONS.Append((int)SurfaceOrientation.Rotation0, 90);
-            ORIENTATIONS.Append((int)SurfaceOrientation.Rotation90, 0);
-            ORIENTATIONS.Append((int)SurfaceOrientation.Rotation180, 270);
-            ORIENTATIONS.Append((int)SurfaceOrientation.Rotation270, 180);
+            Orientations.Append((int)SurfaceOrientation.Rotation0, 90);
+            Orientations.Append((int)SurfaceOrientation.Rotation90, 0);
+            Orientations.Append((int)SurfaceOrientation.Rotation180, 270);
+            Orientations.Append((int)SurfaceOrientation.Rotation270, 180);
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<CameraPreview> e)
@@ -116,7 +112,7 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
             {
             }
 
-            var element = e.NewElement;
+            this.element = e.NewElement;
             if (element == null)
             {
                 return;
@@ -133,8 +129,12 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
             mTextureView = Control as AutoFitTextureView;
             mStateCallback = new CameraStateListener(this);
             mSurfaceTextureListener = new CameraSurfaceTextureListener(this);
-            mCaptureCallback = new CameraCaptureListener(this);
             mOnImageAvailableListener = new ImageAvailableListener(this);
+
+            if (element.EnableTensorflowAnalysis)
+            {
+                mOnImageAvailableListener.EnableTensorflowAnalysis();
+            }
 
             StartTheCamera();
 
@@ -258,12 +258,8 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
                     Size largest = (Size)Collections.Max(
                         Arrays.AsList(map.GetOutputSizes((int)ImageFormatType.Jpeg)),
                         new CompareSizesByArea());
-                    mImageReader = ImageReader.NewInstance(
-                        largest.Width,
-                        largest.Height,
-                        ImageFormatType.Jpeg,
-                        /*maxImages*/2);
-                    mImageReader.SetOnImageAvailableListener(mOnImageAvailableListener, mBackgroundHandler);
+
+                    ConfigureImageReader(largest);
 
                     bool swappedDimensions = GetDimmensions(activity, characteristics);
 
@@ -342,6 +338,26 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
             }
         }
 
+        private void ConfigureImageReader(Size largest)
+        {
+            var imageWidth = largest.Width;
+            var imageHeight = largest.Height;
+
+            if (element.EnableTensorflowAnalysis)
+            {
+                imageWidth = imageHeight = TensorflowLiteService.ModelInputSize;
+            }
+
+            mImageReader = ImageReader.NewInstance(
+                imageWidth,
+                imageHeight,
+                ImageFormatType.Jpeg,
+                maxImages: 1);
+            mImageReader.SetOnImageAvailableListener(
+                mOnImageAvailableListener,
+                mBackgroundHandler);
+        }
+
         private bool GetDimmensions(Activity activity, CameraCharacteristics characteristics)
         {
             // Find out if we need to swap dimension to get the preview size relative to sensor
@@ -381,7 +397,6 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
         public void OpenCamera(int width, int height)
         {
             SetUpCameraOutputs(width, height);
-            ConfigureTransform(width, height);
             var activity = Activity;
             var manager = (CameraManager)activity.GetSystemService(Context.CameraService);
             try
@@ -523,52 +538,20 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
                 // We set up a CaptureRequest.Builder with the output Surface.
                 mPreviewRequestBuilder = mCameraDevice.CreateCaptureRequest(CameraTemplate.Preview);
                 mPreviewRequestBuilder.AddTarget(surface);
+                mPreviewRequestBuilder.AddTarget(mImageReader.Surface);
 
                 // Here, we create a CameraCaptureSession for camera preview.
-                List<Surface> surfaces = new List<Surface>();
-                surfaces.Add(surface);
-                surfaces.Add(mImageReader.Surface);
+                var surfaces = new List<Surface>
+                {
+                    surface,
+                    mImageReader.Surface,
+                };
                 mCameraDevice.CreateCaptureSession(surfaces, new CameraCaptureSessionCallback(this), null);
             }
             catch (CameraAccessException e)
             {
                 e.PrintStackTrace();
             }
-        }
-
-        // Configures the necessary {@link android.graphics.Matrix}
-        // transformation to `mTextureView`.
-        // This method should be called after the camera preview size is determined in
-        //// setUpCameraOutputs and also the size of `mTextureView` is fixed.
-
-        public void ConfigureTransform(int viewWidth, int viewHeight)
-        {
-            Activity activity = Activity;
-            if (mTextureView == null || mPreviewSize == null || activity == null)
-            {
-                return;
-            }
-
-            var rotation = (int)activity.WindowManager.DefaultDisplay.Rotation;
-            Matrix matrix = new Matrix();
-            RectF viewRect = new RectF(0, 0, viewWidth, viewHeight);
-            RectF bufferRect = new RectF(0, 0, mPreviewSize.Height, mPreviewSize.Width);
-            float centerX = viewRect.CenterX();
-            float centerY = viewRect.CenterY();
-            if (rotation == (int)SurfaceOrientation.Rotation90 || rotation == (int)SurfaceOrientation.Rotation270)
-            {
-                bufferRect.Offset(centerX - bufferRect.CenterX(), centerY - bufferRect.CenterY());
-                matrix.SetRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.Fill);
-                float scale = Math.Max((float)viewHeight / mPreviewSize.Height, (float)viewWidth / mPreviewSize.Width);
-                matrix.PostScale(scale, scale, centerX, centerY);
-                matrix.PostRotate(90 * (rotation - 2), centerX, centerY);
-            }
-            else if (rotation == (int)SurfaceOrientation.Rotation180)
-            {
-                matrix.PostRotate(180, centerX, centerY);
-            }
-
-            mTextureView.SetTransform(matrix);
         }
 
         // Initiate a still image capture.
@@ -581,84 +564,23 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
 
             captureTcs = new TaskCompletionSource<string>();
 
-            CaptureStillPicture();
+            mOnImageAvailableListener.AllowCaptureStillImageShot();
 
             return captureTcs.Task;
         }
 
-        // Run the precapture sequence for capturing a still image. This method should be called when
-        // we get a response in {@link #mCaptureCallback} from {@link #lockFocus()}.
-        public void RunPrecaptureSequence()
-        {
-            try
-            {
-                // This is how to tell the camera to trigger.
-                mPreviewRequestBuilder.Set(
-                    CaptureRequest.ControlAePrecaptureTrigger,
-                    (int)ControlAEPrecaptureTrigger.Start);
-
-                // Tell #mCaptureCallback to wait for the precapture sequence to be set.
-                mState = CameraState.STATE_WAITING_PRECAPTURE;
-                mCaptureSession.Capture(mPreviewRequestBuilder.Build(), mCaptureCallback, mBackgroundHandler);
-            }
-            catch (CameraAccessException e)
-            {
-                e.PrintStackTrace();
-            }
-        }
-
-        private CaptureRequest.Builder stillCaptureBuilder;
-
         private TaskCompletionSource<string> captureTcs;
+        private CameraPreview element;
 
-        // Capture a still picture. This method should be called when we get a response in
-        // {@link #mCaptureCallback} from both {@link #lockFocus()}.
-        public void CaptureStillPicture()
+        public int GetOrientation()
         {
-            try
-            {
-                var activity = Activity;
-                if (activity == null || mCameraDevice == null)
-                {
-                    return;
-                }
+            int rotation = (int)Activity.WindowManager.DefaultDisplay.Rotation;
 
-                // This is the CaptureRequest.Builder that we use to take a picture.
-                if (stillCaptureBuilder == null)
-                {
-                    stillCaptureBuilder = mCameraDevice.CreateCaptureRequest(CameraTemplate.StillCapture);
-                }
-
-                stillCaptureBuilder.AddTarget(mImageReader.Surface);
-
-                // Use the same AE and AF modes as the preview.
-                stillCaptureBuilder.Set(CaptureRequest.ControlAfMode, (int)ControlAFMode.ContinuousPicture);
-
-                // SetAutoFlash(stillCaptureBuilder);
-
-                // Orientation
-                int rotation = (int)activity.WindowManager.DefaultDisplay.Rotation;
-                stillCaptureBuilder.Set(CaptureRequest.JpegOrientation, GetOrientation(rotation));
-
-                mCaptureSession.Capture(
-                    stillCaptureBuilder.Build(),
-                    null,
-                    null);
-            }
-            catch (CameraAccessException e)
-            {
-                e.PrintStackTrace();
-            }
-        }
-
-        // Retrieves the JPEG orientation from the specified screen rotation.
-        private int GetOrientation(int rotation)
-        {
             // Sensor orientation is 90 for most devices, or 270 for some devices (eg. Nexus 5X)
             // We have to take that into account and rotate JPEG properly.
             // For devices with orientation of 90, we simply return our mapping from ORIENTATIONS.
             // For devices with orientation of 270, we need to rotate the JPEG 180 degrees.
-            return (ORIENTATIONS.Get(rotation) + mSensorOrientation + 270) % 360;
+            return (Orientations.Get(rotation) + mSensorOrientation + 270) % 360;
         }
     }
 }

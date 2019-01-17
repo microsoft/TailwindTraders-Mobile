@@ -53,7 +53,13 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
         {
             await base.InitializeAsync();
 
-            await platformService.ResizeImageAsync(this.mediaPath, PhotoSize.Small, quality: 70);
+            var resized = platformService.ResizeImage(this.mediaPath, PhotoSize.Small, quality: 70);
+
+            // TODO: add error msg
+            if (!resized)
+            {
+                return;
+            }
 
             CameraImage = this.mediaPath;
 

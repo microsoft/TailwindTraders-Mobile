@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using Android.Graphics;
 using Android.Media;
 using Android.Views;
@@ -25,99 +24,22 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
             root.PlaySoundEffect(SoundEffects.Click);
         }
 
-        public Task<bool> ResizeImageAsync(string filePath, PhotoSize photoSize, int quality)
+        public bool ResizeImage(string filePath, PhotoSize photoSize, int quality)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                return Task.FromResult(false);
+                return false;
             }
 
             try
             {
-                return Task.Run(() =>
-                {
-                    return InternalResize(filePath, photoSize, quality);
-                });
+                return InternalResize(filePath, photoSize, quality);
             }
             catch (Exception ex)
             {
                 loggingService.Error(ex);
 
-                return Task.FromResult(false);
-            }
-        }
-
-        public string GetContent(string path)
-        {
-            var assets = Android.App.Application.Context.Assets;
-            using (var sr = new StreamReader(assets.Open(path)))
-            {
-                return sr.ReadToEnd();
-            }
-        }
-
-        public string CopyToFilesAndGetPath(string path)
-        {
-            var cleanPath = path.Replace("/", "_");
-
-            // https://kimsereyblog.blogspot.com/2016/11/differences-between-internal-and.html
-            var absoluteFilePath = System.IO.Path.Combine(
-                Android.App.Application.Context.FilesDir.AbsolutePath,
-                cleanPath);
-
-            var assets = Android.App.Application.Context.Assets;
-            using (var f = assets.Open(path))
-            {
-                using (var dest = new FileStream(absoluteFilePath, FileMode.OpenOrCreate))
-                {
-                    f.CopyTo(dest);
-                }
-            }
-
-            return absoluteFilePath;
-        }
-
-        public void ReadImageFileToTensor(
-            string fileName,
-            bool quantized, 
-            IntPtr dest,
-            int inputHeight = -1,
-            int inputWidth = -1)
-        {
-            using (var bmp = BitmapFactory.DecodeFile(fileName))
-            {
-                using (var resized = Bitmap.CreateScaledBitmap(bmp, inputWidth, inputHeight, false))
-                {
-                    var intValues = new int[resized.Width * resized.Height];
-                    resized.GetPixels(intValues, 0, resized.Width, 0, 0, resized.Width, resized.Height);
-
-                    if (quantized)
-                    {
-                        var byteValues = new byte[resized.Width * resized.Height * 3];
-                        for (int i = 0; i < intValues.Length; ++i)
-                        {
-                            int val = intValues[i];
-                            byteValues[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
-                            byteValues[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
-                            byteValues[(i * 3) + 2] = (byte)(val & 0xFF);
-                        }
-
-                        System.Runtime.InteropServices.Marshal.Copy(byteValues, 0, dest, byteValues.Length);
-                    }
-                    else
-                    {
-                        var floatValues = new float[resized.Width * resized.Height * 3];
-                        for (int i = 0; i < intValues.Length; ++i)
-                        {
-                            int val = intValues[i];
-                            floatValues[(i * 3) + 0] = (val >> 16) & 0xFF;
-                            floatValues[(i * 3) + 1] = (val >> 8) & 0xFF;
-                            floatValues[(i * 3) + 2] = val & 0xFF;
-                        }
-
-                        System.Runtime.InteropServices.Marshal.Copy(floatValues, 0, dest, floatValues.Length);
-                    }
-                }
+                return false;
             }
         }
 
@@ -160,6 +82,8 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
 
                 PerformResizeWithRotation(filePath, quality, exif, rotation, options);
 
+                ////exif.SaveAttributes();
+
                 GC.Collect();
 
                 return true;
@@ -194,7 +118,7 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
                         matrix,
                         true))
                     {
-                        using (var stream = File.Open(filePath, FileMode.Create, FileAccess.ReadWrite))
+                        using (var stream = System.IO.File.Open(filePath, FileMode.Create, FileAccess.ReadWrite))
                         {
                             rotatedImage.Compress(Bitmap.CompressFormat.Jpeg, quality, stream);
                             stream.Close();
@@ -209,7 +133,7 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning.Photo
                 }
                 else
                 {
-                    using (var stream = File.Open(filePath, FileMode.Create, FileAccess.ReadWrite))
+                    using (var stream = System.IO.File.Open(filePath, FileMode.Create, FileAccess.ReadWrite))
                     {
                         originalImage.Compress(
                             Bitmap.CompressFormat.Jpeg,

@@ -1,11 +1,15 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
-using AssetsLibrary;
+using System.Runtime.InteropServices;
 using AVFoundation;
 using CoreFoundation;
+using CoreGraphics;
+using CoreVideo;
 using Foundation;
+using TailwindTraders.Mobile.Features.Scanning;
+using TailwindTraders.Mobile.Helpers;
 using UIKit;
+using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 {
@@ -30,24 +34,15 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         Auto = 2,
     }
 
-    public enum CameraOutputMode
-    {
-        StillImage,
-    }
-
-    public enum CameraOutputQuality : int
-    {
-        Low = 0,
-        Medium = 1,
-        High = 2,
-    }
-
     public class CameraManager : NSObject, IAVCaptureFileOutputRecordingDelegate
     {
         // MARK: - Public properties
 
         /// Capture session to customize camera settings.
         public AVCaptureSession captureSession;
+
+        private readonly DispatchQueue queue = new DispatchQueue("videoQueue");
+        private readonly TensorflowLiteService tensorflowLiteService;
 
         /// Property to determine if the manager should show the error for the user. If you want to show the errors
         /// yourself set this to false. If you want to add custom error UI set showErrorBlock property. Default value is
@@ -130,51 +125,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
         }
 
-        private CameraOutputQuality cameraOutputQuality = CameraOutputQuality.High;
-
-        public CameraOutputQuality CameraOutputQuality
-        {
-            get
-            {
-                return cameraOutputQuality;
-            }
-
-            set
-            {
-                if (cameraIsSetup)
-                {
-                    if (cameraOutputQuality != value)
-                    {
-                        cameraOutputQuality = value;
-                        _updateCameraQualityMode(cameraOutputQuality);
-                    }
-                }
-            }
-        }
-
-        /// Property to change camera output.
-        private CameraOutputMode outputMode = CameraOutputMode.StillImage;
-
-        public CameraOutputMode OutputMode
-        {
-            get
-            {
-                return outputMode;
-            }
-
-            set
-            {
-                if (cameraIsSetup)
-                {
-                    if (value != outputMode)
-                    {
-                        _setupOutputMode(value, outputMode);
-                        outputMode = value;
-                    }
-                }
-            }
-        }
-
         private UIView embeddingView;
 
         private AVCaptureDevice frontCameraDevice
@@ -196,12 +146,19 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         }
 
         private AVCaptureStillImageOutput stillImageOutput;
+
         private AVCaptureVideoPreviewLayer previewLayer;
 
         private bool cameraIsSetup = false;
+        private bool tensorflowAnalysis;
+        private int[] colors;
+        private VideoCaptureDelegate captureDelegate;
+        private AVCaptureVideoDataOutput videoOutput;
 
-        public CameraState addPreviewLayerToView(UIView view, CameraOutputMode newCameraOutputMode, Action completion)
+        public CameraState addPreviewLayerToView(UIView view, Action completion, bool tensorflowAnalysis)
         {
+            this.tensorflowAnalysis = tensorflowAnalysis;
+
             if (_canLoadCamera())
             {
                 if (embeddingView != null)
@@ -215,7 +172,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                 if (cameraIsSetup)
                 {
                     _addPreviewLayerToView(view);
-                    OutputMode = newCameraOutputMode;
                     completion?.Invoke();
                 }
                 else
@@ -224,7 +180,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                         () =>
                         {
                             this._addPreviewLayerToView(view);
-                            this.OutputMode = newCameraOutputMode;
                             completion?.Invoke();
                         });
                 }
@@ -263,11 +218,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         public void CapturePicture(Action<UIImage, NSError> completion)
         {
             if (!cameraIsSetup)
-            {
-                return;
-            }
-
-            if (outputMode != CameraOutputMode.StillImage)
             {
                 return;
             }
@@ -321,48 +271,6 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             return stillImageOutput;
         }
 
-        private void _orientationChanged()
-        {
-            AVCaptureConnection currentConnection = null;
-            switch (OutputMode)
-            {
-                case CameraOutputMode.StillImage:
-                    currentConnection = stillImageOutput.ConnectionFromMediaType(AVMediaType.Video);
-                    break;
-            }
-
-            var validPreviewLayer = previewLayer;
-            if (validPreviewLayer != null)
-            {
-                var validPreviewLayerConnection = validPreviewLayer.Connection;
-                if (validPreviewLayerConnection != null)
-                {
-                    if (validPreviewLayerConnection.SupportsVideoOrientation)
-                    {
-                        validPreviewLayerConnection.VideoOrientation = _currentVideoOrientation();
-                    }
-                }
-
-                var validOutputLayerConnection = currentConnection;
-                if (validOutputLayerConnection != null)
-                {
-                    if (validOutputLayerConnection.SupportsVideoOrientation)
-                    {
-                        validOutputLayerConnection.VideoOrientation = _currentVideoOrientation();
-                    }
-                }
-
-                DispatchQueue.MainQueue.DispatchAsync(() =>
-                {
-                    var validEmbeddingView = this.embeddingView;
-                    if (validEmbeddingView != null)
-                    {
-                        validPreviewLayer.Frame = validEmbeddingView.Bounds;
-                    }
-                });
-            }
-        }
-
         private AVCaptureVideoOrientation _currentVideoOrientation()
         {
             switch (UIDevice.CurrentDevice.Orientation)
@@ -396,14 +304,11 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                     validCaptureSession.SessionPreset = AVCaptureSession.PresetHigh;
                     this._updateCameraDevice(this.CameraDevice);
                     this._setupOutputs();
-                    this._setupOutputMode(this.OutputMode, null);
                     this._setupPreviewLayer();
                     validCaptureSession.CommitConfiguration();
                     this._updateFlasMode(this.FlashMode);
-                    this._updateCameraQualityMode(this.CameraOutputQuality);
                     validCaptureSession.StartRunning();
                     this.cameraIsSetup = true;
-                    this._orientationChanged();
 
                     completion();
                 }
@@ -459,56 +364,43 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             }
         }
 
-        private void _setupOutputMode(CameraOutputMode newCameraOutputMode, CameraOutputMode? oldCameraOutputMode)
+        private void _setupOutputs()
         {
             captureSession.BeginConfiguration();
 
-            if (oldCameraOutputMode != null)
+            if (this.tensorflowAnalysis)
             {
-                // remove current setting
-                switch (oldCameraOutputMode)
+                colors = new int[TensorflowLiteService.ModelInputSize * TensorflowLiteService.ModelInputSize];
+
+                this.captureDelegate = new VideoCaptureDelegate(OnFrameCaptured);
+
+                this.videoOutput = new AVCaptureVideoDataOutput();
+
+                var settings = new CVPixelBufferAttributes
                 {
-                    case CameraOutputMode.StillImage:
-                        if (stillImageOutput != null)
-                        {
-                            captureSession.RemoveOutput(stillImageOutput);
-                        }
+                    PixelFormatType = CVPixelFormatType.CV32BGRA,
+                };
+                videoOutput.WeakVideoSettings = settings.Dictionary;
+                videoOutput.AlwaysDiscardsLateVideoFrames = true;
+                videoOutput.SetSampleBufferDelegateQueue(captureDelegate, queue);
 
-                        break;
-                    default:
-                        break;
-                }
+                captureSession.AddOutput(videoOutput);
             }
-
-            // configure new devices
-            switch (newCameraOutputMode)
+            else
             {
-                case CameraOutputMode.StillImage:
-                    if (stillImageOutput == null)
-                    {
-                        _setupOutputs();
-                    }
-
-                    if (stillImageOutput != null)
-                    {
-                        captureSession.AddOutput(stillImageOutput);
-                    }
-
-                    break;
-                default:
-                    break;
+                stillImageOutput = new AVCaptureStillImageOutput();
+                captureSession.AddOutput(stillImageOutput);
             }
 
             captureSession.CommitConfiguration();
-            _updateCameraQualityMode(CameraOutputQuality);
-            _orientationChanged();
-        }
 
-        private void _setupOutputs()
-        {
-            if (stillImageOutput == null)
+            if (this.tensorflowAnalysis)
             {
-                stillImageOutput = new AVCaptureStillImageOutput();
+                _updateCameraQualityMode(AVCaptureSession.Preset352x288);
+            }
+            else
+            {
+                _updateCameraQualityMode(AVCaptureSession.PresetHigh);
             }
         }
 
@@ -612,41 +504,15 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             captureSession.CommitConfiguration();
         }
 
-        private void _updateCameraQualityMode(CameraOutputQuality newCameraOutputQuality)
+        private void _updateCameraQualityMode(NSString sessionPreset)
         {
             var validCaptureSession = captureSession;
-            if (validCaptureSession != null)
+
+            if (validCaptureSession.CanSetSessionPreset(sessionPreset))
             {
-                var sessionPreset = AVCaptureSession.PresetLow;
-                switch (newCameraOutputQuality)
-                {
-                    case CameraOutputQuality.Low:
-                        sessionPreset = AVCaptureSession.PresetLow;
-                        break;
-                    case CameraOutputQuality.Medium:
-                        sessionPreset = AVCaptureSession.PresetMedium;
-                        break;
-                    case CameraOutputQuality.High:
-                        if (OutputMode == CameraOutputMode.StillImage)
-                        {
-                            sessionPreset = AVCaptureSession.PresetPhoto;
-                        }
-                        else
-                        {
-                            sessionPreset = AVCaptureSession.PresetHigh;
-                        }
-
-                        break;
-                    default:
-                        break;
-                }
-
-                if (validCaptureSession.CanSetSessionPreset(sessionPreset))
-                {
-                    validCaptureSession.BeginConfiguration();
-                    validCaptureSession.SessionPreset = sessionPreset;
-                    validCaptureSession.CommitConfiguration();
-                }
+                validCaptureSession.BeginConfiguration();
+                validCaptureSession.SessionPreset = sessionPreset;
+                validCaptureSession.CommitConfiguration();
             }
         }
 
@@ -676,11 +542,93 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
         public CameraManager()
         {
+            tensorflowLiteService = DependencyService.Get<TensorflowLiteService>();
         }
 
         public void FinishedRecording(
             AVCaptureFileOutput captureOutput, NSUrl outputFileUrl, NSObject[] connections, NSError error)
         {
+        }
+
+        private void OnFrameCaptured(object sender, EventArgsT<UIImage> args)
+        {
+            var image = args.Value;
+
+            using (var scaledImage = CreateScaledImage(image))
+            {
+                using (var rotatedImage = CreateRotatedImage(scaledImage, 90))
+                {
+                    CopyColorsFromImage(rotatedImage);
+
+                    tensorflowLiteService.Recognize(colors);
+                }
+            }
+        }
+
+        private UIImage CreateRotatedImage(UIImage image, float degree)
+        {
+            float radians = degree * (float)Math.PI / 180;
+
+            UIGraphics.BeginImageContext(image.Size);
+
+            UIImage rotatedImage;
+            using (var bitmap = UIGraphics.GetCurrentContext())
+            {
+                bitmap.TranslateCTM(image.Size.Width / 2, image.Size.Height / 2);
+                bitmap.RotateCTM(radians);
+                bitmap.ScaleCTM(1.0f, -1.0f);
+
+                bitmap.DrawImage(
+                    new CGRect(-image.Size.Width / 2, -image.Size.Height / 2, image.Size.Width, image.Size.Height),
+                    image.CGImage);
+
+                rotatedImage = UIGraphics.GetImageFromCurrentImageContext();
+            }
+
+            UIGraphics.EndImageContext();
+
+            return rotatedImage;
+        }
+
+        private UIImage CreateScaledImage(UIImage image)
+        {
+            var width = TensorflowLiteService.ModelInputSize;
+            var height = TensorflowLiteService.ModelInputSize;
+
+            var scaledImage = image.Scale(new CGSize(width, height));
+
+            return scaledImage;
+        }
+
+        private void SaveImage(UIImage image)
+        {
+            DispatchQueue.MainQueue.DispatchAsync(() =>
+            {
+                image.SaveToPhotosAlbum((a, b) =>
+                {
+                });
+            });
+        }
+
+        private void CopyColorsFromImage(UIImage image)
+        {
+            var handle = GCHandle.Alloc(colors, GCHandleType.Pinned);
+
+            using (CGImage cgimage = image.CGImage)
+            using (CGColorSpace cspace = CGColorSpace.CreateDeviceRGB())
+            using (CGBitmapContext context = new CGBitmapContext(
+                handle.AddrOfPinnedObject(),
+                (nint)image.Size.Width,
+                (nint)image.Size.Height,
+                8,
+                (nint)image.Size.Width * 4,
+                cspace,
+                CGImageAlphaInfo.PremultipliedLast))
+            {
+                context.DrawImage(new CGRect(new CGPoint(), image.Size), cgimage);
+            }
+
+            handle.Free();
         }
     }
 }

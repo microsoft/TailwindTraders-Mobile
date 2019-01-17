@@ -6,16 +6,16 @@ namespace TailwindTraders.Mobile.Features.Scanning
 {
     public class CameraPreview : View
     {
-        public static readonly BindableProperty CameraProperty = BindableProperty.Create(
-            propertyName: nameof(Camera),
-            returnType: typeof(CameraOptions),
+        public static readonly BindableProperty EnableTensorflowAnalysisProperty = BindableProperty.Create(
+            propertyName: nameof(EnableTensorflowAnalysis),
+            returnType: typeof(bool),
             declaringType: typeof(CameraPreview),
-            defaultValue: CameraOptions.Rear);
+            defaultValue: false);
 
-        public CameraOptions Camera
+        public bool EnableTensorflowAnalysis
         {
-            get => (CameraOptions)GetValue(CameraProperty);
-            set => SetValue(CameraProperty, value);
+            get => (bool)GetValue(EnableTensorflowAnalysisProperty);
+            set => SetValue(EnableTensorflowAnalysisProperty, value);
         }
 
         public Func<Task<string>> TakePicture;

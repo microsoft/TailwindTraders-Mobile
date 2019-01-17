@@ -1,7 +1,11 @@
-﻿using Plugin.Permissions.Abstractions;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Plugin.Permissions.Abstractions;
 using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Features.Product;
+using TailwindTraders.Mobile.Features.Settings;
 using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
@@ -10,23 +14,38 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
     public class CameraPreviewViewModel : BaseViewModel
     {
         public const string AddCameraControlMessage = nameof(AddCameraControlMessage);
-        public const string DrawBoundingBoxMessage = nameof(DrawBoundingBoxMessage);
 
         private readonly PhotoService photoService;
+        private readonly IProductsAPI productsAPI;
+        private static readonly TimeSpan minSameMessageLabelTime = TimeSpan.FromSeconds(3);
 
-        private Random rnd = new Random();
-        private bool shouldRecognize;
+        private IEnumerable<ProductViewModel> recommendedProducts;
+        private string lastMessageLabel = string.Empty;
+        private string lastProcessedMessageLabel = string.Empty;
+        private DateTime lastMessageDate = DateTime.MinValue;
+        private TimeSpan sameMessageLabelTime = TimeSpan.Zero;
+        private Task loadingTask = Task.CompletedTask;
 
         public CameraPreviewViewModel()
         {
             photoService = DependencyService.Get<PhotoService>();
+            productsAPI = DependencyService.Get<IRestPoolService>().ProductsAPI;
+        }
+
+        public IEnumerable<ProductViewModel> RecommendedProducts
+        {
+            get => recommendedProducts;
+            set => SetAndRaisePropertyChanged(ref recommendedProducts, value);
         }
 
         public override async Task InitializeAsync()
         {
-            await base.InitializeAsync();
+            MessagingCenter.Instance.Subscribe<TensorflowLiteService, DetectionMessage>(
+                this, 
+                TensorflowLiteService.ObjectDetectedMessage, 
+                (_, message) => GatherRecommendedProducts(message));
 
-            shouldRecognize = true;
+            await base.InitializeAsync();
 
             var cameraHasInitializedAndAdded = await photoService.CheckPermissionsAsync(
                 Permission.Storage,
@@ -38,40 +57,57 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             }
 
             MessagingCenter.Send(this, AddCameraControlMessage);
-
-            await AddFakeBoundingBoxesAsync();
         }
 
-        public override async Task UninitializeAsync()
+        public override Task UninitializeAsync()
         {
-            await base.UninitializeAsync();
+            MessagingCenter.Instance.Unsubscribe<TensorflowLiteService, DetectionMessage>(
+                this,
+                TensorflowLiteService.ObjectDetectedMessage);
 
-            shouldRecognize = false;
+            return base.UninitializeAsync();
         }
 
-        private async Task AddFakeBoundingBoxesAsync()
+        private void GatherRecommendedProducts(DetectionMessage message)
         {
-            while (shouldRecognize)
+            if (lastProcessedMessageLabel == message.Label || !loadingTask.IsCompleted)
             {
-                var xmin = (float)rnd.NextDouble();
-                var ymin = (float)rnd.NextDouble();
-                var xmax = MathHelper.Clamp(xmin + (float)rnd.NextDouble(), 0.0f, 1.0f);
-                var ymax = MathHelper.Clamp(ymin + (float)rnd.NextDouble(), 0.0f, 1.0f);
+                return;
+            }
 
-                MessagingCenter.Send(this, DrawBoundingBoxMessage, new BoundingBoxMessageArgs()
-                {
-                    Xmin = xmin,
-                    Ymin = xmin,
-                    Xmax = xmax,
-                    Ymax = ymax,
-                });
+            var now = DateTime.UtcNow;
 
-                await Task.Delay(TimeSpan.FromSeconds(0.5));
+            if (lastMessageLabel == message.Label)
+            {
+                sameMessageLabelTime += now - lastMessageDate;
+            }
+            else
+            {
+                lastMessageLabel = message.Label;
+                sameMessageLabelTime = TimeSpan.Zero;
+            }
 
-                await Task.Run(() =>
-                {
-                    TensorflowLite.Recognize();
-                });
+            if (sameMessageLabelTime >= minSameMessageLabelTime)
+            {
+                // TODO rely on message.Label when having final network
+                loadingTask = LoadRecommendedProductsAsync("1");
+                lastProcessedMessageLabel = lastMessageLabel;
+                lastMessageLabel = string.Empty;
+                sameMessageLabelTime = -(minSameMessageLabelTime + minSameMessageLabelTime);
+            }
+
+            lastMessageDate = now;
+        }
+
+        private async Task LoadRecommendedProductsAsync(string productType)
+        {
+            var result = await TryExecuteWithLoadingIndicatorsAsync(
+                productsAPI.GetProductsAsync(DefaultSettings.AnonymousToken, productType));
+
+            if (result)
+            {
+                RecommendedProducts = result.Value.Products.Select(
+                    item => new ProductViewModel(item, FeatureNotAvailableCommand));
             }
         }
     }
