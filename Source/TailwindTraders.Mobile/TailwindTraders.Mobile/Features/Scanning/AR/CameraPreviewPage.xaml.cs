@@ -104,19 +104,20 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         {
             var canvas = e.Surface.Canvas;
 
-            DrawBitmap(canvas);
+            DrawInputTensor(canvas);
         }
 
         private void CanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
         {
             var canvas = e.Surface.Canvas;
+            var height = canvasView.CanvasSize.Height;
 
             DrawBoundingBox(canvas);
 
-            // DrawingHelper.DrawStats(elapsedTimeSinceLastDetection, canvas, height, boundingBox);
+            DrawingHelper.DrawStats(elapsedTimeSinceLastDetection, canvas, height, boundingBox);
         }
 
-        private void DrawBitmap(SKCanvas canvas)
+        private void DrawInputTensor(SKCanvas canvas)
         {
             var bitmap = new SKBitmap();
 

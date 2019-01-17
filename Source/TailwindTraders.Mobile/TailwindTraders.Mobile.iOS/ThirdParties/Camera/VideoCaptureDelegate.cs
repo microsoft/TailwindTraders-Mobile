@@ -1,6 +1,7 @@
 ﻿using System;
 using AVFoundation;
 using CoreGraphics;
+using CoreImage;
 using CoreMedia;
 using CoreVideo;
 using TailwindTraders.Mobile.Helpers;
@@ -42,27 +43,13 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
         private UIImage GetUIImage(CMSampleBuffer sampleBuffer)
         {
-            using (var imageBuffer = (CVPixelBuffer)sampleBuffer.GetImageBuffer())
+            using (var imageBuffer = sampleBuffer.GetImageBuffer())
+            using (var ciImage = new CIImage(imageBuffer))
+            using (var ciContext = new CIContext())
+            using (var cgImage = ciContext.CreateCGImage(ciImage, ciImage.Extent))
             {
-                imageBuffer.Lock(CVPixelBufferLock.None);
-
-                var bitmapInfo = (CGImageAlphaInfo)((uint)CGBitmapFlags.ByteOrder32Little |
-                    (uint)CGImageAlphaInfo.PremultipliedFirst);
-                var colorSpace = CGColorSpace.CreateDeviceRGB();
-                var context = new CGBitmapContext(
-                    imageBuffer.BaseAddress,
-                    imageBuffer.Width,
-                    imageBuffer.Height,
-                    8,
-                    imageBuffer.BytesPerRow, 
-                    colorSpace, 
-                    bitmapInfo);
-                var cgImage = context.ToImage();
-
-                imageBuffer.Unlock(CVPixelBufferLock.None);
-
                 var uiImage = new UIImage(cgImage);
-                
+
                 return uiImage;
             }
         }
