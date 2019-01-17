@@ -177,15 +177,6 @@ namespace TailwindTraders.Mobile.Features.Scanning
                             Score = score,
                             Label = label,
                         });
-
-#pragma warning disable CS0162
-                        if (DefaultSettings.EnableARDiagnostics)
-                        {
-                            Console.WriteLine($"{label} with score {score} " +
-    $"with detection boxes: {xmin} {ymin} {xmax} {ymax}");
-                        }
-#pragma warning restore CS0162
-
                     }
                 }
             }
