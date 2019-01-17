@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using TailwindTraders.Mobile.Features.Scanning;
 using TailwindTraders.Mobile.Features.Scanning.AR;
+using TailwindTraders.Mobile.Features.Settings;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(TensorflowLiteService))]
@@ -157,8 +158,6 @@ namespace TailwindTraders.Mobile.Features.Scanning
                 var score = detection_scores_out[i];
                 var classId = (int)detection_classes_out[i];
 
-                //// Console.WriteLine($"Found classId({classId}) with score({score})");
-
                 if (classId >= 0 && classId < labels.Length)
                 {
                     var label = labels[classId + LabelOffset];
@@ -179,8 +178,14 @@ namespace TailwindTraders.Mobile.Features.Scanning
                             Label = label,
                         });
 
-                        Console.WriteLine($"{label} with score {score} " +
-                            $"with detection boxes: {xmin} {ymin} {xmax} {ymax}");
+#pragma warning disable CS0162
+                        if (DefaultSettings.EnableARDiagnostics)
+                        {
+                            Console.WriteLine($"{label} with score {score} " +
+    $"with detection boxes: {xmin} {ymin} {xmax} {ymax}");
+                        }
+#pragma warning restore CS0162
+
                     }
                 }
             }
