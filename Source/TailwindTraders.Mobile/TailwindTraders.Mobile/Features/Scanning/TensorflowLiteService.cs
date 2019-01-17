@@ -17,7 +17,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
         public const int ModelInputSize = 300;
         public const float MinScore = 0.6f;
         public const string ObjectDetectedMessage = nameof(ObjectDetectedMessage);
-        public const string InpputTensorMessage = nameof(InpputTensorMessage);
+        public const string InputTensorMessage = nameof(InputTensorMessage);
 
         public readonly string LabelFilename = TFFolder + "labels_list.txt";
         public readonly string ModelFilename = TFFolder + "detect.tflite";
@@ -69,7 +69,10 @@ namespace TailwindTraders.Mobile.Features.Scanning
                 throw new Exception("Initialize TensorflowLiteService first");
             }
 
-            MessagingCenter.Instance.Send(this, nameof(InputTensorMessage), new InputTensorMessage());
+            MessagingCenter.Instance.Send(this, nameof(AR.InputTensorMessage), new InputTensorMessage()
+            {
+                Colors = colors,
+            });
 
             using (var op = new BuildinOpResolver())
             {

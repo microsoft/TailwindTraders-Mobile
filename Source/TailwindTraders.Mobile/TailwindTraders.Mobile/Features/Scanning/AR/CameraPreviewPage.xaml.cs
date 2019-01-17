@@ -31,6 +31,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         private TimeSpan elapsedTimeSinceLastDetection;
         private double currentAnimationTicks;
         private Timer fadeOutTimer;
+        private int[] colors;
 
         public CameraPreviewPage()
         {
@@ -58,8 +59,12 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
             MessagingCenter.Instance.Subscribe<TensorflowLiteService, InputTensorMessage>(
                 this,
-                TensorflowLiteService.InpputTensorMessage,
-                (_, message) => canvasView.InvalidateSurface());
+                TensorflowLiteService.InputTensorMessage,
+                (_, message) =>
+                {
+                    colors = message.Colors;
+                    canvasView.InvalidateSurface();
+                });
 
             base.OnAppearing();
         }
@@ -74,7 +79,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
             MessagingCenter.Instance.Unsubscribe<TensorflowLiteService, InputTensorMessage>(
                 this,
-                TensorflowLiteService.InpputTensorMessage);
+                TensorflowLiteService.InputTensorMessage);
 
             base.OnDisappearing();
         }
@@ -105,23 +110,19 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
 
         private void DrawBitmap(SKCanvas canvas)
         {
-            // the pixel array of uint 32-bit colors
-            var pixelArray = new uint[]
-            {
-                0xFFFF0000,
-                0xFF00FF00,
-                0xFF0000FF,
-                0xFFFFFF00,
-            };
-
             // create an empty bitmap
             var bitmap = new SKBitmap();
 
             // pin the managed array so that the GC doesn't move it
-            var gcHandle = GCHandle.Alloc(pixelArray, GCHandleType.Pinned);
+            var gcHandle = GCHandle.Alloc(colors, GCHandleType.Pinned);
 
             // install the pixels with the color type of the pixel data
-            var info = new SKImageInfo(2, 2, SKImageInfo.PlatformColorType, SKAlphaType.Unpremul);
+            var info = new SKImageInfo(
+                TensorflowLiteService.ModelInputSize, 
+                TensorflowLiteService.ModelInputSize,
+                SKImageInfo.PlatformColorType, 
+                SKAlphaType.Unpremul);
+
             bitmap.InstallPixels(
                 info,
                 gcHandle.AddrOfPinnedObject(),
