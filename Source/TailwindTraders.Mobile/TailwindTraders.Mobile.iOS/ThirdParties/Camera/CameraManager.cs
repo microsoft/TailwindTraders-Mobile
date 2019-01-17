@@ -556,18 +556,13 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
             using (var scaledImage = CreateScaledImage(image))
             {
-                using (var rotatedImage = GetRotatedImage(scaledImage))
+                using (var rotatedImage = RotateImage(scaledImage, 90))
                 {
                     CopyColorsFromImage(rotatedImage);
 
                     tensorflowLiteService.Recognize(colors);
                 }
             }
-        }
-
-        private UIImage GetRotatedImage(UIImage image)
-        {
-            return UIImage.FromImage(image.CGImage, 1, UIImageOrientation.Right);
         }
 
         private UIImage CreateScaledImage(UIImage image)
@@ -611,6 +606,32 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
             handle.Free();
 
             ////FixColors(colors);
+        }
+
+        public UIImage RotateImage(UIImage image, float degree)
+        {
+            float radians = degree * (float)Math.PI / 180;
+
+            UIView view = new UIView(frame: new CGRect(0, 0, image.Size.Width, image.Size.Height));
+            CGAffineTransform t = CGAffineTransform.MakeRotation(radians);
+            view.Transform = t;
+            CGSize size = view.Frame.Size;
+
+            UIGraphics.BeginImageContext(size);
+            CGContext context = UIGraphics.GetCurrentContext();
+
+            context.TranslateCTM(size.Width / 2, size.Height / 2);
+            context.RotateCTM(radians);
+            context.ScaleCTM(1, -1);
+
+            context.DrawImage(
+                new CGRect(-image.Size.Width / 2, -image.Size.Height / 2, image.Size.Width, image.Size.Height),
+                image.CGImage);
+
+            UIImage imageCopy = UIGraphics.GetImageFromCurrentImageContext();
+            UIGraphics.EndImageContext();
+
+            return imageCopy;
         }
 
         private void FixColors(int[] colors)
