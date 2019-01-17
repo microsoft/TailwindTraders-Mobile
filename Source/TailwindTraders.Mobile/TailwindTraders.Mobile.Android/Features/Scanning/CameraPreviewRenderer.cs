@@ -90,15 +90,15 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
 
         public Activity Activity { get; set; }
 
-        private static readonly SparseIntArray ORIENTATIONS = new SparseIntArray();
+        private static readonly SparseIntArray Orientations = new SparseIntArray();
 
         public CameraPreviewRenderer(Context context)
             : base(context)
         {
-            ORIENTATIONS.Append((int)SurfaceOrientation.Rotation0, 90);
-            ORIENTATIONS.Append((int)SurfaceOrientation.Rotation90, 0);
-            ORIENTATIONS.Append((int)SurfaceOrientation.Rotation180, 270);
-            ORIENTATIONS.Append((int)SurfaceOrientation.Rotation270, 180);
+            Orientations.Append((int)SurfaceOrientation.Rotation0, 90);
+            Orientations.Append((int)SurfaceOrientation.Rotation90, 0);
+            Orientations.Append((int)SurfaceOrientation.Rotation180, 270);
+            Orientations.Append((int)SurfaceOrientation.Rotation270, 180);
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<CameraPreview> e)
@@ -580,7 +580,7 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
             // We have to take that into account and rotate JPEG properly.
             // For devices with orientation of 90, we simply return our mapping from ORIENTATIONS.
             // For devices with orientation of 270, we need to rotate the JPEG 180 degrees.
-            return (ORIENTATIONS.Get(rotation) + mSensorOrientation + 270) % 360;
+            return (Orientations.Get(rotation) + mSensorOrientation + 270) % 360;
         }
     }
 }
