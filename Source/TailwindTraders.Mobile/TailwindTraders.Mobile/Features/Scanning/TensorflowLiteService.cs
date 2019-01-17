@@ -123,12 +123,18 @@ namespace TailwindTraders.Mobile.Features.Scanning
 
         private void CopyColorsToTensor(IntPtr dest, int[] colors)
         {
-            for (int i = 0; i < colors.Length; ++i)
+            for (var i = 0; i < colors.Length; ++i)
             {
                 var val = colors[i];
-                quantizedColors[(i * 3) + 0] = (byte)((val >> 16) & 0xFF);
-                quantizedColors[(i * 3) + 1] = (byte)((val >> 8) & 0xFF);
-                quantizedColors[(i * 3) + 2] = (byte)(val & 0xFF);
+
+                //// AA RR GG BB
+                var r = (byte)((val >> 16) & 0xFF);
+                var g = (byte)((val >> 8) & 0xFF);
+                var b = (byte)(val & 0xFF);
+
+                quantizedColors[(i * 3) + 0] = r;
+                quantizedColors[(i * 3) + 1] = g;
+                quantizedColors[(i * 3) + 2] = b;
             }
 
             System.Runtime.InteropServices.Marshal.Copy(quantizedColors, 0, dest, quantizedColors.Length);

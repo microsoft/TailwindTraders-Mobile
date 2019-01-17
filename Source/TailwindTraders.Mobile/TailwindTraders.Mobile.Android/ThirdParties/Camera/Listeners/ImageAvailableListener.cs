@@ -93,10 +93,10 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
         {
             using (var bmp = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length))
             {
-                var orientation = owner.GetOrientation();
-
                 using (var scaledImage = ScaleImage(bmp))
                 {
+                    var orientation = owner.GetOrientation();
+
                     using (var rotatedImage = RotateImage(scaledImage, orientation))
                     {
                         //// SaveImg(rotatedImage);

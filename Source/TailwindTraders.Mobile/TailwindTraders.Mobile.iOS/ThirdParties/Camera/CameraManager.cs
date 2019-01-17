@@ -556,17 +556,18 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
             using (var scaledImage = CreateScaledImage(image))
             {
-                SaveImage(scaledImage);
-
-                using (var rotatedImage = UIImage.FromImage(scaledImage.CGImage, 1, UIImageOrientation.Right))
+                using (var rotatedImage = GetRotatedImage(scaledImage))
                 {
-                    SaveImage(rotatedImage);
-
                     CopyColorsFromImage(rotatedImage);
 
                     tensorflowLiteService.Recognize(colors);
                 }
             }
+        }
+
+        private UIImage GetRotatedImage(UIImage image)
+        {
+            return UIImage.FromImage(image.CGImage, 1, UIImageOrientation.Right);
         }
 
         private UIImage CreateScaledImage(UIImage image)
