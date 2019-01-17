@@ -556,50 +556,38 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
             using (var scaledImage = CreateScaledImage(image))
             {
-                CopyColorsFromImage(scaledImage);
-
-                RotateColors();
-
-                tensorflowLiteService.Recognize(colors);
-            }
-        }
-
-        private void RotateColors()
-        {
-            transposeColors();
-            reverseColumnsColors();
-        }
-
-        private void transposeColors()
-        {
-            for (int i = 0; i < 300; i++)
-            {
-                for (int j = i; j < 300; j++)
+                using (var rotatedImage = CreateRotatedImage(scaledImage, 90))
                 {
-                    var j_i = (j * 300) + i;
-                    var i_j = i + (j * 300);
+                    CopyColorsFromImage(rotatedImage);
 
-                    int temp = colors[j_i];
-                    colors[j_i] = colors[i_j];
-                    colors[i_j] = temp;
+                    tensorflowLiteService.Recognize(colors);
                 }
             }
         }
 
-        private void reverseColumnsColors()
+        private UIImage CreateRotatedImage(UIImage image, float degree)
         {
-            for (int i = 0; i < 300; i++)
-            {
-                for (int j = 0, k = 300 - 1; j < k; j++, k--)
-                {
-                    var j_i = (j * 300) + i;
-                    var k_i = (k * 300) + i;
+            float radians = degree * (float)Math.PI / 180;
 
-                    int temp = colors[j_i];
-                    colors[j_i] = colors[k_i];
-                    colors[k_i] = temp;
-                }
+            UIGraphics.BeginImageContext(image.Size);
+
+            UIImage rotatedImage;
+            using (var bitmap = UIGraphics.GetCurrentContext())
+            {
+                bitmap.TranslateCTM(image.Size.Width / 2, image.Size.Height / 2);
+                bitmap.RotateCTM(radians);
+                bitmap.ScaleCTM(1.0f, -1.0f);
+
+                bitmap.DrawImage(
+                    new CGRect(-image.Size.Width / 2, -image.Size.Height / 2, image.Size.Width, image.Size.Height),
+                    image.CGImage);
+
+                rotatedImage = UIGraphics.GetImageFromCurrentImageContext();
             }
+
+            UIGraphics.EndImageContext();
+
+            return rotatedImage;
         }
 
         private UIImage CreateScaledImage(UIImage image)
