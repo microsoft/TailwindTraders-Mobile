@@ -566,27 +566,11 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
 
         private void RotateColors()
         {
-            transpose(colors);
-            reverseColumns(colors);
+            transposeColors();
+            reverseColumnsColors();
         }
 
-        private void reverseColumns(int[] arr)
-        {
-            for (int i = 0; i < 300; i++)
-            {
-                for (int j = 0, k = 300 - 1; j < k; j++, k--)
-                {
-                    var j_i = (j * 300) + i;
-                    var k_i = (k * 300) + i;
-
-                    int temp = arr[j_i];
-                    arr[j_i] = arr[k_i];
-                    arr[k_i] = temp;
-                }
-            }
-        }
-
-        private void transpose(int[] arr)
+        private void transposeColors()
         {
             for (int i = 0; i < 300; i++)
             {
@@ -595,9 +579,25 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
                     var j_i = (j * 300) + i;
                     var i_j = i + (j * 300);
 
-                    int temp = arr[j_i];
-                    arr[j_i] = arr[i_j];
-                    arr[i_j] = temp;
+                    int temp = colors[j_i];
+                    colors[j_i] = colors[i_j];
+                    colors[i_j] = temp;
+                }
+            }
+        }
+
+        private void reverseColumnsColors()
+        {
+            for (int i = 0; i < 300; i++)
+            {
+                for (int j = 0, k = 300 - 1; j < k; j++, k--)
+                {
+                    var j_i = (j * 300) + i;
+                    var k_i = (k * 300) + i;
+
+                    int temp = colors[j_i];
+                    colors[j_i] = colors[k_i];
+                    colors[k_i] = temp;
                 }
             }
         }
