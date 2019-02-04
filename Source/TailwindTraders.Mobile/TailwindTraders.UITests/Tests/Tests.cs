@@ -27,7 +27,7 @@ namespace TailwindTraders.UITests
                 .AddToCart();
         }
 
-        ///[Test]
+        /// [Test]
         public void Repl()
         {
             app.Repl();
