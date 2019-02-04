@@ -1,5 +1,5 @@
 ﻿using CoreGraphics;
-using TailwindTraders.Mobile.Features.LogIn;
+using TailwindTraders.Mobile.Effects;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;

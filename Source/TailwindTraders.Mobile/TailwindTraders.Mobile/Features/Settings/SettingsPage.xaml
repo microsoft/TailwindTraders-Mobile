@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<framework:BaseContentPage
+  x:Class="TailwindTraders.Mobile.Features.Settings.SettingsPage"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:effects="using:TailwindTraders.Mobile.Effects"
+  xmlns:framework="using:TailwindTraders.Mobile.Framework"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:local="using:TailwindTraders.Mobile.Features.Settings"
+  Title="Settings"
+  ios:Page.UseSafeArea="true"
+  x:DataType="local:SettingsViewModel"
+  x:TypeArguments="local:SettingsViewModel">
+
+  <ContentPage.Content>
+
+    <Grid Margin="{StaticResource Default2Margin}">
+
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <StackLayout>
+
+        <View.Margin>
+          <Thickness Top="{StaticResource 2xDefaultMargin}" />
+        </View.Margin>
+
+        <Label
+          Style="{StaticResource BrandonGrotesqueLightSmallFontStyle}"
+          Text="Root API URL" />
+
+        <Entry Text="{Binding RootApiUrl}">
+
+          <Entry.Effects>
+            <effects:BorderlessEntryEffect />
+          </Entry.Effects>
+
+        </Entry>
+
+      </StackLayout>
+
+      <Button
+        Grid.Row="1"
+        Command="{Binding SaveCommand}"
+        Style="{StaticResource Accent2ColorButtonStyle}"
+        Text="SAVE" />
+
+    </Grid>
+
+  </ContentPage.Content>
+
+</framework:BaseContentPage>

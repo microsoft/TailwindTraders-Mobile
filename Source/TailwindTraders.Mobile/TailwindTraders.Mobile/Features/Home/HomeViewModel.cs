@@ -1,20 +1,20 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
+using TailwindTraders.Mobile.Features.Scanning.AR;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
+using TailwindTraders.Mobile.Framework;
+using TailwindTraders.Mobile.Helpers;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Home
 {
     public class HomeViewModel : BaseStateAwareViewModel<HomeViewModel.State>
     {
-        private readonly IHomeAPI homeAPI;
-
         public enum State
         { 
             EverythingOK,
@@ -22,13 +22,11 @@ namespace TailwindTraders.Mobile.Features.Home
         }
 
         private IEnumerable<Tuple<string, string, ICommand>> recommendedProducts;
-        private IEnumerable<Tuple<ProductDTO, ICommand>> popularProducts;
+        private IEnumerable<ProductViewModel> popularProducts;
         private IEnumerable<ProductDTO> previouslySeenProducts;
 
         public HomeViewModel()
         {
-            homeAPI = DependencyService.Get<IRestPoolService>().HomeAPI.Value;
-
             IsBusy = true;
         }
 
@@ -40,7 +38,7 @@ namespace TailwindTraders.Mobile.Features.Home
             set => SetAndRaisePropertyChanged(ref recommendedProducts, value);
         }
 
-        public IEnumerable<Tuple<ProductDTO, ICommand>> PopularProducts
+        public IEnumerable<ProductViewModel> PopularProducts
         {
             get => popularProducts;
             set => SetAndRaisePropertyChanged(ref popularProducts, value);
@@ -52,11 +50,10 @@ namespace TailwindTraders.Mobile.Features.Home
             set => SetAndRaisePropertyChanged(ref previouslySeenProducts, value);
         }
 
-        public ICommand PhotoCommand => new AsyncCommand(_ => App.NavigateModallyToAsync(
-            new CameraPage(), 
-            animated: false));
+        public ICommand PhotoCommand => new AsyncCommand(_ => App.NavigateToAsync(
+            new CameraPreviewTakePhotoPage()));
 
-        public ICommand ARCommand => FeatureNotAvailableCommand;
+        public ICommand ARCommand => new AsyncCommand(_ => App.NavigateToAsync(new CameraPreviewPage()));
 
         public ICommand LoadCommand => new AsyncCommand(_ => LoadDataAsync());
 
@@ -95,19 +92,19 @@ namespace TailwindTraders.Mobile.Features.Home
                 Tuple.Create("Lighting", "recommended_lighting.jpg", FeatureNotAvailableCommand),
             };
 
-            var homeResult = await ExecuteWithLoadingIndicatorsAsync(
-                () => homeAPI.GetAsync(AuthenticationService.AuthorizationHeader));
+            var homeResult = await TryExecuteWithLoadingIndicatorsAsync(
+                RestPoolService.HomeAPI.GetAsync(AuthenticationService.AuthorizationHeader));
 
-            if (!homeResult.IsSucceded || homeResult.Result == null || homeResult.Result.PopularProducts == null)
+            if (homeResult.IsError || homeResult.Value == null || homeResult.Value.PopularProducts == null)
             {
                 CurrentState = State.Error;
                 return;
             }
 
-            var popularProductsRaw = homeResult.Result.PopularProducts;
+            var popularProductsRaw = homeResult.Value.PopularProducts;
             var popularProductsWithCommand = popularProductsRaw.Select(
-                item => Tuple.Create(item, FeatureNotAvailableCommand));
-            PopularProducts = new List<Tuple<ProductDTO, ICommand>>(popularProductsWithCommand);
+                item => new ProductViewModel(item, FeatureNotAvailableCommand));
+            PopularProducts = new List<ProductViewModel>(popularProductsWithCommand);
 
             var randomProducts = popularProductsRaw.Shuffle().Take(3);
             PreviouslySeenProducts = new List<ProductDTO>(randomProducts);

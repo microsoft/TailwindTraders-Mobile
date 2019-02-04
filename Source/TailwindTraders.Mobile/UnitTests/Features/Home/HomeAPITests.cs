@@ -3,19 +3,22 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Refit;
-using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Home;
 using TailwindTraders.Mobile.Features.Settings;
+using TailwindTraders.Mobile.Helpers;
 
 namespace UnitTests.Features.Home
 {
     public class HomeAPITests
     {
+#if !DEBUG
+        [Ignore(Constants.IgnoreReason)]
+#endif
         [Test]
         public async Task GetProductsAsync()
         {
-            var productsAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(Settings.ProductApiUrl));
-            var home = await productsAPI.GetAsync(Settings.AnonymousToken);
+            var productsAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(DefaultSettings.ProductApiUrl));
+            var home = await productsAPI.GetAsync(DefaultSettings.AnonymousToken);
 
             Assert.IsNotEmpty(home.PopularProducts);
         }

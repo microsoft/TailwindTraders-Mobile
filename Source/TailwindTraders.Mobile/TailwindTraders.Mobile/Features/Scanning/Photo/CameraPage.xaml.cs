@@ -1,14 +1,12 @@
-﻿using Xamarin.Forms;
-
-namespace TailwindTraders.Mobile.Features.Scanning.Photo
+﻿namespace TailwindTraders.Mobile.Features.Scanning.Photo
 {
     public partial class CameraPage
     {
-        public CameraPage()
+        public CameraPage(string mediaPath)
         {
             InitializeComponent();
 
-            BindingContext = new CameraViewModel();
+            BindingContext = new CameraViewModel(mediaPath);
         }
     }
 }

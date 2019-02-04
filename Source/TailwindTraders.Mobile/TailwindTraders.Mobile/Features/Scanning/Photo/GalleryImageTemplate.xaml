@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<sharpnado-views:MaterialFrame
+  x:Class="TailwindTraders.Mobile.Features.Scanning.Photo.GalleryImageTemplate"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:photo="clr-namespace:TailwindTraders.Mobile.Features.Scanning.Photo"
+  xmlns:sharpnado-views="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
+  Padding="0"
+  x:DataType="photo:GalleryImageViewModel">
+
+  <Image
+    Aspect="AspectFill"
+    Source="{Binding ImageUrl}" />
+
+</sharpnado-views:MaterialFrame>

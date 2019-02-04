@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<common:BaseContentPage x:Name="cameraPage"
+<framework:BaseContentPage x:Name="cameraPage"
   x:Class="TailwindTraders.Mobile.Features.Scanning.Photo.CameraPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
-  xmlns:common="clr-namespace:TailwindTraders.Mobile.Features.Common"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:photo="clr-namespace:TailwindTraders.Mobile.Features.Scanning.Photo"
+  xmlns:scanning="clr-namespace:TailwindTraders.Mobile.Features.Scanning"
   ios:Page.UseSafeArea="true"
   x:DataType="photo:CameraViewModel"
   x:TypeArguments="photo:CameraViewModel"
   ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
   <ContentPage.Resources>
     <ResourceDictionary>
-      <photo:RecommendedItemTemplate x:Key="RecommendedItemTemplate" />
       <Color x:Key="BackgroundPageColor">#1B2D2C2C</Color>
     </ResourceDictionary>
   </ContentPage.Resources>
@@ -21,31 +21,25 @@
   <ContentPage.Content>
 
     <Grid BackgroundColor="{StaticResource BackgroundPageColor}">
-      <Label
-        Margin="{StaticResource DefaultMargin}"
-        HorizontalOptions="CenterAndExpand"
-        HorizontalTextAlignment="Center"
-        Style="{StaticResource BrandonGrotesqueMediumLargeFontStyle}"
-        Text="Take a photo to start the smart shopping experience!"
-        VerticalOptions="CenterAndExpand" />
 
       <Image
         Aspect="AspectFill"
         Source="{Binding CameraImage}" />
 
-
       <Grid>
 
-        <Button
-          BackgroundColor="Transparent"
+        <ImageButton
+          BackgroundColor="#20FFFFFF"
           Command="{Binding CloseCommand}"
           HorizontalOptions="Start"
-          Image="close"
+          Source="close"
           VerticalOptions="Start">
-          <Button.Margin>
-            <Thickness Left="{StaticResource Negative0.5xDefaultMargin}" />
-          </Button.Margin>
-        </Button>
+          <ImageButton.Margin>
+            <Thickness
+              Left="{StaticResource DefaultMargin}"
+              Top="{StaticResource DefaultMargin}" />
+          </ImageButton.Margin>
+        </ImageButton>
 
         <Grid VerticalOptions="End">
           <Grid.RowDefinitions>
@@ -57,9 +51,13 @@
           <carousel:CarouselViewControl
             Grid.Row="1"
             InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
-            ItemTemplate="{StaticResource RecommendedItemTemplate}"
-            ItemsSource="{Binding RecommendedProducts}" />
-
+            ItemsSource="{Binding RecommendedProducts}">
+            <carousel:CarouselViewControl.ItemTemplate>
+              <DataTemplate>
+                <scanning:RecommendedItem />
+              </DataTemplate>
+            </carousel:CarouselViewControl.ItemTemplate>
+          </carousel:CarouselViewControl>
 
           <Grid
             Grid.Row="2"
@@ -71,7 +69,8 @@
 
             <Button x:Name="takePhotoButton"
               Grid.Column="0"
-              Padding="0"
+              Padding="{OnPlatform Android=0,
+                                   iOS=8}"
               Command="{Binding TakePhotoCommand}"
               CornerRadius="{Binding Source={x:Reference takePhotoButton}, Path=Height, Converter={StaticResource DoubleToHalfFloatConverter}}"
               Image="photo"
@@ -82,7 +81,7 @@
               BackgroundColor="{StaticResource Accent2Color}"
               Command="{Binding AddCommand}"
               CornerRadius="{Binding Source={x:Reference addToListButton}, Path=Height, Converter={StaticResource DoubleToHalfFloatConverter}}"
-              Text="ADD TO LIST"
+              Text="ADD TO CART"
               TextColor="White">
               <Button.Margin>
                 <Thickness Left="{StaticResource 0.5xDefaultMargin}" />
@@ -97,4 +96,4 @@
     </Grid>
 
   </ContentPage.Content>
-</common:BaseContentPage>
+</framework:BaseContentPage>

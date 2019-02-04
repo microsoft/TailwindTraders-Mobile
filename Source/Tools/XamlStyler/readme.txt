@@ -1,1 +1,1 @@
-https://github.com/jacano/XamlStyler
+Custom version of XamlStyler from the following fork: https://github.com/jacano/XamlStyler

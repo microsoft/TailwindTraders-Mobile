@@ -1,6 +1,13 @@
-﻿using Foundation;
+using System;
+using Foundation;
 using Microsoft.AppCenter.Distribute;
 using Plugin.XSnack;
+using Sharpnado.Presentation.Forms.iOS;
+using TailwindTraders.Mobile.Features.Scanning;
+using TailwindTraders.Mobile.Features.Scanning.Photo;
+using TailwindTraders.Mobile.IOS.Features.Scanning;
+using TailwindTraders.Mobile.IOS.Features.Scanning.Photo;
+using TouchTracking.iOS;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -19,7 +26,9 @@ namespace TailwindTraders.Mobile.IOS
             Forms.SetFlags(new[] { "CollectionView_Experimental", "Shell_Experimental", "Visual_Experimental" });
             Forms.Init();
 
-            RegisterServices();
+            RegisterPlatformServices();
+
+            InitTensorflowService();
 
             Distribute.DontCheckForUpdatesInDebug();
             Xamarin.Calabash.Start();
@@ -50,12 +59,24 @@ namespace TailwindTraders.Mobile.IOS
 
         private void InitRenderersAndServices()
         {
+            CameraPreviewRenderer.Initialize();
             CarouselView.FormsPlugin.iOS.CarouselViewRenderer.Init();
+            SharpnadoInitializer.Initialize();
+            TouchRecognizer.Initialize();
+            TensorflowLiteService.DoNotStripMe();
         }
 
-        private void RegisterServices()
+        private void RegisterPlatformServices()
         {
             DependencyService.Register<IXSnack, XSnackImplementation>();
+            DependencyService.Register<IPlatformService, PlatformService>();
+            DependencyService.Register<TensorflowLiteService, TensorflowLiteService>();
+        }
+
+        private void InitTensorflowService()
+        {
+            var tensorflowLiteService = DependencyService.Get<TensorflowLiteService>();
+            tensorflowLiteService.Initialize(tensorflowLiteService.LabelFilename, tensorflowLiteService.ModelFilename);
         }
     }
 }
