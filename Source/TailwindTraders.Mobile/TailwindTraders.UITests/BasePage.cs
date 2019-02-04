@@ -7,7 +7,9 @@ namespace TailwindTraders.UITests
     public abstract class BasePage
     {
         protected IApp app => AppManager.App;
+
         protected bool OnAndroid => AppManager.Platform == Platform.Android;
+
         protected bool OniOS => AppManager.Platform == Platform.iOS;
 
         protected abstract PlatformQuery Trait { get; }
@@ -27,9 +29,13 @@ namespace TailwindTraders.UITests
             var message = "Unable to verify on page: " + this.GetType().Name;
 
             if (timeout == null)
+            {
                 Assert.IsNotEmpty(app.Query(Trait.Current), message);
+            }
             else
+            {
                 Assert.DoesNotThrow(() => app.WaitForElement(Trait.Current, timeout: timeout), message);
+            }
         }
 
         /// <summary>

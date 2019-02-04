@@ -2,29 +2,34 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TailwindTraders.Mobile.Features.Common;
-using TailwindTraders.Mobile.Features.Localization;
 using TailwindTraders.Mobile.Features.Product;
+using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Scanning.Photo
 {
     public class CameraViewModel : BaseViewModel
     {
+        private readonly string mediaPath;
+
         private readonly PhotoService photoService;
+        private readonly IPlatformService platformService;
         private readonly IVisionService visionService;
 
-        public ICommand CloseCommand => new AsyncCommand(App.NavigationRoot.Navigation.PopModalAsync);
+        public const string ReloadGalleryMessage = nameof(ReloadGalleryMessage);
+
+        public ICommand CloseCommand => new AsyncCommand(App.NavigateModallyBackAsync);
 
         public ICommand AddCommand => FeatureNotAvailableCommand;
 
-        public ICommand TakePhotoCommand => new AsyncCommand(TryTakePhotoAsync);
+        public ICommand TakePhotoCommand => new AsyncCommand(App.NavigateModallyBackAsync);
 
         private string cameraImage;
 
         public string CameraImage
         {
             get => cameraImage;
-            set => SetAndRaisePropertyChangedIfDifferentValues(ref cameraImage, value);
+            set => SetAndRaisePropertyChanged(ref cameraImage, value);
         }
 
         private List<ProductDTO> recommendedProducts;
@@ -32,12 +37,15 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
         public List<ProductDTO> RecommendedProducts
         {
             get => recommendedProducts;
-            set => SetAndRaisePropertyChangedIfDifferentValues(ref recommendedProducts, value);
+            set => SetAndRaisePropertyChanged(ref recommendedProducts, value);
         }
 
-        public CameraViewModel()
+        public CameraViewModel(string mediaPath)
         {
+            this.mediaPath = mediaPath;
+
             photoService = DependencyService.Get<PhotoService>();
+            platformService = DependencyService.Get<IPlatformService>();
             visionService = DependencyService.Get<IVisionService>();
         }
 
@@ -45,56 +53,33 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
         {
             await base.InitializeAsync();
 
-            await TryTakePhotoAsync();
-        }
+            var resized = platformService.ResizeImage(this.mediaPath, PhotoSize.Small, quality: 70);
 
-        private async Task TryTakePhotoAsync()
-        {
-            var isInitialized = await photoService.InitializeCameraAsync();
-            if (!isInitialized)
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                   Resources.Alert_Title_NoCameraSupport,
-                   Resources.Alert_Message_NoCameraSupport,
-                   Resources.Alert_OK);
-
-                await App.NavigationRoot.Navigation.PopModalAsync();
-
-                return;
-            }
-
-            var photoTakeResult = await photoService.TakePhotoAsync();
-            if (!photoTakeResult.IsSucceded)
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                   Resources.Alert_Title_NoCameraAccess,
-                   Resources.Alert_Message_NoCameraAccess,
-                   Resources.Alert_OK);
-
-                await App.NavigationRoot.Navigation.PopModalAsync();
-
-                return;
-            }
-
-            var wasPhotoTaken = !string.IsNullOrEmpty(photoTakeResult.Result);
-            if (!wasPhotoTaken)
+            // TODO: add error msg
+            if (!resized)
             {
                 return;
             }
 
-            CameraImage = photoTakeResult.Result;
+            CameraImage = this.mediaPath;
 
-            var visionResult = await ExecuteWithLoadingIndicatorsAsync(
-                () => visionService.GetRecommendedProductsFromPhotoAsync(CameraImage));
+            var visionResult = await TryExecuteWithLoadingIndicatorsAsync(
+                visionService.GetRecommendedProductsFromPhotoAsync(CameraImage));
 
-            var gotRecommendedProducts = visionResult.IsSucceded && visionResult.Result != 
-                default(IEnumerable<ProductDTO>);
+            var gotRecommendedProducts = visionResult && visionResult.Value != default(IEnumerable<ProductDTO>);
             if (!gotRecommendedProducts)
             {
                 return;
             }
 
-            RecommendedProducts = new List<ProductDTO>(visionResult.Result);
+            RecommendedProducts = new List<ProductDTO>(visionResult.Value);
+        }
+
+        public override async Task UninitializeAsync()
+        {
+            await base.UninitializeAsync();
+
+            MessagingCenter.Send(this, ReloadGalleryMessage);
         }
     }
 }

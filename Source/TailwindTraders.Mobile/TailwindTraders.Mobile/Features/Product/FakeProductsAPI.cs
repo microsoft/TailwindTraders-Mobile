@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Refit;
-using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Helpers;
 
 namespace TailwindTraders.Mobile.Features.Product
 {
@@ -16,8 +16,8 @@ namespace TailwindTraders.Mobile.Features.Product
             string type) =>
             await FakeNetwork.ReturnAsync(new ProductsPerTypeDTO { Products = FakeProducts.Fakes, });
 
-        public Task<IEnumerable<ProductDTO>> GetSimilarProductsAsync(
+        public async Task<IEnumerable<ProductDTO>> GetSimilarProductsAsync(
             [Header("Authorization")] string authorizationHeader, 
-            [AliasAs("file")] StreamPart stream) => Task.FromResult(FakeProducts.Fakes);
+            [AliasAs("file")] StreamPart stream) => await FakeNetwork.ReturnAsync(FakeProducts.Fakes);
     }
 }

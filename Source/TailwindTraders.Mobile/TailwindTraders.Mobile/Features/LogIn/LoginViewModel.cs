@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TailwindTraders.Mobile.Features.Common;
 using TailwindTraders.Mobile.Features.Localization;
+using TailwindTraders.Mobile.Features.Settings;
+using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.LogIn
@@ -28,20 +29,23 @@ namespace TailwindTraders.Mobile.Features.LogIn
 
         public ICommand LogInCommand => new AsyncCommand(LogInAsync);
 
-#if DEBUG
+#pragma warning disable CS0162
         public override async Task InitializeAsync()
         {
-            IsBusy = true;
+            if (DefaultSettings.ForceAutomaticLogin)
+            {
+                IsBusy = true;
+
+                // We simulate someone typing her credentials
+                await Task.Delay(TimeSpan.FromSeconds(0.5f));
+                Email = "foo";
+                Password = "bar";
+                LogInCommand.Execute(null);
+            }
 
             await base.InitializeAsync();
-
-            // We simulate someone typing her credentials
-            await Task.Delay(TimeSpan.FromSeconds(0.5f));
-            Email = "foo";
-            Password = "bar";
-            LogInCommand.Execute(null);
         }
-#endif
+#pragma warning restore CS0162
 
         public ICommand MicrosoftLogInCommand => FeatureNotAvailableCommand;
 
@@ -52,12 +56,6 @@ namespace TailwindTraders.Mobile.Features.LogIn
             MessagingCenter.Send(this, LogInFinishedMessage);
         }
 
-        private async Task CloseLogInAsync()
-        {
-            var navigation = Application.Current.MainPage.Navigation;
-            await navigation.PopModalAsync();
-        }
-
         private async Task LogInAsync()
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
@@ -66,12 +64,11 @@ namespace TailwindTraders.Mobile.Features.LogIn
                 return;
             }
 
-            var result = await ExecuteWithLoadingIndicatorsAsync(
-                () => AuthenticationService.LogInAsync(email, password));
+            var result = await TryExecuteWithLoadingIndicatorsAsync(AuthenticationService.LogInAsync(email, password));
 
-            if (result.IsSucceded)
+            if (result)
             {
-                await CloseLogInAsync();
+                await App.NavigateModallyBackAsync();
             }
         }
     }

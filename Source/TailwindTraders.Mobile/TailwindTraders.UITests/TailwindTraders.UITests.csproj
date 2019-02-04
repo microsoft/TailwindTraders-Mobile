@@ -38,7 +38,6 @@
     <Compile Include="Tests\Tests.cs" />
     <Compile Include="Pages\HomePage.cs" />
     <Compile Include="Pages\HomeAppliancesListPage.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Pages\ApplianceDetailPage.cs" />
   </ItemGroup>
   <ItemGroup>

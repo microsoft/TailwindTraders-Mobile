@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Grid
+  x:Class="TailwindTraders.Mobile.Features.Scanning.RecommendedItem"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:product="clr-namespace:TailwindTraders.Mobile.Features.Product"
+  x:DataType="product:ProductDTO"
+  HeightRequest="160">
+  <Grid.Padding>
+    <Thickness
+      Left="{StaticResource DefaultMargin}"
+      Right="{StaticResource DefaultMargin}" />
+  </Grid.Padding>
+
+  <Frame
+    BackgroundColor="White"
+    CornerRadius="12">
+
+    <Grid Margin="{StaticResource DefaultMargin}">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <ContentView>
+        <ContentView.Margin>
+          <Thickness
+            Top="{StaticResource DefaultMargin}"
+            Bottom="{StaticResource DefaultMargin}" />
+        </ContentView.Margin>
+        <Frame x:Name="imageFrame"
+          Grid.Column="0"
+          CornerRadius="{Binding Source={x:Reference imageFrame}, Path=Height, Converter={StaticResource DoubleToHalfFloatConverter}}"
+          IsClippedToBounds="true"
+          WidthRequest="{Binding Source={x:Reference imageFrame}, Path=Height}">
+
+          <Image
+            Aspect="AspectFill"
+            Source="{Binding ImageUrl}" />
+
+        </Frame>
+      </ContentView>
+
+      <Grid
+        Grid.Column="1"
+        RowSpacing="{StaticResource 0.25xDefaultMargin}">
+        <Grid.Margin>
+          <Thickness Left="{StaticResource DefaultMargin}" />
+        </Grid.Margin>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label
+          Grid.Row="0"
+          LineBreakMode="TailTruncation"
+          MaxLines="1"
+          Style="{StaticResource BrandonGrotesqueMediumDefaultFontStyle}"
+          Text="{Binding Brand.Name}"
+          TextColor="{StaticResource AccentColor}">
+          <Label.Margin>
+            <Thickness Top="{StaticResource Negative0.25xDefaultMargin}" />
+          </Label.Margin>
+        </Label>
+
+        <Label
+          Grid.Row="1"
+          LineBreakMode="TailTruncation"
+          MaxLines="2"
+          Style="{StaticResource BrandonGrotesqueMediumDefaultFontStyle}"
+          Text="{Binding Name}"
+          TextColor="{StaticResource AccentColor}"
+          VerticalOptions="Center"
+          VerticalTextAlignment="Center" />
+
+        <Label
+          Grid.Row="2"
+          Style="{StaticResource BrandonGrotesqueMediumMediumFontStyle}"
+          Text="{Binding Price, StringFormat='${0}'}"
+          VerticalTextAlignment="Start">
+          <Label.Margin>
+            <Thickness Bottom="{StaticResource Negative0.25xDefaultMargin}" />
+          </Label.Margin>
+        </Label>
+      </Grid>
+
+    </Grid>
+
+  </Frame>
+</Grid>

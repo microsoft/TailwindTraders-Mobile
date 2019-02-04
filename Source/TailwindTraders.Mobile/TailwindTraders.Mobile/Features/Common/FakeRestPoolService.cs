@@ -1,5 +1,4 @@
-﻿using System;
-using TailwindTraders.Mobile.Features.Home;
+﻿using TailwindTraders.Mobile.Features.Home;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
 
@@ -7,10 +6,15 @@ namespace TailwindTraders.Mobile.Features.Common
 {
     public class FakeRestPoolService : IRestPoolService
     {
-        public Lazy<IProfilesAPI> ProfilesAPI => new Lazy<IProfilesAPI>(() => new FakeProfilesAPI());
+        public IProfilesAPI ProfilesAPI { get; } = new FakeProfilesAPI();
 
-        public Lazy<IHomeAPI> HomeAPI => new Lazy<IHomeAPI>(() => new FakeHomeAPI());
+        public IHomeAPI HomeAPI { get; } = new FakeHomeAPI();
 
-        public Lazy<IProductsAPI> ProductsAPI => new Lazy<IProductsAPI>(() => new FakeProductsAPI());
+        public IProductsAPI ProductsAPI { get; } = new FakeProductsAPI();
+
+        public void UpdateApiUrl(string newApiUrl)
+        {
+            // Intentionally blank
+        }
     }
 }

@@ -76,6 +76,11 @@
 
   <MenuItem
     BindingContext="{x:Reference theShell}"
+    Command="{Binding BindingContext.SettingsCommand}"
+    Text="Settings" />
+
+  <MenuItem
+    BindingContext="{x:Reference theShell}"
     Command="{Binding BindingContext.LogOutCommand}"
     Text="Log out" />
 

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<framework:BaseContentPage x:Name="cameraPreviewPage"
+  x:Class="TailwindTraders.Mobile.Features.Scanning.AR.CameraPreviewPage"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:ar="clr-namespace:TailwindTraders.Mobile.Features.Scanning.AR"
+  xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:product="clr-namespace:TailwindTraders.Mobile.Features.Product"
+  xmlns:scanning="clr-namespace:TailwindTraders.Mobile.Features.Scanning"
+  xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+  Title="AR Mode"
+  ios:Page.UseSafeArea="true"
+  x:DataType="ar:CameraPreviewViewModel"
+  x:TypeArguments="ar:CameraPreviewViewModel"
+  ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+  <ContentPage.Content>
+
+    <AbsoluteLayout>
+
+      <ContentPresenter x:Name="cameraControl"
+        AbsoluteLayout.LayoutFlags="All"
+        AbsoluteLayout.LayoutBounds="0, 0, 1, 1" />
+
+      <skia:SKCanvasView x:Name="canvasView"
+        AbsoluteLayout.LayoutFlags="All"
+        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+        PaintSurface="CanvasView_PaintSurface" />
+
+      <skia:SKCanvasView x:Name="canvasDebugView"
+        AbsoluteLayout.LayoutFlags="All"
+        AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+        PaintSurface="canvasDebugView_PaintSurface" />
+
+      <carousel:CarouselViewControl
+        AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+        AbsoluteLayout.LayoutBounds="0.5, 1, 1, 200"
+        InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
+        ItemsSource="{Binding RecommendedProducts}">
+        <View.Margin>
+          <!--
+            Although this margin's actually 24 in the Design we force 8 because the others 16 come from below Button's
+            TranslationY
+          -->
+          <Thickness Bottom="{StaticResource 0.5xDefaultMargin}" />
+        </View.Margin>
+        <carousel:CarouselViewControl.ItemTemplate>
+          <DataTemplate x:DataType="product:ProductViewModel">
+
+            <StackLayout>
+
+              <scanning:RecommendedItem BindingContext="{Binding Product}" />
+
+              <Button
+                BackgroundColor="{StaticResource Accent2Color}"
+                Command="{Binding Command}"
+                CornerRadius="28"
+                HeightRequest="56"
+                HorizontalOptions="Center"
+                Text="ADD TO LIST"
+                TextColor="White"
+                TranslationY="{StaticResource NegativeDefaultMargin}"
+                WidthRequest="264" />
+
+            </StackLayout>
+
+          </DataTemplate>
+        </carousel:CarouselViewControl.ItemTemplate>
+      </carousel:CarouselViewControl>
+
+    </AbsoluteLayout>
+
+  </ContentPage.Content>
+
+</framework:BaseContentPage>

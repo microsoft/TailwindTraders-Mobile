@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<framework:BaseContentPage x:Name="cameraPage"
+  x:Class="TailwindTraders.Mobile.Features.Scanning.Photo.CameraPreviewTakePhotoPage"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:photo="clr-namespace:TailwindTraders.Mobile.Features.Scanning.Photo"
+  xmlns:sharpnado="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
+  xmlns:sharpnado-effects="clr-namespace:Sharpnado.Presentation.Forms.Effects;assembly=Sharpnado.Presentation.Forms"
+  xmlns:touchtracking="clr-namespace:TouchTracking"
+  Title="Smart shopping"
+  ios:Page.UseSafeArea="true"
+  x:DataType="photo:CameraPreviewTakePhotoViewModel"
+  x:TypeArguments="photo:CameraPreviewTakePhotoViewModel"
+  ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+
+      <photo:GalleryImageTemplate x:Key="GalleryImageTemplate" />
+
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ContentPage.Content>
+
+    <Grid>
+
+      <ContentPresenter x:Name="cameraControl" />
+
+      <StackLayout VerticalOptions="EndAndExpand">
+
+        <!-- 96 (HeightRequest) = 80 + 8 (ItemSpacing) * 2; because ItemSpacing forces such at every side -->
+        <sharpnado:HorizontalListView
+          Grid.Row="1"
+          HeightRequest="96"
+          HorizontalOptions="FillAndExpand"
+          ItemHeight="80"
+          ItemSpacing="{StaticResource 0.5xDefaultMarginInt}"
+          ItemWidth="80"
+          ItemsSource="{Binding GalleryPhotos}">
+
+          <sharpnado:HorizontalListView.ItemTemplate>
+            <DataTemplate>
+              <ViewCell x:DataType="photo:GalleryImageViewModel">
+
+                <photo:GalleryImageTemplate
+                  sharpnado-effects:TapCommandEffect.Tap="{Binding TappedCommand}"
+                  sharpnado-effects:TapCommandEffect.TapParameter="{Binding ImageUrl}"
+                  sharpnado-effects:ViewEffect.TouchFeedbackColor="{StaticResource AccentColor}" />
+
+              </ViewCell>
+            </DataTemplate>
+          </sharpnado:HorizontalListView.ItemTemplate>
+
+          <sharpnado:HorizontalListView.CollectionPadding>
+            <Thickness
+              Left="{StaticResource 0.5xDefaultMargin}"
+              Right="{StaticResource 0.5xDefaultMargin}" />
+          </sharpnado:HorizontalListView.CollectionPadding>
+
+        </sharpnado:HorizontalListView>
+
+        <Grid>
+
+          <Grid.Effects>
+
+            <touchtracking:TouchEffect
+              TapAction="OnTapEffectActionAsync"
+              TouchAction="OnTouchEffectActionAsync" />
+
+          </Grid.Effects>
+
+          <Image x:Name="captureButton"
+            AnchorX="0.5"
+            AnchorY="0.5"
+            Source="capture">
+
+            <Image.Margin>
+              <Thickness
+                Top="{StaticResource DefaultMargin}"
+                Bottom="{StaticResource DefaultMargin}" />
+            </Image.Margin>
+
+          </Image>
+
+        </Grid>
+
+      </StackLayout>
+
+    </Grid>
+
+  </ContentPage.Content>
+
+</framework:BaseContentPage>

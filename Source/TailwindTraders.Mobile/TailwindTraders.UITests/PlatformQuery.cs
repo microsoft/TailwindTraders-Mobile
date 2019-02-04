@@ -11,7 +11,9 @@ namespace TailwindTraders.UITests
             set
             {
                 if (AppManager.Platform == Platform.Android)
+                {
                     current = value;
+                }
             }
         }
 
@@ -20,17 +22,22 @@ namespace TailwindTraders.UITests
             set
             {
                 if (AppManager.Platform == Platform.iOS)
+                {
                     current = value;
+                }
             }
         }
 
-        Func<AppQuery, AppQuery> current;
+        private Func<AppQuery, AppQuery> current;
+
         public Func<AppQuery, AppQuery> Current
         {
             get
             {
                 if (current == null)
+                {
                     throw new NullReferenceException("Trait not set for current platform");
+                }
 
                 return current;
             }

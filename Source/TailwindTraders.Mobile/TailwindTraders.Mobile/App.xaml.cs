@@ -1,11 +1,7 @@
 using System.Threading.Tasks;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
-using Microsoft.AppCenter.Distribute;
 using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Features.Logging;
 using TailwindTraders.Mobile.Features.LogIn;
-using TailwindTraders.Mobile.Features.Scanning.Photo;
 using TailwindTraders.Mobile.Features.Settings;
 using TailwindTraders.Mobile.Features.Shell;
 using Xamarin.Forms;
@@ -25,10 +21,6 @@ namespace TailwindTraders.Mobile
 
             RegisterServicesAndProviders();
 
-#if DEBUG
-            Resources.Add(nameof(DebugConverter), new DebugConverter());
-#endif
-
             MainPage = new TheShell();
         }
 
@@ -43,10 +35,6 @@ namespace TailwindTraders.Mobile
         protected override void OnStart()
         {
             base.OnStart();
-
-#if !DEBUG
-            InitializeAppCenter();
-#endif
         }
 
         // It provides a navigatable section for elements which aren't explicitly defined within the Shell. For example,
@@ -72,6 +60,8 @@ namespace TailwindTraders.Mobile
 
         internal static async Task NavigateBackAsync() => await NavigationRoot.Navigation.PopAsync();
 
+        internal static async Task NavigateModallyBackAsync() => await NavigationRoot.Navigation.PopModalAsync();
+
         internal static async Task NavigateToAsync(Page page, bool closeFlyout = false)
         {
             if (closeFlyout)
@@ -88,15 +78,19 @@ namespace TailwindTraders.Mobile
             await NavigationRoot.Navigation.PushModalAsync(page, animated).ConfigureAwait(false);
         }
 
+#pragma warning disable CS0162 
         private void RegisterServicesAndProviders()
         {
-#if DEBUG
-            DependencyService.Register<DebugLoggingService>();
-#else
-            DependencyService.Register<AppCenterLoggingService>();
-#endif
+            if (DefaultSettings.UseDebugLogging)
+            {
+                DependencyService.Register<DebugLoggingService>();
+            }
+            else
+            {
+                DependencyService.Register<AppCenterLoggingService>();
+            }
 
-            if (Settings.UseFakeAPIs)
+            if (DefaultSettings.UseFakeAPIs)
             {
                 DependencyService.Register<FakeRestPoolService>();
             }
@@ -105,7 +99,7 @@ namespace TailwindTraders.Mobile
                 DependencyService.Register<RestPoolService>();
             }
 
-            if (Settings.UseFakeAuthentication)
+            if (DefaultSettings.UseFakeAuthentication)
             {
                 DependencyService.Register<FakeAuthenticationService>();
             }
@@ -114,15 +108,6 @@ namespace TailwindTraders.Mobile
                 DependencyService.Register<AuthenticationService>();
             }
         }
-
-        private static void InitializeAppCenter()
-        {
-            AppCenter.LogLevel = LogLevel.Verbose;
-            AppCenter.Start(
-                $"ios={Settings.AppCenteriOSSecret}​;android={Settings.AppCenterAndroidSecret}",
-                typeof(Analytics),
-                typeof(Crashes),
-                typeof(Distribute));
-        }
+#pragma warning restore CS0162 
     }
 }

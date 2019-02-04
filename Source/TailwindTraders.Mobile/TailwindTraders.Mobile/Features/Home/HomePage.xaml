@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<common:BaseStateAwareContentPage x:Name="homePage"
+<framework:BaseStateAwareContentPage x:Name="homePage"
   x:Class="TailwindTraders.Mobile.Features.Home.HomePage"
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
   xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
-  xmlns:common="clr-namespace:TailwindTraders.Mobile.Features.Common"
+  xmlns:controls="clr-namespace:TailwindTraders.Mobile.Controls"
+  xmlns:effects="clr-namespace:TailwindTraders.Mobile.Effects"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Home"
+  xmlns:xfbindablestacklayout="clr-namespace:XFBindableStackLayout"
   Title="Home"
   ios:Page.UseSafeArea="true"
   x:DataType="local:HomeViewModel"
@@ -18,42 +21,15 @@
     <ResourceDictionary>
 
       <local:RecommendedItemTemplate x:Key="RecommendedItemTemplate" />
-      <local:PopularItemTemplate x:Key="PopularItemTemplate" />
-      <local:PreviouslySeenItemTemplate x:Key="PreviouslySeenItemTemplate" />
 
       <Style
         BasedOn="{StaticResource ShadowfullBoxViewStyle}"
         TargetType="BoxView" />
 
-      <Style TargetType="Button">
-        <Setter Property="BackgroundColor">White</Setter>
-        <Setter Property="CornerRadius">32</Setter>
-        <Setter Property="HeightRequest">64</Setter>
-        <Setter Property="Margin">
-          <Thickness
-            Left="40"
-            Top="{StaticResource DefaultMargin}"
-            Right="40" />
-        </Setter>
-        <Setter Property="android:Button.UseDefaultShadow">true</Setter>
-        <Setter Property="ios:VisualElement.IsShadowEnabled">true</Setter>
-        <Setter Property="ios:VisualElement.ShadowColor">Black</Setter>
-        <Setter Property="ios:VisualElement.ShadowOffset" Value="10,10" />
-        <Setter Property="ios:VisualElement.ShadowOpacity">0.2</Setter>
-      </Style>
-
-      <Style x:Key="HeaderLabelStyle"
-        BasedOn="{StaticResource Header1FontStyle}"
-        TargetType="Label">
-        <Setter Property="Margin">
-          <Thickness
-            Left="{StaticResource 2xDefaultMargin}"
-            Top="{StaticResource 3xDefaultMargin}"
-            Right="{StaticResource 2xDefaultMargin}"
-            Bottom="{StaticResource 2xDefaultMargin}" />
-        </Setter>
-        <Setter Property="HorizontalOptions" Value="Center" />
-      </Style>
+      <Thickness x:Key="ButtonMargin"
+        Left="40"
+        Top="{StaticResource DefaultMargin}"
+        Right="40" />
 
     </ResourceDictionary>
   </ContentPage.Resources>
@@ -109,23 +85,27 @@
             Source="header.jpg" />
 
           <Button
+            Margin="{StaticResource ButtonMargin}"
             Command="{Binding PhotoCommand}"
             Image="photo"
+            Style="{StaticResource DefaultShadowfullButtonStyle}"
             Text="Start Smart Shopping&#x0a;by taking a photo">
 
             <Button.Effects>
-              <local:MultilineButtonEffect />
+              <effects:MultilineButtonEffect />
             </Button.Effects>
 
           </Button>
 
           <Button
+            Margin="{StaticResource ButtonMargin}"
             Command="{Binding ARCommand}"
             Image="ia"
+            Style="{StaticResource DefaultShadowfullButtonStyle}"
             Text="Start Smart Shopping&#x0a;by using AR">
 
             <Button.Effects>
-              <local:MultilineButtonEffect />
+              <effects:MultilineButtonEffect />
             </Button.Effects>
 
           </Button>
@@ -135,6 +115,7 @@
             Command="{Binding LoadCommand}"
             HorizontalOptions="Center"
             IsVisible="false"
+            Style="{StaticResource DefaultShadowfullButtonStyle}"
             Text="Try fetch products again">
             <VisualStateManager.VisualStateGroups>
               <VisualStateGroup Name="States">
@@ -170,7 +151,7 @@
               Style="{StaticResource HeaderLabelStyle}"
               Text="POPULAR PRODUCTS" />
 
-            <local:FixedRatioCarouselViewControl x:Name="popularProductsCarousel"
+            <controls:FixedRatioCarouselViewControl
               InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
               ItemTemplate="{StaticResource PopularItemTemplate}"
               ItemsSource="{Binding PopularProducts}" />
@@ -189,14 +170,14 @@
 
             </Label>
 
-            <common:BindableStackLayout
+            <xfbindablestacklayout:BindableStackLayout
               ItemTemplate="{StaticResource PreviouslySeenItemTemplate}"
               ItemsSource="{Binding PreviouslySeenProducts}"
               Spacing="{StaticResource DefaultMargin}">
-              <common:BindableStackLayout.Margin>
+              <View.Margin>
                 <Thickness Bottom="{StaticResource 4xDefaultMargin}" />
-              </common:BindableStackLayout.Margin>
-            </common:BindableStackLayout>
+              </View.Margin>
+            </xfbindablestacklayout:BindableStackLayout>
 
             <VisualStateManager.VisualStateGroups>
               <VisualStateGroup Name="States">
@@ -238,4 +219,4 @@
 
   </ContentPage.Content>
 
-</common:BaseStateAwareContentPage>
+</framework:BaseStateAwareContentPage>

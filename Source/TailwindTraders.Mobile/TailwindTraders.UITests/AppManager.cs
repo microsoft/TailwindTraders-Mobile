@@ -3,30 +3,39 @@ using Xamarin.UITest;
 
 namespace TailwindTraders.UITests
 {
-    static class AppManager
+    internal static class AppManager
     {
-        const string ApkPath = "../../../Binaries/com.microsoft.tailwindtraders-Signed.apk";
-        const string AppPath = "../../../Binaries/TailwindTraders.Mobile.iOS.app";
-        const string IpaBundleId = "com.microsoft.TailwindTraders-df";
+        private const string ApkPath = "../../../Binaries/com.microsoft.tailwindtraders-Signed.apk";
+        private const string AppPath = "../../../Binaries/TailwindTraders.Mobile.iOS.app";
+        private const string IpaBundleId = "com.microsoft.TailwindTraders-df";
 
-        static IApp app;
+        private static IApp app;
+
         public static IApp App
         {
             get
             {
                 if (app == null)
-                    throw new NullReferenceException("'AppManager.App' not set. Call 'AppManager.StartApp()' before trying to access it.");
+                {
+                    throw new NullReferenceException(
+                        "'AppManager.App' not set. Call 'AppManager.StartApp()' before trying to access it.");
+                }
+
                 return app;
             }
         }
 
-        static Platform? platform;
+        private static Platform? platform;
+
         public static Platform Platform
         {
             get
             {
                 if (platform == null)
+                {
                     throw new NullReferenceException("'AppManager.Platform' not set.");
+                }
+
                 return platform.Value;
             }
 
@@ -42,8 +51,7 @@ namespace TailwindTraders.UITests
             {
                 app = ConfigureApp
                     .Android
-                    // Used to run a .apk file:
-                    .ApkFile(ApkPath)
+                    .ApkFile(ApkPath) // Used to run a .apk file
                     .StartApp();
             }
 
@@ -51,10 +59,9 @@ namespace TailwindTraders.UITests
             {
                 app = ConfigureApp
                     .iOS
-                    // Used to run a .app file on an ios simulator:
-                    .AppBundle(AppPath)
-                    // Used to run a .ipa file on a physical ios device:
-                    //.InstalledApp(IpaBundleId)
+                    .AppBundle(AppPath) // Used to run a .app file on an ios simulator
+
+                    // .InstalledApp(IpaBundleId) // Used to run a .ipa file on a physical ios device
                     .StartApp();
             }
         }

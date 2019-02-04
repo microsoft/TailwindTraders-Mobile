@@ -1,0 +1,71 @@
+https://medium.com/tensorflow/training-and-serving-a-realtime-mobile-object-detector-in-30-minutes-with-cloud-tpus-b78971cf1193
+https://medium.com/@lmoroney_40129/installing-tensorflow-with-gpu-on-windows-10-3309fec55a00
+
+https://github.com/tzutalin/labelImg/files/2638199/windows_v1.8.1.zip
+
+
+PS:
+curl.exe -L https://www.python.org/ftp/python/3.7.2/python-3.7.2-amd64.exe --output python-3.7.2-amd64.exe
+python-3.7.2-amd64.exe
+
+pip install pandas
+
+pip install Pillow
+pip install https://github.com/fo40225/tensorflow-windows-wheel/raw/master/1.12.0/py37/GPU/cuda100cudnn73sse2/tensorflow_gpu-1.12.0-cp37-cp37m-win_amd64.whl
+
+
+git clone https://github.com/tensorflow/models
+
+https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_411.31_win10
+
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.0
+https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v7.3.1/prod/10.0_2018927/cudnn-10.0-windows10-x64-v7.3.1.20
+
+curl.exe -L https://github.com/protocolbuffers/protobuf/releases/download/v3.6.1/protoc-3.6.1-win32.zip --output protoc-3.6.1-win32.zip 
+add protoc to PATH
+
+cd models\research\
+Get-ChildItem -File .\object_detection\protos\ | Foreach { protoc .\object_detection\protos\$_ --python_out=. }
+
+
+
+
+
+Ubuntu 18.04 LTS for Windows
+
+sudo apt update
+sudo apt -y upgrade
+
+sudo apt install python-pip
+pip install numpy
+pip install keras
+ 
+sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python
+
+wget https://github.com/bazelbuild/bazel/releases/download/0.21.0/bazel-0.21.0-installer-linux-x86_64.sh
+
+chmod +x bazel-0.21.0-installer-linux-x86_64.sh
+./bazel-0.21.0-installer-linux-x86_64.sh --user
+export PATH="$PATH:$HOME/bin"
+
+
+git clone https://github.com/tensorflow/tensorflow
+cd tensorflow
+touch WORKSPACE
+./configure
+
+
+https://www.tensorflow.org/lite/convert/cmdline_examples
+
+
+bazel run //tensorflow/lite/toco:toco -- \
+--output_file=/mnt/c/Users/jacano/Desktop/detect.tflite \
+--input_file=/mnt/c/Users/jacano/Desktop/tflite_graph.pb \
+--input_shapes=1,300,300,3 \
+--input_arrays=normalized_input_image_tensor \
+--output_arrays='TFLite_Detection_PostProcess','TFLite_Detection_PostProcess:1','TFLite_Detection_PostProcess:2','TFLite_Detection_PostProcess:3'  \
+--inference_type=QUANTIZED_UINT8 \
+--mean_values=128 \
+--std_values=128 \
+--change_concat_input_ranges=false \
+--allow_custom_ops

@@ -28,7 +28,6 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
 
         public void OnSurfaceTextureSizeChanged(Android.Graphics.SurfaceTexture surface, int width, int height)
         {
-            owner.ConfigureTransform(width, height);
         }
 
         public void OnSurfaceTextureUpdated(Android.Graphics.SurfaceTexture surface)
