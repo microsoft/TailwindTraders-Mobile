@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Xamarin.UITest;
 
 namespace TailwindTraders.UITests
@@ -9,7 +8,9 @@ namespace TailwindTraders.UITests
     public abstract class BaseTestFixture
     {
         protected IApp app => AppManager.App;
+
         protected bool OnAndroid => AppManager.Platform == Platform.Android;
+
         protected bool OniOS => AppManager.Platform == Platform.iOS;
 
         protected BaseTestFixture(Platform platform)

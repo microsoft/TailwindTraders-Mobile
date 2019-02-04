@@ -7,13 +7,13 @@ namespace TailwindTraders.UITests
 {
     public class HomePage : BasePage
     {
-        readonly Query menuButton;
-        readonly Func<string, Query> menuOptions;
+        private readonly Query menuButton;
+        private readonly Func<string, Query> menuOptions;
 
         protected override PlatformQuery Trait => new PlatformQuery
         {
             Android = x => x.Marked("main.scrollview"),
-            iOS = x => x.Marked("header.jpg")
+            iOS = x => x.Marked("header.jpg"),
         };
 
         public HomePage()
