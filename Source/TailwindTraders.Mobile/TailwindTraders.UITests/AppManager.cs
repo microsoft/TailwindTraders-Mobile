@@ -5,7 +5,7 @@ namespace TailwindTraders.UITests
 {
     internal static class AppManager
     {
-        private const string ApkPath = "../../../Binaries/com.microsoft.tailwindtraders-Signed.apk";
+        private const string ApkPath = "../../../TailwindTraders.Mobile.Android/bin/UITEST/com.microsoft.tailwindtraders-Signed.apk";
         private const string AppPath = "../../../Binaries/TailwindTraders.Mobile.iOS.app";
         private const string IpaBundleId = "com.microsoft.TailwindTraders-df";
 

@@ -23,7 +23,7 @@ namespace TailwindTraders.Mobile.Features.Settings
         public const bool EnableARDiagnostics = DebugMode;
 
         public const bool DebugMode =
-#if DEBUG
+#if DEBUG || IS_UI_TEST
             true;
 #else
             false;

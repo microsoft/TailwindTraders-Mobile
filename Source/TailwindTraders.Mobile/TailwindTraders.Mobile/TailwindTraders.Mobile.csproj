@@ -2,12 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Configurations>Debug;Release;UITEST</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <DefineConstants>$(DefineConstants);LIVEXAML_DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='UITEST'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>TRACE;LIVEXAML_DEBUG; IS_UI_TEST</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -24,6 +31,9 @@
     <PackageReference Include="System.Buffers" Version="4.5.0" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="LiveXAML" Version="2.1.59" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="LiveXAML" Condition="'$(Configuration)'=='UITEST'">
+      <Version>2.1.59</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.8055-pre1" />
