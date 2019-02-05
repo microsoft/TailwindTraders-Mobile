@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using TailwindTraders.Mobile.Features.Settings;
 
 namespace TailwindTraders.Mobile.Helpers
 {
@@ -13,10 +14,12 @@ namespace TailwindTraders.Mobile.Helpers
         public static async Task<T> ReturnAsync<T>(T result)
         {
             await Task.Delay(TimeSpan.FromSeconds(1));
-
-            if (random.Next() % OneOutOfNetworkErrors == 0)
+            if (DefaultSettings.FailRandomly)
             {
-                throw new HttpRequestException();
+                if (random.Next() % OneOutOfNetworkErrors == 0)
+                {
+                    throw new HttpRequestException();
+                }
             }
 
             return result;

@@ -14,7 +14,19 @@ namespace TailwindTraders.Mobile.Features.Settings
 
         public const bool UseFakeAuthentication = DebugMode;
 
-        public const bool ForceAutomaticLogin = DebugMode;
+        public const bool ForceAutomaticLogin =
+#if IS_UI_TEST
+            false;
+#else
+        DebugMode;
+#endif
+
+        public const bool FailRandomly =
+#if IS_UI_TEST
+            false;
+#else
+        DebugMode;
+#endif
 
         public const bool AndroidDebuggable = DebugMode;
 
