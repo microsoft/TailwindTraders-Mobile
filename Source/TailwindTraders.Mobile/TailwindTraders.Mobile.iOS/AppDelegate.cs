@@ -31,8 +31,9 @@ namespace TailwindTraders.Mobile.IOS
             InitTensorflowService();
 
             Distribute.DontCheckForUpdatesInDebug();
+#if ENABLE_TEST_CLOUD
             Xamarin.Calabash.Start();
-
+#endif
             LoadApplication(new App());
 
             CustomizeAppearance();
