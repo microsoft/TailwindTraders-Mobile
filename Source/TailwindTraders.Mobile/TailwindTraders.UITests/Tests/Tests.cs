@@ -22,9 +22,7 @@ namespace TailwindTraders.UITests
                 .SignIn();
 
             new HomePage();
-            
         }
-
 
         [Test]
         public void EmptySignInTest()

@@ -1,99 +1,111 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<framework:BaseContentPage x:Class="TailwindTraders.Mobile.Features.LogIn.LogInPage"
-                           xmlns="http://xamarin.com/schemas/2014/forms"
-                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                           xmlns:effects="clr-namespace:TailwindTraders.Mobile.Effects"
-                           xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
-                           xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.LogIn"
-                           x:DataType="local:LoginViewModel"
-                           x:TypeArguments="local:LoginViewModel"
-                           ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+<framework:BaseContentPage
+  x:Class="TailwindTraders.Mobile.Features.LogIn.LogInPage"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:effects="clr-namespace:TailwindTraders.Mobile.Effects"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
+  xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.LogIn"
+  x:DataType="local:LoginViewModel"
+  x:TypeArguments="local:LoginViewModel"
+  ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
 
-    <ContentPage.Content>
+  <ContentPage.Content>
 
-        <Grid>
-            <Grid.Padding>
-                <Thickness Left="{StaticResource Default2Margin}"
-                           Right="{StaticResource Default2Margin}" />
-            </Grid.Padding>
+    <Grid>
+      <Grid.Padding>
+        <Thickness
+          Left="{StaticResource Default2Margin}"
+          Right="{StaticResource Default2Margin}" />
+      </Grid.Padding>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
 
-            <ContentView Grid.Row="0">
+      <ContentView Grid.Row="0">
 
-                <Image Margin="{StaticResource DefaultMargin}"
-                       HeightRequest="64"
-                       HorizontalOptions="Center"
-                       Source="logo_horizontal_b.png"
-                       VerticalOptions="Center"
-                       WidthRequest="240" />
+        <Image
+          Margin="{StaticResource DefaultMargin}"
+          HeightRequest="64"
+          HorizontalOptions="Center"
+          Source="logo_horizontal_b.png"
+          VerticalOptions="Center"
+          WidthRequest="240" />
 
-            </ContentView>
+      </ContentView>
 
-            <StackLayout Grid.Row="1">
+      <StackLayout Grid.Row="1">
 
-                <Label Style="{StaticResource BrandonGrotesqueLightSmallFontStyle}"
-                       Text="Email" />
+        <Label
+          Style="{StaticResource BrandonGrotesqueLightSmallFontStyle}"
+          Text="Email" />
 
-                <Entry AutomationId="username"
-                       Text="{Binding Email}">
+        <Entry Text="{Binding Email}"
+          AutomationId="username">
 
-                    <Entry.Effects>
-                        <effects:BorderlessEntryEffect />
-                    </Entry.Effects>
+          <Entry.Effects>
+            <effects:BorderlessEntryEffect />
+          </Entry.Effects>
 
-                </Entry>
+        </Entry>
 
-                <Label Style="{StaticResource BrandonGrotesqueLightSmallFontStyle}"
-                       Text="Password">
-                    <Label.Margin>
-                        <Thickness Top="{OnPlatform Android={StaticResource DefaultMargin}, iOS={StaticResource 2xDefaultMargin}}" />
-                    </Label.Margin>
-                </Label>
+        <Label
+          Style="{StaticResource BrandonGrotesqueLightSmallFontStyle}"
+          Text="Password">
+          <Label.Margin>
+            <Thickness Top="{OnPlatform Android={StaticResource DefaultMargin}, iOS={StaticResource 2xDefaultMargin}}" />
+          </Label.Margin>
+        </Label>
 
-                <Entry IsPassword="true"
-                       AutomationId="password"
-                       Text="{Binding Password}">
-                    <Entry.Effects>
-                        <effects:BorderlessEntryEffect />
-                    </Entry.Effects>
-                </Entry>
+        <Entry
+          IsPassword="true"
+          Text="{Binding Password}"
+          AutomationId="password">
+          <Entry.Effects>
+            <effects:BorderlessEntryEffect />
+          </Entry.Effects>
+        </Entry>
 
-            </StackLayout>
+      </StackLayout>
 
-            <StackLayout Grid.Row="2"
-                         Spacing="{StaticResource Default2Margin}"
-                         VerticalOptions="End">
-                <StackLayout.Padding>
-                    <Thickness Top="{OnPlatform Android={StaticResource 2xDefaultMargin},
+      <StackLayout
+        Grid.Row="2"
+        Spacing="{StaticResource Default2Margin}"
+        VerticalOptions="End">
+        <StackLayout.Padding>
+          <Thickness
+            Top="{OnPlatform Android={StaticResource 2xDefaultMargin},
                              iOS={StaticResource 4xDefaultMargin}}"
-                               Bottom="{OnPlatform Android={StaticResource 2xDefaultMargin},
+            Bottom="{OnPlatform Android={StaticResource 2xDefaultMargin},
                                 iOS={StaticResource 4xDefaultMargin}}" />
-                </StackLayout.Padding>
+        </StackLayout.Padding>
 
-                <Button Command="{Binding LogInCommand}"
-                        Style="{StaticResource Accent2ColorButtonStyle}"
-                        Text="LOG IN" />
+        <Button
+          Command="{Binding LogInCommand}"
+          Style="{StaticResource Accent2ColorButtonStyle}"
+          Text="LOG IN"
+          AutomationId="LOG IN" />
 
-                <Label HorizontalOptions="Center"
-                       Text="OR" />
+        <Label
+          HorizontalOptions="Center"
+          Text="OR" />
 
-                <!-- ContentLayout's spacing's sort of a magic number -->
-                <Button BackgroundColor="#0C76FF"
-                        Command="{Binding MicrosoftLogInCommand}"
-                        ContentLayout="{OnPlatform Android='Left,-64',
+        <!-- ContentLayout's spacing's sort of a magic number -->
+        <Button
+          BackgroundColor="#0C76FF"
+          Command="{Binding MicrosoftLogInCommand}"
+          ContentLayout="{OnPlatform Android='Left,-64',
                                      iOS='Left,8'}"
-                        Image="logo_microsoft_w"
-                        Style="{StaticResource Accent2ColorButtonStyle}"
-                        Text="Log in with Microsoft account" />
+          Image="logo_microsoft_w"
+          Style="{StaticResource Accent2ColorButtonStyle}"
+          Text="Log in with Microsoft account" />
 
-            </StackLayout>
+      </StackLayout>
 
-        </Grid>
+    </Grid>
 
-    </ContentPage.Content>
+  </ContentPage.Content>
 </framework:BaseContentPage>
