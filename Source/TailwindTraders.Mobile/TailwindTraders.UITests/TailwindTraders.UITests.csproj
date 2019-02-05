@@ -44,6 +44,7 @@
     <Compile Include="AppManager.cs" />
     <Compile Include="BasePage.cs" />
     <Compile Include="BaseTestFixture.cs" />
+    <Compile Include="Pages\SettingsPage.cs" />
     <Compile Include="PlatformQuery.cs" />
     <Compile Include="Tests\Tests.cs" />
     <Compile Include="Pages\HomePage.cs" />

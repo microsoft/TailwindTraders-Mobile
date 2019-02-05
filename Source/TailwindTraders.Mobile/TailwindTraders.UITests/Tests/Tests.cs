@@ -27,10 +27,14 @@ namespace TailwindTraders.UITests
                 .AddToCart();
         }
 
-        /// [Test]
-        public void Repl()
+        [Test]
+        public void SaveSettingsTest()
         {
-            app.Repl();
+            new HomePage()
+                .SelectMenuOption("Settings");
+
+            new SettingsPage()
+                .SaveSettings();
         }
     }
 }
