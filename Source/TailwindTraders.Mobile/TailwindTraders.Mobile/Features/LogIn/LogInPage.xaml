@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <framework:BaseContentPage
   x:Class="TailwindTraders.Mobile.Features.LogIn.LogInPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
@@ -43,9 +43,9 @@
           Style="{StaticResource BrandonGrotesqueLightSmallFontStyle}"
           Text="Email" />
 
-        <Entry Text="{Binding Email}"
-          AutomationId="username">
-
+        <Entry
+          AutomationId="username"
+          Text="{Binding Email}">
           <Entry.Effects>
             <effects:BorderlessEntryEffect />
           </Entry.Effects>
@@ -61,9 +61,9 @@
         </Label>
 
         <Entry
+          AutomationId="passwordField"
           IsPassword="true"
-          Text="{Binding Password}"
-          AutomationId="passwordField">
+          Text="{Binding Password}">
           <Entry.Effects>
             <effects:BorderlessEntryEffect />
           </Entry.Effects>
@@ -84,10 +84,10 @@
         </StackLayout.Padding>
 
         <Button
+          AutomationId="LOG IN"
           Command="{Binding LogInCommand}"
           Style="{StaticResource Accent2ColorButtonStyle}"
-          Text="LOG IN"
-          AutomationId="LOG IN" />
+          Text="LOG IN" />
 
         <Label
           HorizontalOptions="Center"
