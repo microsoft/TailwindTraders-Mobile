@@ -10,7 +10,7 @@ namespace TailwindTraders.UITests
 
         private const string UITestiOSPath = "../../../TailwindTraders.Mobile.iOS/bin/iPhone/UITEST/";
         private const string AppPath = UITestiOSPath + "TailwindTraders.Mobile.iOS.app";
-        private const string IpaBundleId = "com.microsoft.TailwindTraders";
+        private const string IpaBundleId = "TailwindTraders.Mobile.iOS.ipa";
 
         private static IApp app;
 
