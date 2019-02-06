@@ -5,11 +5,12 @@ namespace TailwindTraders.UITests
 {
     internal static class AppManager
     {
-        private const string UITestPath = "../../../TailwindTraders.Mobile.Android/bin/UITEST/";
-        private const string ApkPath = UITestPath + "com.microsoft.tailwindtraders-Signed.apk";
+        private const string UITestAndroidPath = "../../../TailwindTraders.Mobile.Android/bin/UITEST/";
+        private const string ApkPath = UITestAndroidPath + "com.microsoft.tailwindtraders-Signed.apk";
 
-        private const string AppPath = "../../../Binaries/TailwindTraders.Mobile.iOS.app";
-        private const string IpaBundleId = "com.microsoft.TailwindTraders-df";
+        private const string UITestiOSPath = "../../../TailwindTraders.Mobile.iOS/bin/iPhone/UITEST/";
+        private const string AppPath = UITestiOSPath + "TailwindTraders.Mobile.iOS.app";
+        private const string IpaBundleId = "com.microsoft.TailwindTraders";
 
         private static IApp app;
 
@@ -61,9 +62,9 @@ namespace TailwindTraders.UITests
             {
                 app = ConfigureApp
                     .iOS
-                    .AppBundle(AppPath) // Used to run a .app file on an ios simulator
+                    //.AppBundle(AppPath) // Used to run a .app file on an ios simulator
 
-                    // .InstalledApp(IpaBundleId) // Used to run a .ipa file on a physical ios device
+                     .InstalledApp(IpaBundleId) // Used to run a .ipa file on a physical ios device
                     .StartApp();
             }
         }

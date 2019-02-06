@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <framework:BaseContentPage
   x:Class="TailwindTraders.Mobile.Features.LogIn.LogInPage"
   xmlns="http://xamarin.com/schemas/2014/forms"
@@ -63,7 +63,7 @@
         <Entry
           IsPassword="true"
           Text="{Binding Password}"
-          AutomationId="password">
+          AutomationId="passwordField">
           <Entry.Effects>
             <effects:BorderlessEntryEffect />
           </Entry.Effects>

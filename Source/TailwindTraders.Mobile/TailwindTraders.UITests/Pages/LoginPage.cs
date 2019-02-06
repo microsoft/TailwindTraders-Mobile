@@ -1,5 +1,4 @@
 ﻿// Aliases Func<AppQuery, AppQuery> with Query
-using System;
 using Query = System.Func<Xamarin.UITest.Queries.AppQuery, Xamarin.UITest.Queries.AppQuery>;
 
 namespace TailwindTraders.UITests
@@ -13,13 +12,13 @@ namespace TailwindTraders.UITests
         protected override PlatformQuery Trait => new PlatformQuery
         {
             Android = x => x.Marked("main.scrollview"),
-            iOS = x => x.Marked("header.jpg"),
+            iOS = x => x.Marked("logo_horizontal_b.png"),
         };
 
         public LoginPage()
         {
             emailField = x => x.Marked("username");
-            passwordField = x => x.Marked("password");
+            passwordField = x => x.Marked("passwordField");
             loginButton = x => x.Marked("LOG IN");
         }
 
