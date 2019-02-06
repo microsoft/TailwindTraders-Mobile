@@ -62,7 +62,7 @@ namespace TailwindTraders.UITests
             {
                 app = ConfigureApp
                     .iOS
-                    //.AppBundle(AppPath) // Used to run a .app file on an ios simulator
+                    ////.AppBundle(AppPath) // Used to run a .app file on an ios simulator
 
                      .InstalledApp(IpaBundleId) // Used to run a .ipa file on a physical ios device
                     .StartApp();
