@@ -8,7 +8,6 @@ UNIT_TESTS_PROJECT_PATH="Source/TailwindTraders.Mobile/UnitTests/UnitTests.cspro
 
 dotnet test $APPCENTER_SOURCE_DIRECTORY/$UNIT_TESTS_PROJECT_PATH -c Release
 
-#!/usr/bin/env bash
 #
 # Compiles a Xamarin.UITest project, and runs it as a test run in AppCenter. Android version
 #
@@ -27,6 +26,11 @@ dotnet test $APPCENTER_SOURCE_DIRECTORY/$UNIT_TESTS_PROJECT_PATH -c Release
 
 if [ -z "$ENABLE_UITESTS" ]; then
 	echo "ERROR! You need to define in AppCenter the ENABLE_UITESTS environment variable. UI Tests will not run. Exiting..."
+	exit 0
+fi
+
+if [ -z "$APPCENTER_TOKEN" ]; then
+	echo "ERROR! AppCenter API token is not set. Exiting..."
 	exit 0
 fi
 

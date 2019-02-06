@@ -10,32 +10,29 @@ namespace TailwindTraders.Mobile.Features.Settings
 
         public const string AppCenteriOSSecret = "ENTER_YOUR_GUID_HERE";
 
-        public const bool UseFakeAPIs = DebugMode;
+        public const bool UseFakeAPIs = UITestMode || DebugMode;
 
-        public const bool UseFakeAuthentication = DebugMode;
+        public const bool UseFakeAuthentication = UITestMode || DebugMode;
 
-        public const bool ForceAutomaticLogin =
-#if IS_UI_TEST
-            false;
-#else
-        DebugMode;
-#endif
+        public const bool ForceAutomaticLogin = !UITestMode || DebugMode;
 
-        public const bool FailRandomly =
-#if IS_UI_TEST
-            false;
-#else
-        DebugMode;
-#endif
+        public const bool BreakNetworkRandomly = !UITestMode || DebugMode;
 
         public const bool AndroidDebuggable = DebugMode;
 
-        public const bool UseDebugLogging = DebugMode;
+        public const bool UseDebugLogging = UITestMode || DebugMode;
 
         public const bool EnableARDiagnostics = DebugMode;
 
         public const bool DebugMode =
-#if DEBUG || IS_UI_TEST
+#if DEBUG 
+            true;
+#else
+            false;
+#endif
+
+        public const bool UITestMode =
+#if IS_UI_TEST
             true;
 #else
             false;

@@ -8,13 +8,21 @@ UNIT_TESTS_PROJECT_PATH="Source/TailwindTraders.Mobile/UnitTests/UnitTests.cspro
 
 dotnet test $APPCENTER_SOURCE_DIRECTORY/$UNIT_TESTS_PROJECT_PATH -c Release
 
-echo "Post Build Script Started"
-
+#
+# Compiles a Xamarin.UITest project, and runs it as a test run in AppCenter. iOS version
+#
+################################################################################################
+##### NOTE: TO RUN THE TESTS, YOU NEED TO DEFINE THE "ENABLE_UITESTS" ENVIRONMENT VARIABLE #####
+################################################################################################
+#
 # Environment variables :
+#
 # - APPCENTER_TOKEN. You need an AppCenter API token. Instructions on how to get it in https://docs.microsoft.com/en-us/appcenter/api-docs/
 # - APPCENTER_PROJECT_NAME. URL of App Center project. For example: AppCenterDemos/TailWindTraders
 # - DEVICES. ID or IDs of devices or device sets previously created in AppCenter. Defaults to "iPhone 8, iOS 12.1" (de95e76a)
 # - ENABLE_UITESTS. Set to true if you want to run UI Tests
+#
+# NOTE: UI_TEST_TOOLS_DIR is where "test-cloud.exe" is. By default in AppCenter is /Users/vsts/.nuget/packages/xamarin.uitest/<xamarin uitest version>/tools
 
 if [ -z "$ENABLE_UITESTS" ]; then
 	echo "ERROR! You need to define in AppCenter the ENABLE_UITESTS environment variable. UI Tests will not run. Exiting..."

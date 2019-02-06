@@ -10,7 +10,7 @@ namespace TailwindTraders.UITests
 
         private const string UITestiOSPath = "../../../TailwindTraders.Mobile.iOS/bin/iPhone/UITEST/";
         private const string AppPath = UITestiOSPath + "TailwindTraders.Mobile.iOS.app";
-        private const string IpaBundleId = "TailwindTraders.Mobile.iOS.ipa";
+        private const string IpaFileName = "TailwindTraders.Mobile.iOS.ipa";
 
         private static IApp app;
 
@@ -62,9 +62,9 @@ namespace TailwindTraders.UITests
             {
                 app = ConfigureApp
                     .iOS
-                    ////.AppBundle(AppPath) // Used to run a .app file on an ios simulator
 
-                     .InstalledApp(IpaBundleId) // Used to run a .ipa file on a physical ios device
+                    // .AppBundle(AppPath) // Used to run a .app file on an ios simulator
+                    .InstalledApp(IpaFileName) // Used to run a .ipa file on a physical ios device
                     .StartApp();
             }
         }

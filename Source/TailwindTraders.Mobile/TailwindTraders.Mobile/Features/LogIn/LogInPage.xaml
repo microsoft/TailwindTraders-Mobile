@@ -44,7 +44,7 @@
           Text="Email" />
 
         <Entry
-          AutomationId="username"
+          AutomationId="usernameField"
           Text="{Binding Email}">
           <Entry.Effects>
             <effects:BorderlessEntryEffect />
@@ -84,7 +84,7 @@
         </StackLayout.Padding>
 
         <Button
-          AutomationId="LOG IN"
+          AutomationId="loginButton"
           Command="{Binding LogInCommand}"
           Style="{StaticResource Accent2ColorButtonStyle}"
           Text="LOG IN" />

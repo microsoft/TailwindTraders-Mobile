@@ -51,8 +51,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <LangVersion>7.1</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>G:\TailwindTraders-Mobile\Source\TailwindTraders.Mobile\\CodeAnalysis\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <ErrorReport>prompt</ErrorReport>    
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>

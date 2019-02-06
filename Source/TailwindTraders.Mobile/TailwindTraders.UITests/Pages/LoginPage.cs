@@ -5,7 +5,7 @@ namespace TailwindTraders.UITests
 {
     public class LoginPage : BasePage
     {
-        private readonly Query emailField;
+        private readonly Query userNameField;
         private readonly Query passwordField;
         private readonly Query loginButton;
 
@@ -17,15 +17,15 @@ namespace TailwindTraders.UITests
 
         public LoginPage()
         {
-            emailField = x => x.Marked("username");
+            userNameField = x => x.Marked("usernameField");
             passwordField = x => x.Marked("passwordField");
-            loginButton = x => x.Marked("LOG IN");
+            loginButton = x => x.Marked("loginButton");
         }
 
         public LoginPage EnterCredentials(string userName, string password)
         {
-            app.WaitForElement(emailField);
-            app.Tap(emailField);
+            app.WaitForElement(userNameField);
+            app.Tap(userNameField);
             app.EnterText(userName);
             app.DismissKeyboard();
 

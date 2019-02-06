@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TailwindTraders.UITests
 {
-    public class TestsSettings
+    public static class TestsSettings
     {
         public const string TestUsername = "testuser";
         public const string TestPassword = "1234";

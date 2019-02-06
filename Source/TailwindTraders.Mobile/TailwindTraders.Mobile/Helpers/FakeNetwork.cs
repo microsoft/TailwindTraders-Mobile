@@ -14,7 +14,7 @@ namespace TailwindTraders.Mobile.Helpers
         public static async Task<T> ReturnAsync<T>(T result)
         {
             await Task.Delay(TimeSpan.FromSeconds(1));
-            if (DefaultSettings.FailRandomly)
+            if (DefaultSettings.BreakNetworkRandomly)
             {
                 if (random.Next() % OneOutOfNetworkErrors == 0)
                 {

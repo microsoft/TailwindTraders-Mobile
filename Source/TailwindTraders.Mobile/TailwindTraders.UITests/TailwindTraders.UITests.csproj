@@ -34,8 +34,7 @@
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.1</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>G:\TailwindTraders-Mobile\Source\TailwindTraders.Mobile\\CodeAnalysis\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <ErrorReport>prompt</ErrorReport>    
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
