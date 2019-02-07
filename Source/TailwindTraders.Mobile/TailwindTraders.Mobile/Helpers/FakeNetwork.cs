@@ -14,6 +14,8 @@ namespace TailwindTraders.Mobile.Helpers
         public static async Task<T> ReturnAsync<T>(T result)
         {
             await Task.Delay(TimeSpan.FromSeconds(1));
+
+#pragma warning disable CS0162
             if (DefaultSettings.BreakNetworkRandomly)
             {
                 if (random.Next() % OneOutOfNetworkErrors == 0)
@@ -21,6 +23,7 @@ namespace TailwindTraders.Mobile.Helpers
                     throw new HttpRequestException();
                 }
             }
+#pragma warning restore CS0162
 
             return result;
         }
