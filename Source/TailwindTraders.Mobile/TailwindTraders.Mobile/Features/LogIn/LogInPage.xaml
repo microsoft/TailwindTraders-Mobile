@@ -43,8 +43,9 @@
           Style="{StaticResource BrandonGrotesqueLightSmallFontStyle}"
           Text="Email" />
 
-        <Entry Text="{Binding Email}">
-
+        <Entry
+          AutomationId="usernameField"
+          Text="{Binding Email}">
           <Entry.Effects>
             <effects:BorderlessEntryEffect />
           </Entry.Effects>
@@ -60,6 +61,7 @@
         </Label>
 
         <Entry
+          AutomationId="passwordField"
           IsPassword="true"
           Text="{Binding Password}">
           <Entry.Effects>
@@ -82,6 +84,7 @@
         </StackLayout.Padding>
 
         <Button
+          AutomationId="loginButton"
           Command="{Binding LogInCommand}"
           Style="{StaticResource Accent2ColorButtonStyle}"
           Text="LOG IN" />

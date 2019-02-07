@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using TailwindTraders.Mobile.Features.Settings;
 
 namespace TailwindTraders.Mobile.Helpers
 {
@@ -14,10 +15,15 @@ namespace TailwindTraders.Mobile.Helpers
         {
             await Task.Delay(TimeSpan.FromSeconds(1));
 
-            if (random.Next() % OneOutOfNetworkErrors == 0)
+#pragma warning disable CS0162
+            if (DefaultSettings.BreakNetworkRandomly)
             {
-                throw new HttpRequestException();
+                if (random.Next() % OneOutOfNetworkErrors == 0)
+                {
+                    throw new HttpRequestException();
+                }
             }
+#pragma warning restore CS0162
 
             return result;
         }

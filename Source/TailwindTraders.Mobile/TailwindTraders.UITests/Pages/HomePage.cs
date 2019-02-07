@@ -36,8 +36,8 @@ namespace TailwindTraders.UITests
             app.WaitForElement(menuButton);
             app.Tap(menuButton);
 
-            app.WaitForElement(menuOptions("Home Appliances"));
-            app.Tap(menuOptions("Home Appliances"));
+            app.WaitForElement(menuOptions(option));
+            app.Tap(menuOptions(option));
         }
     }
 }

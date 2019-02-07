@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
+    <Configurations>Debug;Release;UITEST</Configurations>
   </PropertyGroup>
 
 </Project>
