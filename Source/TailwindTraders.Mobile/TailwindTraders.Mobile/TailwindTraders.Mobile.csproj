@@ -33,7 +33,7 @@
     <PackageReference Include="LiveXAML" Version="2.1.59" Condition="'$(Configuration)'=='Debug'" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.0.1" />
-    <PackageReference Include="Xamarin.Forms" Version="4.0.0.8055-pre1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.232914-pre6" />
     <PackageReference Include="Plugin.XSnack" Version="1.0.17" />
     <PackageReference Include="Refit" Version="4.6.58" />
     <PackageReference Include="CarouselView.FormsPlugin" Version="5.2.0" />
