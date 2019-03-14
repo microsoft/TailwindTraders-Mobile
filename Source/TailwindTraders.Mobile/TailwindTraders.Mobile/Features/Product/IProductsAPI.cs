@@ -14,11 +14,5 @@ namespace TailwindTraders.Mobile.Features.Product
         [Get("/products")]
         Task<ProductsPerTypeDTO> GetProductsAsync(
             [Header(DefaultSettings.ApiAuthorizationHeader)] string authorizationHeader, string type);
-
-        [Multipart]
-        [Post("/products/imageclassifier")]
-        Task<IEnumerable<ProductDTO>> GetSimilarProductsAsync(
-            [Header(DefaultSettings.ApiAuthorizationHeader)] string authorizationHeader,
-            [AliasAs("file")] StreamPart stream);
     }
 }

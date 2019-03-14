@@ -17,9 +17,13 @@ namespace TailwindTraders.Mobile.Features.Common
 
         public ILoginAPI LoginAPI { get; private set; }
 
+        public ISimilarProductsAPI SimilarProductsAPI { get; private set; }
+
         public RestPoolService()
         {
             UpdateApiUrl(DefaultSettings.RootApiUrl);
+
+            SimilarProductsAPI = RestService.For<ISimilarProductsAPI>(HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
         }
 
         public void UpdateApiUrl(string newApiUrl)

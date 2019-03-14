@@ -14,6 +14,8 @@ namespace TailwindTraders.Mobile.Features.Common
 
         public ILoginAPI LoginAPI { get; } = new FakeLoginAPI();
 
+        public ISimilarProductsAPI SimilarProductsAPI { get; } = new FakeSimilarProductsAPI();
+
         public void UpdateApiUrl(string newApiUrl)
         {
             // Intentionally blank

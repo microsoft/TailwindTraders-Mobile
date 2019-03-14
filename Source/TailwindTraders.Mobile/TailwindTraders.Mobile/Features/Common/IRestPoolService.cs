@@ -14,6 +14,8 @@ namespace TailwindTraders.Mobile.Features.Common
 
         ILoginAPI LoginAPI { get; }
 
+        ISimilarProductsAPI SimilarProductsAPI { get; }
+
         void UpdateApiUrl(string newApiUrl);
     }
 }

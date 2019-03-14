@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -16,11 +17,13 @@ namespace UnitTests.Features.Product
     public class ProductsAPITests : BaseAPITest
     {
         private IProductsAPI productsAPI;
+        private ISimilarProductsAPI similarProductsAPI;
 
         [SetUp]
         public void Init()
         {
             productsAPI = RestService.For<IProductsAPI>(HttpClientFactory.Create(DefaultSettings.RootApiUrl));
+            similarProductsAPI = RestService.For<ISimilarProductsAPI>(HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
         }
 
         [Test]
@@ -52,11 +55,17 @@ namespace UnitTests.Features.Product
             using (var photoStream = File.Open(img, FileMode.Open))
             {
                 var streamPart = new StreamPart(photoStream, "photo.jpg", "image/jpeg");
+                try
+                {
+                    var products =
+                        await similarProductsAPI.GetSimilarProductsAsync(authenticationBearer, streamPart);
 
-                var products = await this.PreauthenticateAsync(
-                    () => productsAPI.GetSimilarProductsAsync(authenticationBearer, streamPart));
+                    Assert.IsNotEmpty(products);
+                }
+                catch (Exception ex)
+                {
 
-                Assert.IsNotEmpty(products);
+                }
             }
         }
     }
