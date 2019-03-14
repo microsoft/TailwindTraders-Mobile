@@ -30,8 +30,10 @@ namespace TailwindTraders.Mobile.Droid
 
             InitRenderersAndServices(savedInstanceState);
 
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Forms.SetFlags(new[] { "CollectionView_Experimental", "Shell_Experimental", "Visual_Experimental" });
             Forms.Init(this, savedInstanceState);
+
 
             RegisterPlatformServices();
 
@@ -45,6 +47,7 @@ namespace TailwindTraders.Mobile.Droid
             string[] permissions,
             Permission[] grantResults)
         {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             Plugin.Permissions.PermissionsImplementation.Current.OnRequestPermissionsResult(
                 requestCode,
                 permissions,

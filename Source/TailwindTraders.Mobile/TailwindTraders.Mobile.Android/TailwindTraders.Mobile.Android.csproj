@@ -32,7 +32,8 @@
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
-    <AndroidSupportedAbis>arm64-v8a;armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a</AndroidSupportedAbis>
+    <MandroidI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,7 +52,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <LangVersion>7.1</LangVersion>
-    <ErrorReport>prompt</ErrorReport>    
+    <ErrorReport>prompt</ErrorReport>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
@@ -88,6 +89,9 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0-preview8" />
     <PackageReference Include="Xamarin.Android.Support.Compat">
       <Version>28.0.0-preview8</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>4.0.0.8055-pre1</Version>
