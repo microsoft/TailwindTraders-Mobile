@@ -34,7 +34,6 @@ namespace TailwindTraders.Mobile.Droid
             Forms.SetFlags(new[] { "CollectionView_Experimental", "Shell_Experimental", "Visual_Experimental" });
             Forms.Init(this, savedInstanceState);
 
-
             RegisterPlatformServices();
 
             InitTensorflowService();
