@@ -23,7 +23,8 @@ namespace UnitTests.Features.Product
         public void Init()
         {
             productsAPI = RestService.For<IProductsAPI>(HttpClientFactory.Create(DefaultSettings.RootApiUrl));
-            similarProductsAPI = RestService.For<ISimilarProductsAPI>(HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
+            similarProductsAPI = RestService.For<ISimilarProductsAPI>(
+                HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
         }
 
         [Test]
@@ -55,17 +56,10 @@ namespace UnitTests.Features.Product
             using (var photoStream = File.Open(img, FileMode.Open))
             {
                 var streamPart = new StreamPart(photoStream, "photo.jpg", "image/jpeg");
-                try
-                {
-                    var products =
-                        await similarProductsAPI.GetSimilarProductsAsync(authenticationBearer, streamPart);
+                var products =
+                    await similarProductsAPI.GetSimilarProductsAsync(authenticationBearer, streamPart);
 
-                    Assert.IsNotEmpty(products);
-                }
-                catch (Exception ex)
-                {
-
-                }
+                Assert.IsNotEmpty(products);
             }
         }
     }

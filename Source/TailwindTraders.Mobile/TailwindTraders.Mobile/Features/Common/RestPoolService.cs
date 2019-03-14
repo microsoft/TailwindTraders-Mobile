@@ -23,7 +23,8 @@ namespace TailwindTraders.Mobile.Features.Common
         {
             UpdateApiUrl(DefaultSettings.RootApiUrl);
 
-            SimilarProductsAPI = RestService.For<ISimilarProductsAPI>(HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
+            SimilarProductsAPI = RestService.For<ISimilarProductsAPI>(
+                HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
         }
 
         public void UpdateApiUrl(string newApiUrl)

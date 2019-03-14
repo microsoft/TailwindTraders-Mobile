@@ -9,7 +9,6 @@ using TailwindTraders.Mobile.Features.Settings;
 
 namespace UnitTests.Framework
 {
-
     public abstract class BaseAPITest
     {
         protected readonly ILoginAPI LoginApi;
