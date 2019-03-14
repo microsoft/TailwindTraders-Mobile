@@ -7,7 +7,7 @@ namespace TailwindTraders.Mobile.Features.LogIn
 {
     public interface IProfilesAPI
     {
-        [Get("/")]
+        [Get("/")]        
         Task<IEnumerable<ProfileDTO>> GetAsync(
             [Header(DefaultSettings.ApiAuthorizationHeader)] string authorizationHeader);
     }

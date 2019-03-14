@@ -15,6 +15,8 @@ namespace TailwindTraders.Mobile.Features.Common
 
         public IProductsAPI ProductsAPI { get; private set; }
 
+        public ILoginAPI LoginAPI { get; private set; }
+
         public RestPoolService()
         {
             UpdateApiUrl(DefaultSettings.RootApiUrl);
@@ -25,6 +27,7 @@ namespace TailwindTraders.Mobile.Features.Common
             ProfilesAPI = RestService.For<IProfilesAPI>(HttpClientFactory.Create(newApiUrl));
             HomeAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(newApiUrl));
             ProductsAPI = RestService.For<IProductsAPI>(HttpClientFactory.Create(newApiUrl));
+            LoginAPI = RestService.For<ILoginAPI>(HttpClientFactory.Create(newApiUrl));
         }
     }
 }

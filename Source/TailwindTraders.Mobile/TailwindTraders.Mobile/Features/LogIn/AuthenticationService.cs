@@ -18,13 +18,15 @@ namespace TailwindTraders.Mobile.Features.LogIn
             restPoolService = DependencyService.Get<IRestPoolService>();
         }
 
-        public string AuthorizationHeader => $"Email {authenticatedUser}";
+        public string AuthorizationHeader => $"Bearer {DefaultSettings.AccessToken}";
 
         public bool IsAnyOneLoggedIn => authenticatedUser != null;
 
         public async Task LogInAsync(string email, string password)
         {
-            var profiles = await restPoolService.ProfilesAPI.GetAsync(DefaultSettings.AnonymousToken);
+            DefaultSettings.AccessToken = await GetTokenAsync(email, password);
+
+            var profiles = await restPoolService.ProfilesAPI.GetAsync(AuthorizationHeader);
 
             if (!profiles.Any())
             {
@@ -32,6 +34,20 @@ namespace TailwindTraders.Mobile.Features.LogIn
             }
 
             authenticatedUser = profiles.First().Email;
+        }
+
+        private async Task<string> GetTokenAsync(string email, string password)
+        {   
+            var request = new TokenRequestDTO()
+            {
+                Username = email,
+                Password = password,
+                GrantType = "password",
+            };
+
+            var response = await restPoolService.LoginAPI.LoginAsync(request);
+
+            return $"{response.AccessToken}";
         }
     }
 }

@@ -2,9 +2,12 @@ namespace TailwindTraders.Mobile.Features.Settings
 {
     public static class DefaultSettings
     {
-        public const string ApiAuthorizationHeader = "Authorization";
+        public const string ApiAuthorizationHeader = "Authorization: Bearer";
 
+        // TODO: remove
         public const string AnonymousToken = "Email anonymous@anonymous.anonymous";
+
+        public static string AccessToken = string.Empty;
 
         public const string AppCenterAndroidSecret = "ENTER_YOUR_GUID_HERE";
 
