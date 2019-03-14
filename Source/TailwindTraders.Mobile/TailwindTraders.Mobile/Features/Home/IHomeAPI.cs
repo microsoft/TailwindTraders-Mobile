@@ -6,7 +6,7 @@ namespace TailwindTraders.Mobile.Features.Home
 {
     public interface IHomeAPI
     {
-        [Get("/landing")]
+        [Get("/products/landing")]
         Task<LandingDTO> GetAsync([Header(DefaultSettings.ApiAuthorizationHeader)] string authorizationHeader);
     }
 }

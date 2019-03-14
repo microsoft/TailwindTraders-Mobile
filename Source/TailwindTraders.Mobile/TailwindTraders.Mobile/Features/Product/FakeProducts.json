@@ -3,7 +3,7 @@
         "id": 1,
         "name": "Microwave 0.9 Cu. Ft. 900 W longlonglonglonglonglonglonglong product name",
         "price": 100,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/10446729.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/10446729.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglong brand"
@@ -44,7 +44,7 @@
         "id": 2,
         "name": "Refrigerator 1.7 cu. ft. 110 watts",
         "price": 200,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/24640268.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/24640268.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -75,7 +75,7 @@
         "id": 3,
         "name": "Oven 900 W",
         "price": 300,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/26881473.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/26881473.jpg",
         "brand": {
             "id": 4,
             "name": "Drills Co"
@@ -101,7 +101,7 @@
         "id": 4,
         "name": "Washing machine 1200rpm",
         "price": 400,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/31000074.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/31000074.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -127,7 +127,7 @@
         "id": 5,
         "name": "Washing machine 900rpm",
         "price": 300,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/31285507.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/31285507.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -153,7 +153,7 @@
         "id": 6,
         "name": "Kitchen stoves ",
         "price": 1400,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/33641114.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/33641114.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -184,7 +184,7 @@
         "id": 7,
         "name": "Refrigerator ft. 90 watts",
         "price": 400,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/45808024.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/45808024.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -205,7 +205,7 @@
         "id": 8,
         "name": "One Handle Stainless Steel Pull Out Kitchen Faucet",
         "price": 20,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/47090355.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/47090355.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -226,7 +226,7 @@
         "id": 9,
         "name": "Bathing System Classic 18 in. H x 60 in. W x 32.5",
         "price": 200,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/12330912.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/12330912.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -247,7 +247,7 @@
         "id": 10,
         "name": "Showerhead 1.75 gpm",
         "price": 40,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/12866014.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/12866014.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -273,7 +273,7 @@
         "id": 11,
         "name": "Toilet 1.28 gal.",
         "price": 180,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/20155731.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/20155731.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -304,7 +304,7 @@
         "id": 12,
         "name": "Black Bathing System Classic 18 in. H x 60 in. W x 32.5",
         "price": 250,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/24547395.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/24547395.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -330,7 +330,7 @@
         "id": 13,
         "name": "Bathroom Sink Faucet Waterfall",
         "price": 175,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/25200686.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/25200686.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -361,7 +361,7 @@
         "id": 14,
         "name": "Bathroom Sink Faucet",
         "price": 99,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/40193368.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/40193368.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -387,7 +387,7 @@
         "id": 15,
         "name": "Bathroom Sink Faucet Classic",
         "price": 100,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/40887643.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/40887643.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -413,7 +413,7 @@
         "id": 16,
         "name": "Showerhead 1.20 gpm",
         "price": 125,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/46028385.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/46028385.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -434,7 +434,7 @@
         "id": 17,
         "name": "Blend Solid White Sheer Curtains",
         "price": 110,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/13778772.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/13778772.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -455,7 +455,7 @@
         "id": 18,
         "name": "Door Hardware Kit Single Door",
         "price": 120,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/17031875.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/17031875.jpg",
         "brand": {
             "id": 4,
             "name": "Drills Co"
@@ -476,7 +476,7 @@
         "id": 19,
         "name": "White Sheer Curtains",
         "price": 105,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/27367695.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/27367695.jpg",
         "brand": {
             "id": 4,
             "name": "Drills Co"
@@ -497,7 +497,7 @@
         "id": 20,
         "name": "White Window",
         "price": 120,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/34744564.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/34744564.jpg",
         "brand": {
             "id": 4,
             "name": "Drills Co"
@@ -518,7 +518,7 @@
         "id": 21,
         "name": "Curtain Rod 48 in",
         "price": 25,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/35268457.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/35268457.jpg",
         "brand": {
             "id": 4,
             "name": "Drills Co"
@@ -544,7 +544,7 @@
         "id": 22,
         "name": "Steel Passage Door Knob",
         "price": 10,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/39689828.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/39689828.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -565,7 +565,7 @@
         "id": 23,
         "name": "White Door",
         "price": 123,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/40505435.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/40505435.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -591,7 +591,7 @@
         "id": 24,
         "name": "White Window Wood",
         "price": 230,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/46655256.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/46655256.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -617,7 +617,7 @@
         "id": 25,
         "name": "Indoor Kit Gardering",
         "price": 70,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/9470575.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/9470575.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -638,7 +638,7 @@
         "id": 26,
         "name": "Craftsman 100 ft. L x 5/8 in.",
         "price": 100,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/12598356.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/12598356.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -659,7 +659,7 @@
         "id": 27,
         "name": "Metal Watering Can",
         "price": 20,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/12902526.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/12902526.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -680,7 +680,7 @@
         "id": 28,
         "name": "Steel Contractor Wheelbarrow",
         "price": 100,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/13894399.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/13894399.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -701,7 +701,7 @@
         "id": 29,
         "name": "Craftsman 21 in. W 140",
         "price": 200,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/15365639.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/15365639.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -722,7 +722,7 @@
         "id": 30,
         "name": "Gardering",
         "price": 10,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/29201547.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/29201547.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -743,7 +743,7 @@
         "id": 31,
         "name": "Celebrations C9",
         "price": 10,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/16658158.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/16658158.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -769,7 +769,7 @@
         "id": 32,
         "name": "Artificial Tree",
         "price": 250,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/23073793.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/23073793.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -795,7 +795,7 @@
         "id": 33,
         "name": "Celebrations C8",
         "price": 5,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/23536846.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/23536846.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -816,7 +816,7 @@
         "id": 34,
         "name": "Artificial Tree Big",
         "price": 300,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/23980448.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/23980448.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -837,7 +837,7 @@
         "id": 35,
         "name": "Wood Pack",
         "price": 30,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/31434677.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/31434677.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -863,7 +863,7 @@
         "id": 36,
         "name": "Wood Table",
         "price": 395,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/19806834.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/19806834.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -889,7 +889,7 @@
         "id": 37,
         "name": "Kitchen Stoves",
         "price": 85,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/27227580.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/27227580.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -910,7 +910,7 @@
         "id": 38,
         "name": "Kit Metal Casseroles",
         "price": 125,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/43229847.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/43229847.jpg",
         "brand": {
             "id": 4,
             "name": "Drills Co"
@@ -931,7 +931,7 @@
         "id": 39,
         "name": "Coffee Maker Red",
         "price": 200,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/52076809.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/52076809.jpg",
         "brand": {
             "id": 4,
             "name": "Drills Co"
@@ -952,7 +952,7 @@
         "id": 40,
         "name": "Extractor Steal",
         "price": 135,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/102013777.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/102013777.jpg",
         "brand": {
             "id": 4,
             "name": "Drills Co"
@@ -973,7 +973,7 @@
         "id": 41,
         "name": "Wooden Commode",
         "price": 50,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/21610747.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/21610747.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -994,7 +994,7 @@
         "id": 42,
         "name": "Metal Shelving",
         "price": 90,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/39696958.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/39696958.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -1015,7 +1015,7 @@
         "id": 43,
         "name": "Big Metal Shelving",
         "price": 99,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/49460165.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/49460165.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -1036,7 +1036,7 @@
         "id": 44,
         "name": "Wooden Wardrobe",
         "price": 120,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/51716553.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/51716553.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -1057,7 +1057,7 @@
         "id": 45,
         "name": "Wooden Saw",
         "price": 145,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/11143240.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/11143240.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -1078,7 +1078,7 @@
         "id": 46,
         "name": "Measuring Tape",
         "price": 123,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/13168288.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/13168288.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"
@@ -1099,7 +1099,7 @@
         "id": 47,
         "name": "Multi Function Drill",
         "price": 159,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/14805480.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/14805480.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -1120,7 +1120,7 @@
         "id": 48,
         "name": "Hammer",
         "price": 100,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/19682904.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/19682904.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -1146,7 +1146,7 @@
         "id": 49,
         "name": "Screwdriver",
         "price": 110,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/51109515.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/51109515.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -1167,7 +1167,7 @@
         "id": 50,
         "name": "Pliers",
         "price": 105,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/85167541.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/85167541.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -1188,7 +1188,7 @@
         "id": 51,
         "name": "Red multi-tool plier",
         "price": 50,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/34312289.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/34312289.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -1203,7 +1203,7 @@
         "id": 52,
         "name": "Blue multi-tool plier",
         "price": 50,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/19595793.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/19595793.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -1218,7 +1218,7 @@
         "id": 53,
         "name": "Stainless multi-tool plier",
         "price": 90,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/35414723.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/35414723.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -1233,7 +1233,7 @@
         "id": 54,
         "name": "Yellow Rechargeable screwdriver",
         "price": 250,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/8704649.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/8704649.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -1248,7 +1248,7 @@
         "id": 55,
         "name": "Red Rechargeable screwdriver",
         "price": 250,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/6910004.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/6910004.jpg",
         "brand": {
             "id": 1,
             "name": "ElctroDrill"
@@ -1263,7 +1263,7 @@
         "id": 56,
         "name": "Rechargeable screwdriver with extra battery",
         "price": 312,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/63581524.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/63581524.jpg",
         "brand": {
             "id": 2,
             "name": "Home & Pro tools"
@@ -1278,7 +1278,7 @@
         "id": 57,
         "name": "Yellow hard hat with tool bag pack",
         "price": 46,
-        "imageUrl": "https://tailwindtradersimgdev.blob.core.windows.net/product-list/59890052.jpg",
+        "imageUrl": "https://tailwindtraders.blob.core.windows.net/product-list/59890052.jpg",
         "brand": {
             "id": 3,
             "name": "ProSaws"

@@ -102,7 +102,7 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
         private async Task LoadRecommendedProductsAsync(string productType)
         {
             var result = await TryExecuteWithLoadingIndicatorsAsync(
-                productsAPI.GetProductsAsync(DefaultSettings.AnonymousToken, productType));
+                productsAPI.GetProductsAsync(AuthenticationService.AuthorizationHeader, productType));
 
             if (result)
             {
