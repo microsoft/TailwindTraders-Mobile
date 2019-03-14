@@ -156,4 +156,7 @@
   <data name="Alert_Title_PermissionsNotGranted" xml:space="preserve">
     <value>Permissions not granted</value>
   </data>
+  <data name="Alert_Added_To_Cart" xml:space="preserve">
+    <value>Added to cart</value>
+  </data>
 </root>
