@@ -19,7 +19,8 @@ namespace UnitTests.Features.Home
         public async Task GetProductsAsync()
         {
             var productsAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(DefaultSettings.RootApiUrl));
-            var home = await this.PreauthenticateAsync(() => productsAPI.GetAsync("Bearer " + DefaultSettings.AccessToken));
+            var home = await this.PreauthenticateAsync(
+                () => productsAPI.GetAsync(this.authenticationBearer));
 
             Assert.IsNotEmpty(home.PopularProducts);
         }

@@ -54,7 +54,7 @@ namespace UnitTests.Features.Product
                 var streamPart = new StreamPart(photoStream, "photo.jpg", "image/jpeg");
 
                 var products = await this.PreauthenticateAsync(
-                    () => productsAPI.GetSimilarProductsAsync("Bearer " + DefaultSettings.AccessToken, streamPart));
+                    () => productsAPI.GetSimilarProductsAsync(authenticationBearer, streamPart));
 
                 Assert.IsNotEmpty(products);
             }

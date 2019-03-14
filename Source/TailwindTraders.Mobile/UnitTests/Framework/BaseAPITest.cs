@@ -13,7 +13,7 @@ namespace UnitTests.Framework
     public abstract class BaseAPITest
     {
         protected readonly ILoginAPI LoginApi;
-        protected readonly IAuthenticationService AuthenticationService;
+        protected string authenticationBearer;
         protected bool isSuccess;
         protected Exception failureException = new Exception();
 
@@ -55,7 +55,9 @@ namespace UnitTests.Framework
                 };
 
                 var authResult = await LoginApi.LoginAsync(request);
+
                 DefaultSettings.AccessToken = authResult.AccessToken;
+                authenticationBearer = $"Bearer {DefaultSettings.AccessToken}";
 
                 result = await actualTestAsync();
                 isSuccess = true;
