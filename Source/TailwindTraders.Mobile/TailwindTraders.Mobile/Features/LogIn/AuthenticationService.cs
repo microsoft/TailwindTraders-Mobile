@@ -47,7 +47,7 @@ namespace TailwindTraders.Mobile.Features.LogIn
 
             var response = await restPoolService.LoginAPI.LoginAsync(request);
 
-            return $"{response.AccessToken}";
+            return response.AccessToken;
         }
     }
 }

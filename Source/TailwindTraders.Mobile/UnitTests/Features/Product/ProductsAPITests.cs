@@ -6,26 +6,28 @@ using Refit;
 using TailwindTraders.Mobile.Features.Product;
 using TailwindTraders.Mobile.Features.Settings;
 using TailwindTraders.Mobile.Helpers;
+using UnitTests.Framework;
 
 namespace UnitTests.Features.Product
 {
 #if !DEBUG
     [Ignore(Constants.IgnoreReason)]
 #endif
-    public class ProductsAPITests
+    public class ProductsAPITests : BaseAPITest
     {
         private IProductsAPI productsAPI;
 
         [SetUp]
         public void Init()
         {
-            productsAPI = RestService.For<IProductsAPI>(HttpClientFactory.Create(DefaultSettings.ProductApiUrl));
+            productsAPI = RestService.For<IProductsAPI>(HttpClientFactory.Create(DefaultSettings.RootApiUrl));
         }
 
         [Test]
         public async Task GetDetailAsync()
         {
-            var product = await productsAPI.GetDetailAsync(DefaultSettings.AnonymousToken, "1");
+            var product = await this.PreauthenticateAsync(
+                () => productsAPI.GetDetailAsync(DefaultSettings.AccessToken, "1"));
 
             Assert.AreEqual(product.Id, 1);
         }
@@ -33,7 +35,8 @@ namespace UnitTests.Features.Product
         [Test]
         public async Task GetProductsAsync()
         {
-            var products = await productsAPI.GetProductsAsync(DefaultSettings.AnonymousToken, "1");
+            var products = await this.PreauthenticateAsync(
+                () => productsAPI.GetProductsAsync(DefaultSettings.AccessToken, "1"));
 
             Assert.IsNotEmpty(products.Products);
         }
@@ -50,7 +53,8 @@ namespace UnitTests.Features.Product
             {
                 var streamPart = new StreamPart(photoStream, "photo.jpg", "image/jpeg");
 
-                var products = await productsAPI.GetSimilarProductsAsync(DefaultSettings.AnonymousToken, streamPart);
+                var products = await this.PreauthenticateAsync(
+                    () => productsAPI.GetSimilarProductsAsync("Bearer " + DefaultSettings.AccessToken, streamPart));
 
                 Assert.IsNotEmpty(products);
             }

@@ -7,16 +7,16 @@ namespace TailwindTraders.Mobile.Features.Product
 {
     public interface IProductsAPI
     {
-        [Get("/{id}")]
+        [Get("/products/{id}")]
         Task<ProductDTO> GetDetailAsync(
             [Header(DefaultSettings.ApiAuthorizationHeader)] string authorizationHeader, string id);
 
-        [Get("/")]
+        [Get("/products")]
         Task<ProductsPerTypeDTO> GetProductsAsync(
             [Header(DefaultSettings.ApiAuthorizationHeader)] string authorizationHeader, string type);
 
         [Multipart]
-        [Post("/imageclassifier")]
+        [Post("/products/imageclassifier")]
         Task<IEnumerable<ProductDTO>> GetSimilarProductsAsync(
             [Header(DefaultSettings.ApiAuthorizationHeader)] string authorizationHeader,
             [AliasAs("file")] StreamPart stream);

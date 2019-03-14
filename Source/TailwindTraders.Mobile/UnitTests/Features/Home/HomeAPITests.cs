@@ -6,10 +6,11 @@ using Refit;
 using TailwindTraders.Mobile.Features.Home;
 using TailwindTraders.Mobile.Features.Settings;
 using TailwindTraders.Mobile.Helpers;
+using UnitTests.Framework;
 
 namespace UnitTests.Features.Home
 {
-    public class HomeAPITests
+    public class HomeAPITests : BaseAPITest
     {
 #if !DEBUG
         [Ignore(Constants.IgnoreReason)]
@@ -17,8 +18,8 @@ namespace UnitTests.Features.Home
         [Test]
         public async Task GetProductsAsync()
         {
-            var productsAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(DefaultSettings.ProductApiUrl));
-            var home = await productsAPI.GetAsync(DefaultSettings.AnonymousToken);
+            var productsAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(DefaultSettings.RootApiUrl));
+            var home = await this.PreauthenticateAsync(() => productsAPI.GetAsync("Bearer " + DefaultSettings.AccessToken));
 
             Assert.IsNotEmpty(home.PopularProducts);
         }

@@ -7,7 +7,7 @@ namespace TailwindTraders.Mobile.Features.LogIn
 {
     public interface ILoginAPI
     {
-        [Post("/")]
+        [Post("/login/oauth2/token")]
         Task<LoginResponseDTO> LoginAsync(TokenRequestDTO request);
     }
 }

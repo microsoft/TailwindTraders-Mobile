@@ -2,10 +2,7 @@ namespace TailwindTraders.Mobile.Features.Settings
 {
     public static class DefaultSettings
     {
-        public const string ApiAuthorizationHeader = "Authorization: Bearer";
-
-        // TODO: remove
-        public const string AnonymousToken = "Email anonymous@anonymous.anonymous";
+        public const string ApiAuthorizationHeader = "Authorization";
 
         public static string AccessToken = string.Empty;
 
@@ -43,8 +40,8 @@ namespace TailwindTraders.Mobile.Features.Settings
 
         public static string RootApiUrl { get; set; } = "http://ENTER/YOUR/URL/HERE";
 
-        public static string ProductApiUrl { get; } = $"{RootApiUrl}/products";
+        // public static string ProductApiUrl { get; } = $"{RootApiUrl}/products";
 
-        public static string ProfilesApiUrl { get; } = $"{RootApiUrl}/profiles";
+        // public static string ProfilesApiUrl { get; } = $"{RootApiUrl}/profiles";
     }
 }
