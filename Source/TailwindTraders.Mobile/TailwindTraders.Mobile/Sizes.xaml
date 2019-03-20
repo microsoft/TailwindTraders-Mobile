@@ -26,6 +26,6 @@
 
   <x:Double x:Key="Default2Margin">24</x:Double>
 
-  <x:Int32 x:Key="DefaultElevation">30</x:Int32>
+  <x:Single x:Key="DefaultElevation">30</x:Single>
 
 </ResourceDictionary>
