@@ -76,7 +76,6 @@ namespace TailwindTraders.Mobile.Features.Home
         public override async Task UninitializeAsync()
         {
             await base.UninitializeAsync();
-            ////MessagingCenter.Unsubscribe<LoginViewModel>(this, LoginViewModel.LogInFinishedMessage);
         }
 
         private async Task LoadDataAsync()
