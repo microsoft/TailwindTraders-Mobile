@@ -28,6 +28,11 @@ namespace TailwindTraders.Mobile.Features.Home
         public HomeViewModel()
         {
             IsBusy = true;
+
+            MessagingCenter.Subscribe<LoginViewModel>(
+                this,
+                LoginViewModel.LogInFinishedMessage,
+                _ => LoadCommand.Execute(null));
         }
 
         public bool IsNoOneLoggedIn => !AuthenticationService.IsAnyOneLoggedIn;
@@ -59,11 +64,6 @@ namespace TailwindTraders.Mobile.Features.Home
 
         public override async Task InitializeAsync()
         {
-            MessagingCenter.Subscribe<LoginViewModel>(
-                this,
-                LoginViewModel.LogInFinishedMessage,
-                _ => LoadCommand.Execute(null));
-
             await base.InitializeAsync();
 
             if (IsNoOneLoggedIn)
@@ -76,8 +76,6 @@ namespace TailwindTraders.Mobile.Features.Home
         public override async Task UninitializeAsync()
         {
             await base.UninitializeAsync();
-
-            MessagingCenter.Unsubscribe<LoginViewModel>(this, LoginViewModel.LogInFinishedMessage);
         }
 
         private async Task LoadDataAsync()
