@@ -20,7 +20,6 @@ namespace TailwindTraders.Mobile.Framework
             {
                 ViewModel.InitializeAsync();
                 isAlreadyInitialized = true;
-                isAlreadyUninitialized = false;
             }
         }
 
@@ -32,7 +31,6 @@ namespace TailwindTraders.Mobile.Framework
             {
                 ViewModel.UninitializeAsync();
                 isAlreadyUninitialized = true;
-                isAlreadyInitialized = false;
             }
         }
     }
