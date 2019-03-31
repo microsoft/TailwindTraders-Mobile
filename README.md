@@ -2,12 +2,14 @@
 
 ![Mobile Apps](Documents/Images/Mobile.png)
 
+[![Build status](https://dev.azure.com/TailwindTraders/Mobile/_apis/build/status/Mobile-CI)](https://dev.azure.com/TailwindTraders/Mobile/_build/latest?definitionId=29)
+
 > Note: This app uses backend services detailed in the [Backend](https://github.com/Microsoft/TailwindTraders-Backend) repository.
 
 You can also download the mobile apps connected to our public endpoints in your devices following these links:
 
-* [![Build status](https://build.appcenter.ms/v0.1/apps/6614c35b-a538-4de4-b971-976456ff6355/branches/master/badge)](https://appcenter.ms) [Tailwind Traders iOS](https://aka.ms/tailwindtradersios)
-* [![Build status](https://build.appcenter.ms/v0.1/apps/6cbcbb55-791d-469f-9671-a185c1174f61/branches/master/badge)](https://appcenter.ms) [Tailwind Traders Android](https://aka.ms/tailwindtradersandroid)
+* [Tailwind Traders iOS](https://aka.ms/tailwindtradersios)
+* [Tailwind Traders Android](https://aka.ms/tailwindtradersandroid)
 
 # Repositories
 
