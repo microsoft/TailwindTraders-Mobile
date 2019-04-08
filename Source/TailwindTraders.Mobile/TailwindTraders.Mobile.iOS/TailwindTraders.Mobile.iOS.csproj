@@ -106,8 +106,8 @@
     <Compile Include="ThirdParties\Camera\VideoCaptureDelegate.cs" />
     <Compile Include="ThirdParties\Touch\TouchEffect.cs" />
     <Compile Include="ThirdParties\Touch\TouchRecognizer.cs" />
-    <BundleResource Include="..\Resources\AR\pets\detect.tflite">
-      <Link>Resources\AR\pets\detect.tflite</Link>
+    <BundleResource Include="..\Resources\AR\hardhat\detect.tflite">
+      <Link>Resources\AR\hardhat\detect.tflite</Link>
     </BundleResource>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
@@ -435,8 +435,8 @@
     </BundleResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="..\Resources\AR\pets\labels_list.txt">
-      <Link>Resources\AR\pets\labels_list.txt</Link>
+    <BundleResource Include="..\Resources\AR\hardhat\labels_list.txt">
+      <Link>Resources\AR\hardhat\labels_list.txt</Link>
     </BundleResource>
   </ItemGroup>
 </Project>

@@ -1,2 +1,8 @@
 csv/
 images/
+records/
+train/
+inference_graph/
+net/
+guide_training.txt
+pipeline.config
