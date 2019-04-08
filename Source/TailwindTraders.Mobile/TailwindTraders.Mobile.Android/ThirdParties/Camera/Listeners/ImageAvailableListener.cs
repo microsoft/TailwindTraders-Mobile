@@ -140,6 +140,14 @@ namespace TailwindTraders.Mobile.Droid.ThirdParties.Camera.Listeners
         private void CopyColors(Bitmap bmp)
         {
             bmp.GetPixels(colorArray, 0, bmp.Width, 0, 0, bmp.Width, bmp.Height);
+
+            for (int i = 0; i < colorArray.Length; i++)
+            {
+                var color = new ColorUnion((uint)colorArray[i]);
+                var swappedColor = new ColorUnion(color.B, color.G, color.R, color.A);
+
+                colorArray[i] = (int)swappedColor.Value;
+            }
         }
 
         private void SaveImg(Bitmap resized)

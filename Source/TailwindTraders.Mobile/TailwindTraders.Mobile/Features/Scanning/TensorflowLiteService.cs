@@ -14,7 +14,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
 {
     public class TensorflowLiteService
     {
-        public const string TFFolder = "AR/pets/";
+        public const string TFFolder = "AR/hardhat/";
         public const int ModelInputSize = 300;
         public const float MinScore = 0.6f;
         public const string ObjectDetectedMessage = nameof(ObjectDetectedMessage);
