@@ -45,7 +45,7 @@ namespace TailwindTraders.Mobile.IOS.ThirdParties.Camera
         {
             using (var imageBuffer = sampleBuffer.GetImageBuffer())
             using (var ciImage = new CIImage(imageBuffer))
-            using (var ciContext = new CIContext())
+            using (var ciContext = CIContext.FromOptions(null))
             using (var cgImage = ciContext.CreateCGImage(ciImage, ciImage.Extent))
             {
                 var uiImage = new UIImage(cgImage);

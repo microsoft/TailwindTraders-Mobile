@@ -125,7 +125,7 @@ namespace TailwindTraders.Mobile.Features.Scanning
 
             var numDetections = num_detections_out[0];
 
-            LogDetectionResults(detection_classes_out, detection_scores_out, detection_boxes_out, numDetections);
+            LogDetectionResults(detection_classes_out, detection_scores_out, detection_boxes_out, (int)numDetections);
         }
 
         private void CopyColorsToTensor(IntPtr dest, int[] colors)
@@ -151,16 +151,17 @@ namespace TailwindTraders.Mobile.Features.Scanning
             float[] detection_classes_out,
             float[] detection_scores_out,
             float[] detection_boxes_out,
-            float numDetections)
+            int numDetections)
         {
             for (int i = 0; i < numDetections; i++)
             {
                 var score = detection_scores_out[i];
                 var classId = (int)detection_classes_out[i];
 
-                if (classId >= 0 && classId < labels.Length)
+                var labelIndex = classId + LabelOffset;
+                if (labelIndex.Between(0, labels.Length - 1))
                 {
-                    var label = labels[classId + LabelOffset];
+                    var label = labels[labelIndex];
                     if (score >= MinScore)
                     {
                         var xmin = detection_boxes_out[0];
