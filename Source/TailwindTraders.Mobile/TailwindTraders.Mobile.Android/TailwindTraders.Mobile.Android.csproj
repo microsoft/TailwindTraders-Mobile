@@ -159,10 +159,6 @@
     <AndroidResource Include="Resources\drawable-mdpi\logo_horizontal_b.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\logo_horizontal_b.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\logo_horizontal_b.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\logo_microsoft_w.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\logo_microsoft_w.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\logo_microsoft_w.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\logo_microsoft_w.png" />
     <AndroidResource Include="Resources\values\themes.xml" />
     <AndroidResource Include="Resources\drawable-mdpi\splash_background.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\logo_vertical_w.png" />

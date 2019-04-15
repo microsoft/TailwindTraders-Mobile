@@ -47,8 +47,6 @@ namespace TailwindTraders.Mobile.Features.LogIn
         }
 #pragma warning restore CS0162
 
-        public ICommand MicrosoftLogInCommand => FeatureNotAvailableCommand;
-
         public override async Task UninitializeAsync()
         {
             await base.UninitializeAsync();

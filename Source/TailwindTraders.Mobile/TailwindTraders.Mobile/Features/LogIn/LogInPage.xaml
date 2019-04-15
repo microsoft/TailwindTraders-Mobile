@@ -88,21 +88,7 @@
           Command="{Binding LogInCommand}"
           Style="{StaticResource Accent2ColorButtonStyle}"
           Text="LOG IN" />
-
-        <Label
-          HorizontalOptions="Center"
-          Text="OR" />
-
-        <!-- ContentLayout's spacing's sort of a magic number -->
-        <Button
-          BackgroundColor="#0C76FF"
-          Command="{Binding MicrosoftLogInCommand}"
-          ContentLayout="{OnPlatform Android='Left,-64',
-                                     iOS='Left,8'}"
-          Image="logo_microsoft_w"
-          Style="{StaticResource Accent2ColorButtonStyle}"
-          Text="Log in with Microsoft account" />
-
+          
       </StackLayout>
 
     </Grid>
