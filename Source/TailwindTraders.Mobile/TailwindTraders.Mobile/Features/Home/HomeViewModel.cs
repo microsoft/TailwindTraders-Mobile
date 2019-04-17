@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
+using TailwindTraders.Mobile.Features.Product.Cart;
 using TailwindTraders.Mobile.Features.Scanning.AR;
 using TailwindTraders.Mobile.Features.Scanning.Photo;
 using TailwindTraders.Mobile.Framework;
@@ -61,6 +62,8 @@ namespace TailwindTraders.Mobile.Features.Home
         public ICommand ARCommand => new AsyncCommand(_ => App.NavigateToAsync(new CameraPreviewPage()));
 
         public ICommand LoadCommand => new AsyncCommand(_ => LoadDataAsync());
+
+        public ICommand CartCommand => new AsyncCommand(_ => App.NavigateToAsync(new ProductCartPage()));
 
         public override async Task InitializeAsync()
         {

@@ -29,7 +29,7 @@
       Text="Filters" />
 
     <ToolbarItem
-      Command="{Binding FeatureNotAvailableCommand}"
+      Command="{Binding CartCommand}"
       Icon="cart"
       Order="Primary"
       Priority="1"

@@ -6,7 +6,8 @@
   xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
   xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
   xmlns:local="clr-namespace:TailwindTraders.Mobile"
-  xmlns:product="clr-namespace:TailwindTraders.Mobile.Features.Product">
+  xmlns:product="clr-namespace:TailwindTraders.Mobile.Features.Product"
+  xmlns:cart="clr-namespace:TailwindTraders.Mobile.Features.Product.Cart">
   <ResourceDictionary.MergedDictionaries>
     <local:FontStyles />
     <local:Sizes />
@@ -27,6 +28,7 @@
 
   <product:PopularItemTemplate x:Key="PopularItemTemplate" />
   <product:PreviouslySeenItemTemplate x:Key="PreviouslySeenItemTemplate" />
+  <cart:ProductCartLineItemTemplate x:Key="ProductCartLineItemTemplate" />
 
   <!--
     Appart from the style it-self, it's used because still don't know why makes the shadows render. Probably it's to do

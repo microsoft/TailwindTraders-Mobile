@@ -1,6 +1,7 @@
 ﻿using TailwindTraders.Mobile.Features.Home;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
+using TailwindTraders.Mobile.Features.Product.Cart;
 
 namespace TailwindTraders.Mobile.Features.Common
 {
@@ -15,6 +16,8 @@ namespace TailwindTraders.Mobile.Features.Common
         public ILoginAPI LoginAPI { get; } = new FakeLoginAPI();
 
         public ISimilarProductsAPI SimilarProductsAPI { get; } = new FakeSimilarProductsAPI();
+
+        public IProductCartAPI ProductCartAPI { get; } = new FakeProductCartAPI();
 
         public void UpdateApiUrl(string newApiUrl)
         {

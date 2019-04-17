@@ -53,7 +53,7 @@
   <ContentPage.ToolbarItems>
 
     <ToolbarItem
-      Command="{Binding FeatureNotAvailableCommand}"
+      Command="{Binding CartCommand}"
       Icon="cart"
       Text="Cart" />
 
@@ -133,7 +133,7 @@
           <Label Text="{Binding Price}" />
 
           <Button
-            Command="{Binding FeatureNotAvailableCommand}"
+            Command="{Binding AddToCartCommand}"
             Style="{StaticResource Accent2ColorButtonStyle}"
             Text="ADD TO CART">
 

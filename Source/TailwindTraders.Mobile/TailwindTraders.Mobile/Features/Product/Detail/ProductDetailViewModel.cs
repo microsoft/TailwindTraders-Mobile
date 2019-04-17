@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TailwindTraders.Mobile.Features.Localization;
+using TailwindTraders.Mobile.Features.Product.Cart;
 using TailwindTraders.Mobile.Framework;
 using TailwindTraders.Mobile.Helpers;
 using Xamarin.Forms;
@@ -18,6 +20,7 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
         private string brand;
         private string name;
         private string price;
+        private ProductDTO product;
         private IEnumerable<FeatureDTO> features;
         private IEnumerable<ProductViewModel> similarProducts;
         private IEnumerable<ProductDTO> alsoBoughtProducts;
@@ -78,6 +81,10 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
         public ICommand RefreshCommand { get; }
 
+        public ICommand CartCommand => new AsyncCommand(_ => App.NavigateToAsync(new ProductCartPage()));
+
+        public ICommand AddToCartCommand => new AsyncCommand(_ => AddProductToCartAsync());
+
         public ProductDetailViewModel(int productId)
         {
             this.productId = productId;
@@ -136,8 +143,20 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
             }
         }
 
+        private async Task AddProductToCartAsync()
+        {
+            if (product != null)
+            {
+                await TryExecuteWithLoadingIndicatorsAsync(
+                    RestPoolService.ProductCartAPI.AddProductAsync(product));
+
+                XSnackService.ShowMessage(Resources.Snack_Message_AddedToCart);
+            }
+        }
+
         private void UpdateProduct(ProductDTO product)
         {
+            this.product = product;
             productTypeId = product.Type.Id;
 
             var brandName = product.Brand.Name;

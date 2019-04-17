@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TailwindTraders.Mobile.Features.Product.Cart;
 using TailwindTraders.Mobile.Features.Product.Detail;
 using TailwindTraders.Mobile.Framework;
 using Xamarin.Forms;
@@ -38,6 +39,8 @@ namespace TailwindTraders.Mobile.Features.Product.Category
         public ICommand LoadCommand { get; }
 
         public ICommand DetailCommand { get; }
+
+        public ICommand CartCommand => new AsyncCommand(_ => App.NavigateToAsync(new ProductCartPage()));
 
         public ProductCategoryViewModel(string typeId)
         {
