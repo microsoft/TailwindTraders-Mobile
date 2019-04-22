@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TailwindTraders.Mobile.Features.Localization;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
 using TailwindTraders.Mobile.Features.Product.Cart;
@@ -65,6 +66,8 @@ namespace TailwindTraders.Mobile.Features.Home
 
         public ICommand CartCommand => new AsyncCommand(_ => App.NavigateToAsync(new ProductCartPage()));
 
+        public ICommand AddToCartCommand => new AsyncCommand((product) => AddProductToCartAsync(product));
+
         public override async Task InitializeAsync()
         {
             await base.InitializeAsync();
@@ -104,11 +107,26 @@ namespace TailwindTraders.Mobile.Features.Home
 
             var popularProductsRaw = homeResult.Value.PopularProducts;
             var popularProductsWithCommand = popularProductsRaw.Select(
-                item => new ProductViewModel(item, FeatureNotAvailableCommand));
+                item => new ProductViewModel(item, AddToCartCommand));
             PopularProducts = new List<ProductViewModel>(popularProductsWithCommand);
 
             var randomProducts = popularProductsRaw.Shuffle().Take(3);
             PreviouslySeenProducts = new List<ProductDTO>(randomProducts);
+        }
+
+        private async Task AddProductToCartAsync(object product)
+        {
+            if (product as ProductDTO != null)
+            {
+                await TryExecuteWithLoadingIndicatorsAsync(
+                    RestPoolService.ProductCartAPI.AddProductAsync((ProductDTO)product));
+
+                XSnackService.ShowMessage(Resources.Snack_Message_AddedToCart_OK);
+            }
+            else
+            {
+                XSnackService.ShowMessage(Resources.Snack_Message_AddedToCart_Error);
+            }
         }
     }
 }

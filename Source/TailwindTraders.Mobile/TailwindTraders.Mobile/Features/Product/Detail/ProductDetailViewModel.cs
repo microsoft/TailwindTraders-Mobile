@@ -85,6 +85,9 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
 
         public ICommand AddToCartCommand => new AsyncCommand(_ => AddProductToCartAsync());
 
+        public ICommand AddSimilarProductToCartCommand => new AsyncCommand((product) => 
+            AddSimilarProductToCartAsync(product));
+
         public ProductDetailViewModel(int productId)
         {
             this.productId = productId;
@@ -136,10 +139,25 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
             if (productsPerType != null)
             {
                 SimilarProducts = productsPerType.Products
-                    .Select(item => new ProductViewModel(item, FeatureNotAvailableCommand));
+                    .Select(item => new ProductViewModel(item, AddSimilarProductToCartCommand));
 
                 var randomProducts = productsPerType.Products.Shuffle().Take(3);
                 AlsoBoughtProducts = randomProducts.ToList();
+            }
+        }
+
+        private async Task AddSimilarProductToCartAsync(object product)
+        {
+            if (product as ProductDTO != null)
+            {
+                await TryExecuteWithLoadingIndicatorsAsync(
+                    RestPoolService.ProductCartAPI.AddProductAsync((ProductDTO)product));
+
+                XSnackService.ShowMessage(Resources.Snack_Message_AddedToCart_OK);
+            }
+            else
+            {
+                XSnackService.ShowMessage(Resources.Snack_Message_AddedToCart_Error);
             }
         }
 
@@ -150,7 +168,11 @@ namespace TailwindTraders.Mobile.Features.Product.Detail
                 await TryExecuteWithLoadingIndicatorsAsync(
                     RestPoolService.ProductCartAPI.AddProductAsync(product));
 
-                XSnackService.ShowMessage(Resources.Snack_Message_AddedToCart);
+                XSnackService.ShowMessage(Resources.Snack_Message_AddedToCart_OK);
+            }
+            else
+            {
+                XSnackService.ShowMessage(Resources.Snack_Message_AddedToCart_Error);
             }
         }
 

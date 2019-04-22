@@ -22,15 +22,27 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
 
         public ICommand CloseCommand => new AsyncCommand(App.NavigateModallyBackAsync);
 
-        protected async Task ShowAddToCartAsync()
+        protected async Task AddProductToCartAsync()
         {
-            await Application.Current.MainPage.DisplayAlert(
-                RecommendedProducts.First().Name,
-                Resources.Alert_Added_To_Cart,
-                Resources.Alert_OK);
+            var product = RecommendedProducts.First();
+
+            if (product != null)
+            {
+                await TryExecuteWithLoadingIndicatorsAsync(
+                    RestPoolService.ProductCartAPI.AddProductAsync(product));
+
+                await Application.Current.MainPage.DisplayAlert(
+                    product.Name,
+                    Resources.Alert_Added_To_Cart,
+                    Resources.Alert_OK);
+            }
+            else
+            {
+                XSnackService.ShowMessage(Resources.Snack_Message_AddedToCart_Error);
+            }
         }
 
-        public ICommand AddCommand => new AsyncCommand(ShowAddToCartAsync);
+        public ICommand AddToCartCommand => new AsyncCommand(AddProductToCartAsync);
 
         public ICommand TakePhotoCommand => new AsyncCommand(App.NavigateModallyBackAsync);
 
