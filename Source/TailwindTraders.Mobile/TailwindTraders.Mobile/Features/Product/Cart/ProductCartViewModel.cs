@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TailwindTraders.Mobile.Framework;
@@ -72,7 +69,8 @@ namespace TailwindTraders.Mobile.Features.Product.Cart
 
         private void OnCartLinesChanged()
         {
-            CartTotal = CartLines.Aggregate(0f, (result, cartLine) => result + cartLine.Product.Price);
+            CartTotal = CartLines.Aggregate(0f, (result, cartLine) => 
+                result + (cartLine.Product.Price * cartLine.Quantity));
             CartLinesCount = CartLines.Count;
         }        
 

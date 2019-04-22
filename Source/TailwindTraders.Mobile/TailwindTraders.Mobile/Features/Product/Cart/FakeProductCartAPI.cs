@@ -14,7 +14,7 @@ namespace TailwindTraders.Mobile.Features.Product.Cart
             lines = new List<ProductCartLineDTO>();
         }
 
-        async Task<ProductCartLineDTO> IProductCartAPI.AddProductAsync(ProductDTO product)
+        public async Task<ProductCartLineDTO> AddProductAsync(ProductDTO product)
         {
             // Simulate delay
             await Task.Delay(TimeSpan.FromSeconds(1));
@@ -39,7 +39,7 @@ namespace TailwindTraders.Mobile.Features.Product.Cart
             }
         }
 
-        async Task<List<ProductCartLineDTO>> IProductCartAPI.GetCartLinesAsync()
+        public async Task<List<ProductCartLineDTO>> GetCartLinesAsync()
         {
             // Simulate delay
             await Task.Delay(TimeSpan.FromSeconds(1));
