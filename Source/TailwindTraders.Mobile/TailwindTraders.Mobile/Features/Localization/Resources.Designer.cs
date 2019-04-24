@@ -160,6 +160,24 @@ namespace TailwindTraders.Mobile.Features.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was an error adding to the cart.
+        /// </summary>
+        internal static string Snack_Message_AddedToCart_Error {
+            get {
+                return ResourceManager.GetString("Snack_Message_AddedToCart_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product added to cart.
+        /// </summary>
+        internal static string Snack_Message_AddedToCart_OK {
+            get {
+                return ResourceManager.GetString("Snack_Message_AddedToCart_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please, type a well-formed absolute URL..
         /// </summary>
         internal static string Snack_Message_InvalidAbsoluteURL {
