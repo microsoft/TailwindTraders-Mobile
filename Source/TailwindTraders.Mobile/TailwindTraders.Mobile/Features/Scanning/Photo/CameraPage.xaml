@@ -79,7 +79,7 @@
             <Button x:Name="addToListButton"
               Grid.Column="1"
               BackgroundColor="{StaticResource Accent2Color}"
-              Command="{Binding AddCommand}"
+              Command="{Binding AddToCartCommand}"
               CornerRadius="{Binding Source={x:Reference addToListButton}, Path=Height, Converter={StaticResource DoubleToHalfFloatConverter}}"
               Text="ADD TO CART"
               TextColor="White">

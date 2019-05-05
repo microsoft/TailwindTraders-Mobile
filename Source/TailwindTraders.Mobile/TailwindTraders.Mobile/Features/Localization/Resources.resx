@@ -159,4 +159,10 @@
   <data name="Alert_Added_To_Cart" xml:space="preserve">
     <value>Added to cart</value>
   </data>
+  <data name="Snack_Message_AddedToCart_OK" xml:space="preserve">
+    <value>Product added to cart</value>
+  </data>
+  <data name="Snack_Message_AddedToCart_Error" xml:space="preserve">
+    <value>There was an error adding to the cart</value>
+  </data>
 </root>

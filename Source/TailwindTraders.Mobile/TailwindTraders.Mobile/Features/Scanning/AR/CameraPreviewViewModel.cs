@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Plugin.Permissions.Abstractions;
 using TailwindTraders.Mobile.Features.Common;
+using TailwindTraders.Mobile.Features.Localization;
 using TailwindTraders.Mobile.Features.Product;
 using TailwindTraders.Mobile.Features.Settings;
 using TailwindTraders.Mobile.Framework;
@@ -37,6 +39,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             get => recommendedProducts;
             set => SetAndRaisePropertyChanged(ref recommendedProducts, value);
         }
+
+        public ICommand AddProductToCartCommand => new AsyncCommand((product) => AddProductToCartAsync(product));
 
         public override async Task InitializeAsync()
         {
@@ -107,7 +111,22 @@ namespace TailwindTraders.Mobile.Features.Scanning.AR
             if (result)
             {
                 RecommendedProducts = result.Value.Products.Select(
-                    item => new ProductViewModel(item, FeatureNotAvailableCommand));
+                    item => new ProductViewModel(item, AddProductToCartCommand));
+            }
+        }
+
+        private async Task AddProductToCartAsync(object product)
+        {
+            if (product as ProductDTO != null)
+            {
+                await TryExecuteWithLoadingIndicatorsAsync(
+                    RestPoolService.ProductCartAPI.AddProductAsync((ProductDTO)product));
+
+                XSnackService.ShowMessage(Resources.Snack_Message_AddedToCart_OK);
+            }
+            else
+            {
+                XSnackService.ShowMessage(Resources.Snack_Message_AddedToCart_Error);
             }
         }
     }

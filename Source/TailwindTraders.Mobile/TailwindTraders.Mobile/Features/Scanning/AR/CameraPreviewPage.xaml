@@ -55,10 +55,11 @@
               <Button
                 BackgroundColor="{StaticResource Accent2Color}"
                 Command="{Binding Command}"
+                CommandParameter="{Binding Product}"
                 CornerRadius="28"
                 HeightRequest="56"
                 HorizontalOptions="Center"
-                Text="ADD TO LIST"
+                Text="ADD TO CART"
                 TextColor="White"
                 TranslationY="{StaticResource NegativeDefaultMargin}"
                 WidthRequest="264" />

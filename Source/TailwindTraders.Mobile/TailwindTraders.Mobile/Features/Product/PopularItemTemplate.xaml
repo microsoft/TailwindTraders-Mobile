@@ -65,6 +65,7 @@
       <Button
         BackgroundColor="{StaticResource Accent2Color}"
         Command="{Binding Command}"
+        CommandParameter="{Binding Product}"
         CornerRadius="28"
         HeightRequest="56"
         Text="ADD TO CART"

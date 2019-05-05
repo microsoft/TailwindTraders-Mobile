@@ -2,6 +2,7 @@
 using TailwindTraders.Mobile.Features.Home;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Product;
+using TailwindTraders.Mobile.Features.Product.Cart;
 using TailwindTraders.Mobile.Features.Settings;
 using TailwindTraders.Mobile.Helpers;
 
@@ -18,6 +19,9 @@ namespace TailwindTraders.Mobile.Features.Common
         public ILoginAPI LoginAPI { get; private set; }
 
         public ISimilarProductsAPI SimilarProductsAPI { get; private set; }
+
+        // There is no real API for products cart, meanwhile must use a faked one
+        public IProductCartAPI ProductCartAPI { get; } = new FakeProductCartAPI();
 
         public RestPoolService()
         {
