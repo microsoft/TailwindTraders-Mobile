@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 
 namespace TailwindTraders.Mobile.Features.Home
 {
