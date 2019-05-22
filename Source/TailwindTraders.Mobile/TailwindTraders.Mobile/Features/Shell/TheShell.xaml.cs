@@ -8,9 +8,8 @@ namespace TailwindTraders.Mobile.Features.Shell
         public static readonly TimeSpan TimeFlyoutCloses = TimeSpan.FromSeconds(0.5f);
 
         public TheShell()
-        {
+        {   
             InitializeComponent();
-
             BindingContext = new TheShellViewModel();
         }
 

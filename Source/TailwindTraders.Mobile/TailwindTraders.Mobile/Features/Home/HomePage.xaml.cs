@@ -9,8 +9,6 @@ namespace TailwindTraders.Mobile.Features.Home
         {
             InitializeComponent();
 
-            App.NavigationRoot = this;
-
             BindingContext = new HomeViewModel();
         }
 
