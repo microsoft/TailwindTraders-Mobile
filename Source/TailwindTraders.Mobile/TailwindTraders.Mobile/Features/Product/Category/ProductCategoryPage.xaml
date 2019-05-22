@@ -43,7 +43,7 @@
         <Grid>
 
             <CollectionView
-                x:Name="productsListView"
+                x:Name="productsCollectionView"
                 Margin="0,32,0,0"
                 ItemTemplate="{StaticResource TwoProductsItemTemplate}"
                 SelectionMode="None" />

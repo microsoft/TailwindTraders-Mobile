@@ -39,11 +39,11 @@ namespace TailwindTraders.Mobile.Features.Product.Category
         {
             if (e.PropertyName == nameof(ViewModel.Products))
             {
-                WireProductsUpWithListView();
+                WireProductsUpWithCollectionView();
             }
         }
 
-        private void WireProductsUpWithListView()
+        private void WireProductsUpWithCollectionView()
         {
             IList products;
 
@@ -69,7 +69,7 @@ namespace TailwindTraders.Mobile.Features.Product.Category
                 products = new List<Tuple<ProductViewModel, ProductViewModel>>(groupedProducts);
             }
 
-            productsListView.ItemsSource = products;
+            productsCollectionView.ItemsSource = products;
         }
     }
 }
