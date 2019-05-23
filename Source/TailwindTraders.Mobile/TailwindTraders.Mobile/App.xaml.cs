@@ -72,6 +72,13 @@ namespace TailwindTraders.Mobile
             await Shell.Navigation.PushAsync(page).ConfigureAwait(false);
         }
 
+        internal static async Task GoToProductCategoryAsync(string category)
+        {
+            var state = Shell.CurrentState;
+            await Shell.GoToAsync($"{state.Location}/{TheShell.ProductCategoryRoute}?category={category}");
+            Shell.FlyoutIsPresented = false;
+        }
+
         internal static async Task NavigateModallyToAsync(Page page, bool animated = true)
         {
             await Shell.CloseFlyoutAsync();

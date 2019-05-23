@@ -7,12 +7,28 @@ using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Product.Category
 {
+    [QueryProperty("Category", "category")]
     public partial class ProductCategoryPage
     {
-        public ProductCategoryPage(string typeId)
+        private string category;
+
+        public string Category
         {
-            InitializeComponent();
-            BindingContext = new ProductCategoryViewModel(typeId);
+            get
+            {
+                return category;
+            }
+
+            set
+            {
+                category = value;
+                BindingContext = new ProductCategoryViewModel(Category);
+            }
+        }
+
+        public ProductCategoryPage()
+        {
+            InitializeComponent();           
         }
 
         internal override IEnumerable<VisualElement> GetStateAwareVisualElements() => new VisualElement[]

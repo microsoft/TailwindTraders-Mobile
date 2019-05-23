@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Shell"
     xmlns:login="clr-namespace:TailwindTraders.Mobile.Features.LogIn"
     xmlns:settings="clr-namespace:TailwindTraders.Mobile.Features.Settings"
+    FlyoutHeaderBehavior="CollapseOnScroll"
     x:Name="theShell"
     Title="Tailwind Traders">
     <Shell.Resources>
