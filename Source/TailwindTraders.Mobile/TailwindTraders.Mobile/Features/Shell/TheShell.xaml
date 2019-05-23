@@ -10,9 +10,6 @@
     xmlns:settings="clr-namespace:TailwindTraders.Mobile.Features.Settings"
     x:Name="theShell"
     Title="Tailwind Traders">
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior IconOverride="cart.png" />
-    </Shell.BackButtonBehavior>
     <Shell.Resources>
         <ResourceDictionary>
 
