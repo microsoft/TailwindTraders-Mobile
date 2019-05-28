@@ -1,87 +1,90 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<!-- Currently it's needed to pass the entire qualified name as x:Class -->
-<Shell x:Name="theShell"
-  x:Class="TailwindTraders.Mobile.Features.Shell.TheShell"
-  xmlns="http://xamarin.com/schemas/2014/forms"
-  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-  xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
-  xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Shell"
-  xmlns:productcategory="clr-namespace:TailwindTraders.Mobile.Features.Product.Category"
-  Title="Tailwind Traders"
-  Route="tailwindtraders"
-  RouteHost="www.microsoft.com"
-  RouteScheme="http">
+<!--  Currently it's needed to pass the entire qualified name as x:Class  -->
+<Shell
+    x:Class="TailwindTraders.Mobile.Features.Shell.TheShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
+    xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Shell"
+    xmlns:login="clr-namespace:TailwindTraders.Mobile.Features.LogIn"
+    xmlns:settings="clr-namespace:TailwindTraders.Mobile.Features.Settings"
+    FlyoutHeaderBehavior="CollapseOnScroll"
+    x:Name="theShell"
+    Title="Tailwind Traders">
+    <Shell.Resources>
+        <ResourceDictionary>
 
-  <Shell.Resources>
-    <ResourceDictionary>
+            <Style ApplyToDerivedTypes="True" TargetType="ShellItem">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource AccentColor}" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource AccentColor}" />
+            </Style>
 
-      <Style TargetType="ShellItem">
-        <Setter Property="Shell.ShellBackgroundColor" Value="{StaticResource PrimaryColor}" />
-        <Setter Property="Shell.ShellForegroundColor" Value="{StaticResource AccentColor}" />
-        <Setter Property="Shell.ShellTitleColor" Value="{StaticResource AccentColor}" />
-      </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
 
-    </ResourceDictionary>
-  </Shell.Resources>
+    <Shell.FlyoutHeader>
+        <local:FlyoutHeader BindingContext="{Binding Source={x:Reference theShell}, Path=BindingContext}" />
+    </Shell.FlyoutHeader>
 
-  <Shell.FlyoutHeader>
-    <local:FlyoutHeader BindingContext="{Binding Source={x:Reference theShell}, Path=BindingContext}" />
-  </Shell.FlyoutHeader>
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
 
-  <Shell.ItemTemplate>
-    <DataTemplate>
+            <ContentView HeightRequest="{StaticResource 2xDefaultMargin}">
+                <ContentView.Padding>
+                    <Thickness Left="{StaticResource 2xDefaultMargin}" Top="{StaticResource DefaultMargin}" />
+                </ContentView.Padding>
 
-      <ContentView HeightRequest="{StaticResource 2xDefaultMargin}">
-        <ContentView.Padding>
-          <Thickness
-            Left="{StaticResource 2xDefaultMargin}"
-            Top="{StaticResource DefaultMargin}" />
-        </ContentView.Padding>
+                <Label Text="{Binding Title}" TextColor="{StaticResource AccentColor}" />
 
-        <Label Text="{Binding Title}" />
+            </ContentView>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
 
-      </ContentView>
+    <Shell.ItemTemplate>
+        <DataTemplate>
 
-    </DataTemplate>
-  </Shell.ItemTemplate>
+            <ContentView HeightRequest="{StaticResource 2xDefaultMargin}">
+                <ContentView.Padding>
+                    <Thickness Left="{StaticResource 2xDefaultMargin}" Top="{StaticResource DefaultMargin}" />
+                </ContentView.Padding>
 
-  <MenuItem
-    BindingContext="{x:Reference theShell}"
-    Command="{Binding BindingContext.ProductTypeCommand}"
-    CommandParameter="1"
-    Text="Home Appliances" />
+                <Label Text="{Binding Title}" TextColor="{StaticResource AccentColor}" />
 
-  <MenuItem
-    BindingContext="{x:Reference theShell}"
-    Command="{Binding BindingContext.ProductTypeCommand}"
-    CommandParameter="2"
-    Text="Sink" />
+            </ContentView>
 
-  <MenuItem
-    BindingContext="{x:Reference theShell}"
-    Command="{Binding BindingContext.ProductTypeCommand}"
-    CommandParameter="4"
-    Text="Gardening" />
+        </DataTemplate>
+    </Shell.ItemTemplate>
 
-  <ShellItem
-    Title="Home"
-    Route="home">
-    <ShellContent ContentTemplate="{DataTemplate home:HomePage}" />
-  </ShellItem>
+    <MenuItem
+        BindingContext="{x:Reference theShell}"
+        Command="{Binding BindingContext.ProductTypeCommand}"
+        CommandParameter="1"
+        Text="Home Appliances" />
 
-  <MenuItem
-    BindingContext="{x:Reference theShell}"
-    Command="{Binding BindingContext.ProfileCommand}"
-    Text="Profile" />
+    <MenuItem
+        BindingContext="{x:Reference theShell}"
+        Command="{Binding BindingContext.ProductTypeCommand}"
+        CommandParameter="2"
+        Text="Sink" />
 
-  <MenuItem
-    BindingContext="{x:Reference theShell}"
-    Command="{Binding BindingContext.SettingsCommand}"
-    Text="Settings" />
+    <MenuItem
+        BindingContext="{x:Reference theShell}"
+        Command="{Binding BindingContext.ProductTypeCommand}"
+        CommandParameter="4"
+        Text="Gardening" />
 
-  <MenuItem
-    BindingContext="{x:Reference theShell}"
-    Command="{Binding BindingContext.LogOutCommand}"
-    Text="Log out" />
+    <FlyoutItem Title="Home" Route="home">
+        <ShellContent ContentTemplate="{DataTemplate home:HomePage}" />
+    </FlyoutItem>
 
+    <MenuItem
+        BindingContext="{x:Reference theShell}"
+        Command="{Binding BindingContext.SettingsCommand}"
+        Text="Settings" />
+
+    <MenuItem
+        BindingContext="{x:Reference theShell}"
+        Command="{Binding BindingContext.LogOutCommand}"
+        Text="Log out" />
 </Shell>

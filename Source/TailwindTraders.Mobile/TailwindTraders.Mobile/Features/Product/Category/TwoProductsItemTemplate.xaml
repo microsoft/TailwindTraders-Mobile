@@ -4,9 +4,6 @@
   xmlns="http://xamarin.com/schemas/2014/forms"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Category">
-
-  <ViewCell>
-
     <!-- Padding: just at top to avoid shadow cutting -->
     <!--
       HeightRequest: 248 = 216 (white background's) + 32 (image's offset); it'd be ideal to leave it auto but it's
@@ -37,7 +34,5 @@
         IsVisible="{Binding ., Converter={StaticResource IsNotNullConverter}}" />
 
     </Grid>
-
-  </ViewCell>
 
 </DataTemplate>
