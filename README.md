@@ -11,6 +11,19 @@ You can also download the mobile apps connected to our public endpoints in your 
 * [Tailwind Traders iOS](https://aka.ms/tailwindtradersios)
 * [Tailwind Traders Android](https://aka.ms/tailwindtradersandroid)
 
+# Screens
+Tailwind Traders App
+
+<img src="Documents/Images/Splash.png" Width="210"/><img src="Documents/Images/Login.png" Width="210"/><img src="Documents/Images/Home.png" Width="210"/><img src="Documents/Images/Menu.png" Width="210"/><img src="Documents/Images/Product.png" Width="210"/><img src="Documents/Images/ProductList.png" Width="210"/><img src="Documents/Images/Cart.png" Width="210"/>
+
+# Xamarin.Forms 4
+
+Latest features available in [Xamarin.Forms 4](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/release-notes/4.0/4.0.0-sr4) have been added as [Shell](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/shell/) navigation with routes and query parameters, and we added the new [CollectionView](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/collectionview/) control to show the different product list.
+
+# TailwindTraders.UITests
+
+There are some [Xamarin.UITests](https://docs.microsoft.com/en-us/appcenter/test-cloud/uitest/)  that are run in AppCenter to ensure the app works as expected. The UITests available have been designed with the best practices obtained from the experience of several developments in this way so we think it is a very good sample of how create UITests the good way.
+
 # Repositories
 
 For this demo we built several consumer and line-of-business applications with a common set of backend services. You can find all repositories below:
@@ -21,6 +34,8 @@ For this demo we built several consumer and line-of-business applications with a
 * [Desktop (WinForms & WPF -.NET Core)](https://github.com/Microsoft/TailwindTraders-Desktop)
 * [Rewards (ASP.NET Framework)](https://github.com/Microsoft/TailwindTraders-Rewards)
 * [Mobile (Xamarin Forms 4.0)](https://github.com/Microsoft/TailwindTraders-Mobile)
+
+
 
 # Contributing
 
