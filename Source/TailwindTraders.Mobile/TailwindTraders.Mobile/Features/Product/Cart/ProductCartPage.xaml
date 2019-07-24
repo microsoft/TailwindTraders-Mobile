@@ -1,235 +1,192 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <framework:BaseStateAwareContentPage
-    x:Class="TailwindTraders.Mobile.Features.Product.Cart.ProductCartPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
-    xmlns:xfbindablestacklayout="clr-namespace:XFBindableStackLayout"
-    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-    xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Cart"
-    Title="Cart"
-    ios:Page.UseSafeArea="true"
-    x:DataType="local:ProductCartViewModel"
-    x:TypeArguments="local:ProductCartViewModel, local:ProductCartViewModel.State"
-    ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+  x:Class="TailwindTraders.Mobile.Features.Product.Cart.ProductCartPage"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Cart"
+  xmlns:xfbindablestacklayout="clr-namespace:XFBindableStackLayout"
+  Title="Cart"
+  ios:Page.UseSafeArea="true"
+  x:DataType="local:ProductCartViewModel"
+  x:TypeArguments="local:ProductCartViewModel, local:ProductCartViewModel.State"
+  ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
 
-    <ContentPage.Content>
+  <ContentPage.Content>
 
-        <Grid>
+    <Grid>
 
-            <StackLayout
-                IsVisible="False"
-                x:Name="stateAwareStackLayout">
+      <StackLayout x:Name="stateAwareStackLayout"
+        IsVisible="False">
+        <ScrollView VerticalOptions="StartAndExpand">
+          <xfbindablestacklayout:BindableStackLayout
+            ItemTemplate="{StaticResource ProductCartLineItemTemplate}"
+            ItemsSource="{Binding CartLines}"
+            Spacing="{StaticResource DefaultMargin}" />
+        </ScrollView>
 
-                <ScrollView
-                    VerticalOptions="StartAndExpand">
-                    <xfbindablestacklayout:BindableStackLayout
-                        ItemTemplate="{StaticResource ProductCartLineItemTemplate}"
-                        ItemsSource="{Binding CartLines}"
-                        Spacing="{StaticResource DefaultMargin}" />
-                </ScrollView>
+        <!-- TOTAL -->
+        <StackLayout
+          Orientation="Horizontal"
+          VerticalOptions="End">
 
-                <!-- TOTAL -->
-                <StackLayout
-                    VerticalOptions="End"
-                    Orientation="Horizontal">
+          <View.Margin>
+            <Thickness Top="{StaticResource DefaultMargin}" />
+          </View.Margin>
 
-                    <View.Margin>
-                        <Thickness
-                            Top="{StaticResource DefaultMargin}" />
-                    </View.Margin>
+          <Label
+            Style="{StaticResource BrandonGrotesqueMediumLargeFontStyle}"
+            Text="TOTAL">
+            <View.Margin>
+              <Thickness Left="{StaticResource DefaultMargin}" />
+            </View.Margin>
+          </Label>
 
-                    <Label
-                        Style="{StaticResource BrandonGrotesqueMediumLargeFontStyle}"
-                        Text="TOTAL">
-                        <View.Margin>
-                            <Thickness
-                                Left="{StaticResource DefaultMargin}" />
-                        </View.Margin>
-                    </Label>
+          <Label
+            HorizontalTextAlignment="Start"
+            Style="{StaticResource BrandonGrotesqueMediumMediumFontStyle}"
+            Text="{Binding CartLinesCount, StringFormat='{0} item(s)'}"
+            VerticalTextAlignment="Center">
+            <View.Margin>
+              <Thickness Left="{StaticResource DefaultMargin}" />
+            </View.Margin>
+          </Label>
 
-                    <Label
-                        Style="{StaticResource BrandonGrotesqueMediumMediumFontStyle}"
-                        HorizontalTextAlignment="Start"
-                        VerticalTextAlignment="Center"
-                        Text="{Binding CartLinesCount, StringFormat='{0} item(s)'}">
-                        <View.Margin>
-                            <Thickness
-                                Left="{StaticResource DefaultMargin}" />
-                        </View.Margin>
-                    </Label>
+          <Label
+            HorizontalOptions="EndAndExpand"
+            HorizontalTextAlignment="End"
+            Style="{StaticResource BrandonGrotesqueMediumLargeFontStyle}"
+            Text="{Binding CartTotal, StringFormat='${0}'}">
+            <View.Margin>
+              <Thickness Right="{StaticResource DefaultMargin}" />
+            </View.Margin>
+          </Label>
 
-                    <Label
-                        Style="{StaticResource BrandonGrotesqueMediumLargeFontStyle}"
-                        HorizontalOptions="EndAndExpand"
-                        HorizontalTextAlignment="End"
-                        Text="{Binding CartTotal, StringFormat='${0}'}">
-                        <View.Margin>
-                            <Thickness
-                                Right="{StaticResource DefaultMargin}" />
-                        </View.Margin>
-                    </Label>
+        </StackLayout>
 
-                </StackLayout>
+        <!-- CHECKOUT -->
+        <StackLayout VerticalOptions="End">
+          <StackLayout.Padding>
+            <Thickness
+              Left="{StaticResource DefaultMargin}"
+              Top="{OnPlatform Android={StaticResource DefaultMargin},
+                               iOS={StaticResource 2xDefaultMargin}}"
+              Right="{StaticResource DefaultMargin}"
+              Bottom="{OnPlatform Android={StaticResource DefaultMargin},
+                                  iOS={StaticResource 2xDefaultMargin}}" />
+          </StackLayout.Padding>
 
-                <!-- CHECKOUT -->
-                <StackLayout
-                    VerticalOptions="End">
-                    <StackLayout.Padding>
-                        <Thickness
-                            Left="{StaticResource DefaultMargin}"
-                            Right="{StaticResource DefaultMargin}"
-                            Top="{OnPlatform Android={StaticResource DefaultMargin},
-                             iOS={StaticResource 2xDefaultMargin}}"
-                            Bottom="{OnPlatform Android={StaticResource DefaultMargin},
-                                iOS={StaticResource 2xDefaultMargin}}" />
-                    </StackLayout.Padding>
+          <Button
+            Command="{Binding FeatureNotAvailableCommand}"
+            Style="{StaticResource Accent2ColorButtonStyle}"
+            Text="CHECKOUT" />
 
-                    <Button
-                        Command="{Binding FeatureNotAvailableCommand}"
-                        Style="{StaticResource Accent2ColorButtonStyle}"
-                        Text="CHECKOUT" />
+        </StackLayout>
 
-                </StackLayout>
+        <VisualStateManager.VisualStateGroups>
+          <VisualStateGroup Name="States">
 
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup
-                        Name="States">
+            <VisualState Name="CartHasItems">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="true" />
+              </VisualState.Setters>
+            </VisualState>
 
-                        <VisualState
-                            Name="CartHasItems">
-                            <VisualState.Setters>
-                                <Setter
-                                    Property="IsVisible"
-                                    Value="true" />
-                            </VisualState.Setters>
-                        </VisualState>
+            <VisualState Name="Error">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="false" />
+              </VisualState.Setters>
+            </VisualState>
 
-                        <VisualState
-                            Name="Error">
-                            <VisualState.Setters>
-                                <Setter
-                                    Property="IsVisible"
-                                    Value="false" />
-                            </VisualState.Setters>
-                        </VisualState>
+            <VisualState Name="Empty">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="false" />
+              </VisualState.Setters>
+            </VisualState>
 
-                        <VisualState
-                            Name="Empty">
-                            <VisualState.Setters>
-                                <Setter
-                                    Property="IsVisible"
-                                    Value="false" />
-                            </VisualState.Setters>
-                        </VisualState>
+          </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+      </StackLayout>
 
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
+      <!-- EMPTY STATE -->
+      <Label x:Name="emptyLabel"
+        HorizontalOptions="Center"
+        HorizontalTextAlignment="Center"
+        IsVisible="false"
+        Text="Your cart is empty"
+        VerticalOptions="Center">
+        <View.Margin>
+          <Thickness
+            Left="{StaticResource 2xDefaultMargin}"
+            Right="{StaticResource 2xDefaultMargin}" />
+        </View.Margin>
 
-            </StackLayout>
-            
-            <!-- EMPTY STATE -->
-            <Label
-                x:Name="emptyLabel"
-                HorizontalOptions="Center"
-                HorizontalTextAlignment="Center"
-                IsVisible="false"
-                Text="Your cart is empty"
-                VerticalOptions="Center">
+        <VisualStateManager.VisualStateGroups>
+          <VisualStateGroup Name="States">
 
-                <View.Margin>
-                    <Thickness
-                        Left="{StaticResource 2xDefaultMargin}"
-                        Right="{StaticResource 2xDefaultMargin}" />
-                </View.Margin>
+            <VisualState Name="CartHasItems">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="false" />
+              </VisualState.Setters>
+            </VisualState>
 
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup
-                        Name="States">
+            <VisualState Name="Error">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="false" />
+              </VisualState.Setters>
+            </VisualState>
 
-                        <VisualState
-                            Name="CartHasItems">
-                            <VisualState.Setters>
-                                <Setter
-                                    Property="IsVisible"
-                                    Value="false" />
-                            </VisualState.Setters>
-                        </VisualState>
+            <VisualState Name="Empty">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="true" />
+              </VisualState.Setters>
+            </VisualState>
 
-                        <VisualState
-                            Name="Error">
-                            <VisualState.Setters>
-                                <Setter
-                                    Property="IsVisible"
-                                    Value="false" />
-                            </VisualState.Setters>
-                        </VisualState>
+          </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+      </Label>
 
-                        <VisualState
-                            Name="Empty">
-                            <VisualState.Setters>
-                                <Setter
-                                    Property="IsVisible"
-                                    Value="true" />
-                            </VisualState.Setters>
-                        </VisualState>
+      <!-- ERROR STATE -->
+      <Label x:Name="errorLabel"
+        HorizontalOptions="Center"
+        HorizontalTextAlignment="Center"
+        IsVisible="false"
+        Text="Something happened, there was an error loading the cart"
+        VerticalOptions="Center">
+        <View.Margin>
+          <Thickness
+            Left="{StaticResource 2xDefaultMargin}"
+            Right="{StaticResource 2xDefaultMargin}" />
+        </View.Margin>
 
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Label>
+        <VisualStateManager.VisualStateGroups>
+          <VisualStateGroup Name="States">
 
-            <!-- ERROR STATE -->
-            <Label
-                x:Name="errorLabel"
-                HorizontalOptions="Center"
-                HorizontalTextAlignment="Center"
-                IsVisible="false"
-                Text="Something happened, there was an error loading the cart"
-                VerticalOptions="Center">
+            <VisualState Name="CartHasItems">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="false" />
+              </VisualState.Setters>
+            </VisualState>
 
-                <View.Margin>
-                    <Thickness
-                        Left="{StaticResource 2xDefaultMargin}"
-                        Right="{StaticResource 2xDefaultMargin}" />
-                </View.Margin>
+            <VisualState Name="Error">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="true" />
+              </VisualState.Setters>
+            </VisualState>
 
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup
-                        Name="States">
+            <VisualState Name="Empty">
+              <VisualState.Setters>
+                <Setter Property="IsVisible" Value="false" />
+              </VisualState.Setters>
+            </VisualState>
 
-                        <VisualState
-                            Name="CartHasItems">
-                            <VisualState.Setters>
-                                <Setter
-                                    Property="IsVisible"
-                                    Value="false" />
-                            </VisualState.Setters>
-                        </VisualState>
+          </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+      </Label>
 
-                        <VisualState
-                            Name="Error">
-                            <VisualState.Setters>
-                                <Setter
-                                    Property="IsVisible"
-                                    Value="true" />
-                            </VisualState.Setters>
-                        </VisualState>
+    </Grid>
 
-                        <VisualState
-                            Name="Empty">
-                            <VisualState.Setters>
-                                <Setter
-                                    Property="IsVisible"
-                                    Value="false" />
-                            </VisualState.Setters>
-                        </VisualState>
-
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Label>
-
-        </Grid>
-
-    </ContentPage.Content>
+  </ContentPage.Content>
 
 </framework:BaseStateAwareContentPage>

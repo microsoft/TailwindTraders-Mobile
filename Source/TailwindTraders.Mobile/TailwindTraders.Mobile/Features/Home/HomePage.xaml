@@ -1,226 +1,221 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <framework:BaseStateAwareContentPage x:Name="homePage"
-                                     x:Class="TailwindTraders.Mobile.Features.Home.HomePage"
-                                     xmlns="http://xamarin.com/schemas/2014/forms"
-                                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                                     xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-                                     xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
-                                     xmlns:controls="clr-namespace:TailwindTraders.Mobile.Controls"
-                                     xmlns:effects="clr-namespace:TailwindTraders.Mobile.Effects"
-                                     xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
-                                     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-                                     xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Home"
-                                     xmlns:xfbindablestacklayout="clr-namespace:XFBindableStackLayout"
-                                     Title="Home"
-                                     ios:Page.UseSafeArea="true"
-                                     x:DataType="local:HomeViewModel"
-                                     x:TypeArguments="local:HomeViewModel, local:HomeViewModel.State"
-                                     ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
+  x:Class="TailwindTraders.Mobile.Features.Home.HomePage"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:carousel="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+  xmlns:controls="clr-namespace:TailwindTraders.Mobile.Controls"
+  xmlns:effects="clr-namespace:TailwindTraders.Mobile.Effects"
+  xmlns:framework="clr-namespace:TailwindTraders.Mobile.Framework"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Home"
+  xmlns:xfbindablestacklayout="clr-namespace:XFBindableStackLayout"
+  Title="Home"
+  ios:Page.UseSafeArea="true"
+  x:DataType="local:HomeViewModel"
+  x:TypeArguments="local:HomeViewModel, local:HomeViewModel.State"
+  ControlTemplate="{StaticResource FullScreenLoadingTemplate}">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
+  <ContentPage.Resources>
+    <ResourceDictionary>
 
-            <local:RecommendedItemTemplate x:Key="RecommendedItemTemplate" />
+      <local:RecommendedItemTemplate x:Key="RecommendedItemTemplate" />
 
-            <Style
-                BasedOn="{StaticResource ShadowfullBoxViewStyle}"
-                TargetType="BoxView" />
+      <Style
+        BasedOn="{StaticResource ShadowfullBoxViewStyle}"
+        TargetType="BoxView" />
 
-            <Thickness x:Key="ButtonMargin"
-                       Left="40"
-                       Top="{StaticResource DefaultMargin}"
-                       Right="40" />
+      <Thickness x:Key="ButtonMargin"
+        Left="40"
+        Top="{StaticResource DefaultMargin}"
+        Right="40" />
 
-        </ResourceDictionary>
-    </ContentPage.Resources>
+    </ResourceDictionary>
+  </ContentPage.Resources>
 
-    <Shell.TitleView>
-
-
-
-        <Image
-            x:Name="Logo"
-            Aspect="AspectFit"
-            HeightRequest="40"
-            HorizontalOptions="Start"
-            Source="logo_header_b"
-            VerticalOptions="Center"
-            WidthRequest="78" />
+  <Shell.TitleView>
 
 
-    </Shell.TitleView>
 
-    <ContentPage.ToolbarItems>
+    <Image x:Name="Logo"
+      Aspect="AspectFit"
+      HeightRequest="40"
+      HorizontalOptions="Start"
+      Source="logo_header_b"
+      VerticalOptions="Center"
+      WidthRequest="78" />
 
-        <ToolbarItem
-            Command="{Binding FeatureNotAvailableCommand}"
-            Icon="search"
-            Order="Primary"
-            Priority="0"
-            Text="Search" />
 
-        <ToolbarItem
-            Command="{Binding CartCommand}"
-            Icon="cart"
-            Order="Primary"
-            Priority="1"
-            Text="Cart" />
+  </Shell.TitleView>
 
-    </ContentPage.ToolbarItems>
+  <ContentPage.ToolbarItems>
 
-    <ContentPage.Content>
+    <ToolbarItem
+      Command="{Binding FeatureNotAvailableCommand}"
+      Icon="search"
+      Order="Primary"
+      Priority="0"
+      Text="Search" />
 
-        <AbsoluteLayout>
+    <ToolbarItem
+      Command="{Binding CartCommand}"
+      Icon="cart"
+      Order="Primary"
+      Priority="1"
+      Text="Cart" />
 
-            <ScrollView
-                AbsoluteLayout.LayoutFlags="All"
-                AbsoluteLayout.LayoutBounds="0,0,1,1">
+  </ContentPage.ToolbarItems>
 
-                <StackLayout>
+  <ContentPage.Content>
 
-                    <Image
-                        Margin="0,0,0,-64"
-                        Aspect="AspectFill"
-                        HeightRequest="{Binding Source={x:Reference homePage}, Path=Width}"
-                        Source="header.jpg" />
+    <AbsoluteLayout>
 
-                    <Button
-                        Margin="{StaticResource ButtonMargin}"
-                        Command="{Binding PhotoCommand}"
-                        Image="photo"
-                        Style="{StaticResource DefaultShadowfullButtonStyle}"
-                        Text="Start Smart Shopping&#x0a;by taking a photo">
+      <ScrollView
+        AbsoluteLayout.LayoutFlags="All"
+        AbsoluteLayout.LayoutBounds="0,0,1,1">
 
-                        <Button.Effects>
-                            <effects:MultilineButtonEffect />
-                        </Button.Effects>
+        <StackLayout>
 
-                    </Button>
+          <Image
+            Margin="0,0,0,-64"
+            Aspect="AspectFill"
+            HeightRequest="{Binding Source={x:Reference homePage}, Path=Width}"
+            Source="header.jpg" />
 
-                    <Button
-                        Margin="{StaticResource ButtonMargin}"
-                        Command="{Binding ARCommand}"
-                        Image="ia"
-                        Style="{StaticResource DefaultShadowfullButtonStyle}"
-                        Text="Start Smart Shopping&#x0a;by using AR">
+          <Button
+            Margin="{StaticResource ButtonMargin}"
+            Command="{Binding PhotoCommand}"
+            Image="photo"
+            Style="{StaticResource DefaultShadowfullButtonStyle}"
+            Text="Start Smart Shopping&#x0a;by taking a photo">
 
-                        <Button.Effects>
-                            <effects:MultilineButtonEffect />
-                        </Button.Effects>
+            <Button.Effects>
+              <effects:MultilineButtonEffect />
+            </Button.Effects>
 
-                    </Button>
+          </Button>
 
-                    <Button x:Name="refreshButton"
-                            Margin="{StaticResource DefaultMargin}"
-                            Command="{Binding LoadCommand}"
-                            HorizontalOptions="Center"
-                            IsVisible="false"
-                            Style="{StaticResource DefaultShadowfullButtonStyle}"
-                            Text="Try fetch products again">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup Name="States">
+          <Button
+            Margin="{StaticResource ButtonMargin}"
+            Command="{Binding ARCommand}"
+            Image="ia"
+            Style="{StaticResource DefaultShadowfullButtonStyle}"
+            Text="Start Smart Shopping&#x0a;by using AR">
 
-                                <VisualState Name="EverythingOK">
-                                    <VisualState.Setters>
-                                        <Setter Property="IsVisible"
-                                                Value="false" />
-                                    </VisualState.Setters>
-                                </VisualState>
+            <Button.Effects>
+              <effects:MultilineButtonEffect />
+            </Button.Effects>
 
-                                <VisualState Name="Error">
-                                    <VisualState.Setters>
-                                        <Setter Property="IsVisible"
-                                                Value="true" />
-                                    </VisualState.Setters>
-                                </VisualState>
+          </Button>
 
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                    </Button>
+          <Button x:Name="refreshButton"
+            Margin="{StaticResource DefaultMargin}"
+            Command="{Binding LoadCommand}"
+            HorizontalOptions="Center"
+            IsVisible="false"
+            Style="{StaticResource DefaultShadowfullButtonStyle}"
+            Text="Try fetch products again">
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup Name="States">
 
-                    <StackLayout x:Name="stateAwareStackLayout">
-                        <Label
-                            Style="{StaticResource HeaderLabelStyle}"
-                            Text="RECOMMENDED" />
+                <VisualState Name="EverythingOK">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="false" />
+                  </VisualState.Setters>
+                </VisualState>
 
-                        <carousel:CarouselViewControl
-                            HeightRequest="232"
-                            InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
-                            ItemTemplate="{StaticResource RecommendedItemTemplate}"
-                            ItemsSource="{Binding RecommendedProducts}" />
+                <VisualState Name="Error">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="true" />
+                  </VisualState.Setters>
+                </VisualState>
 
-                        <Label
-                            Style="{StaticResource HeaderLabelStyle}"
-                            Text="POPULAR PRODUCTS" />
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Button>
 
-                        <controls:FixedRatioCarouselViewControl
-                            InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
-                            ItemTemplate="{StaticResource PopularItemTemplate}"
-                            ItemsSource="{Binding PopularProducts}" />
+          <StackLayout x:Name="stateAwareStackLayout">
+            <Label
+              Style="{StaticResource HeaderLabelStyle}"
+              Text="RECOMMENDED" />
 
-                        <Label
-                            Style="{StaticResource HeaderLabelStyle}"
-                            Text="PREVIOUSLY SEEN">
+            <carousel:CarouselViewControl
+              HeightRequest="232"
+              InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
+              ItemTemplate="{StaticResource RecommendedItemTemplate}"
+              ItemsSource="{Binding RecommendedProducts}" />
 
-                            <Label.Margin>
-                                <Thickness
-                                    Left="{StaticResource 2xDefaultMargin}"
-                                    Top="{StaticResource DefaultMargin}"
-                                    Right="{StaticResource 2xDefaultMargin}"
-                                    Bottom="{StaticResource 2xDefaultMargin}" />
-                            </Label.Margin>
+            <Label
+              Style="{StaticResource HeaderLabelStyle}"
+              Text="POPULAR PRODUCTS" />
 
-                        </Label>
+            <controls:FixedRatioCarouselViewControl
+              InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
+              ItemTemplate="{StaticResource PopularItemTemplate}"
+              ItemsSource="{Binding PopularProducts}" />
 
-                        <xfbindablestacklayout:BindableStackLayout
-                            ItemTemplate="{StaticResource PreviouslySeenItemTemplate}"
-                            ItemsSource="{Binding PreviouslySeenProducts}"
-                            Spacing="{StaticResource DefaultMargin}">
-                            <View.Margin>
-                                <Thickness Bottom="{StaticResource 4xDefaultMargin}" />
-                            </View.Margin>
-                        </xfbindablestacklayout:BindableStackLayout>
+            <Label
+              Style="{StaticResource HeaderLabelStyle}"
+              Text="PREVIOUSLY SEEN">
 
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup Name="States">
+              <Label.Margin>
+                <Thickness
+                  Left="{StaticResource 2xDefaultMargin}"
+                  Top="{StaticResource DefaultMargin}"
+                  Right="{StaticResource 2xDefaultMargin}"
+                  Bottom="{StaticResource 2xDefaultMargin}" />
+              </Label.Margin>
 
-                                <VisualState Name="EverythingOK">
-                                    <VisualState.Setters>
-                                        <Setter Property="IsVisible"
-                                                Value="true" />
-                                    </VisualState.Setters>
-                                </VisualState>
+            </Label>
 
-                                <VisualState Name="Error">
-                                    <VisualState.Setters>
-                                        <Setter Property="IsVisible"
-                                                Value="false" />
-                                    </VisualState.Setters>
-                                </VisualState>
+            <xfbindablestacklayout:BindableStackLayout
+              ItemTemplate="{StaticResource PreviouslySeenItemTemplate}"
+              ItemsSource="{Binding PreviouslySeenProducts}"
+              Spacing="{StaticResource DefaultMargin}">
+              <View.Margin>
+                <Thickness Bottom="{StaticResource 4xDefaultMargin}" />
+              </View.Margin>
+            </xfbindablestacklayout:BindableStackLayout>
 
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                    </StackLayout>
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup Name="States">
 
-                </StackLayout>
+                <VisualState Name="EverythingOK">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="true" />
+                  </VisualState.Setters>
+                </VisualState>
 
-            </ScrollView>
+                <VisualState Name="Error">
+                  <VisualState.Setters>
+                    <Setter Property="IsVisible" Value="false" />
+                  </VisualState.Setters>
+                </VisualState>
 
-            <local:FreeShippingBanner
-                AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
-                AbsoluteLayout.LayoutBounds="0,0,1,AutoSize">
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </StackLayout>
 
-                <local:FreeShippingBanner.Margin>
-                    <Thickness
-                        Left="{StaticResource 0.5xDefaultMargin}"
-                        Top="{StaticResource 0.5xDefaultMargin}"
-                        Right="{StaticResource 0.5xDefaultMargin}" />
-                </local:FreeShippingBanner.Margin>
+        </StackLayout>
 
-            </local:FreeShippingBanner>
+      </ScrollView>
 
-        </AbsoluteLayout>
+      <local:FreeShippingBanner
+        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+        AbsoluteLayout.LayoutBounds="0,0,1,AutoSize">
 
-    </ContentPage.Content>
+        <local:FreeShippingBanner.Margin>
+          <Thickness
+            Left="{StaticResource 0.5xDefaultMargin}"
+            Top="{StaticResource 0.5xDefaultMargin}"
+            Right="{StaticResource 0.5xDefaultMargin}" />
+        </local:FreeShippingBanner.Margin>
+
+      </local:FreeShippingBanner>
+
+    </AbsoluteLayout>
+
+  </ContentPage.Content>
 
 </framework:BaseStateAwareContentPage>

@@ -1,99 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <DataTemplate
-    x:Class="TailwindTraders.Mobile.Features.Product.Cart.ProductCartLineItemTemplate"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-    xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Cart"
-    x:DataType="local:ProductCartLineDTO">
+  x:Class="TailwindTraders.Mobile.Features.Product.Cart.ProductCartLineItemTemplate"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+  xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Product.Cart"
+  x:DataType="local:ProductCartLineDTO">
 
-    <AbsoluteLayout
-        HeightRequest="112">
+  <AbsoluteLayout HeightRequest="112">
 
-        <AbsoluteLayout.Padding>
-            <Thickness
-                Left="{StaticResource DefaultMargin}"
-                Right="{StaticResource DefaultMargin}" />
-        </AbsoluteLayout.Padding>
+    <AbsoluteLayout.Padding>
+      <Thickness
+        Left="{StaticResource DefaultMargin}"
+        Right="{StaticResource DefaultMargin}" />
+    </AbsoluteLayout.Padding>
 
-        <BoxView
-            AbsoluteLayout.LayoutFlags="All"
-            AbsoluteLayout.LayoutBounds="0,0,1,1"
-            Margin="48,0,0,0"
-            android:VisualElement.Elevation="{StaticResource DefaultElevation}"
-            ios:VisualElement.IsShadowEnabled="true"
-            ios:VisualElement.ShadowColor="Black"
-            ios:VisualElement.ShadowOffset="10,10"
-            ios:VisualElement.ShadowOpacity="0.2" />
+    <BoxView
+      AbsoluteLayout.LayoutFlags="All"
+      AbsoluteLayout.LayoutBounds="0,0,1,1"
+      Margin="48,0,0,0"
+      android:VisualElement.Elevation="{StaticResource DefaultElevation}"
+      ios:VisualElement.IsShadowEnabled="true"
+      ios:VisualElement.ShadowColor="Black"
+      ios:VisualElement.ShadowOffset="10,10"
+      ios:VisualElement.ShadowOpacity="0.2" />
 
-        <Grid
-            AbsoluteLayout.LayoutFlags="All"
-            AbsoluteLayout.LayoutBounds="0,0,1,1"
-            android:VisualElement.Elevation="{StaticResource DefaultElevation}"
-            ColumnSpacing="{StaticResource DefaultMargin}">
+    <Grid
+      AbsoluteLayout.LayoutFlags="All"
+      AbsoluteLayout.LayoutBounds="0,0,1,1"
+      android:VisualElement.Elevation="{StaticResource DefaultElevation}"
+      ColumnSpacing="{StaticResource DefaultMargin}">
 
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition />
+      </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition
-                    Width="Auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
 
-            <Frame
-                x:Name="imageFrame"
-                Grid.RowSpan="2"
-                CornerRadius="{Binding Source={x:Reference imageFrame}, Path=Width, Converter={StaticResource DoubleToHalfFloatConverter}}"
-                HeightRequest="96"
-                IsClippedToBounds="true"
-                VerticalOptions="Center"
-                WidthRequest="96">
+      <Frame x:Name="imageFrame"
+        Grid.RowSpan="2"
+        CornerRadius="{Binding Source={x:Reference imageFrame}, Path=Width, Converter={StaticResource DoubleToHalfFloatConverter}}"
+        HeightRequest="96"
+        IsClippedToBounds="true"
+        VerticalOptions="Center"
+        WidthRequest="96">
 
-                <Image
-                    Aspect="AspectFill"
-                    Source="{Binding Product.ImageUrl}" />
+        <Image
+          Aspect="AspectFill"
+          Source="{Binding Product.ImageUrl}" />
 
-            </Frame>
+      </Frame>
 
-            <Label
-                Grid.Column="1"
-                LineBreakMode="TailTruncation"
-                MaxLines="1"
-                Style="{StaticResource BrandonGrotesqueMediumLargeFontStyle}"
-                Text="{Binding Product.Name}"
-                VerticalOptions="End">
+      <Label
+        Grid.Column="1"
+        LineBreakMode="TailTruncation"
+        MaxLines="1"
+        Style="{StaticResource BrandonGrotesqueMediumLargeFontStyle}"
+        Text="{Binding Product.Name}"
+        VerticalOptions="End">
 
-                <Label.Margin>
-                    <Thickness
-                        Right="{StaticResource DefaultMargin}" />
-                </Label.Margin>
+        <Label.Margin>
+          <Thickness Right="{StaticResource DefaultMargin}" />
+        </Label.Margin>
 
-            </Label>
+      </Label>
 
-            <StackLayout
-                Grid.Row="1"
-                Grid.Column="1"
-                Spacing="{StaticResource 2xDefaultMargin}"
-                Orientation="Horizontal">
+      <StackLayout
+        Grid.Row="1"
+        Grid.Column="1"
+        Orientation="Horizontal"
+        Spacing="{StaticResource 2xDefaultMargin}">
 
-                <Label
-                    Style="{StaticResource BrandonGrotesqueMediumLargeFontStyle}"
-                    VerticalTextAlignment="Center"
-                    Text="{Binding Product.Price, StringFormat='${0}'}" />
+        <Label
+          Style="{StaticResource BrandonGrotesqueMediumLargeFontStyle}"
+          Text="{Binding Product.Price, StringFormat='${0}'}"
+          VerticalTextAlignment="Center" />
 
-                <Label
-                    Style="{StaticResource BrandonGrotesqueMediumMediumFontStyle}"
-                    VerticalTextAlignment="Center"
-                    Text="{Binding Quantity, StringFormat='x{0}'}" />
+        <Label
+          Style="{StaticResource BrandonGrotesqueMediumMediumFontStyle}"
+          Text="{Binding Quantity, StringFormat='x{0}'}"
+          VerticalTextAlignment="Center" />
 
-            </StackLayout>
+      </StackLayout>
 
-        </Grid>
+    </Grid>
 
-    </AbsoluteLayout>
+  </AbsoluteLayout>
 
 </DataTemplate>

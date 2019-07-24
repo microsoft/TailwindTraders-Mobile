@@ -88,7 +88,7 @@
           Command="{Binding LogInCommand}"
           Style="{StaticResource Accent2ColorButtonStyle}"
           Text="LOG IN" />
-          
+
       </StackLayout>
 
     </Grid>
