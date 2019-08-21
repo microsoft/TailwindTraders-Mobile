@@ -7,7 +7,7 @@
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <local:Colors />
+         <local:Colors />
         <local:ControlTemplates />
         <local:Converters />
         <local:FontStyles />
