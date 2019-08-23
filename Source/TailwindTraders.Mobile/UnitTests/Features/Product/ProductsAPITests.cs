@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -30,7 +29,7 @@ namespace UnitTests.Features.Product
         [Test]
         public async Task GetDetailAsync()
         {
-            var product = await this.PreauthenticateAsync(
+            var product = await PreauthenticateAsync(
                 () => productsAPI.GetDetailAsync(DefaultSettings.AccessToken, "1"));
 
             Assert.AreEqual(product.Id, 1);
@@ -39,7 +38,7 @@ namespace UnitTests.Features.Product
         [Test]
         public async Task GetProductsAsync()
         {
-            var products = await this.PreauthenticateAsync(
+            var products = await PreauthenticateAsync(
                 () => productsAPI.GetProductsAsync(DefaultSettings.AccessToken, "1"));
 
             Assert.IsNotEmpty(products.Products);
