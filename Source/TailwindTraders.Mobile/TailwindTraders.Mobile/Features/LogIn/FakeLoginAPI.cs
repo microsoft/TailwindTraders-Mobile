@@ -4,14 +4,17 @@ namespace TailwindTraders.Mobile.Features.LogIn
 {
     public class FakeLoginAPI : ILoginAPI
     {
-        public Task<LoginResponseDTO> LoginAsync(TokenRequestDTO request)
+        public Task<LoginResponseDTO> LoginAsync(LoginRequestDTO request)
         {
-            return Task.FromResult<LoginResponseDTO>(
+            return Task.FromResult(
                 new LoginResponseDTO
                 {
-                    AccessToken = "Faketoken",
-                    ExpiresIn = 1000,
-                    TokenType = "tokenfaketype",
+                    AccessToken = new LoginResponseDTO.AccessTokenDTO
+                    {
+                        Token = "faketoken",
+                        TokenType = "faketokentype",
+                        ExpiresIn = 1000,
+                    },
                 });
         }
     }

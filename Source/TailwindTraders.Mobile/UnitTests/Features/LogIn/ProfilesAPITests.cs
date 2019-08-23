@@ -17,7 +17,7 @@ namespace UnitTests.Features.LogIn
         public async Task GetAsync()
         {
             var profileAPI = RestService.For<IProfilesAPI>(HttpClientFactory.Create(DefaultSettings.RootApiUrl));
-            var profiles = await this.PreauthenticateAsync(() => profileAPI.GetAsync(authenticationBearer));
+            var profiles = await PreauthenticateAsync(() => profileAPI.GetAsync(authenticationBearer));
 
             Assert.IsNotEmpty(profiles);
         }

@@ -38,16 +38,15 @@ namespace TailwindTraders.Mobile.Features.LogIn
 
         private async Task<string> GetTokenAsync(string email, string password)
         {   
-            var request = new TokenRequestDTO()
+            var request = new LoginRequestDTO()
             {
                 Username = email,
                 Password = password,
-                GrantType = "password",
             };
 
             var response = await restPoolService.LoginAPI.LoginAsync(request);
 
-            return response.AccessToken;
+            return response.AccessToken.Token;
         }
     }
 }

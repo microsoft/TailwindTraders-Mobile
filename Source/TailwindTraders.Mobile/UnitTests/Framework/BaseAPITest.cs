@@ -1,9 +1,7 @@
-﻿using NUnit.Framework;
-using Refit;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
+using NUnit.Framework;
+using Refit;
 using TailwindTraders.Mobile.Features.LogIn;
 using TailwindTraders.Mobile.Features.Settings;
 
@@ -12,6 +10,7 @@ namespace UnitTests.Framework
     public abstract class BaseAPITest
     {
         protected readonly ILoginAPI LoginApi;
+
         protected string authenticationBearer;
         protected bool isSuccess;
         protected Exception failureException = new Exception();
@@ -25,7 +24,7 @@ namespace UnitTests.Framework
             Func<Task> actualTestAsync,
             string username = null,
             string password = null) =>
-            PreauthenticateAsync<bool>(
+            PreauthenticateAsync(
                 async () =>
                 {
                     await actualTestAsync();
@@ -40,22 +39,21 @@ namespace UnitTests.Framework
             string username = null,
             string password = null)
         {
-            T result = default(T);
+            T result = default;
             var actualUsername = username ?? Constants.User;
             var actualPassword = password ?? Constants.Pass;
 
             try
             {
-                var request = new TokenRequestDTO()
+                var request = new LoginRequestDTO()
                 {
-                    GrantType = "password",
-                    Password = Constants.Pass,
-                    Username = Constants.User,
+                    Username = actualUsername,
+                    Password = actualPassword,
                 };
 
                 var authResult = await LoginApi.LoginAsync(request);
 
-                DefaultSettings.AccessToken = authResult.AccessToken;
+                DefaultSettings.AccessToken = authResult.AccessToken.Token;
                 authenticationBearer = $"Bearer {DefaultSettings.AccessToken}";
 
                 result = await actualTestAsync();
