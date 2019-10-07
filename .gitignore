@@ -329,3 +329,6 @@ ASALocalRun/
 
 # Git
 *.orig
+
+# Xamarin.Android Resource.Designer.cs files
+**/[Rr]esource.[Dd]esigner.cs
