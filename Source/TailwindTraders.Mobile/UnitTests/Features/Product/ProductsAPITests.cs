@@ -21,7 +21,7 @@ namespace UnitTests.Features.Product
         [SetUp]
         public void Init()
         {
-            productsAPI = RestService.For<IProductsAPI>(HttpClientFactory.Create(DefaultSettings.RootApiUrl));
+            productsAPI = RestService.For<IProductsAPI>(HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
             similarProductsAPI = RestService.For<ISimilarProductsAPI>(
                 HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
         }

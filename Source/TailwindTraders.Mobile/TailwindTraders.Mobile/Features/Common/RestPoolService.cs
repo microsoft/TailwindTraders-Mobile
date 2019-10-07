@@ -21,12 +21,14 @@ namespace TailwindTraders.Mobile.Features.Common
         public ISimilarProductsAPI SimilarProductsAPI { get; private set; }
 
         // There is no real API for products cart, meanwhile must use a faked one
-        public IProductCartAPI ProductCartAPI { get; } = new FakeProductCartAPI();
+        public IProductCartAPI ProductCartAPI => new FakeProductCartAPI();
 
         public RestPoolService()
         {
             UpdateApiUrl(DefaultSettings.RootApiUrl);
 
+            ProductsAPI = RestService.For<IProductsAPI>(
+                HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
             SimilarProductsAPI = RestService.For<ISimilarProductsAPI>(
                 HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
         }
@@ -34,8 +36,7 @@ namespace TailwindTraders.Mobile.Features.Common
         public void UpdateApiUrl(string newApiUrl)
         {
             ProfilesAPI = RestService.For<IProfilesAPI>(HttpClientFactory.Create(newApiUrl));
-            HomeAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(newApiUrl));
-            ProductsAPI = RestService.For<IProductsAPI>(HttpClientFactory.Create(newApiUrl));
+            HomeAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(newApiUrl));            
             LoginAPI = RestService.For<ILoginAPI>(HttpClientFactory.Create(newApiUrl));
         }
     }
