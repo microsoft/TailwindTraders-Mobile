@@ -51,6 +51,7 @@
           <carousel:CarouselViewControl
             Grid.Row="1"
             InterPageSpacing="{StaticResource NegativeDefaultMarginInt}"
+			IsVisible="{Binding GotRecommendedProducts}"
             ItemsSource="{Binding RecommendedProducts}">
             <carousel:CarouselViewControl.ItemTemplate>
               <DataTemplate>
@@ -79,6 +80,7 @@
             <Button x:Name="addToListButton"
               Grid.Column="1"
               BackgroundColor="{StaticResource Accent2Color}"
+			  IsVisible="{Binding GotRecommendedProducts}"
               Command="{Binding AddToCartCommand}"
               CornerRadius="{Binding Source={x:Reference addToListButton}, Path=Height, Converter={StaticResource DoubleToHalfFloatConverter}}"
               Text="ADD TO CART"
@@ -88,8 +90,20 @@
               </Button.Margin>
             </Button>
 
-          </Grid>
+			<Label
+			  Grid.Column="1"
+			  BackgroundColor="{StaticResource Accent2Color}"
+			  IsVisible="{Binding GotRecommendedProducts, Converter={StaticResource NotConverter}}"
+			  Text="No products found"
+			  VerticalTextAlignment="Center"
+		      HorizontalTextAlignment="Center"
+		      TextColor="White">
+			  <Label.Margin>
+			    <Thickness Left="{StaticResource 0.5xDefaultMargin}" />
+			  </Label.Margin>
+			</Label>
 
+	      </Grid>
         </Grid>
 
       </Grid>
