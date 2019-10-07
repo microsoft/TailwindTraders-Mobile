@@ -1,0 +1,2 @@
+﻿# Decrease Mono logging - https://www.mono-project.com/docs/advanced/runtime/logging-runtime-events/
+MONO_LOG_LEVEL=error
