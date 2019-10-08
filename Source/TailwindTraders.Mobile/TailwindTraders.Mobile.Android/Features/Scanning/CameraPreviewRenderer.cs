@@ -326,7 +326,6 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
                     int newWidth = dsiWidth;
                     mTextureView.LayoutParameters = new FrameLayout.LayoutParams(newWidth, newHeight);
 
-
                     // Check if the flash is supported.
                     var available = (Boolean)characteristics.Get(CameraCharacteristics.FlashInfoAvailable);
                     if (available == null)
