@@ -26,18 +26,20 @@ namespace TailwindTraders.Mobile.Features.Common
         public RestPoolService()
         {
             UpdateApiUrl(DefaultSettings.RootApiUrl);
-
-            ProductsAPI = RestService.For<IProductsAPI>(
-                HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
-            SimilarProductsAPI = RestService.For<ISimilarProductsAPI>(
-                HttpClientFactory.Create(DefaultSettings.RootProductsWebApiUrl));
         }
 
         public void UpdateApiUrl(string newApiUrl)
         {
-            ProfilesAPI = RestService.For<IProfilesAPI>(HttpClientFactory.Create(newApiUrl));
-            HomeAPI = RestService.For<IHomeAPI>(HttpClientFactory.Create(newApiUrl));            
-            LoginAPI = RestService.For<ILoginAPI>(HttpClientFactory.Create(newApiUrl));
+            LoginAPI = RestService.For<ILoginAPI>(
+                HttpClientFactory.Create(newApiUrl));
+            ProfilesAPI = RestService.For<IProfilesAPI>(
+                HttpClientFactory.Create(DefaultSettings.RootWebApiUrl));
+            HomeAPI = RestService.For<IHomeAPI>(
+                HttpClientFactory.Create(newApiUrl));
+            ProductsAPI = RestService.For<IProductsAPI>(
+                HttpClientFactory.Create(newApiUrl));
+            SimilarProductsAPI = RestService.For<ISimilarProductsAPI>(
+                HttpClientFactory.Create(newApiUrl));
         }
     }
 }
