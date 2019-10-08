@@ -58,9 +58,9 @@ namespace TailwindTraders.Mobile
             return parentSection;
         }
 
-        internal static async Task NavigateBackAsync() => await NavigationRoot.Navigation.PopAsync();
+        internal static async Task NavigateBackAsync() => await Shell.Navigation.PopAsync();
 
-        internal static async Task NavigateModallyBackAsync() => await NavigationRoot.Navigation.PopModalAsync();
+        internal static async Task NavigateModallyBackAsync() => await Shell.Navigation.PopModalAsync();
 
         internal static async Task NavigateToAsync(Page page, bool closeFlyout = false)
         {
@@ -69,13 +69,20 @@ namespace TailwindTraders.Mobile
                 await Shell.CloseFlyoutAsync();
             }
 
-            await NavigationRoot.Navigation.PushAsync(page).ConfigureAwait(false);
+            await Shell.Navigation.PushAsync(page).ConfigureAwait(false);
+        }
+
+        internal static async Task GoToProductCategoryAsync(string category)
+        {
+            var state = Shell.CurrentState;
+            await Shell.GoToAsync($"{state.Location}/{TheShell.ProductCategoryRoute}?category={category}");
+            Shell.FlyoutIsPresented = false;
         }
 
         internal static async Task NavigateModallyToAsync(Page page, bool animated = true)
         {
             await Shell.CloseFlyoutAsync();
-            await NavigationRoot.Navigation.PushModalAsync(page, animated).ConfigureAwait(false);
+            await Shell.Navigation.PushModalAsync(page, animated).ConfigureAwait(false);
         }
 
 #pragma warning disable CS0162 

@@ -14,8 +14,6 @@ namespace TailwindTraders.Mobile.Framework
         {
             base.OnAppearing();
 
-            NavigationProxy.Inner = App.NavigationRoot?.NavigationProxy;
-
             if (!isAlreadyInitialized)
             {
                 ViewModel.InitializeAsync();
