@@ -25,7 +25,7 @@
 
   <ContentPage.Content>
 
-    <Grid>
+    <Grid BackgroundColor="Black">
 
       <ContentPresenter x:Name="cameraControl" />
 
