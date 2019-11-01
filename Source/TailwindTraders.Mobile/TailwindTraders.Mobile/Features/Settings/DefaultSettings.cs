@@ -40,7 +40,7 @@ namespace TailwindTraders.Mobile.Features.Settings
 
         public static string RootApiUrl { get; set; } = "__ENTER_YOUR_HTTPS_ROOT_API_URL_HERE__";
 
-        public static string RootProductsWebApiUrl
-        { get; set; } = "__ENTER_YOUR_HTTPS_ROOT_API_URL_FOR_COMPUTER_VISION_HERE__";
+        public static string RootWebApiUrl
+        { get; set; } = "__ENTER_YOUR_HTTPS_WEBBFF_ROOT_API_URL_HERE__";
     }
 }

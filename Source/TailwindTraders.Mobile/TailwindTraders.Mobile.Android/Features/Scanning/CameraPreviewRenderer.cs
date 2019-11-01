@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Provider;
 using Android.Util;
 using Android.Views;
+using Android.Widget;
 using Java.Lang;
 using Java.Util;
 using Java.Util.Concurrent;
@@ -28,7 +29,7 @@ using Size = Android.Util.Size;
 [assembly: ExportRenderer(typeof(CameraPreview), typeof(CameraPreviewRenderer))]
 namespace TailwindTraders.Mobile.Droid.Features.Scanning
 {
-    public class CameraPreviewRenderer : ViewRenderer<CameraPreview, AutoFitTextureView>, ICamera
+    public class CameraPreviewRenderer : ViewRenderer<CameraPreview, FrameLayout>, ICamera
     {
         // Max preview width that is guaranteed by Camera2 API
         private static readonly int MAX_PREVIEW_WIDTH = 1920;
@@ -41,6 +42,9 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
 
         // ID of the current {@link CameraDevice}.
         private string mCameraId;
+
+        // Frame Layout that will contain the texture
+        private FrameLayout mFrameLayout;
 
         // An AutoFitTextureView for camera preview
         private AutoFitTextureView mTextureView;
@@ -123,10 +127,13 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
             if (Control == null)
             {
                 Activity = this.Context as Activity;
-                SetNativeControl(new AutoFitTextureView(Context));
+                SetNativeControl(new FrameLayout(Context));
             }
 
-            mTextureView = Control as AutoFitTextureView;
+            mFrameLayout = Control as FrameLayout;
+            mTextureView = new AutoFitTextureView(Context);
+
+            mFrameLayout.AddView(mTextureView);            
             mStateCallback = new CameraStateListener(this);
             mSurfaceTextureListener = new CameraSurfaceTextureListener(this);
             mOnImageAvailableListener = new ImageAvailableListener(this);
@@ -299,16 +306,25 @@ namespace TailwindTraders.Mobile.Droid.Features.Scanning
                         maxPreviewHeight,
                         largest);
 
-                    // We fit the aspect ratio of TextureView to the size of preview we picked.
-                    var orientation = Resources.Configuration.Orientation;
-                    if (orientation == Orientation.Landscape)
+                    DisplayMetrics displayMetrics = new DisplayMetrics();
+                    activity.WindowManager.DefaultDisplay.GetMetrics(displayMetrics);
+                    var dsiWidth = displayMetrics.WidthPixels;
+
+                    var resolutionWidth = mPreviewSize.Height;
+                    var resolutionHeigth = mPreviewSize.Width;
+                                        
+                    int newHeight = 0;
+                    if (resolutionWidth > resolutionHeigth)
                     {
-                        mTextureView.SetAspectRatio(mPreviewSize.Width, mPreviewSize.Height);
+                        newHeight = dsiWidth * resolutionWidth / resolutionHeigth;
                     }
                     else
                     {
-                        mTextureView.SetAspectRatio(mPreviewSize.Height, mPreviewSize.Width);
+                        newHeight = dsiWidth * resolutionHeigth / resolutionWidth;
                     }
+
+                    int newWidth = dsiWidth;
+                    mTextureView.LayoutParameters = new FrameLayout.LayoutParams(newWidth, newHeight);
 
                     // Check if the flash is supported.
                     var available = (Boolean)characteristics.Get(CameraCharacteristics.FlashInfoAvailable);

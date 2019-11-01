@@ -7,12 +7,28 @@ using Xamarin.Forms;
 
 namespace TailwindTraders.Mobile.Features.Product.Category
 {
+    [QueryProperty("Category", "category")]
     public partial class ProductCategoryPage
     {
-        public ProductCategoryPage(string typeId)
+        private string category;
+
+        public string Category
+        {
+            get
+            {
+                return category;
+            }
+
+            set
+            {
+                category = value;
+                BindingContext = new ProductCategoryViewModel(Category);
+            }
+        }
+
+        public ProductCategoryPage()
         {
             InitializeComponent();
-            BindingContext = new ProductCategoryViewModel(typeId);
         }
 
         internal override IEnumerable<VisualElement> GetStateAwareVisualElements() => new VisualElement[]
@@ -39,11 +55,11 @@ namespace TailwindTraders.Mobile.Features.Product.Category
         {
             if (e.PropertyName == nameof(ViewModel.Products))
             {
-                WireProductsUpWithListView();
+                WireProductsUpWithCollectionView();
             }
         }
 
-        private void WireProductsUpWithListView()
+        private void WireProductsUpWithCollectionView()
         {
             IList products;
 
@@ -69,7 +85,7 @@ namespace TailwindTraders.Mobile.Features.Product.Category
                 products = new List<Tuple<ProductViewModel, ProductViewModel>>(groupedProducts);
             }
 
-            productsListView.ItemsSource = products;
+            productsCollectionView.ItemsSource = products;
         }
     }
 }

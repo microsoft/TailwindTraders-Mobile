@@ -6,8 +6,10 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:home="clr-namespace:TailwindTraders.Mobile.Features.Home"
   xmlns:local="clr-namespace:TailwindTraders.Mobile.Features.Shell"
-  Title="Tailwind Traders">
-
+  xmlns:login="clr-namespace:TailwindTraders.Mobile.Features.LogIn"
+  xmlns:settings="clr-namespace:TailwindTraders.Mobile.Features.Settings"
+  Title="Tailwind Traders"
+  FlyoutHeaderBehavior="CollapseOnScroll">
   <Shell.Resources>
     <ResourceDictionary>
 
@@ -26,6 +28,24 @@
     <local:FlyoutHeader BindingContext="{Binding Source={x:Reference theShell}, Path=BindingContext}" />
   </Shell.FlyoutHeader>
 
+  <Shell.MenuItemTemplate>
+    <DataTemplate>
+
+      <ContentView HeightRequest="{StaticResource 2xDefaultMargin}">
+        <ContentView.Padding>
+          <Thickness
+            Left="{StaticResource 2xDefaultMargin}"
+            Top="{StaticResource DefaultMargin}" />
+        </ContentView.Padding>
+
+        <Label
+          Text="{Binding Title}"
+          TextColor="{StaticResource AccentColor}" />
+
+      </ContentView>
+    </DataTemplate>
+  </Shell.MenuItemTemplate>
+
   <Shell.ItemTemplate>
     <DataTemplate>
 
@@ -36,7 +56,9 @@
             Top="{StaticResource DefaultMargin}" />
         </ContentView.Padding>
 
-        <Label Text="{Binding Title}" />
+        <Label
+          Text="{Binding Title}"
+          TextColor="{StaticResource AccentColor}" />
 
       </ContentView>
 
@@ -69,11 +91,6 @@
 
   <MenuItem
     BindingContext="{x:Reference theShell}"
-    Command="{Binding BindingContext.ProfileCommand}"
-    Text="Profile" />
-
-  <MenuItem
-    BindingContext="{x:Reference theShell}"
     Command="{Binding BindingContext.SettingsCommand}"
     Text="Settings" />
 
@@ -81,5 +98,4 @@
     BindingContext="{x:Reference theShell}"
     Command="{Binding BindingContext.LogOutCommand}"
     Text="Log out" />
-
 </Shell>

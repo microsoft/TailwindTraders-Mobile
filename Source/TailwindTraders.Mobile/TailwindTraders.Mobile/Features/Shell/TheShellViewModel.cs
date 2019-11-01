@@ -19,7 +19,7 @@ namespace TailwindTraders.Mobile.Features.Shell
         public ICommand LogOutCommand => new AsyncCommand(_ => App.NavigateModallyToAsync(new LogInPage()));
 
         public ICommand ProductTypeCommand => new AsyncCommand(
-            typeId => App.NavigateToAsync(new ProductCategoryPage(typeId as string), closeFlyout: true));
+            typeId => App.GoToProductCategoryAsync(typeId as string));
 
         public ICommand ProfileCommand => FeatureNotAvailableCommand;
 

@@ -20,6 +20,8 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
 
         public const string ReloadGalleryMessage = nameof(ReloadGalleryMessage);
 
+        public bool GotRecommendedProducts { get; private set; }
+
         public ICommand CloseCommand => new AsyncCommand(App.NavigateModallyBackAsync);
 
         protected async Task AddProductToCartAsync()
@@ -88,13 +90,11 @@ namespace TailwindTraders.Mobile.Features.Scanning.Photo
             var visionResult = await TryExecuteWithLoadingIndicatorsAsync(
                 visionService.GetRecommendedProductsFromPhotoAsync(CameraImage));
 
-            var gotRecommendedProducts = visionResult && visionResult.Value != default(IEnumerable<ProductDTO>);
-            if (!gotRecommendedProducts)
-            {
-                return;
-            }
+            GotRecommendedProducts = visionResult && visionResult.Value != default(IEnumerable<ProductDTO>);
 
-            RecommendedProducts = new List<ProductDTO>(visionResult.Value);
+            RecommendedProducts = GotRecommendedProducts ? 
+                new List<ProductDTO>(visionResult.Value) : 
+                new List<ProductDTO>();           
         }
 
         public override async Task UninitializeAsync()
