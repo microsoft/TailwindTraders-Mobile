@@ -1,5 +1,7 @@
 # Tailwind Traders Mobile Reference App
 
+## This repo is now archived, so there will be no additional work done here. We encorage folks to develop Native Mobile Apps using [.NET MAUI](https://devblogs.microsoft.com/xamarin/the-new-net-multi-platform-app-ui-maui/) going forward.  
+
 ![Mobile Apps](Documents/Images/Mobile.png)
 
 [![Build status](https://dev.azure.com/TailwindTraders/Mobile/_apis/build/status/Mobile-CI)](https://dev.azure.com/TailwindTraders/Mobile/_build/latest?definitionId=29)
